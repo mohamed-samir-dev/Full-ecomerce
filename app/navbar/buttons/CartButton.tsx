@@ -1,12 +1,7 @@
 import Link from 'next/link';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import {CartButtonProps}from '../types/navbar.types'
 
-interface CartButtonProps {
-  cartCount: number;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  size?: 'xs' | 'sm' | 'md';
-}
 
 export default function CartButton({ cartCount, isDarkMode, isArabic, size = 'md' }: CartButtonProps) {
   const iconSize = size === 'xs' ? 'h-4 w-4' : size === 'sm' ? 'h-4 w-4' : 'h-5 w-5';

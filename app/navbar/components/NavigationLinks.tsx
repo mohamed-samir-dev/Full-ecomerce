@@ -15,9 +15,9 @@ export const NavigationLinks = ({ isArabic, isDarkMode, isMobile = false, isTabl
   
   const links = [
     { href: '/', label: isArabic ? 'الرئيسية' : 'Home' },
-    { href: '/products', label: isArabic ? 'المتجر' : 'Shop' },
-    { href: '/about', label: isArabic ? 'من نحن' : 'About' },
-    { href: '/contact', label: isArabic ? 'اتصل بنا' : 'Contact' }
+    { href: '/pages/shop', label: isArabic ? 'المتجر' : 'Shop' },
+    { href: '/pages/about', label: isArabic ? 'من نحن' : 'About' },
+    { href: '/pages/contact', label: isArabic ? 'اتصل بنا' : 'Contact' }
   ];
 
   const displayLinks = (mounted && isArabic && !isMobile) ? [...links].reverse() : links;

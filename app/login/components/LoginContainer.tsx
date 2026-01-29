@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '@/app/components/common/ErrorMessage';
 import { useLoginForm } from '../hooks/useLoginForm';
 
 export default function LoginContainer() {

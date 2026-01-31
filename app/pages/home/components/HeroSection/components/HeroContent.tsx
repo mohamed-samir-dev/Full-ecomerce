@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { HeroContentProps } from '../../../../types/types';
+import { HeroContentProps } from '../../../types/home.types';
 export const HeroContent = ({ slide, currentSlide, isDarkMode, isArabic, t }: HeroContentProps) => {
   return (
     <div className={`w-full lg:w-1/2 mb-8 lg:mb-0 flex flex-col justify-center items-center lg:items-start text-center lg:text-left ${

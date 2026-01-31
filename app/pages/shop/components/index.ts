@@ -1,0 +1,7 @@
+export { default as PageHeader } from "./PageHeader";
+export { default as FilterSidebar } from "./FilterSidebar";
+export { default as SortControls } from "./SortControls";
+export { default as ProductsSection } from "./ProductsSection";
+export { default as ProductCard } from "./ProductCard";
+export { default as ProductGrid } from "./ProductGrid";
+// export { default as ProductDetailsModal } from "./ProductDetailsModal";

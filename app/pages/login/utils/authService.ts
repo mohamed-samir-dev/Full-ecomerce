@@ -21,11 +21,16 @@ export const loginUser = async (
     },
   );
 
-  const data = await response.json();
-
   if (!response.ok) {
-    throw new Error(data.message || "Login failed");
+    const contentType = response.headers.get("content-type");
+    if (contentType?.includes("application/json")) {
+      const data = await response.json();
+      throw new Error(data.message || "Login failed");
+    }
+    throw new Error("Login failed");
   }
+
+  const data = await response.json();
 
   return data;
 };

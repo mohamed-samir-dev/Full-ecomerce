@@ -1,0 +1,31 @@
+import { 
+  FacebookIcon, 
+  TwitterIcon, 
+  InstagramIcon, 
+  LinkedinIcon,
+  PhoneIcon,
+  MailIcon,
+  MapPinIcon
+} from "lucide-react";
+import { SocialLink, CustomerService } from "./types";
+
+export const socialLinks: SocialLink[] = [
+  { icon: FacebookIcon, href: "#", label: "Facebook" },
+  { icon: TwitterIcon, href: "#", label: "Twitter" },
+  { icon: InstagramIcon, href: "#", label: "Instagram" },
+  { icon: LinkedinIcon, href: "#", label: "LinkedIn" }
+];
+
+export const customerServices: CustomerService[] = [
+  { href: "/contact", label: "Contact Us", icon: PhoneIcon },
+  { href: "/support", label: "Support", icon: MailIcon },
+  { href: "/shipping", label: "Shipping Info", icon: MapPinIcon },
+  { href: "/returns", label: "Returns" }
+];
+
+export const quickLinksData = [
+  { href: "/shop/mens", label: "Men's Fashion" },
+  { href: "/shop/womens", label: "Women's Fashion" },
+  { href: "/shop/childrens", label: "Children's Fashion" },
+  { href: "/shop", label: "Shop All" }
+];

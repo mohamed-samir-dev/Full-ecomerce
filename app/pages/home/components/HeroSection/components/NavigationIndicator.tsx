@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import {NavigationIndicatorProps}from '../../../../types/types'
+import {NavigationIndicatorProps}from '../../../types/home.types'
 
 
 export const NavigationIndicator = ({ totalSlides, currentSlide, onSlideChange }: NavigationIndicatorProps) => {

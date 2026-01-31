@@ -2,8 +2,8 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
-import { HeroSectionProps } from '../../../types/types';
-import { useSlideNavigation } from './hooks/useSlideNavigation';
+import { HeroSectionProps } from '../../types/home.types';
+import { useSlideNavigation } from '../../hooks/useSlideNavigation';
 import { BackgroundImage } from './components/BackgroundImage';
 import { HeroContent } from './components/HeroContent';
 import { HeroImage } from './components/HeroImage';

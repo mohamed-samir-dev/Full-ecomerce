@@ -104,7 +104,7 @@ export const UserMenu = ({
             )}
 
             <Link
-              href="/profile"
+              href="/pages/profile"
               className={`flex items-center ${
                 isArabic ? "space-x-reverse space-x-3" : "space-x-3"
               } px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
@@ -120,7 +120,7 @@ export const UserMenu = ({
             </Link>
 
             <Link
-              href="/orders"
+              href="/pages/orders"
               className={`flex items-center ${
                 isArabic ? "space-x-reverse space-x-3" : "space-x-3"
               } px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
@@ -154,7 +154,7 @@ export const UserMenu = ({
         ) : (
           <>
             <Link
-              href="/login"
+              href="/pages/login"
               className={`flex items-center ${
                 isArabic ? "space-x-reverse space-x-3" : "space-x-3"
               } px-3 py-2 text-sm rounded-lg font-medium transition-all duration-200 ${
@@ -170,7 +170,7 @@ export const UserMenu = ({
             </Link>
 
             <Link
-              href="/register"
+              href="/pages/register"
               className={`flex items-center ${
                 isArabic ? "space-x-reverse space-x-3" : "space-x-3"
               } px-3 py-2 text-sm rounded-lg font-medium transition-all duration-200 ${
@@ -280,7 +280,7 @@ export const UserMenu = ({
               )}
 
               <Link
-                href="/profile"
+                href="/pages/profile"
                 className={`flex items-center cursor-pointer ${
                   isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
                 } px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm transition-all duration-200 ${
@@ -296,7 +296,7 @@ export const UserMenu = ({
               </Link>
 
               <Link
-                href="/orders"
+                href="/pages/orders"
                 className={`flex items-center cursor-pointer ${
                   isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
                 } px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm transition-all duration-200 ${
@@ -337,7 +337,7 @@ export const UserMenu = ({
         ) : (
           <div className="py-2">
             <Link
-              href="/login"
+              href="/pages/login"
               className={`flex items-center cursor-pointer ${
                 isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
               } px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-200 ${
@@ -359,7 +359,7 @@ export const UserMenu = ({
             />
 
             <Link
-              href="/register"
+              href="/pages /register"
               className={`flex items-center cursor-pointer ${
                 isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
               } px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-200 ${

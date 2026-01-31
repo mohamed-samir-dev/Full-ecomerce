@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DesktopNavbar from './layouts/DesktopNavbar';
 import TabletNavbar from './layouts/TabletNavbar';
 import MobileNavbar from './layouts/MobileNavbar';
@@ -12,12 +12,40 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [cartCount] = useState(0);
-  const [user] = useState<{ name: string; isAdmin?: boolean } | null>(null);
+  const [user, setUser] = useState<{ name: string; isAdmin?: boolean } | null>(null);
+
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      const userData = localStorage.getItem('user') || sessionStorage.getItem('user');
+      
+      if (token && userData) {
+        try {
+          const parsedUser = JSON.parse(userData);
+          setUser({ 
+            name: parsedUser.name, 
+            isAdmin: parsedUser.role === 'admin' 
+          });
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+        }
+      }
+    };
+    checkAuthStatus();
+  }, []);
 
   const toggleLanguage = () => setIsArabic(!isArabic);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const logout = () => console.log('Logout');
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('localAdminLoggedIn');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    window.location.href = '/';
+  };
 
   return (
     <nav className={`${

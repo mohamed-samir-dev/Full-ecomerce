@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { BackgroundImageProps } from '../../../../types/types';
+import { BackgroundImageProps } from '../../../types/home.types';
 
 
 

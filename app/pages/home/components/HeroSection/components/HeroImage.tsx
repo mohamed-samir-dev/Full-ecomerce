@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { HeroImageProps } from '../../../../types/types';
+import { HeroImageProps } from '../../../types/home.types';
 
 
 export const HeroImage = ({ slide, currentSlide, altText }: HeroImageProps) => {

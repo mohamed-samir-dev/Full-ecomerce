@@ -1,7 +1,7 @@
 'use client';
 
-import { promoItems } from '../../../data/heroSlides';
-import { PromoCard } from './components/PromoCard';
+import { promoItems } from '../../data/homeData';
+import { PromoCard } from './PromoCard';
 
 export default function PromoSection() {
   return (

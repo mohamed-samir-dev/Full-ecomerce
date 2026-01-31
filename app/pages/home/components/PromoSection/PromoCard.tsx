@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { PromoItem } from '../../../../types/types';
+import { PromoItem } from '../../types/home.types';
 
 interface PromoCardProps {
   item: PromoItem;

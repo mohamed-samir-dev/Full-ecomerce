@@ -54,7 +54,7 @@ export default function LoginContainer() {
               />
               
               <div className="mt-4 sm:mt-5 md:mt-6 text-center">
-                <Link href="/register" className="text-xs sm:text-sm cursor-pointer transition-colors text-gray-600 hover:text-blue-600">
+                <Link href="/pages/register" className="text-xs sm:text-sm cursor-pointer transition-colors text-gray-600 hover:text-blue-600">
                   Don&rsquo;t have an account? Register
                 </Link>
               </div>

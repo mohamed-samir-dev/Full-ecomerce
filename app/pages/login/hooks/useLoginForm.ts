@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LoginFormData } from "../types/login.types";
 import { loginUser, saveAuthData } from "../../login/utils/authService";
+import { migrateLocalWishlistToDatabase } from "@/services/wishlistMigration";
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -35,6 +36,8 @@ export const useLoginForm = () => {
       if (data.success && data.token) {
         saveAuthData(data.token, data.user, rememberMe);
         console.log("User role:", data.user.role);
+
+        await migrateLocalWishlistToDatabase();
 
         if (data.user.role === "admin") {
           localStorage.setItem("localAdminLoggedIn", "true");

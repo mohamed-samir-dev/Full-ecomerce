@@ -28,8 +28,11 @@ export interface FeaturedProductCardProps {
   product: {
     _id: string;
     name: string;
+    nameAr: string;
     finalPrice: number;
+    basePrice: number;
     mainImage: string;
+    stock: number;
   };
 }
 export interface Product {

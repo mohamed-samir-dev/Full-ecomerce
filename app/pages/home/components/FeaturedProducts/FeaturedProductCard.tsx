@@ -3,11 +3,32 @@
 import Image from 'next/image';
 import { Eye, Heart, ShoppingCart } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import { useCart } from '@/hooks/useCart';
+import { useWishlist } from '@/hooks/useWishlist';
 import {FeaturedProductCardProps} from '../../types/home.types'
 
 
 export default function FeaturedProductCard({ product }: FeaturedProductCardProps) {
   const { isDarkMode } = useTheme();
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product._id);
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isWishlisted) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist({
+        _id: product._id,
+        name: product.name,
+        mainImage: product.mainImage,
+        basePrice: product.basePrice,
+        finalPrice: product.finalPrice,
+        stock: product.stock
+      });
+    }
+  };
 
   return (
     <div className={`relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${
@@ -22,10 +43,10 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         } shadow-md`}>
           <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
         </button>
-        <button className={`p-1 sm:p-1.5 rounded-full transition-colors ${
+        <button onClick={handleWishlistToggle} className={`p-1 sm:p-1.5 rounded-full transition-colors ${
           isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
         } shadow-md`}>
-          <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
+          <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
         </button>
       </div>
 
@@ -50,7 +71,21 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         }`}>
           {product.finalPrice} EGP
         </p>
-        <button className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            addToCart({
+              _id: product._id,
+              name: product.name,
+              nameAr: product.nameAr,
+              mainImage: product.mainImage,
+              basePrice: product.basePrice,
+              finalPrice: product.finalPrice,
+              stock: product.stock
+            });
+          }}
+          className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+        >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
           <span className="hidden xs:inline">Add to Cart</span>
           <span className="xs:hidden">Add</span>

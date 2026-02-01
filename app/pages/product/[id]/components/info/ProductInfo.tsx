@@ -1,5 +1,7 @@
 import { Product } from '../../../../shop/types';
 import { useState } from 'react';
+import { useWishlist } from '@/hooks/useWishlist';
+import { useCart } from '@/hooks/useCart';
 import PriceDisplay from './PriceDisplay';
 import StockIndicator from './StockIndicator';
 import ColorSelector from './ColorSelector';
@@ -15,7 +17,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToCart } = useCart();
+  const isWishlisted = isInWishlist(product._id);
 
   const isOutOfStock = product.stock === 0 || product.availability === 'out_of_stock';
   const hasDiscount = !!(product.discount && product.discount.value > 0);
@@ -26,7 +30,32 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     : 0;
 
   const handleAddToCart = () => {
-    console.log('Add to cart:', { product, selectedQuantity, selectedSize, selectedColor });
+    addToCart({
+      _id: product._id,
+      name: product.name,
+      nameAr: product.nameAr,
+      mainImage: product.mainImage,
+      basePrice: product.basePrice,
+      finalPrice: product.finalPrice,
+      stock: product.stock,
+      category: product.category,
+      brand: product.brand
+    });
+  };
+
+  const handleToggleWishlist = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist({
+        _id: product._id,
+        name: product.name,
+        mainImage: product.mainImage,
+        basePrice: product.basePrice,
+        finalPrice: product.finalPrice,
+        stock: product.stock
+      });
+    }
   };
 
   return (
@@ -66,7 +95,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         isOutOfStock={isOutOfStock}
         isWishlisted={isWishlisted}
         onAddToCart={handleAddToCart}
-        onToggleWishlist={() => setIsWishlisted(!isWishlisted)}
+        onToggleWishlist={handleToggleWishlist}
       />
     </div>
   );

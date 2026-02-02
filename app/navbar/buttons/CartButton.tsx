@@ -10,7 +10,7 @@ export default function CartButton({ cartCount, isDarkMode, isArabic, size = 'md
   
   return (
     <Link 
-      href="/cart" 
+      href="/pages/cart" 
       aria-label="Shopping Cart" 
       className={`${padding} rounded-lg transition-all relative cursor-pointer ${
         isDarkMode 

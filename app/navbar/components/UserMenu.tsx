@@ -359,7 +359,7 @@ export const UserMenu = ({
             />
 
             <Link
-              href="/pages /register"
+              href="/pages/register"
               className={`flex items-center cursor-pointer ${
                 isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
               } px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-200 ${

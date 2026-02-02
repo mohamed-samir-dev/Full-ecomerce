@@ -1,49 +1,34 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/hooks/useCart';
 import DesktopNavbar from './layouts/DesktopNavbar';
 import TabletNavbar from './layouts/TabletNavbar';
 import MobileNavbar from './layouts/MobileNavbar';
 import MobileMenu from './layouts/MobileMenu';
 
 export default function Navbar() {
+  const { user: authUser, logout: authLogout } = useAuth();
   const [isArabic, setIsArabic] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [cartCount] = useState(0);
-  const [user, setUser] = useState<{ name: string; isAdmin?: boolean } | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const { itemCount } = useCart();
 
   useEffect(() => {
-    const checkAuthStatus = () => {
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-      const userData = localStorage.getItem('user') || sessionStorage.getItem('user');
-      
-      if (token && userData) {
-        try {
-          const parsedUser = JSON.parse(userData);
-          setUser({ 
-            name: parsedUser.name, 
-            isAdmin: parsedUser.role === 'admin' 
-          });
-        } catch (error) {
-          console.error('Error parsing user data:', error);
-        }
-      }
-    };
-    checkAuthStatus();
+    setMounted(true);
   }, []);
+
+  const user = authUser ? { name: authUser.name, isAdmin: authUser.role === 'admin' } : null;
 
   const toggleLanguage = () => setIsArabic(!isArabic);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    authLogout();
     localStorage.removeItem('localAdminLoggedIn');
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
     window.location.href = '/';
   };
 
@@ -59,7 +44,7 @@ export default function Navbar() {
           isDarkMode={isDarkMode}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          cartCount={cartCount}
+          cartCount={mounted ? itemCount : 0}
           user={user}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
@@ -71,7 +56,7 @@ export default function Navbar() {
           isDarkMode={isDarkMode}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          cartCount={cartCount}
+          cartCount={mounted ? itemCount : 0}
           user={user}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
@@ -81,7 +66,7 @@ export default function Navbar() {
         <MobileNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          cartCount={cartCount}
+          cartCount={mounted ? itemCount : 0}
           user={user}
           logout={logout}
           isMobileMenuOpen={isMobileMenuOpen}

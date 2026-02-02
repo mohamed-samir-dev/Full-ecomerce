@@ -5,6 +5,7 @@ import { useTheme } from '@/context/ThemeContext';
 import FeaturedProductCard from './FeaturedProductCard';
 import {Product}from '../../types/home.types'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function FeaturedProducts() {
   const { isDarkMode } = useTheme();
@@ -14,7 +15,7 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products?limit=8&sort=newest');
+        const response = await fetch(`${API_URL}/api/products?limit=8&sort=newest`);
         const data = await response.json();
         if (data.success) {
           setProducts(data.data);

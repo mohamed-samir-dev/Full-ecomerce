@@ -8,6 +8,8 @@ import ProductInfo from './components/info/ProductInfo';
 import ProductDetailsTabs from './components/ProductDetailsTabs';
 import ProductReviews from './components/ProductReviews';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function ProductDetailsPage() {
   const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
@@ -16,7 +18,7 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${params.id}`);
+        const response = await fetch(`${API_URL}/api/products/${params.id}`);
         if (!response.ok) throw new Error('Product not found');
         const result = await response.json();
         console.log('Fetched result:', result);

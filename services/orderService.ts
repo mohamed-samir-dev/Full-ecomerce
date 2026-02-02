@@ -61,6 +61,23 @@ class OrderService {
 
   async createOrder(orderData: CreateOrderData): Promise<OrderResponse> {
     try {
+      // Validate required fields before sending
+      if (!orderData.products || orderData.products.length === 0) {
+        throw new Error('Products are required');
+      }
+      
+      if (!orderData.shippingAddress || !orderData.shippingAddress.fullName) {
+        throw new Error('Shipping address is required');
+      }
+      
+      if (!orderData.paymentMethod) {
+        throw new Error('Payment method is required');
+      }
+      
+      if (!orderData.totalPrice || orderData.totalPrice <= 0) {
+        throw new Error('Valid total price is required');
+      }
+
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers: this.getAuthHeaders(),

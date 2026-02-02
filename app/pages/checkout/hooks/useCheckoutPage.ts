@@ -65,6 +65,19 @@ export const useCheckoutPage = () => {
         return;
       }
 
+      // Validate required data before creating order
+      if (!items || items.length === 0) {
+        toast.error('Your cart is empty');
+        router.push('/pages/cart');
+        return;
+      }
+
+      if (!shippingAddress.fullName || !shippingAddress.address || !shippingAddress.city) {
+        toast.error('Please complete your shipping address');
+        setCurrentStep(1);
+        return;
+      }
+
       const orderData: CreateOrderData = {
         products: items.map(item => ({
           productId: item.product._id,
@@ -89,11 +102,17 @@ export const useCheckoutPage = () => {
       router.push(`/pages/order-confirmation?orderId=${orderId}`);
     } catch (error: unknown) {
       console.error('Order creation error:', error);
-      if (error instanceof Error && error.message === 'Not authorized') {
-        toast.error('Please login to place an order');
-        router.push('/pages/login?redirect=checkout');
+      if (error instanceof Error) {
+        if (error.message === 'Not authorized') {
+          toast.error('Please login to place an order');
+          router.push('/pages/login?redirect=checkout');
+        } else if (error.message.includes('required')) {
+          toast.error(error.message);
+        } else {
+          toast.error('Failed to place order. Please try again.');
+        }
       } else {
-        toast.error('Failed to place order');
+        toast.error('Failed to place order. Please try again.');
       }
     } finally {
       setIsLoading(false);

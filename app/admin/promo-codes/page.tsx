@@ -1,16 +1,31 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function PromoCodesPage() {
   const [codes, setCodes] = useState([]);
   const [form, setForm] = useState({ code: '', discount: '', expiryDate: '', usageLimit: '' });
   const [editing, setEditing] = useState<string | null>(null);
 
-  const fetchCodes = useCallback(async () => {
+  useEffect(() => {
+    (async () => {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promocodes`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        setCodes(data);
+      } catch {
+        console.error('Failed to fetch promo codes');
+      }
+    })();
+  }, []);
+
+  const fetchCodes = async () => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promo-codes`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promocodes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -18,19 +33,14 @@ export default function PromoCodesPage() {
     } catch {
       console.error('Failed to fetch promo codes');
     }
-  }, []);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-compiler/react-compiler
-    fetchCodes();
-  }, [fetchCodes]);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     const url = editing 
-      ? `${process.env.NEXT_PUBLIC_API_URL}/api/promo-codes/${editing}`
-      : `${process.env.NEXT_PUBLIC_API_URL}/api/promo-codes`;
+      ? `${process.env.NEXT_PUBLIC_API_URL}/api/promocodes/${editing}`
+      : `${process.env.NEXT_PUBLIC_API_URL}/api/promocodes`;
     
     try {
       await fetch(url, {
@@ -50,7 +60,7 @@ export default function PromoCodesPage() {
     if (!confirm('Delete this promo code?')) return;
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promo-codes/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/promocodes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

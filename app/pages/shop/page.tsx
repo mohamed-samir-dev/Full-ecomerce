@@ -1,75 +1,19 @@
-"use client";
-
+import { Suspense } from "react";
 import "./styles/filters.css";
-import { useFilters } from "./hooks/useFilters";
-import {
-  PageHeader,
-  FilterSidebar,
-  ProductsSection,
-} from "./components";
+import ShopPageContent from "./components/ShopPageContent";
+
+function ShopPageFallback() {
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#B39E7A]"></div>
+    </div>
+  );
+}
 
 export default function ShopPage() {
-  const {
-    filters,
-    showMobileFilters,
-    showCategoryDropdown,
-    showBrandDropdown,
-    showSizeDropdown,
-    showColorDropdown,
-    showAvailabilityDropdown,
-    showMaterialDropdown,
-    showShopDropdown,
-    setShowMobileFilters,
-    setShowCategoryDropdown,
-    setShowBrandDropdown,
-    setShowSizeDropdown,
-    setShowColorDropdown,
-    setShowAvailabilityDropdown,
-    setShowMaterialDropdown,
-    setShowShopDropdown,
-    handleFilterChange,
-    handleArrayFilterChange,
-    clearAllFilters,
-    hasActiveFilters,
-  } = useFilters();
-
   return (
-    <div className="min-h-screen bg-white">
-      <PageHeader />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
-          <FilterSidebar
-            filters={filters}
-            showMobileFilters={showMobileFilters}
-            showCategoryDropdown={showCategoryDropdown}
-            showBrandDropdown={showBrandDropdown}
-            showSizeDropdown={showSizeDropdown}
-            showColorDropdown={showColorDropdown}
-            showAvailabilityDropdown={showAvailabilityDropdown}
-            showMaterialDropdown={showMaterialDropdown}
-            showShopDropdown={showShopDropdown}
-            setShowMobileFilters={setShowMobileFilters}
-            setShowCategoryDropdown={setShowCategoryDropdown}
-            setShowBrandDropdown={setShowBrandDropdown}
-            setShowSizeDropdown={setShowSizeDropdown}
-            setShowColorDropdown={setShowColorDropdown}
-            setShowAvailabilityDropdown={setShowAvailabilityDropdown}
-            setShowMaterialDropdown={setShowMaterialDropdown}
-            setShowShopDropdown={setShowShopDropdown}
-            handleFilterChange={handleFilterChange}
-            handleArrayFilterChange={handleArrayFilterChange}
-            clearAllFilters={clearAllFilters}
-            hasActiveFilters={hasActiveFilters}
-          />
-          <div className="flex-1 min-w-0">
-            <ProductsSection 
-              filters={filters} 
-              handleFilterChange={handleFilterChange}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Suspense fallback={<ShopPageFallback />}>
+      <ShopPageContent />
+    </Suspense>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
+import "./styles/filters.css";
 import { useFilters } from "./hooks/useFilters";
 import {
   PageHeader,
   FilterSidebar,
-  SortControls,
   ProductsSection,
 } from "./components";
 
@@ -13,11 +13,24 @@ export default function ShopPage() {
     filters,
     showMobileFilters,
     showCategoryDropdown,
+    showBrandDropdown,
+    showSizeDropdown,
+    showColorDropdown,
+    showAvailabilityDropdown,
+    showMaterialDropdown,
+    showShopDropdown,
     setShowMobileFilters,
     setShowCategoryDropdown,
+    setShowBrandDropdown,
+    setShowSizeDropdown,
+    setShowColorDropdown,
+    setShowAvailabilityDropdown,
+    setShowMaterialDropdown,
+    setShowShopDropdown,
     handleFilterChange,
     handleArrayFilterChange,
     clearAllFilters,
+    hasActiveFilters,
   } = useFilters();
 
   return (
@@ -30,15 +43,30 @@ export default function ShopPage() {
             filters={filters}
             showMobileFilters={showMobileFilters}
             showCategoryDropdown={showCategoryDropdown}
+            showBrandDropdown={showBrandDropdown}
+            showSizeDropdown={showSizeDropdown}
+            showColorDropdown={showColorDropdown}
+            showAvailabilityDropdown={showAvailabilityDropdown}
+            showMaterialDropdown={showMaterialDropdown}
+            showShopDropdown={showShopDropdown}
             setShowMobileFilters={setShowMobileFilters}
             setShowCategoryDropdown={setShowCategoryDropdown}
+            setShowBrandDropdown={setShowBrandDropdown}
+            setShowSizeDropdown={setShowSizeDropdown}
+            setShowColorDropdown={setShowColorDropdown}
+            setShowAvailabilityDropdown={setShowAvailabilityDropdown}
+            setShowMaterialDropdown={setShowMaterialDropdown}
+            setShowShopDropdown={setShowShopDropdown}
             handleFilterChange={handleFilterChange}
             handleArrayFilterChange={handleArrayFilterChange}
             clearAllFilters={clearAllFilters}
+            hasActiveFilters={hasActiveFilters}
           />
           <div className="flex-1 min-w-0">
-            <SortControls filters={filters} handleFilterChange={handleFilterChange} />
-            <ProductsSection filters={filters} />
+            <ProductsSection 
+              filters={filters} 
+              handleFilterChange={handleFilterChange}
+            />
           </div>
         </div>
       </div>

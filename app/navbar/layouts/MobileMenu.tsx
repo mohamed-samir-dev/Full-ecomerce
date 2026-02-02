@@ -11,14 +11,12 @@ export default function MobileMenu({
   isOpen,
   isArabic,
   isDarkMode,
-  searchQuery,
-  setSearchQuery,
   user,
   logout,
   toggleLanguage,
   toggleDarkMode,
   closeMobileMenu
-}: MobileMenuProps) {
+}: Omit<MobileMenuProps, 'searchQuery' | 'setSearchQuery'>) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -37,8 +35,6 @@ export default function MobileMenu({
               transition={{ delay: 0.1 }}
             >
               <SearchBar 
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
                 isArabic={isArabic}
                 isDarkMode={isDarkMode}
                 isMobile={true}

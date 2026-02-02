@@ -13,7 +13,6 @@ export default function Navbar() {
   const [isArabic, setIsArabic] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [mounted, setMounted] = useState(false);
   const { itemCount } = useCart();
 
@@ -42,8 +41,6 @@ export default function Navbar() {
         <DesktopNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           cartCount={mounted ? itemCount : 0}
           user={user}
           toggleLanguage={toggleLanguage}
@@ -54,8 +51,6 @@ export default function Navbar() {
         <TabletNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           cartCount={mounted ? itemCount : 0}
           user={user}
           toggleLanguage={toggleLanguage}
@@ -77,8 +72,6 @@ export default function Navbar() {
           isOpen={isMobileMenuOpen}
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           user={user}
           logout={logout}
           toggleLanguage={toggleLanguage}

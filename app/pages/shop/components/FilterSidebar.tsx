@@ -1,29 +1,150 @@
 "use client";
 
 import { Filters, FilterChangeHandler, ArrayFilterChangeHandler } from "../types";
-import { CATEGORIES, BRANDS } from "../utils/constants";
+import { useFilterOptions } from "../hooks/useFilterOptions";
 
 interface FilterSidebarProps {
   filters: Filters;
   showMobileFilters: boolean;
   showCategoryDropdown: boolean;
+  showBrandDropdown: boolean;
+  showSizeDropdown: boolean;
+  showColorDropdown: boolean;
+  showAvailabilityDropdown: boolean;
+  showMaterialDropdown: boolean;
+  showShopDropdown: boolean;
   setShowMobileFilters: (show: boolean) => void;
   setShowCategoryDropdown: (show: boolean) => void;
+  setShowBrandDropdown: (show: boolean) => void;
+  setShowSizeDropdown: (show: boolean) => void;
+  setShowColorDropdown: (show: boolean) => void;
+  setShowAvailabilityDropdown: (show: boolean) => void;
+  setShowMaterialDropdown: (show: boolean) => void;
+  setShowShopDropdown: (show: boolean) => void;
   handleFilterChange: FilterChangeHandler;
   handleArrayFilterChange: ArrayFilterChangeHandler;
   clearAllFilters: () => void;
+  hasActiveFilters: () => boolean;
 }
+
+const availabilityLabels = {
+  in_stock: 'In Stock',
+  out_of_stock: 'Out of Stock',
+  pre_order: 'Pre Order'
+};
+
+interface FilterSectionProps {
+  title: string;
+  items: string[];
+  filterKey: keyof Filters;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  renderItem?: (item: string) => React.ReactNode;
+  filters: Filters;
+  handleArrayFilterChange: ArrayFilterChangeHandler;
+}
+
+const FilterSection = ({ 
+  title, 
+  items, 
+  filterKey, 
+  isOpen, 
+  setIsOpen, 
+  renderItem,
+  filters,
+  handleArrayFilterChange
+}: FilterSectionProps) => (
+  <div className="mb-6 sm:mb-8">
+    <button
+      onClick={() => setIsOpen(!isOpen)}
+      className="w-full flex items-center text-xs sm:text-sm font-medium mb-2 sm:mb-3 transition-colors justify-between text-gray-900 hover:text-gray-700"
+    >
+      <span>{title}</span>
+      <div className="flex items-center gap-2">
+        {(filters[filterKey] as string[]).length > 0 && (
+          <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
+            {(filters[filterKey] as string[]).length}
+          </span>
+        )}
+        <svg
+          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </button>
+    {isOpen && (
+      <div className="space-y-1.5 sm:space-y-2 max-h-40 sm:max-h-48 overflow-y-auto">
+        {items.map((item) => (
+          <label key={item} className="flex items-center cursor-pointer justify-start">
+            <input
+              type="checkbox"
+              checked={(filters[filterKey] as string[]).includes(item)}
+              onChange={() => handleArrayFilterChange(filterKey, item)}
+              className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
+            />
+            <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700">
+              {renderItem ? renderItem(item) : item}
+            </span>
+          </label>
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 export default function FilterSidebar({
   filters,
   showMobileFilters,
   showCategoryDropdown,
+  showBrandDropdown,
+  showSizeDropdown,
+  showColorDropdown,
+  showAvailabilityDropdown,
+  showMaterialDropdown,
+  showShopDropdown,
   setShowMobileFilters,
   setShowCategoryDropdown,
+  setShowBrandDropdown,
+  setShowSizeDropdown,
+  setShowColorDropdown,
+  setShowAvailabilityDropdown,
+  setShowMaterialDropdown,
+  setShowShopDropdown,
   handleFilterChange,
   handleArrayFilterChange,
   clearAllFilters,
+  hasActiveFilters,
 }: FilterSidebarProps) {
+  const { filterOptions, loading } = useFilterOptions();
+
+  if (loading) {
+    return (
+      <div className="lg:w-80 xl:w-72 shrink-0">
+        <div className="rounded-lg p-4 sm:p-6 shadow-sm border bg-white border-gray-200">
+          <div className="animate-pulse">
+            <div className="h-6 bg-gray-200 rounded mb-4"></div>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="mb-6">
+                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className="space-y-2">
+                  {Array.from({ length: 3 }).map((_, j) => (
+                    <div key={j} className="h-3 bg-gray-100 rounded"></div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="lg:w-80 xl:w-72 shrink-0">
       {/* Mobile Filter Toggle */}
@@ -32,7 +153,14 @@ export default function FilterSidebar({
           onClick={() => setShowMobileFilters(!showMobileFilters)}
           className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-colors text-sm sm:text-base bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-900"
         >
-          <span className="font-medium">Filters</span>
+          <span className="font-medium flex items-center gap-2">
+            Filters
+            {hasActiveFilters() && (
+              <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
+                Active
+              </span>
+            )}
+          </span>
           <svg
             className={`w-4 h-4 sm:w-5 sm:h-5 transform transition-transform ${
               showMobileFilters ? "rotate-180" : ""
@@ -55,61 +183,50 @@ export default function FilterSidebar({
         {/* Filter Header */}
         <div className="flex items-center mb-4 sm:mb-6 justify-between">
           <h2 className="text-base sm:text-lg font-semibold text-gray-900">Filter By</h2>
-          <button
-            onClick={clearAllFilters}
-            className="text-xs sm:text-sm text-[#B39E7A] cursor-pointer font-medium transition-colors hover:text-[#A08B6F]"
-          >
-            Clear All
-          </button>
+          {hasActiveFilters() && (
+            <button
+              onClick={clearAllFilters}
+              className="text-xs sm:text-sm text-[#B39E7A] cursor-pointer font-medium transition-colors hover:text-[#A08B6F]"
+            >
+              Clear All
+            </button>
+          )}
         </div>
 
         {/* Category Filter */}
-        <div className="mb-6 sm:mb-8">
-          <button
-            onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-            className="w-full flex items-center text-xs sm:text-sm font-medium mb-2 sm:mb-3 transition-colors justify-between text-gray-900 hover:text-gray-700"
-          >
-            <span>Category</span>
-            <svg
-              className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform ${
-                showCategoryDropdown ? "rotate-180" : ""
-              }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showCategoryDropdown && (
-            <div className="space-y-1.5 sm:space-y-2">
-              {CATEGORIES.map((category) => (
-                <label key={category} className="flex items-center cursor-pointer justify-start">
-                  <input
-                    type="checkbox"
-                    checked={filters.category.includes(category)}
-                    onChange={() => handleArrayFilterChange("category", category)}
-                    className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
-                  />
-                  <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700">{category}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
+        <FilterSection
+          title="Category"
+          items={filterOptions.categories}
+          filterKey="category"
+          isOpen={showCategoryDropdown}
+          setIsOpen={setShowCategoryDropdown}
+          filters={filters}
+          handleArrayFilterChange={handleArrayFilterChange}
+        />
+
+        {/* Brand Filter */}
+        <FilterSection
+          title="Brand"
+          items={filterOptions.brands}
+          filterKey="brand"
+          isOpen={showBrandDropdown}
+          setIsOpen={setShowBrandDropdown}
+          filters={filters}
+          handleArrayFilterChange={handleArrayFilterChange}
+        />
 
         {/* Price Range Filter */}
         <div className="mb-6 sm:mb-8">
           <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900">
-            Price
+            Price Range
           </h3>
-          <div className="px-1 sm:px-2">
+          <div className="px-1 sm:px-2 ">
             <input
               type="range"
-              min="0"
-              max="500"
+              min={filterOptions.priceRange.minPrice}
+              max={filterOptions.priceRange.maxPrice}
               value={filters.priceRange[1]}
-              onChange={(e) => handleFilterChange("priceRange", [0, parseInt(e.target.value)])}
+              onChange={(e) => handleFilterChange("priceRange", [filters.priceRange[0], parseInt(e.target.value)])}
               className="slider w-full cursor-pointer h-1.5 sm:h-2"
             />
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1.5 sm:gap-2 mt-2">
@@ -125,8 +242,13 @@ export default function FilterSidebar({
 
         {/* Rating Filter */}
         <div className="mb-6 sm:mb-8">
-          <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900">
-            Rating
+          <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900 flex items-center justify-between">
+            <span>Rating</span>
+            {filters.rating.length > 0 && (
+              <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
+                {filters.rating.length}
+              </span>
+            )}
           </h3>
           <div className="space-y-1.5 sm:space-y-2">
             {[5, 4, 3, 2, 1].map((rating) => (
@@ -137,32 +259,95 @@ export default function FilterSidebar({
                   onChange={() => handleArrayFilterChange("rating", rating.toString())}
                   className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
                 />
-                <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700">
-                  {rating} stars
+                <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700 flex items-center">
+                  {rating}
+                  <svg className="w-3 h-3 ml-1 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                  </svg>
+                  & up
                 </span>
               </label>
             ))}
           </div>
         </div>
 
-        {/* Brand Filter */}
+        {/* Size Filter */}
+        {filterOptions.sizes.length > 0 && (
+          <FilterSection
+            title="Size"
+            items={filterOptions.sizes}
+            filterKey="sizes"
+            isOpen={showSizeDropdown}
+            setIsOpen={setShowSizeDropdown}
+            filters={filters}
+            handleArrayFilterChange={handleArrayFilterChange}
+          />
+        )}
+
+        {/* Color Filter */}
+        {filterOptions.colors.length > 0 && (
+          <FilterSection
+            title="Color"
+            items={filterOptions.colors}
+            filterKey="colors"
+            isOpen={showColorDropdown}
+            setIsOpen={setShowColorDropdown}
+            filters={filters}
+            handleArrayFilterChange={handleArrayFilterChange}
+          />
+        )}
+
+        {/* Availability Filter */}
+        <FilterSection
+          title="Availability"
+          items={filterOptions.availability}
+          filterKey="availability"
+          isOpen={showAvailabilityDropdown}
+          setIsOpen={setShowAvailabilityDropdown}
+          renderItem={(item) => availabilityLabels[item as keyof typeof availabilityLabels] || item}
+          filters={filters}
+          handleArrayFilterChange={handleArrayFilterChange}
+        />
+
+        {/* Material Filter */}
+        {filterOptions.materials.length > 0 && (
+          <FilterSection
+            title="Material"
+            items={filterOptions.materials}
+            filterKey="material"
+            isOpen={showMaterialDropdown}
+            setIsOpen={setShowMaterialDropdown}
+            filters={filters}
+            handleArrayFilterChange={handleArrayFilterChange}
+          />
+        )}
+
+        {/* Shop Filter */}
+        {filterOptions.shops.length > 0 && (
+          <FilterSection
+            title="Shop"
+            items={filterOptions.shops}
+            filterKey="shop"
+            isOpen={showShopDropdown}
+            setIsOpen={setShowShopDropdown}
+            filters={filters}
+            handleArrayFilterChange={handleArrayFilterChange}
+          />
+        )}
+
+        {/* Exclusive Products Filter */}
         <div className="mb-6 sm:mb-8">
-          <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900">
-            Brand
-          </h3>
-          <div className="space-y-1.5 sm:space-y-2 max-h-40 sm:max-h-48 overflow-y-auto">
-            {BRANDS.map((brand) => (
-              <label key={brand} className="flex items-center cursor-pointer justify-start">
-                <input
-                  type="checkbox"
-                  checked={filters.brand.includes(brand)}
-                  onChange={() => handleArrayFilterChange("brand", brand)}
-                  className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
-                />
-                <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700">{brand}</span>
-              </label>
-            ))}
-          </div>
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={filters.exclusiveOnly}
+              onChange={(e) => handleFilterChange("exclusiveOnly", e.target.checked)}
+              className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
+            />
+            <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700 font-medium">
+              Exclusive Products Only
+            </span>
+          </label>
         </div>
       </div>
     </div>

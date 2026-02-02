@@ -7,45 +7,44 @@ export const HeroContent = ({ slide, currentSlide, isDarkMode, isArabic, t }: He
       isArabic ? 'lg:pr-14' : 'lg:pl-14'
     }`}>
       <AnimatePresence mode="wait">
-        <motion.h2
-          key={currentSlide}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-          className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 ${
-            isDarkMode ? 'text-white' : 'lg:text-[#030303] text-white'
-          } ${isArabic ? 'lg:text-right' : 'lg:text-left'}`}
-        >
-          {String(t(slide.titleKey))}
-        </motion.h2>
-      </AnimatePresence>
-      <AnimatePresence mode="wait">
         <motion.p
           key={currentSlide}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className={`text-base sm:text-lg mb-6 sm:mb-8 px-4 lg:px-0 ${
-            isDarkMode ? 'text-gray-300' : 'lg:text-[#4E504C] text-gray-100'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className={`text-sm uppercase tracking-wide mb-4 ${
+            isDarkMode ? 'text-gray-400' : 'lg:text-[#4E504C] text-gray-200'
           } ${isArabic ? 'lg:text-right' : 'lg:text-left'}`}
         >
           {String(t(slide.descriptionKey))}
         </motion.p>
       </AnimatePresence>
       <AnimatePresence mode="wait">
+        <motion.h1
+          key={currentSlide}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 ${
+            isDarkMode ? 'text-white' : 'lg:text-[#030303] text-white'
+          } ${isArabic ? 'lg:text-right' : 'lg:text-left'}`}
+        >
+          {String(t(slide.titleKey))}
+        </motion.h1>
+      </AnimatePresence>
+      <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className={isArabic ? 'lg:text-right' : 'lg:text-left'}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
         >
           <Link
             href={slide.buttonLink}
-            className="inline-block bg-[#3A6B94] text-white px-8 sm:px-12 py-3 rounded-full transition-colors font-semibold hover:bg-[#2E5577] text-sm sm:text-base"
+            className="inline-block bg-[#3A6B94] text-white px-10 py-4 rounded-lg font-semibold hover:bg-[#2E5577] transition-colors"
           >
             {String(t(slide.buttonTextKey))}
           </Link>

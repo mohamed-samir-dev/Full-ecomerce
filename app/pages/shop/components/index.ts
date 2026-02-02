@@ -4,4 +4,4 @@ export { default as SortControls } from "./SortControls";
 export { default as ProductsSection } from "./ProductsSection";
 export { default as ProductCard } from "./ProductCard";
 export { default as ProductGrid } from "./ProductGrid";
-// export { default as ProductDetailsModal } from "./ProductDetailsModal";
+export { default as SearchBar } from "./SearchBar";

@@ -39,8 +39,8 @@ export default function HeroSection({ slides }: HeroSectionProps) {
         altText={altText} 
       />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between min-h-[500px] sm:min-h-[600px] lg:min-h-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between min-h-[400px] sm:min-h-[450px] lg:min-h-0">
           <HeroContent 
             slide={currentSlideData}
             currentSlide={currentSlide}

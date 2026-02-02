@@ -8,14 +8,12 @@ import {TabletNavbarProps}from '../types/navbar.types'
 export default function TabletNavbar({
   isArabic,
   isDarkMode,
-  searchQuery,
-  setSearchQuery,
   cartCount,
   user,
   toggleLanguage,
   toggleDarkMode,
   logout
-}: TabletNavbarProps) {
+}: Omit<TabletNavbarProps, 'searchQuery' | 'setSearchQuery'>) {
   return (
     <div className="hidden md:block lg:hidden">
       {/* First Row: Logo and Icons */}
@@ -40,8 +38,6 @@ export default function TabletNavbar({
       <div className={`flex items-center justify-between h-12 border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'} ${isArabic ? 'flex-row-reverse' : ''}`}>
         <div className="flex-1 max-w-sm">
           <SearchBar 
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
             isArabic={isArabic}
             isDarkMode={isDarkMode}
           />

@@ -4,14 +4,14 @@ export const heroSlides: HeroSlide[] = [
   {
     titleKey: 'home.hero.newSeasonArrivals',
     descriptionKey: 'home.hero.newSeasonDescription',
-    image: "/images/hero--1.webp",
+    image: "/images/hero-1.webp",
     buttonTextKey: 'home.hero.shopNow',
     buttonLink: "/products"
   },
   {
     titleKey: 'home.hero.premiumCollection',
     descriptionKey: 'home.hero.premiumDescription',
-    image: "/images/hero--2.webp",
+    image: "/images/hero2.webp",
     buttonTextKey: 'home.hero.explore',
     buttonLink: "/products"
   },

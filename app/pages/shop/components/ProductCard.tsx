@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/hooks/useCart";
+import { useWishlist } from "@/hooks/useWishlist";
 import { Product } from "../types";
 import { ShoppingCart, Eye, Heart } from "lucide-react";
 import StarRating from "../../../components/StarRating";
@@ -12,6 +14,9 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product._id);
   const hasDiscount = product.discount && product.discount.value > 0;
   const discountPercentage = hasDiscount && product.discount?.type === 'percentage'
     ? product.discount.value
@@ -19,17 +24,30 @@ export default function ProductCard({ product }: ProductCardProps) {
     ? Math.round((product.discount.value / product.basePrice) * 100)
     : 0;
 
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isWishlisted) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist({
+        _id: product._id,
+        name: product.name,
+        mainImage: product.mainImage,
+        basePrice: product.basePrice,
+        finalPrice: product.finalPrice,
+        stock: product.stock
+      });
+    }
+  };
+
   return (
     <div className="border rounded-lg p-3 md:p-4 w-full relative transition-all duration-200 hover:shadow-lg flex flex-col h-full bg-white border-gray-200 hover:border-gray-300">
         {/* Heart Icon */}
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log("Toggle favorite:", product.name);
-          }}
+          onClick={handleWishlistToggle}
           className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-100 transition-colors"
         >
-          <Heart className="w-4 h-4 text-gray-600 hover:text-red-500" />
+          <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'}`} />
         </button>
 
         {/* Product Image */}
@@ -77,7 +95,17 @@ export default function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("Add to cart:", product.name);
+                addToCart({
+                  _id: product._id,
+                  name: product.name,
+                  nameAr: product.nameAr,
+                  mainImage: product.mainImage,
+                  basePrice: product.basePrice,
+                  finalPrice: product.finalPrice,
+                  stock: product.stock,
+                  category: product.category,
+                  brand: product.brand
+                });
               }}
               disabled={product.stock === 0 || product.availability === 'out_of_stock'}
               className={`flex-1 cursor-pointer py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 ${

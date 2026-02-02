@@ -37,7 +37,7 @@ export default function OrdersPage() {
         setLoading(true);
         const response = await orderService.getUserOrders();
         if (response.success && response.data) {
-          const ordersData = Array.isArray(response.data) ? response.data : [response.data];
+          const ordersData = (Array.isArray(response.data) ? response.data : [response.data]) as Order[];
           setOrders(ordersData);
           setFilteredOrders(ordersData);
         }

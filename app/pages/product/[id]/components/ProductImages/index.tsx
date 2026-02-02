@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ImageModal from '../ImageModal';
 import MainImage from './MainImage';
 import ThumbnailGallery from './ThumbnailGallery';
-import { ProductImagesProps } from './types';
+import { ProductImagesProps } from '../../types/types';
 import { getImageUrl } from '../../utils/imageHelpers';
 
 export default function ProductImages({ product }: ProductImagesProps) {

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 import { RegisterFormData } from '../types/register.types';
 import { validateRegisterForm } from '../utils/validation';
-import { registerUser, saveAuthData } from '../utils/authService';
+import { registerUser } from '../utils/authService';
+import { migrateLocalWishlistToDatabase } from '@/services/wishlistMigration';
 
 export const useRegisterForm = () => {
   const router = useRouter();
+  const { login } = useAuth();
   const [formData, setFormData] = useState<RegisterFormData>({
     firstName: '',
     lastName: '',
@@ -43,7 +46,9 @@ export const useRegisterForm = () => {
       const data = await registerUser(formData);
 
       if (data.success && data.token) {
-        saveAuthData(data.token, data.user);
+        login({ ...data.user, name: data.user.name || `${formData.firstName} ${formData.lastName}` }, data.token);
+        await migrateLocalWishlistToDatabase();
+        router.refresh();
         router.push('/');
       }
     } catch (err: unknown) {

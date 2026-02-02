@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import { Review } from '../types';
+import { Review } from '../../types/types';
 
 interface ReviewSummaryProps {
   averageRating: number;

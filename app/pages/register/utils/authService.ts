@@ -22,11 +22,16 @@ export const registerUser = async (
     },
   );
 
-  const data = await response.json();
-
   if (!response.ok) {
-    throw new Error(data.message || "Registration failed");
+    const contentType = response.headers.get("content-type");
+    if (contentType?.includes("application/json")) {
+      const data = await response.json();
+      throw new Error(data.message || "Registration failed");
+    }
+    throw new Error("Registration failed");
   }
+
+  const data = await response.json();
 
   return data;
 };

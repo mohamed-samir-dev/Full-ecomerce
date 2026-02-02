@@ -44,7 +44,7 @@ export function useOrderData(orderId: string | null) {
       try {
         const result = await OrderService.getOrder(orderId!);
         if (result.success && result.data) {
-          setOrderData(result.data);
+          setOrderData(result.data as unknown as OrderData);
           return;
         }
       } catch (apiError) {

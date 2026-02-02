@@ -40,7 +40,7 @@ export default function RegisterContainer() {
           />
           
           <div className="mt-4 sm:mt-5 md:mt-6 text-center">
-            <Link href="/login" className="text-xs sm:text-sm cursor-pointer transition-colors text-gray-600 hover:text-blue-600">
+            <Link href="/pages/login" className="text-xs sm:text-sm cursor-pointer transition-colors text-gray-600 hover:text-blue-600">
               Already have an account? Login
             </Link>
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@/context/ThemeContext';
 import { useOrderData } from './hooks/useOrderData';
@@ -15,7 +15,7 @@ import OrderSummary from './components/OrderSummary';
 import DeliveryInfo from './components/DeliveryInfo';
 import OrderActions from './components/OrderActions';
 
-export default function OrderConfirmationPage() {
+function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const { isDarkMode } = useTheme();
   const [isPrivateView, setIsPrivateView] = useState(true);
@@ -88,5 +88,15 @@ export default function OrderConfirmationPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OrderConfirmationPage() {
+  const { isDarkMode } = useTheme();
+  
+  return (
+    <Suspense fallback={<LoadingState isDarkMode={isDarkMode} />}>
+      <OrderConfirmationContent />
+    </Suspense>
   );
 }

@@ -12,10 +12,6 @@ export const useWishlist = () => {
   const isAuthenticated = !!user && !!token;
   const hasSynced = useRef(false);
 
-  console.log('useWishlist - Items from Redux:', items);
-  console.log('useWishlist - Loading:', loading);
-  console.log('useWishlist - isAuthenticated:', isAuthenticated);
-
   useEffect(() => {
     dispatch(setAuthenticated(isAuthenticated));
     dispatch(syncWishlist());
@@ -41,9 +37,6 @@ export const useWishlist = () => {
       return;
     }
     
-    console.log('addItem - isAuthenticated:', isAuthenticated);
-    console.log('addItem - product:', product);
-    
     if (!isAuthenticated) {
       dispatch(addToWishlist(product));
       toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
@@ -51,17 +44,13 @@ export const useWishlist = () => {
     }
     
     try {
-      console.log('Calling addToWishlistAsync with productId:', product._id);
-      const result = await dispatch(addToWishlistAsync(product._id)).unwrap();
-      console.log('addToWishlistAsync success:', result);
+      await dispatch(addToWishlistAsync(product._id)).unwrap();
       toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
     } catch (error: unknown) {
-      console.error('addToWishlistAsync failed:', error);
       if (error === 'Authentication failed. Please login again.') {
         toast.error('Please login to add items to wishlist', { position: 'top-right' });
         window.location.reload();
       } else {
-        console.log('Falling back to localStorage');
         dispatch(addToWishlist(product));
         toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
       }
@@ -78,7 +67,7 @@ export const useWishlist = () => {
     try {
       await dispatch(removeFromWishlistAsync(productId)).unwrap();
       toast.success('Removed from wishlist', { position: 'top-right' });
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error === 'Authentication failed. Please login again.') {
         toast.error('Please login to manage wishlist', { position: 'top-right' });
         window.location.reload();
@@ -97,8 +86,9 @@ export const useWishlist = () => {
         dispatch(clearWishlist());
       }
       toast.success('Wishlist cleared', { position: 'top-right' });
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to clear wishlist', { position: 'top-right' });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to clear wishlist';
+      toast.error(errorMessage, { position: 'top-right' });
     }
   };
 

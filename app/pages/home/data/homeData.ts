@@ -1,4 +1,4 @@
-import { HeroSlide,CategoryItem,PromoItem } from '../types/home.types';
+import { HeroSlide,PromoItem } from '../types/home.types';
 
 export const heroSlides: HeroSlide[] = [
   {
@@ -11,21 +11,21 @@ export const heroSlides: HeroSlide[] = [
   {
     titleKey: 'home.hero.premiumCollection',
     descriptionKey: 'home.hero.premiumDescription',
-    image: "/images/hero2.webp",
+    image: "/images/hero-5.webp",
     buttonTextKey: 'home.hero.explore',
     buttonLink: "/products"
   },
   {
     titleKey: 'home.hero.summerSale',
     descriptionKey: 'home.hero.summerSaleDescription',
-    image: "/images/hero--4.webp",
+    image: "/images/hero-2.webp",
     buttonTextKey: 'home.hero.saveNow',
     buttonLink: "/sale"
   },
   {
     titleKey: 'home.hero.exclusiveDeals',
     descriptionKey: 'home.hero.exclusiveDealsDescription',
-    image: "/images/hero--5.webp",
+    image: "/images/hero--4.webp",
     buttonTextKey: 'home.hero.discover',
     buttonLink: "/deals"
   },
@@ -38,13 +38,14 @@ export const heroSlides: HeroSlide[] = [
   }
 ];
 
-
-export const categories: CategoryItem[] = [
-  { id: 1, name: 'Electronics', icon: '📱', color: 'from-blue-500 to-blue-600' },
-  { id: 2, name: 'Fashion', icon: '👗', color: 'from-pink-500 to-pink-600' },
-  { id: 7, name: 'Shoes', icon: '👟', color: 'from-yellow-500 to-yellow-600' },
-  { id: 8, name: 'Groceries', icon: '🛒', color: 'from-red-500 to-red-600' },
+export const categories = [
+  { id: 1, name: 'Women', image: '/images/woman2.avif', link: '/shop?category=women', color: 'from-rose-50 to-pink-50' },
+  { id: 2, name: 'Men', image: '/images/man.avif', link: '/shop?category=men', color: 'from-slate-50 to-gray-50' },
+  { id: 3, name: 'Kids', image: '/images/kid.avif', link: '/shop?category=kids', color: 'from-amber-50 to-yellow-50' },
+  { id: 4, name: 'Shoes', image: '/images/shoes.avif', link: '/shop?category=shoes', color: 'from-blue-50 to-cyan-50' },
+  { id: 5, name: 'Accessories', image: '/images/accessories.avif', link: '/shop?category=accessories', color: 'from-purple-50 to-violet-50' },
 ];
+
 
 export const promoItems: PromoItem[] = [
   {
@@ -72,3 +73,4 @@ export const promoItems: PromoItem[] = [
     imageAlt: 'Secure Payment'
   }
 ];
+

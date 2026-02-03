@@ -41,7 +41,7 @@ export default function SearchBar({ filters, handleFilterChange }: SearchBarProp
     if (filters.search !== searchQuery) {
       handleSearchChange(filters.search);
     }
-  }, [filters.search]);
+  }, [filters.search, searchQuery, handleSearchChange]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ export default function SearchBar({ filters, handleFilterChange }: SearchBarProp
     handleFilterChange("search", "");
   };
 
-  const handleSuggestionClick = (productSlug: string) => {
+  const handleSuggestionClick = () => {
     hideSuggestions();
   };
 
@@ -125,7 +125,7 @@ export default function SearchBar({ filters, handleFilterChange }: SearchBarProp
               <Link
                 key={product._id}
                 href={`/pages/product/${product._id}`}
-                onClick={() => handleSuggestionClick(product._id)}
+                onClick={handleSuggestionClick}
                 className="flex items-center p-2 hover:bg-gray-50 rounded-md transition-colors"
               >
                 <div className="relative w-12 h-12 mr-3 shrink-0">

@@ -39,11 +39,12 @@ export const heroSlides: HeroSlide[] = [
 ];
 
 export const categories = [
-  { id: 1, name: 'Women', image: '/images/woman2.avif', link: '/shop?category=women', color: 'from-rose-50 to-pink-50' },
-  { id: 2, name: 'Men', image: '/images/man.avif', link: '/shop?category=men', color: 'from-slate-50 to-gray-50' },
-  { id: 3, name: 'Kids', image: '/images/kid.avif', link: '/shop?category=kids', color: 'from-amber-50 to-yellow-50' },
-  { id: 4, name: 'Shoes', image: '/images/shoes.avif', link: '/shop?category=shoes', color: 'from-blue-50 to-cyan-50' },
-  { id: 5, name: 'Accessories', image: '/images/accessories.avif', link: '/shop?category=accessories', color: 'from-purple-50 to-violet-50' },
+  { id: 1, name: 'Women', image: '/images/woman2.avif', link: '/pages/women', color: 'from-rose-50 to-pink-50' },
+  { id: 2, name: 'Men', image: '/images/man.avif', link: '/pages/men', color: 'from-slate-50 to-gray-50' },
+  { id: 3, name: 'Kids', image: '/images/kid.avif', link: '/pages/kids', color: 'from-amber-50 to-yellow-50' },
+  { id: 4, name: 'Shoes', image: '/images/shoes.avif', link: '/pages/shoes', color: 'from-blue-50 to-cyan-50' },
+  { id: 5, name: 'Accessories', image: '/images/accessories.avif', link: '/pages/accessories', color: 'from-purple-50 to-violet-50' },
+  { id: 6, name: 'electronic', image: '/images/technology.avif', link: '/pages/technology', color: 'from-teal-50 to-emerald-50' },
 ];
 
 

@@ -1,17 +1,5 @@
-import { Suspense } from "react";
-
-function BagsPageFallback() {
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#B39E7A]"></div>
-    </div>
-  );
-}
+import CategoryPage from "@/app/components/CategoryPage";
 
 export default function BagsPage() {
-  return (
-    <Suspense fallback={<BagsPageFallback />}>
-      
-    </Suspense>
-  );
+  return <CategoryPage category="Women" subCategory="Bags" title="Women's Bags" description="Curated elegance for the modern woman" />;
 }

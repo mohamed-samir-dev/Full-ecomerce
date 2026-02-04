@@ -20,7 +20,7 @@ export default function ReviewForm({ productId, onCancel }: ReviewFormProps) {
     try {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/products/${productId}/ratings`, {
+      const response = await fetch(`https://backend-for-global-shop-production-a385.up.railway.app/api/products/${productId}/ratings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

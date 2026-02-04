@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import ShopPageContent from "@/app/pages/shop/components/ShopPageContent";
-import "@/app/pages/shop/styles/filters.css";
 
 function BeautyPageFallback() {
   return (
@@ -13,11 +11,7 @@ function BeautyPageFallback() {
 export default function BeautyPage() {
   return (
     <Suspense fallback={<BeautyPageFallback />}>
-      <ShopPageContent 
-        pageTitle="Women's Beauty"
-        pageDescription="Enhance your natural beauty with our curated collection"
-        defaultCategory={["Women", "Beauty"]}
-      />
+     
     </Suspense>
   );
 }

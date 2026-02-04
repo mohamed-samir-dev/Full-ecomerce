@@ -26,6 +26,6 @@ export const customerServices: CustomerService[] = [
 export const quickLinksData = [
   { href: "/pages/men", label: "Men's Fashion" },
   { href: "/pages/women", label: "Women's Fashion" },
-  { href: "/pages/kid", label: "Children's Fashion" },
+  { href: "/pages/kids", label: "Children's Fashion" },
   { href: "/pages/shop", label: "Shop All" }
 ];

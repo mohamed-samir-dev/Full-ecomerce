@@ -43,7 +43,7 @@ export const useAccountInfo = (user: User, setUser: (user: User) => void) => {
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/users/profile", {
+      const response = await fetch("https://backend-for-global-shop-production-a385.up.railway.app/api/users/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

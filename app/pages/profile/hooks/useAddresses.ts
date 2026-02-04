@@ -19,7 +19,7 @@ export const useAddresses = (user: User, setUser: (user: User) => void) => {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:5000/api/users/addresses",
+        "https://backend-for-global-shop-production-a385.up.railway.app/api/users/addresses",
         {
           method: "POST",
           headers: {
@@ -55,7 +55,7 @@ export const useAddresses = (user: User, setUser: (user: User) => void) => {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/users/addresses/${addressId}`,
+        `https://backend-for-global-shop-production-a385.up.railway.app/api/users/addresses/${addressId}`,
         {
           method: "DELETE",
           headers: {

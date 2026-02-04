@@ -1,17 +1,5 @@
-import { Suspense } from "react";
-
-function ShoesPageFallback() {
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#B39E7A]"></div>
-    </div>
-  );
-}
+import CategoryPage from "@/app/components/CategoryPage";
 
 export default function ShoesPage() {
-  return (
-    <Suspense fallback={<ShoesPageFallback />}>
-     
-    </Suspense>
-  );
+  return <CategoryPage category="Women" subCategory="Shoes" title="Women's Shoes" description="Step into style and comfort" />;
 }

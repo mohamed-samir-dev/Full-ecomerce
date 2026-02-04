@@ -40,8 +40,30 @@ export default function ProductCard({ product }: ProductCardProps) {
     }
   };
 
+  const handleCardClick = () => {
+    router.push(`/pages/product/${product._id}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart({
+      _id: product._id,
+      name: product.name,
+      nameAr: product.nameAr,
+      mainImage: product.mainImage,
+      basePrice: product.basePrice,
+      finalPrice: product.finalPrice,
+      stock: product.stock,
+      category: product.category,
+      brand: product.brand
+    });
+  };
+
   return (
-    <div className="border rounded-lg p-3 md:p-4 w-full relative transition-all duration-200 hover:shadow-lg flex flex-col h-full bg-white border-gray-200 hover:border-gray-300">
+    <div 
+      className="border rounded-lg p-3 md:p-4 w-full relative transition-all duration-200 hover:shadow-lg flex flex-col h-full bg-white border-gray-200 hover:border-gray-300 cursor-pointer"
+      onClick={handleCardClick}
+    >
         {/* Heart Icon */}
         <button
           onClick={handleWishlistToggle}
@@ -93,20 +115,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Action Buttons */}
           <div className="mt-auto flex gap-2">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                addToCart({
-                  _id: product._id,
-                  name: product.name,
-                  nameAr: product.nameAr,
-                  mainImage: product.mainImage,
-                  basePrice: product.basePrice,
-                  finalPrice: product.finalPrice,
-                  stock: product.stock,
-                  category: product.category,
-                  brand: product.brand
-                });
-              }}
+              onClick={handleAddToCart}
               disabled={product.stock === 0 || product.availability === 'out_of_stock'}
               className={`flex-1 cursor-pointer py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 ${
                 product.stock === 0 || product.availability === 'out_of_stock'
@@ -120,7 +129,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                window.location.href = `/pages/product/${product._id}`;
+                router.push(`/pages/product/${product._id}`);
               }}
               className="py-2 cursor-pointer px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center bg-gray-200 text-gray-700 hover:bg-gray-300"
             >

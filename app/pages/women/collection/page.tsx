@@ -6,7 +6,7 @@ export default function WomenCollectionPage() {
       category="women"
       title="Women's Collection"
       subtitle="Discover our complete range of elegant pieces"
-      bannerImage="/images/women-colection.jpg"
+      bannerImage="/images/women-colection.avif"
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Women", href: "/pages/women" },

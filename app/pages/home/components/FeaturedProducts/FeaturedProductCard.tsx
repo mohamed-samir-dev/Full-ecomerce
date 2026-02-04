@@ -5,6 +5,7 @@ import { Eye, Heart, ShoppingCart } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
+import { useRouter } from 'next/navigation';
 import {FeaturedProductCardProps} from '../../types/home.types'
 
 
@@ -12,7 +13,12 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
   const { isDarkMode } = useTheme();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const router = useRouter();
   const isWishlisted = isInWishlist(product._id);
+
+  const handleCardClick = () => {
+    router.push(`/pages/product/${product._id}`);
+  };
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -30,10 +36,26 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
     }
   };
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart({
+      _id: product._id,
+      name: product.name,
+      nameAr: product.nameAr,
+      mainImage: product.mainImage,
+      basePrice: product.basePrice,
+      finalPrice: product.finalPrice,
+      stock: product.stock
+    });
+  };
+
   return (
-    <div className={`relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${
-      isDarkMode ? 'bg-[#1F2329]' : 'bg-white border border-gray-200'
-    }`}>
+    <div 
+      className={`relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer ${
+        isDarkMode ? 'bg-[#1F2329]' : 'bg-white border border-gray-200'
+      }`}
+      onClick={handleCardClick}
+    >
       <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-10 flex gap-1 sm:gap-2">
         <button onClick={(e) => {
           e.stopPropagation();
@@ -72,18 +94,7 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
           {product.finalPrice} EGP
         </p>
         <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            addToCart({
-              _id: product._id,
-              name: product.name,
-              nameAr: product.nameAr,
-              mainImage: product.mainImage,
-              basePrice: product.basePrice,
-              finalPrice: product.finalPrice,
-              stock: product.stock
-            });
-          }}
+          onClick={handleAddToCart}
           className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />

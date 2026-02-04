@@ -45,6 +45,7 @@ export const categories = [
   { id: 4, name: 'Shoes', image: '/images/shoes.avif', link: '/pages/shoes', color: 'from-blue-50 to-cyan-50' },
   { id: 5, name: 'Accessories', image: '/images/accessories.avif', link: '/pages/accessories', color: 'from-purple-50 to-violet-50' },
   { id: 6, name: 'electronic', image: '/images/technology.avif', link: '/pages/technology', color: 'from-teal-50 to-emerald-50' },
+  { id: 7, name: 'Pet Supplies', image: '/images/PetSupplies.avif', link: '/pages/PetSupplies', color: 'from-fuchsia-50 to-purple-50' }
 ];
 
 

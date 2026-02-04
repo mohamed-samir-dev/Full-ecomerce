@@ -11,6 +11,7 @@ export default function ApparelPage() {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [showFilters, setShowFilters] = useState(false);
   const isInitialized = useRef(false);
   
   const { products, filterOptions, loading } = useApparelData(selectedSizes, selectedColors, priceRange);
@@ -33,8 +34,8 @@ export default function ApparelPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Breadcrumb />
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
           <Filters
             filterOptions={filterOptions}
             selectedSizes={selectedSizes}
@@ -43,6 +44,8 @@ export default function ApparelPage() {
             onSizeToggle={(size) => toggleFilter(size, selectedSizes, setSelectedSizes)}
             onColorToggle={(color) => toggleFilter(color, selectedColors, setSelectedColors)}
             onPriceChange={(max: number) => setPriceRange([priceRange[0], max])}
+            showFilters={showFilters}
+            onToggle={() => setShowFilters(!showFilters)}
           />
           <ProductGrid products={products} />
         </div>

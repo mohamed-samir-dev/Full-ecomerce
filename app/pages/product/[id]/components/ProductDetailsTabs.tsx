@@ -23,7 +23,7 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
       <div className="flex border-b border-gray-200">
         <button
           onClick={() => setActiveTab('description')}
-          className={`flex-1 py-4 px-6 font-medium transition-colors ${
+          className={`flex-1 py-3 px-3 sm:py-4 sm:px-6 text-sm sm:text-base font-medium transition-colors ${
             activeTab === 'description' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-50'
           }`}
         >
@@ -31,7 +31,7 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
         </button>
         <button
           onClick={() => setActiveTab('specifications')}
-          className={`flex-1 py-4 px-6 font-medium transition-colors ${
+          className={`flex-1 py-3 px-3 sm:py-4 sm:px-6 text-sm sm:text-base font-medium transition-colors ${
             activeTab === 'specifications' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-50'
           }`}
         >
@@ -39,27 +39,27 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
         </button>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {activeTab === 'description' ? (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {product.shortDescription && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Aizo</h3>
-                <p className="text-gray-700 leading-relaxed">{product.shortDescription}</p>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">Aizo</h3>
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{product.shortDescription}</p>
               </div>
             )}
             {product.description && (
               <div>
-                <p className="text-gray-600 leading-relaxed">{product.description}</p>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{product.description}</p>
               </div>
             )}
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {specs.map((spec, index) => (
-              <div key={index} className="flex justify-between py-2 border-b border-gray-100 last:border-0">
-                <span className="text-sm font-medium text-gray-600">{spec.label}</span>
-                <span className="text-sm text-gray-900">{spec.value}</span>
+              <div key={index} className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-gray-100 last:border-0 gap-1">
+                <span className="text-xs sm:text-sm font-medium text-gray-600">{spec.label}</span>
+                <span className="text-xs sm:text-sm text-gray-900">{spec.value}</span>
               </div>
             ))}
           </div>

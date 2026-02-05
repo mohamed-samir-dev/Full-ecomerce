@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Filters } from "../types";
 import { useProducts } from "../hooks/useProducts";
 import ProductGrid from "./ProductGrid";
 import SortControls from "./SortControls";
 import SearchBar from "./SearchBar";
+import Pagination from "./Pagination";
 
 interface ProductsSectionProps {
   filters: Filters;
@@ -12,7 +14,17 @@ interface ProductsSectionProps {
 }
 
 export default function ProductsSection({ filters, handleFilterChange }: ProductsSectionProps) {
-  const { products, loading, error, totalProducts } = useProducts(filters);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { products, loading, error, totalProducts, totalPages } = useProducts(filters, currentPage);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (loading) {
     return (
@@ -82,6 +94,11 @@ export default function ProductsSection({ filters, handleFilterChange }: Product
         totalProducts={totalProducts}
       />
       <ProductGrid products={products} />
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

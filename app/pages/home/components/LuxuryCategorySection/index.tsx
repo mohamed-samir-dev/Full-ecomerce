@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { categories } from '../../data/homeData';
@@ -16,30 +15,18 @@ export default function LuxuryCategorySection() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.8),transparent_50%)] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-24"
-        >
+        <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-24">
           <div className="inline-block">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-gray-900 mb-2 tracking-tighter">
               {t('home.category.title')}
             </h2>
             <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-linear-to-r from-transparent via-gray-800 to-transparent mx-auto mt-4 sm:mt-6 md:mt-8"></div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
           {categories.map((category, index) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
-            >
+            <div key={category.id}>
               <Link href={category.link}>
                 <div className="group relative overflow-hidden rounded-2xl cursor-pointer">
                   <div className="relative aspect-3/4 overflow-hidden bg-linear-to-br from-gray-100 to-gray-200">
@@ -84,7 +71,7 @@ export default function LuxuryCategorySection() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

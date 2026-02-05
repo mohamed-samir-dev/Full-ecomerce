@@ -4,7 +4,7 @@ import {MainImageProps}from '../../types/types'
 
 export default function MainImage({ currentImage, productName, isMainLoaded, onLoad, onZoomClick }: MainImageProps) {
   return (
-    <div className="relative w-full h-[300px] sm:h-[400px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group">
+    <div className="relative w-full h-[400px] sm:h-[600px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg group">
       <button
         onClick={onZoomClick}
         className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10 p-2 bg-white bg-opacity-80 rounded-full shadow-lg hover:bg-opacity-100 transition-opacity"

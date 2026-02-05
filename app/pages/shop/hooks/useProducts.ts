@@ -6,7 +6,7 @@ import { Product, Filters, ProductsResponse } from "../types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-export function useProducts(filters: Filters) {
+export function useProducts(filters: Filters, page: number = 1) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,8 +21,8 @@ export function useProducts(filters: Filters) {
         
         // Build query parameters
         const params: any = {
-          page: 1,
-          limit: 20,
+          page: page,
+          limit: 9,
         };
         
         // Add filters to params
@@ -64,7 +64,7 @@ export function useProducts(filters: Filters) {
     };
 
     fetchProducts();
-  }, [filters]);
+  }, [filters, page]);
 
   return { 
     products, 

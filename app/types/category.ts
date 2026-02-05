@@ -12,4 +12,5 @@ export interface Product {
   averageRating: number;
   totalReviews: number;
   subCategory?: string;
+  toplay?: boolean;
 }

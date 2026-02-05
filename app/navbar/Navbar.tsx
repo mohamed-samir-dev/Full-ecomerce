@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/hooks/useCart';
+import { useLanguage } from '@/context/LanguageContext';
 import DesktopNavbar from './layouts/DesktopNavbar';
 import TabletNavbar from './layouts/TabletNavbar';
 import MobileNavbar from './layouts/MobileNavbar';
@@ -10,7 +11,7 @@ import MobileMenu from './layouts/MobileMenu';
 
 export default function Navbar() {
   const { user: authUser, logout: authLogout } = useAuth();
-  const [isArabic, setIsArabic] = useState(false);
+  const { language, isArabic, toggleLanguage } = useLanguage();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -22,7 +23,6 @@ export default function Navbar() {
 
   const user = authUser ? { name: authUser.name, isAdmin: authUser.role === 'admin' } : null;
 
-  const toggleLanguage = () => setIsArabic(!isArabic);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const logout = () => {
@@ -43,6 +43,7 @@ export default function Navbar() {
           isDarkMode={isDarkMode}
           cartCount={mounted ? itemCount : 0}
           user={user}
+          language={language}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
           logout={logout}
@@ -53,6 +54,7 @@ export default function Navbar() {
           isDarkMode={isDarkMode}
           cartCount={mounted ? itemCount : 0}
           user={user}
+          language={language}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
           logout={logout}
@@ -73,6 +75,7 @@ export default function Navbar() {
           isArabic={isArabic}
           isDarkMode={isDarkMode}
           user={user}
+          language={language}
           logout={logout}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}

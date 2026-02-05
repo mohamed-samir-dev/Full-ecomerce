@@ -10,10 +10,11 @@ export default function TabletNavbar({
   isDarkMode,
   cartCount,
   user,
+  language,
   toggleLanguage,
   toggleDarkMode,
   logout
-}: Omit<TabletNavbarProps, 'searchQuery' | 'setSearchQuery'>) {
+}: TabletNavbarProps) {
   return (
     <div className="hidden md:block lg:hidden">
       {/* First Row: Logo and Icons */}
@@ -27,6 +28,7 @@ export default function TabletNavbar({
           isDarkMode={isDarkMode}
           cartCount={cartCount}
           user={user}
+          language={language}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
           logout={logout}

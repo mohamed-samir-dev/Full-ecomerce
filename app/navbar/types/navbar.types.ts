@@ -9,6 +9,7 @@ export interface NavbarActionsProps {
   isDarkMode: boolean;
   cartCount: number;
   user: { name: string; isAdmin?: boolean } | null;
+  language: string;
   toggleLanguage: () => void;
   toggleDarkMode: () => void;
   logout: () => void;
@@ -52,10 +53,9 @@ export interface NavigationLinksProps {
   export interface DesktopNavbarProps {
     isArabic: boolean;
     isDarkMode: boolean;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
     cartCount: number;
     user: { name: string; isAdmin?: boolean } | null;
+    language: string;
     toggleLanguage: () => void;
     toggleDarkMode: () => void;
     logout: () => void;
@@ -64,9 +64,8 @@ export interface NavigationLinksProps {
     isOpen: boolean;
     isArabic: boolean;
     isDarkMode: boolean;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
     user: { name: string; isAdmin?: boolean } | null;
+    language: string;
     logout: () => void;
     toggleLanguage: () => void;
     toggleDarkMode: () => void;
@@ -84,10 +83,9 @@ export interface NavigationLinksProps {
   export interface TabletNavbarProps {
     isArabic: boolean;
     isDarkMode: boolean;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
     cartCount: number;
     user: { name: string; isAdmin?: boolean } | null;
+    language: string;
     toggleLanguage: () => void;
     toggleDarkMode: () => void;
     logout: () => void;

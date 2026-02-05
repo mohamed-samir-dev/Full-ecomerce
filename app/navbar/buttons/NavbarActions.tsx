@@ -11,6 +11,7 @@ export default function NavbarActions({
   isDarkMode,
   cartCount,
   user,
+  language,
   toggleLanguage,
   toggleDarkMode,
   logout,
@@ -21,7 +22,7 @@ export default function NavbarActions({
   return (
     <div className={`flex items-center ${isArabic ? `flex-row-reverse space-x-reverse ${spacing}` : spacing}`}>
       <LanguageToggle 
-        language={isArabic ? 'AR' : 'EN'}
+        language={language}
         toggleLanguage={toggleLanguage}
         isArabic={isArabic}
         isDarkMode={isDarkMode}

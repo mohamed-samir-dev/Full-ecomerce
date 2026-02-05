@@ -10,10 +10,11 @@ export default function DesktopNavbar({
   isDarkMode,
   cartCount,
   user,
+  language,
   toggleLanguage,
   toggleDarkMode,
   logout
-}: Omit<DesktopNavbarProps, 'searchQuery' | 'setSearchQuery'>) {
+}: DesktopNavbarProps) {
   return (
     <div className={`hidden lg:flex items-center h-16 gap-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
       <div className={`flex items-center min-w-fit ${isArabic ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
@@ -38,6 +39,7 @@ export default function DesktopNavbar({
           isDarkMode={isDarkMode}
           cartCount={cartCount}
           user={user}
+          language={language}
           toggleLanguage={toggleLanguage}
           toggleDarkMode={toggleDarkMode}
           logout={logout}

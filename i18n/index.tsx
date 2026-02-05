@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const translations = {
   en: {
@@ -19,6 +20,19 @@ const translations = {
     'home.hero.trendingNow': 'Trending Now',
     'home.hero.trendingDescription': 'Shop the hottest items everyone is talking about',
     'home.hero.viewTrends': 'View Trends',
+    'home.promo.title': 'Why Shop With Us',
+    'home.promo.freeShipping': 'Free Shipping',
+    'home.promo.freeShippingDesc': 'On orders over $50',
+    'home.promo.easyReturns': 'Easy Returns',
+    'home.promo.easyReturnsDesc': '30-day return policy',
+    'home.promo.securePayment': 'Secure Payment',
+    'home.promo.securePaymentDesc': 'Safe & secure checkout',
+    'home.promo.shopNow': 'Shop Now',
+    'home.promo.learnMore': 'Learn More',
+    'home.promo.shopSafe': 'Shop Safe',
+    'home.clothes.title': 'Premium Quality Clothing',
+    'home.clothes.desc1': 'Discover our carefully curated collection of premium garments, designed for style and comfort.',
+    'home.clothes.desc2': 'Every piece is selected with attention to detail, ensuring you get the best quality and fit for your wardrobe.',
     'features.quality': 'Premium Quality',
     'features.quality.desc': 'Top-notch products',
     'features.shipping': 'Free Shipping',
@@ -85,6 +99,28 @@ const translations = {
     'contact.modal.title': 'Message Sent!',
     'contact.modal.subtitle': 'Thank you for contacting us. We\'ll get back to you soon.',
     'contact.modal.close': 'Close',
+    'home.category.title': 'Shop by Category',
+    'home.category.shopNow': 'SHOP NOW',
+    'category.women': 'Women',
+    'category.men': 'Men',
+    'category.kids': 'Kids',
+    'category.shoes': 'Shoes',
+    'category.accessories': 'Accessories',
+    'category.electronic': 'Electronics',
+    'category.petSupplies': 'Pet Supplies',
+    'home.luxuryPromo.badge': 'EXCLUSIVE COLLECTION',
+    'home.luxuryPromo.title1': 'Timeless',
+    'home.luxuryPromo.title2': 'Elegance',
+    'home.luxuryPromo.description': 'Discover our curated selection of premium fashion pieces that define sophistication and modern luxury.',
+    'home.luxuryPromo.button': 'EXPLORE COLLECTION',
+    'home.newsletter.title': 'Subscribe for Exclusive Updates',
+    'home.newsletter.description': 'Get the latest news, offers, and style tips delivered to your inbox.',
+    'home.newsletter.placeholder': 'Your email address',
+    'home.newsletter.subscribe': 'Subscribe',
+    'home.newsletter.subscribing': 'Subscribing...',
+    'home.newsletter.emailRequired': 'Email address is required',
+    'home.newsletter.emailInvalid': 'Please enter a valid email address',
+    'home.newsletter.success': 'Successfully subscribed! Check your inbox for confirmation.',
   },
   ar: {
     'home.hero.newSeasonArrivals': 'وصول الموسم الجديد',
@@ -102,6 +138,19 @@ const translations = {
     'home.hero.trendingNow': 'الأكثر رواجاً',
     'home.hero.trendingDescription': 'تسوق أكثر المنتجات رواجاً التي يتحدث عنها الجميع',
     'home.hero.viewTrends': 'عرض الاتجاهات',
+    'home.promo.title': 'لماذا تتسوق معنا',
+    'home.promo.freeShipping': 'شحن مجاني',
+    'home.promo.freeShippingDesc': 'للطلبات فوق 50 دولار',
+    'home.promo.easyReturns': 'إرجاع سهل',
+    'home.promo.easyReturnsDesc': 'سياسة إرجاع لمدة 30 يوم',
+    'home.promo.securePayment': 'دفع آمن',
+    'home.promo.securePaymentDesc': 'دفع آمن ومضمون',
+    'home.promo.shopNow': 'تسوق الآن',
+    'home.promo.learnMore': 'اعرف المزيد',
+    'home.promo.shopSafe': 'تسوق بأمان',
+    'home.clothes.title': 'ملابس عالية الجودة',
+    'home.clothes.desc1': 'اكتشف مجموعتنا المختارة بعناية من الملابس الفاخرة، المصممة للأناقة والراحة.',
+    'home.clothes.desc2': 'يتم اختيار كل قطعة بعناية فائقة، لضمان حصولك على أفضل جودة ومقاس لخزانة ملابسك.',
     'features.quality': 'جودة عالية',
     'features.quality.desc': 'منتجات من الدرجة الأولى',
     'features.shipping': 'شحن مجاني',
@@ -168,27 +217,53 @@ const translations = {
     'contact.modal.title': 'تم إرسال الرسالة!',
     'contact.modal.subtitle': 'شكراً لتواصلك معنا. سنعود إليك قريباً.',
     'contact.modal.close': 'إغلاق',
+    'home.category.title': 'تسوق حسب الفئة',
+    'home.category.shopNow': 'تسوق الآن',
+    'category.women': 'نساء',
+    'category.men': 'رجال',
+    'category.kids': 'أطفال',
+    'category.shoes': 'أحذية',
+    'category.accessories': 'إكسسوارات',
+    'category.electronic': 'إلكترونيات',
+    'category.petSupplies': 'مستلزمات الحيوانات الأليفة',
+    'home.luxuryPromo.badge': 'مجموعة حصرية',
+    'home.luxuryPromo.title1': 'أناقة',
+    'home.luxuryPromo.title2': 'خالدة',
+    'home.luxuryPromo.description': 'اكتشف مجموعتنا المختارة من قطع الأزياء الفاخرة التي تحدد الرقي والفخامة العصرية.',
+    'home.luxuryPromo.button': 'استكشف المجموعة',
+    'home.newsletter.title': 'اشترك للحصول على تحديثات حصرية',
+    'home.newsletter.description': 'احصل على آخر الأخبار والعروض ونصائح الأناقة في بريدك الإلكتروني.',
+    'home.newsletter.placeholder': 'عنوان بريدك الإلكتروني',
+    'home.newsletter.subscribe': 'اشترك',
+    'home.newsletter.subscribing': 'جاري الاشتراك...',
+    'home.newsletter.emailRequired': 'عنوان البريد الإلكتروني مطلوب',
+    'home.newsletter.emailInvalid': 'يرجى إدخال عنوان بريد إلكتروني صالح',
+    'home.newsletter.success': 'تم الاشتراك بنجاح! تحقق من بريدك الوارد للتأكيد.',
   },
 };
 
 interface TranslationContextType {
   t: (key: string) => string;
   locale: string;
-  setLocale: (locale: string) => void;
   isArabic: boolean;
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
+  const { language } = useLanguage();
   const [locale, setLocale] = useState('en');
+
+  useEffect(() => {
+    setLocale(language === 'AR' ? 'ar' : 'en');
+  }, [language]);
 
   const t = (key: string) => {
     return translations[locale as keyof typeof translations][key as keyof typeof translations.en] || key;
   };
 
   return (
-    <TranslationContext.Provider value={{ t, locale, setLocale, isArabic: locale === 'ar' }}>
+    <TranslationContext.Provider value={{ t, locale, isArabic: locale === 'ar' }}>
       {children}
     </TranslationContext.Provider>
   );

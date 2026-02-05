@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/i18n';
 
 export default function NewsletterSection() {
+  const { t, isArabic } = useTranslation();
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -19,17 +21,16 @@ export default function NewsletterSection() {
     setSuccess(false);
 
     if (!email.trim()) {
-      setError('Email address is required');
+      setError(t('home.newsletter.emailRequired'));
       return;
     }
 
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address');
+      setError(t('home.newsletter.emailInvalid'));
       return;
     }
 
     setLoading(true);
-    // Add API call here
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
@@ -39,13 +40,13 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-linear-to-r from-orange-50 to-amber-50">
+    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-linear-to-r from-orange-50 to-amber-50" dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
-          Subscribe for Exclusive Updates
+          {t('home.newsletter.title')}
         </h2>
         <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 px-4">
-          Get the latest news, offers, and style tips delivered to your inbox.
+          {t('home.newsletter.description')}
         </p>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
           <div className="flex flex-col sm:flex-row gap-2 mb-3">
@@ -53,7 +54,7 @@ export default function NewsletterSection() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email address"
+              placeholder={t('home.newsletter.placeholder')}
               disabled={loading}
               className="flex-1 px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
             />
@@ -62,7 +63,7 @@ export default function NewsletterSection() {
               disabled={loading}
               className="w-full sm:w-auto px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
             >
-              {loading ? 'Subscribing...' : 'Subscribe'}
+              {loading ? t('home.newsletter.subscribing') : t('home.newsletter.subscribe')}
             </button>
           </div>
           
@@ -80,7 +81,7 @@ export default function NewsletterSection() {
               <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span>Successfully subscribed! Check your inbox for confirmation.</span>
+              <span>{t('home.newsletter.success')}</span>
             </div>
           )}
         </form>

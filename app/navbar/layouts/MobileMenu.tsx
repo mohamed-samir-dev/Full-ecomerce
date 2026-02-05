@@ -12,11 +12,12 @@ export default function MobileMenu({
   isArabic,
   isDarkMode,
   user,
+  language,
   logout,
   toggleLanguage,
   toggleDarkMode,
   closeMobileMenu
-}: Omit<MobileMenuProps, 'searchQuery' | 'setSearchQuery'>) {
+}: MobileMenuProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -77,7 +78,7 @@ export default function MobileMenu({
               transition={{ delay: 0.3 }}
             >
               <LanguageToggle 
-                language={isArabic ? 'AR' : 'EN'}
+                language={language}
                 toggleLanguage={() => {
                   toggleLanguage();
                   closeMobileMenu();

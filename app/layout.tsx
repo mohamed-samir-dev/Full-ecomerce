@@ -5,6 +5,8 @@ import "./globals.css";
 import {Navbar} from "./navbar";
 import {Footer} from "./footer";
 import {Providers} from "./providers";
+import { LanguageProvider } from '@/context/LanguageContext';
+import { TranslationProvider } from '@/i18n';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,30 +34,34 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <Providers>
-          <Toaster position="top-right" toastOptions={{
-            duration: 3000,
-            style: {
-              background: '#363636',
-              color: '#fff',
-            },
-            success: {
-              iconTheme: {
-                primary: '#10b981',
-                secondary: '#fff',
-              },
-            },
-            error: {
-              iconTheme: {
-                primary: '#ef4444',
-                secondary: '#fff',
-              },
-            },
-          }} />
-          <Navbar />
-          {children}
-          <Footer />
-        </Providers>
+        <LanguageProvider>
+          <TranslationProvider>
+            <Providers>
+              <Toaster position="top-right" toastOptions={{
+                duration: 3000,
+                style: {
+                  background: '#363636',
+                  color: '#fff',
+                },
+                success: {
+                  iconTheme: {
+                    primary: '#10b981',
+                    secondary: '#fff',
+                  },
+                },
+                error: {
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff',
+                  },
+                },
+              }} />
+              <Navbar />
+              {children}
+              <Footer />
+            </Providers>
+          </TranslationProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

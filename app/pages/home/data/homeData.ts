@@ -39,13 +39,13 @@ export const heroSlides: HeroSlide[] = [
 ];
 
 export const categories = [
-  { id: 1, name: 'Women', image: '/images/woman2.avif', link: '/pages/women', color: 'from-rose-50 to-pink-50' },
-  { id: 2, name: 'Men', image: '/images/man.avif', link: '/pages/men', color: 'from-slate-50 to-gray-50' },
-  { id: 3, name: 'Kids', image: '/images/kid.avif', link: '/pages/kids', color: 'from-amber-50 to-yellow-50' },
-  { id: 4, name: 'Shoes', image: '/images/shoes.avif', link: '/pages/shoes', color: 'from-blue-50 to-cyan-50' },
-  { id: 5, name: 'Accessories', image: '/images/accessories (2).avif', link: '/pages/accessories', color: 'from-purple-50 to-violet-50' },
-  { id: 6, name: 'electronic', image: '/images/technology.avif', link: '/pages/technology', color: 'from-teal-50 to-emerald-50' },
-  { id: 7, name: 'Pet Supplies', image: '/images/PetSupplies.avif', link: '/pages/PetSupplies', color: 'from-fuchsia-50 to-purple-50' }
+  { id: 1, nameKey: 'category.women', image: '/images/woman2.avif', link: '/pages/women', color: 'from-rose-50 to-pink-50' },
+  { id: 2, nameKey: 'category.men', image: '/images/man.avif', link: '/pages/men', color: 'from-slate-50 to-gray-50' },
+  { id: 3, nameKey: 'category.kids', image: '/images/kid.avif', link: '/pages/kids', color: 'from-amber-50 to-yellow-50' },
+  { id: 4, nameKey: 'category.shoes', image: '/images/shoes.avif', link: '/pages/shoes', color: 'from-blue-50 to-cyan-50' },
+  { id: 5, nameKey: 'category.accessories', image: '/images/accessories (2).avif', link: '/pages/accessories', color: 'from-purple-50 to-violet-50' },
+  { id: 6, nameKey: 'category.electronic', image: '/images/technology.avif', link: '/pages/technology', color: 'from-teal-50 to-emerald-50' },
+  { id: 7, nameKey: 'category.petSupplies', image: '/images/PetSupplies.avif', link: '/pages/PetSupplies', color: 'from-fuchsia-50 to-purple-50' }
 ];
 
 

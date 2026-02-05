@@ -1,7 +1,7 @@
 
 import {PriceDisplayProps}from '../../types/types'
 
-export default function PriceDisplay({ finalPrice, basePrice, hasDiscount, discountPercentage }: PriceDisplayProps) {
+export default function PriceDisplay({ finalPrice, basePrice, hasDiscount }: PriceDisplayProps) {
   return (
     <div className="flex flex-wrap items-baseline gap-3">
       <span className="text-4xl font-light text-[#B39E7A]">

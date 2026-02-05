@@ -11,7 +11,7 @@ export default function ThumbnailGallery({ images, activeIndex, productName, onT
         <button
           key={index}
           onClick={() => onThumbnailClick(index)}
-          className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+          className={`shrink-0 w-30 h-30 sm:w-16 sm:h-24 md:w-30 md:h-30 rounded-lg overflow-hidden border-2 transition-all ${
             activeIndex === index ? 'border-blue-600 ring-2 ring-blue-200' : 'border-gray-200 hover:border-gray-300'
           }`}
         >

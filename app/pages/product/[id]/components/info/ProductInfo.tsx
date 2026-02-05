@@ -41,20 +41,20 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   };
 
   return (
-    <div className=" rounded-3xl shadow-lg border border-gray-100 p-6 sm:p-8 space-y-6 h-full flex flex-col">
+    <div className="rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 h-full flex flex-col">
       {/* Product Title & Brand */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
-          <span className="px-4 py-1.5 bg-amber-50 text-[#B39E7A] text-sm font-medium rounded-full border border-amber-100">
+      <div className="space-y-2 sm:space-y-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-amber-50 text-[#B39E7A] text-xs sm:text-sm font-medium rounded-full border border-amber-100">
             {product.brand}
           </span>
           {hasDiscount && (
-            <span className="px-4 py-1.5 bg-rose-50 text-rose-600 text-sm font-medium rounded-full border border-rose-100">
+            <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-rose-50 text-rose-600 text-xs sm:text-sm font-medium rounded-full border border-rose-100">
               -{discountPercentage}% OFF
             </span>
           )}
         </div>
-        <h1 className="text-3xl sm:text-4xl font-light text-gray-900 leading-tight">{product.name}</h1>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 leading-tight">{product.name}</h1>
         
       </div>
 

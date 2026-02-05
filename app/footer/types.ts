@@ -8,6 +8,6 @@ export interface SocialLink {
 
 export interface CustomerService {
   href: string;
-  label: string;
+  labelKey: string;
   icon?: LucideIcon;
 }

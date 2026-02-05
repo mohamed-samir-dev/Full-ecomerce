@@ -17,15 +17,15 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const customerServices: CustomerService[] = [
-  { href: "/contact", label: "Contact Us", icon: PhoneIcon },
-  { href: "/support", label: "Support", icon: MailIcon },
-  { href: "/shipping", label: "Shipping Info", icon: MapPinIcon },
-  { href: "/returns", label: "Returns" }
+  { href: "/contact", labelKey: "footer.customerService.contact", icon: PhoneIcon },
+  { href: "/support", labelKey: "footer.customerService.support", icon: MailIcon },
+  { href: "/shipping", labelKey: "footer.customerService.shipping", icon: MapPinIcon },
+  { href: "/returns", labelKey: "footer.customerService.returns" }
 ];
 
 export const quickLinksData = [
-  { href: "/pages/men", label: "Men's Fashion" },
-  { href: "/pages/women", label: "Women's Fashion" },
-  { href: "/pages/kids", label: "Children's Fashion" },
-  { href: "/pages/shop", label: "Shop All" }
+  { href: "/pages/men", labelKey: "footer.quickLinks.mens" },
+  { href: "/pages/women", labelKey: "footer.quickLinks.womens" },
+  { href: "/pages/kids", labelKey: "footer.quickLinks.childrens" },
+  { href: "/pages/shop", labelKey: "footer.quickLinks.shop" }
 ];

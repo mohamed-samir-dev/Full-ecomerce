@@ -11,7 +11,7 @@ export function SocialMedia() {
       <h3 className={`text-lg font-semibold mb-4 ${isArabic ? 'text-right' : ''}`}>
         {t('footer.socialMedia.title')}
       </h3>
-      <div className={`flex gap-4 ${isArabic ? 'justify-end' : ''}`}>
+      <div className="flex gap-4">
         {socialLinks.map((social, index) => (
           <a
             key={index}

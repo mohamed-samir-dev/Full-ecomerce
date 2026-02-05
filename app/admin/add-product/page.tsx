@@ -15,7 +15,7 @@ export default function AddProductPage() {
     description: '', descriptionAr: '', basePrice: '', discount: { type: 'percentage', value: 0 },
     currency: 'EGP', mainImage: '', imageGallery: [''], video: '', stock: '', sku: '',
     availability: 'in_stock', category: '', categoryAr: '', subCategory: '', subCategoryAr: '',
-    brand: '', brandAr: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
+    brand: '', brandAr: '', productType: '', secondtype: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
     material: '', weight: '', dimensions: { length: '', width: '', height: '' },
     warranty: '', returnPolicy: '', specifications: '', specificationsAr: '',
     initialReview: { rating: 0, comment: '' }
@@ -261,6 +261,14 @@ export default function AddProductPage() {
                 <div>
                   <label className={labelClass}>Brand (Arabic) *</label>
                   <input name="brandAr" value={formData.brandAr} onChange={handleChange} placeholder="أبل" className={inputClass} required />
+                </div>
+                <div>
+                  <label className={labelClass}>Product Type</label>
+                  <input name="productType" value={formData.productType} onChange={handleChange} placeholder="Type" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Second Type</label>
+                  <input name="secondtype" value={formData.secondtype} onChange={handleChange} placeholder="Second Type" className={inputClass} />
                 </div>
               </div>
             </FormSection>

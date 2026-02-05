@@ -22,13 +22,15 @@ interface Product {
   stock: number;
   subCategory?: string;
   category?: string;
+  secondtype?: string;
   sizes?: string[];
   colors?: { name: string; hex: string }[];
 }
 
 interface CategoryPageProps {
-  category: string;
+  category?: string;
   subCategory: string;
+  secondtype?: string;
   title: string;
   description: string;
 }
@@ -39,7 +41,7 @@ interface FilterOptions {
   priceRange: { min: number; max: number };
 }
 
-export default function CategoryPage({ category, subCategory, title, description }: CategoryPageProps) {
+export default function CategoryPage({ category, subCategory, secondtype, title, description }: CategoryPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -58,7 +60,8 @@ export default function CategoryPage({ category, subCategory, title, description
         if (res.data.success) {
           let filtered = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
-            p.category?.trim().toLowerCase() === category.toLowerCase()
+            (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
+            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase())
           );
           if (selectedSizes.length) filtered = filtered.filter((p: Product) => p.sizes?.some(s => selectedSizes.includes(s)));
           if (selectedColors.length) filtered = filtered.filter((p: Product) => p.colors?.some(c => selectedColors.includes(c.name)));
@@ -67,7 +70,8 @@ export default function CategoryPage({ category, subCategory, title, description
 
           const all = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
-            p.category?.trim().toLowerCase() === category.toLowerCase()
+            (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
+            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase())
           );
           const sizes = [...new Set(all.flatMap((p: Product) => p.sizes || [] as string[]))] as string[];
           const colors = Array.from(new Map(all.flatMap((p: Product) => p.colors || [] as { name: string; hex: string }[]).map((c: { name: string; hex: string }): [string, { name: string; hex: string }] => [c.name, c])).values()) as { name: string; hex: string }[];
@@ -81,7 +85,7 @@ export default function CategoryPage({ category, subCategory, title, description
       }
     };
     fetchData();
-  }, [category, subCategory, selectedSizes, selectedColors, priceRange]);
+  }, [category, subCategory, secondtype, selectedSizes, selectedColors, priceRange]);
 
   useEffect(() => {
     if (!isInitialized.current && filterOptions.priceRange.max > 0) {
@@ -102,8 +106,12 @@ export default function CategoryPage({ category, subCategory, title, description
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
             <Link href="/" className="hover:text-[#B39E7A] transition-colors">Home</Link>
-            <span className="text-gray-300">•</span>
-            <Link href={`/pages/${category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">{category}</Link>
+            {category && (
+              <>
+                <span className="text-gray-300">•</span>
+                <Link href={`/pages/${category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">{category}</Link>
+              </>
+            )}
             <span className="text-gray-300">•</span>
             <span className="text-gray-900 font-medium">{subCategory}</span>
           </div>

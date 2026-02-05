@@ -38,12 +38,13 @@ interface CollectionPageProps {
   subCategory?: string;
   title: string;
   subtitle: string;
+  titleColor?: string;
   subtitleColor?: string;
   bannerImage: string;
   breadcrumbs: { label: string; href: string }[];
 }
 
-export default function CollectionPage({ category, subCategory, title, subtitle, subtitleColor = "#D26563", bannerImage, breadcrumbs }: CollectionPageProps) {
+export default function CollectionPage({ category, subCategory, title, subtitle, titleColor = "#FFFFFF", subtitleColor = "#D26563", bannerImage, breadcrumbs }: CollectionPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
@@ -194,7 +195,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
         />
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="text-center text-white">
-            <h1 className="text-4xl sm:text-5xl  lg:text-6xl font-bold mb-4 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl  lg:text-6xl font-bold mb-4 tracking-tight" style={{ color: titleColor }}>
               {title}
             </h1>
             <p className="text-md sm:text-xl font-light  opacity-90" style={{ color: subtitleColor }}>

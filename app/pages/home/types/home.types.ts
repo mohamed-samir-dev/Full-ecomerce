@@ -84,9 +84,9 @@ export interface HeroSectionProps {
 // PromoSection
 export interface PromoItem {
   id: number;
-  title: string;
-  description: string;
-  buttonText: string;
+  titleKey: string;
+  descriptionKey: string;
+  buttonTextKey: string;
   imageUrl: string;
   imageAlt: string;
 }

@@ -52,25 +52,25 @@ export const categories = [
 export const promoItems: PromoItem[] = [
   {
     id: 1,
-    title: 'Free Shipping',
-    description: 'On orders over $50',
-    buttonText: 'Shop Now',
+    titleKey: 'home.promo.freeShipping',
+    descriptionKey: 'home.promo.freeShippingDesc',
+    buttonTextKey: 'home.promo.shopNow',
     imageUrl: '/images/card1.webp',
     imageAlt: 'Free Shipping'
   },
   {
     id: 2,
-    title: 'Easy Returns',
-    description: '30-day return policy',
-    buttonText: 'Learn More',
+    titleKey: 'home.promo.easyReturns',
+    descriptionKey: 'home.promo.easyReturnsDesc',
+    buttonTextKey: 'home.promo.learnMore',
     imageUrl: '/images/card2.webp',
     imageAlt: 'Easy Returns'
   },
   {
     id: 3,
-    title: 'Secure Payment',
-    description: 'Safe & secure checkout',
-    buttonText: 'Shop Safe',
+    titleKey: 'home.promo.securePayment',
+    descriptionKey: 'home.promo.securePaymentDesc',
+    buttonTextKey: 'home.promo.shopSafe',
     imageUrl: '/images/card3.webp',
     imageAlt: 'Secure Payment'
   }

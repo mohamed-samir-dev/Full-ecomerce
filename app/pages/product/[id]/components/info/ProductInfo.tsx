@@ -1,3 +1,4 @@
+/* cspell:ignore Wishlisted */
 import { Product } from '../../../../shop/types';
 import { useState } from 'react';
 import { useWishlist } from '@/hooks/useWishlist';
@@ -22,45 +23,42 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const isWishlisted = isInWishlist(product._id);
 
   const isOutOfStock = product.stock === 0 || product.availability === 'out_of_stock';
-  const hasDiscount = !!(product.discount && product.discount.value > 0);
-  const discountPercentage = hasDiscount && product.discount?.type === 'percentage'
-    ? product.discount.value
-    : hasDiscount && product.discount?.type === 'fixed'
-    ? Math.round((product.discount.value / product.basePrice) * 100)
+  const hasDiscount = !!(product.discount?.value && product.discount.value > 0);
+  const discountPercentage = hasDiscount && product.discount
+    ? product.discount.type === 'percentage'
+      ? product.discount.value
+      : Math.round((product.discount.value / product.basePrice) * 100)
     : 0;
 
-  const handleAddToCart = () => {
-    addToCart({
-      _id: product._id,
-      name: product.name,
-      nameAr: product.nameAr,
-      mainImage: product.mainImage,
-      basePrice: product.basePrice,
-      finalPrice: product.finalPrice,
-      stock: product.stock,
-      category: product.category,
-      brand: product.brand
-    });
-  };
+  const handleAddToCart = () => addToCart(product);
 
   const handleToggleWishlist = () => {
     if (isWishlisted) {
       removeFromWishlist(product._id);
     } else {
-      addToWishlist({
-        _id: product._id,
-        name: product.name,
-        mainImage: product.mainImage,
-        basePrice: product.basePrice,
-        finalPrice: product.finalPrice,
-        stock: product.stock
-      });
+      addToWishlist(product);
     }
   };
 
   return (
-    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-      <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight text-gray-900">{product.name}</h1>
+    <div className=" rounded-3xl shadow-lg border border-gray-100 p-6 sm:p-8 space-y-6 h-full flex flex-col">
+      {/* Product Title & Brand */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <span className="px-4 py-1.5 bg-amber-50 text-[#B39E7A] text-sm font-medium rounded-full border border-amber-100">
+            {product.brand}
+          </span>
+          {hasDiscount && (
+            <span className="px-4 py-1.5 bg-rose-50 text-rose-600 text-sm font-medium rounded-full border border-rose-100">
+              -{discountPercentage}% OFF
+            </span>
+          )}
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-light text-gray-900 leading-tight">{product.name}</h1>
+        
+      </div>
+
+      <div className="h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
       
       <PriceDisplay
         finalPrice={product.finalPrice}
@@ -90,6 +88,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           onQuantityChange={setSelectedQuantity}
         />
       )}
+
+      <div className="flex-1"></div>
 
       <ActionButtons
         isOutOfStock={isOutOfStock}

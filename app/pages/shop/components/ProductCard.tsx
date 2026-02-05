@@ -6,7 +6,6 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { Product } from "../types";
 import { ShoppingCart, Eye, Heart } from "lucide-react";
-import StarRating from "../../../components/StarRating";
 
 interface ProductCardProps {
   product: Product;
@@ -61,80 +60,75 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div 
-      className="border rounded-lg p-3 md:p-4 w-full relative transition-all duration-200 hover:shadow-lg flex flex-col h-full bg-white border-gray-200 hover:border-gray-300 cursor-pointer"
+      className="bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100 cursor-pointer group"
       onClick={handleCardClick}
     >
-        {/* Heart Icon */}
-        <button
-          onClick={handleWishlistToggle}
-          className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-100 transition-colors"
-        >
-          <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'}`} />
-        </button>
-
         {/* Product Image */}
-        <div className="relative aspect-square mb-3 overflow-hidden rounded-lg bg-gray-100">
+        <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
           <Image
             src={product.mainImage}
             alt={product.name}
             fill
-            className="object-cover"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           {hasDiscount && (
-            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+            <div className="absolute top-4 right-4 bg-rose-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg">
               -{discountPercentage}%
             </div>
           )}
+          {/* Heart Icon */}
+          <button
+            onClick={handleWishlistToggle}
+            className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all"
+          >
+            <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'}`} />
+          </button>
         </div>
 
         {/* Product Info */}
-        <div className="flex-1 flex flex-col min-h-0">
-          <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1.5 line-clamp-2">
+        <div className="p-5">
+          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
             {product.name}
           </h3>
-          <p className="text-xs text-gray-500 mb-2">{product.category}</p>
-
-          {/* Rating */}
-          <div className="flex items-center gap-2 mb-2">
-            <StarRating rating={Math.round(product.averageRating)} readonly size="sm" />
-            <span className="text-sm text-gray-700">{product.averageRating.toFixed(1)}</span>
-            <span className="text-xs text-gray-500">({product.totalReviews})</span>
-          </div>
-
-          {/* Price */}
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-lg md:text-xl font-bold text-gray-900">{product.finalPrice} EGP</span>
-            {hasDiscount && (
-              <span className="text-sm text-gray-500 line-through">
-                {product.basePrice} EGP
+          <div className="flex items-center gap-1 mb-3">
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className={`text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : 'text-gray-200'}`}>
+                ★
               </span>
-            )}
+            ))}
+            <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
           </div>
-
-          {/* Action Buttons */}
-          <div className="mt-auto flex gap-2">
-            <button
-              onClick={handleAddToCart}
-              disabled={product.stock === 0 || product.availability === 'out_of_stock'}
-              className={`flex-1 cursor-pointer py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 ${
-                product.stock === 0 || product.availability === 'out_of_stock'
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-[#B39E7A] text-white hover:bg-[#A08B6F]"
-              }`}
-            >
-              <ShoppingCart className="w-4 h-4" />
-              {product.stock === 0 || product.availability === 'out_of_stock' ? "Out of Stock" : "Add to Cart"}
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/pages/product/${product._id}`);
-              }}
-              className="py-2 cursor-pointer px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center bg-gray-200 text-gray-700 hover:bg-gray-300"
-            >
-              <Eye className="w-4 h-4" />
-            </button>
+          <div className="flex items-center justify-between">
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
+              <span className="text-sm text-gray-400">EGP</span>
+              {hasDiscount && (
+                <span className="text-sm text-gray-400 line-through">{product.basePrice}</span>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <button 
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  router.push(`/pages/product/${product._id}`); 
+                }} 
+                className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+              >
+                <Eye className="w-5 h-5 text-white" />
+              </button>
+              <button 
+                onClick={handleAddToCart}
+                disabled={product.stock === 0 || product.availability === 'out_of_stock'}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm ${
+                  product.stock === 0 || product.availability === 'out_of_stock'
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-[#B39E7A] text-white hover:bg-[#A08D6A]"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
     </div>

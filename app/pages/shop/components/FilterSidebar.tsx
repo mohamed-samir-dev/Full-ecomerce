@@ -54,10 +54,10 @@ const FilterSection = ({
   filters,
   handleArrayFilterChange
 }: FilterSectionProps) => (
-  <div className="mb-6 sm:mb-8">
+  <div className="mb-8">
     <button
       onClick={() => setIsOpen(!isOpen)}
-      className="w-full flex items-center text-xs sm:text-sm font-medium mb-2 sm:mb-3 transition-colors justify-between text-gray-900 hover:text-gray-700"
+      className="w-full flex items-center font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider justify-between hover:text-gray-900 transition-colors"
     >
       <span>{title}</span>
       <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ const FilterSection = ({
           </span>
         )}
         <svg
-          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform ${
+          className={`w-4 h-4 transform transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
           fill="none"
@@ -79,16 +79,16 @@ const FilterSection = ({
       </div>
     </button>
     {isOpen && (
-      <div className="space-y-1.5 sm:space-y-2 max-h-40 sm:max-h-48 overflow-y-auto">
+      <div className="space-y-2 max-h-48 overflow-y-auto">
         {items.map((item) => (
-          <label key={item} className="flex items-center cursor-pointer justify-start">
+          <label key={item} className="flex items-center cursor-pointer">
             <input
               type="checkbox"
               checked={(filters[filterKey] as string[]).includes(item)}
               onChange={() => handleArrayFilterChange(filterKey, item)}
-              className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
+              className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
             />
-            <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700">
+            <span className="ml-3 text-gray-700 capitalize">
               {renderItem ? renderItem(item) : item}
             </span>
           </label>
@@ -178,15 +178,15 @@ export default function FilterSidebar({
       <div
         className={`${
           showMobileFilters ? "block" : "hidden"
-        } lg:block rounded-lg p-4 sm:p-6 shadow-sm border bg-white border-gray-200`}
+        } lg:block bg-white border border-gray-200 rounded-2xl p-6 shadow-sm`}
       >
         {/* Filter Header */}
-        <div className="flex items-center mb-4 sm:mb-6 justify-between">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900">Filter By</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-light text-gray-900">Filters</h2>
           {hasActiveFilters() && (
             <button
               onClick={clearAllFilters}
-              className="text-xs sm:text-sm text-[#B39E7A] cursor-pointer font-medium transition-colors hover:text-[#A08B6F]"
+              className="text-sm text-[#B39E7A] hover:text-[#A08D6A] transition-colors"
             >
               Clear All
             </button>
@@ -216,33 +216,27 @@ export default function FilterSidebar({
         />
 
         {/* Price Range Filter */}
-        <div className="mb-6 sm:mb-8">
-          <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900">
-            Price Range
+        <div className="mb-8">
+          <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">
+            Price
           </h3>
-          <div className="px-1 sm:px-2 ">
-            <input
-              type="range"
-              min={filterOptions.priceRange.minPrice}
-              max={filterOptions.priceRange.maxPrice}
-              value={filters.priceRange[1]}
-              onChange={(e) => handleFilterChange("priceRange", [filters.priceRange[0], parseInt(e.target.value)])}
-              className="slider w-full cursor-pointer h-1.5 sm:h-2"
-            />
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1.5 sm:gap-2 mt-2">
-              <span className="text-xs sm:text-sm text-[#B39E7A] border rounded-lg px-2 py-1 whitespace-nowrap bg-[#F6F6F6]">
-                Min: {filters.priceRange[0]} EGP
-              </span>
-              <span className="text-xs sm:text-sm text-[#B39E7A] border rounded-lg px-2 py-1 whitespace-nowrap bg-[#F6F6F6]">
-                Max: {filters.priceRange[1]} EGP
-              </span>
-            </div>
+          <input
+            type="range"
+            min={filterOptions.priceRange.minPrice}
+            max={filterOptions.priceRange.maxPrice}
+            value={filters.priceRange[1]}
+            onChange={(e) => handleFilterChange("priceRange", [filters.priceRange[0], parseInt(e.target.value)])}
+            className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer"
+          />
+          <div className="flex justify-between text-sm font-medium text-gray-700 mt-3">
+            <span className="bg-amber-50 px-3 py-1 rounded-full">{filters.priceRange[0]} EGP</span>
+            <span className="bg-amber-50 px-3 py-1 rounded-full">{filters.priceRange[1]} EGP</span>
           </div>
         </div>
 
         {/* Rating Filter */}
-        <div className="mb-6 sm:mb-8">
-          <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-left text-gray-900 flex items-center justify-between">
+        <div className="mb-8">
+          <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider flex items-center justify-between">
             <span>Rating</span>
             {filters.rating.length > 0 && (
               <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
@@ -250,16 +244,16 @@ export default function FilterSidebar({
               </span>
             )}
           </h3>
-          <div className="space-y-1.5 sm:space-y-2">
+          <div className="space-y-2">
             {[5, 4, 3, 2, 1].map((rating) => (
-              <label key={rating} className="flex items-center cursor-pointer justify-start">
+              <label key={rating} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={filters.rating.includes(rating.toString())}
                   onChange={() => handleArrayFilterChange("rating", rating.toString())}
-                  className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
+                  className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
                 />
-                <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700 flex items-center">
+                <span className="ml-3 text-gray-700 flex items-center">
                   {rating}
                   <svg className="w-3 h-3 ml-1 text-yellow-400 fill-current" viewBox="0 0 20 20">
                     <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -336,15 +330,15 @@ export default function FilterSidebar({
         )}
 
         {/* Exclusive Products Filter */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-8">
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
               checked={filters.exclusiveOnly}
               onChange={(e) => handleFilterChange("exclusiveOnly", e.target.checked)}
-              className="w-3 h-3 sm:w-4 sm:h-4 accent-[#C1B092]"
+              className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
             />
-            <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-700 font-medium">
+            <span className="ml-3 text-gray-700 font-medium">
               Exclusive Products Only
             </span>
           </label>

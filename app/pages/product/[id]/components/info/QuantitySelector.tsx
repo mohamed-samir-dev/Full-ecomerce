@@ -5,23 +5,23 @@ import {QuantitySelectorProps}from '../../types/types'
 export default function QuantitySelector({ quantity, maxStock, onQuantityChange }: QuantitySelectorProps) {
   return (
     <div>
-      <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-black">Quantity</h3>
-      <div className="inline-flex items-center rounded-lg p-1 bg-gray-50">
+      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">Quantity</h3>
+      <div className="inline-flex items-center rounded-full border-2 border-gray-200 bg-white">
         <button
           onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
-          className="w-8 h-8 sm:w-10 sm:h-10 rounded-md flex items-center justify-center text-black hover:bg-white transition-colors"
+          className="w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-50 transition-colors"
         >
-          <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
+          <Minus className="w-4 h-4" />
         </button>
-        <div className="w-10 sm:w-12 md:w-16 h-8 sm:h-10 flex items-center justify-center text-sm sm:text-base text-black font-semibold">
+        <div className="w-16 h-12 flex items-center justify-center text-base text-gray-900 font-medium">
           {quantity}
         </div>
         <button
           onClick={() => onQuantityChange(Math.min(maxStock, quantity + 1))}
           disabled={quantity >= maxStock}
-          className="w-8 h-8 sm:w-10 sm:h-10 rounded-md flex items-center justify-center text-black hover:bg-white disabled:opacity-50 transition-colors"
+          className="w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
         >
-          <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+          <Plus className="w-4 h-4" />
         </button>
       </div>
     </div>

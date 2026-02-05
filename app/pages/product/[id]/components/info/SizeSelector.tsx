@@ -5,14 +5,16 @@ export default function SizeSelector({ sizes, selectedSize, onSizeChange }: Size
 
   return (
     <div>
-      <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-gray-900">Size</h3>
-      <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
+      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">Select Size</h3>
+      <div className="flex flex-wrap gap-2 max-h-[5rem] overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
         {sizes.map((size) => (
           <button
             key={size}
             onClick={() => onSizeChange(size)}
-            className={`px-3 py-1.5 sm:px-4 sm:py-2 border rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-              selectedSize === size ? 'border-gray-900 bg-gray-900 text-white' : 'border-gray-300 text-gray-700 hover:border-gray-400'
+            className={`px-5 py-2.5 border-2 rounded-full text-sm font-medium transition-all ${
+              selectedSize === size 
+                ? 'border-[#B39E7A] bg-[#B39E7A] text-white shadow-md' 
+                : 'border-gray-200 text-gray-700 hover:border-[#B39E7A] hover:bg-amber-50'
             }`}
           >
             {size}

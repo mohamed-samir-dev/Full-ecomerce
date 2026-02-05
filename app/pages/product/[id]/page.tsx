@@ -37,21 +37,29 @@ export default function ProductDetailsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="relative">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#B39E7A] absolute inset-0"></div>
+        </div>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Product not found</h1>
-          <p className="text-gray-600 mb-8">The product you&rsquo;re looking for doesn&rsquo;t exist or has been removed.</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-light text-gray-900 mb-3">Product not found</h1>
+          <p className="text-gray-500 mb-8 leading-relaxed">The product you're looking for doesn't exist or has been removed.</p>
           <button 
             onClick={() => window.history.back()}
-            className="px-6 py-3 bg-[#B39E7A] text-white rounded-lg font-medium hover:bg-[#A08B6F]"
+            className="px-8 py-3 bg-[#B39E7A] text-white rounded-full font-medium hover:bg-[#A08D6A] transition-all shadow-md hover:shadow-lg"
           >
             Go Back
           </button>
@@ -61,14 +69,29 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Breadcrumb */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <a href="/" className="hover:text-[#B39E7A] transition-colors">Home</a>
+            <span className="text-gray-300">•</span>
+            <a href="/pages/shop" className="hover:text-[#B39E7A] transition-colors">Shop</a>
+            <span className="text-gray-300">•</span>
+            <span className="text-gray-900 font-medium">{product.name}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Main Product Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
           <ProductImages product={product} />
           <ProductInfo product={product} />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        {/* Details and Reviews Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <ProductDetailsTabs product={product} />
           </div>

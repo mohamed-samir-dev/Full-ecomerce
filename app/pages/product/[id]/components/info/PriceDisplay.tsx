@@ -3,19 +3,15 @@ import {PriceDisplayProps}from '../../types/types'
 
 export default function PriceDisplay({ finalPrice, basePrice, hasDiscount, discountPercentage }: PriceDisplayProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-      <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-        {finalPrice} EGP
+    <div className="flex flex-wrap items-baseline gap-3">
+      <span className="text-4xl font-light text-[#B39E7A]">
+        {finalPrice}
       </span>
+      <span className="text-xl text-gray-400">EGP</span>
       {hasDiscount && (
-        <>
-          <span className="text-base sm:text-lg lg:text-xl line-through text-gray-500">
-            {basePrice} EGP
-          </span>
-          <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs sm:text-sm font-semibold">
-            {discountPercentage}% OFF
-          </span>
-        </>
+        <span className="text-xl line-through text-gray-400">
+          {basePrice} EGP
+        </span>
       )}
     </div>
   );

@@ -18,14 +18,16 @@ export default function ProductImages({ product }: ProductImagesProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-2 sm:gap-3">
-        <MainImage
-          currentImage={currentImage}
-          productName={product.name}
-          isMainLoaded={isMainLoaded}
-          onLoad={() => setIsMainLoaded(true)}
-          onZoomClick={() => setIsModalOpen(true)}
-        />
+      <div className="flex flex-col gap-4">
+        <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+          <MainImage
+            currentImage={currentImage}
+            productName={product.name}
+            isMainLoaded={isMainLoaded}
+            onLoad={() => setIsMainLoaded(true)}
+            onZoomClick={() => setIsModalOpen(true)}
+          />
+        </div>
         <ThumbnailGallery
           images={images}
           activeIndex={activeImageIndex}

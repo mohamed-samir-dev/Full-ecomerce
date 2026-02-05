@@ -33,40 +33,44 @@ export default function ShopPageContent() {
   } = useFilters();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <PageHeader />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
-          <FilterSidebar
-            filters={filters}
-            showMobileFilters={showMobileFilters}
-            showCategoryDropdown={showCategoryDropdown}
-            showBrandDropdown={showBrandDropdown}
-            showSizeDropdown={showSizeDropdown}
-            showColorDropdown={showColorDropdown}
-            showAvailabilityDropdown={showAvailabilityDropdown}
-            showMaterialDropdown={showMaterialDropdown}
-            showShopDropdown={showShopDropdown}
-            setShowMobileFilters={setShowMobileFilters}
-            setShowCategoryDropdown={setShowCategoryDropdown}
-            setShowBrandDropdown={setShowBrandDropdown}
-            setShowSizeDropdown={setShowSizeDropdown}
-            setShowColorDropdown={setShowColorDropdown}
-            setShowAvailabilityDropdown={setShowAvailabilityDropdown}
-            setShowMaterialDropdown={setShowMaterialDropdown}
-            setShowShopDropdown={setShowShopDropdown}
-            handleFilterChange={handleFilterChange}
-            handleArrayFilterChange={handleArrayFilterChange}
-            clearAllFilters={clearAllFilters}
-            hasActiveFilters={hasActiveFilters}
-          />
-          <div className="flex-1 min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+          <aside className="w-full lg:w-80 lg:shrink-0">
+            <div className="lg:sticky lg:top-4">
+              <FilterSidebar
+                filters={filters}
+                showMobileFilters={showMobileFilters}
+                showCategoryDropdown={showCategoryDropdown}
+                showBrandDropdown={showBrandDropdown}
+                showSizeDropdown={showSizeDropdown}
+                showColorDropdown={showColorDropdown}
+                showAvailabilityDropdown={showAvailabilityDropdown}
+                showMaterialDropdown={showMaterialDropdown}
+                showShopDropdown={showShopDropdown}
+                setShowMobileFilters={setShowMobileFilters}
+                setShowCategoryDropdown={setShowCategoryDropdown}
+                setShowBrandDropdown={setShowBrandDropdown}
+                setShowSizeDropdown={setShowSizeDropdown}
+                setShowColorDropdown={setShowColorDropdown}
+                setShowAvailabilityDropdown={setShowAvailabilityDropdown}
+                setShowMaterialDropdown={setShowMaterialDropdown}
+                setShowShopDropdown={setShowShopDropdown}
+                handleFilterChange={handleFilterChange}
+                handleArrayFilterChange={handleArrayFilterChange}
+                clearAllFilters={clearAllFilters}
+                hasActiveFilters={hasActiveFilters}
+              />
+            </div>
+          </aside>
+          <main className="flex-1">
             <ProductsSection 
               filters={filters} 
               handleFilterChange={handleFilterChange}
             />
-          </div>
+          </main>
         </div>
       </div>
     </div>

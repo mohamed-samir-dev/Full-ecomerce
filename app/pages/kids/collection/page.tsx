@@ -1,16 +1,16 @@
 import CollectionPage from "@/app/components/CollectionPage";
 
-export default function MenCollectionPage() {
+export default function KidCollectionPage() {
   return (
     <CollectionPage
       category="kid"
-      title="kid's Collection"
-      subtitle="Discover our complete range of sophisticated pieces"
+      title="Kids' Collection"
+      subtitle="Playful styles and essentials made for everyday adventures"
       subtitleColor="#EB1369"
       bannerImage="/images/kid-collection.avif"
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: "Men", href: "/pages/men" },
+        { label: "Kids", href: "/pages/kids" },
         { label: "Collection", href: "" }
       ]}
     />

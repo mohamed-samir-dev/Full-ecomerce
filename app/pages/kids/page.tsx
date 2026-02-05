@@ -10,14 +10,14 @@ const categories = [
   { name: 'Apparel', image: '/images/kid-apparel.avif', slug: 'apparel' },
   { name: 'Shoes', image: '/images/shoes-kid.avif', slug: 'shoes' },
   { name: 'Bags', image: '/images/kid-bag.avif', slug: 'bags' },
-  { name: 'Toys & Games', image: '/images/kid-toys.avif', slug: 'Toys & Games' }
+  { name: 'Toys & Games', image: '/images/kid-toys.avif', slug: 'toys' }
 ];
 
 export default function KidsPage() {
   const { products, loading } = useCategoryProducts('Kids');
   const { addToCart } = useCart();
 
-  const apparelProducts = products.filter(p => p.subCategory?.toLowerCase() === 'apparel');
+  const apparelProducts = products.filter(p => p.subCategory?.toLowerCase() === 'apparel' && p.toplay === true);
   const toysProducts = products.filter(p => p.subCategory?.toLowerCase().includes('toy'));
 
   return (

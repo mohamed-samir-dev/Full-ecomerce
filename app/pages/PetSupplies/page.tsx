@@ -1,10 +1,25 @@
+"use client";
+
+import { useCart } from '@/hooks/useCart';
 import HeroBanner from '@/app/components/HeroBanner';
+import ProductSlider from '@/app/components/ProductSlider';
+import BrowseCategories from '@/app/components/BrowseCategories';
+import { useCategoryProducts } from '@/app/hooks/category/useCategoryProducts';
 import Image from 'next/image';
 
 export default function PetSuppliesPage() {
+  const { products, trendingProducts, loading } = useCategoryProducts('pet');
+  const { addToCart } = useCart();
+  const categories = [
+    { image: '/images/Toy.avif', title: 'Toys', link: '/pages/PetSupplies/toys', size: 'large' as const },
+    { image: '/images/Care.avif', title: ' Grooming & Care', link: '/pages/PetSupplies/care', size: 'small' as const },
+    { image: '/images/Beds.avif', title: 'Beds & Furniture', link: '/pages/PetSupplies/beds', size: 'small' as const },
+    { image: '/images/Food & Treats.avif', title: 'Food & Treats', link: '/pages/PetSupplies/food', size: 'large' as const },
+  ];
+  
   return (
     <div className="bg-white min-h-screen py-3 sm:py-5">
-      <HeroBanner image="/images/pet-page.webp" title="For your most loyal companion" description="Luxury products carefully selected to pamper your pet" buttonText="Shop now" buttonLink="/pages/women/collection" buttonColor="#839A7E" buttonHoverColor="#61755C" />
+      <HeroBanner image="/images/pet-page.webp" title="For your most loyal companion" description="Luxury products carefully selected to pamper your pet" buttonText="Shop now" buttonLink="/pages/PetSupplies/collection" buttonColor="#839A7E" buttonHoverColor="#61755C" />
       
       <div className="w-full py-12 sm:py-16 bg-[#F7F3ED] ">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
@@ -34,5 +49,8 @@ export default function PetSuppliesPage() {
           </div>
         </div>
       </div>
+      <BrowseCategories categories={categories} buttonBgColor="#839A7E" buttonTextColor="#FFFFFF" buttonHoverColor="#61755C" />
+      <ProductSlider title="New for Your Pet" products={products} loading={loading} onAddToCart={addToCart} accentColor="#839A7E" />
+      <ProductSlider title="Trending for Pets" products={trendingProducts} loading={loading} onAddToCart={addToCart} accentColor="#839A7E" />
     </div>
   );}

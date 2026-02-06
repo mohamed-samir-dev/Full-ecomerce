@@ -293,6 +293,7 @@ const translations = {
     'filter.piece': 'piece',
     'filter.noMatch': 'No pieces match your selection',
     'product.egp': 'EGP',
+    'common.discoverMore': 'Discover More',
   },
   ar: {
     'home.hero.newSeasonArrivals': 'وصول الموسم الجديد',
@@ -583,6 +584,7 @@ const translations = {
     'filter.piece': 'قطعة',
     'filter.noMatch': 'لا توجد قطع تطابق اختيارك',
     'product.egp': 'جنيه',
+    'common.discoverMore': 'اكتشف المزيد',
   },
 };
 

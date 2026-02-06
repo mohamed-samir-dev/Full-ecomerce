@@ -18,7 +18,7 @@ export default function MenSubCategoryPage() {
     'shoes': {
       title: t('men.subcategory.shoes.title'),
       description: t('men.subcategory.shoes.description'),
-      subCategory: "shoes"
+      subCategory: "Shoes"
     },
     'bags': {
       title: t('men.subcategory.bags.title'),

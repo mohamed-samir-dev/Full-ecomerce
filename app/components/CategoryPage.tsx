@@ -59,7 +59,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/products`);
+        const res = await axios.get(`${API_URL}/api/products?limit=1000`);
         if (res.data.success) {
           let filtered = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&

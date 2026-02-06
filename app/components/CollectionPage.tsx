@@ -67,7 +67,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/products`);
+        const res = await axios.get(`${API_URL}/api/products?limit=1000`);
         if (res.data.success) {
           const categoryProducts = res.data.data.filter((p: Product) =>
             subCategory 

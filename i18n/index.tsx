@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, useContext, ReactNode} from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const translations = {
@@ -262,7 +262,6 @@ const translations = {
     'accessories.category.watches': 'Watches',
     'accessories.category.sunglasses': 'Sunglasses',
     'accessories.category.jewelry': 'Jewelry',
-    'common.discoverMore': 'Discover More',
     'kids.subcategory.apparel.description': 'Comfortable and stylish apparel designed for everyday adventures',
     'kids.subcategory.shoes.title': "Kids' Shoes Collection",
     'kids.subcategory.shoes.description': 'Comfortable and durable shoes made for active little feet',
@@ -286,7 +285,6 @@ const translations = {
     'accessories.subcategory.sunglasses.description': 'Stylish sunglasses designed for a confident and refined look',
     'accessories.subcategory.watches.title': 'Watches Collection',
     'accessories.subcategory.watches.description': 'Precision-crafted watches designed for timeless style and confidence',
-    'common.discoverMore': 'Discover More',
     'filter.refine': 'Refine',
     'filter.size': 'Size',
     'filter.color': 'Color',
@@ -554,7 +552,6 @@ const translations = {
     'accessories.category.watches': 'ساعات',
     'accessories.category.sunglasses': 'نظارات شمسية',
     'accessories.category.jewelry': 'مجوهرات',
-    'common.discoverMore': 'اكتشف المزيد',
     'kids.subcategory.apparel.description': 'ملابس مريحة وعصرية مصممة للمغامرات اليومية',
     'kids.subcategory.shoes.title': 'مجموعة أحذية الأطفال',
     'kids.subcategory.shoes.description': 'أحذية مريحة ومتينة مصنوعة للأقدام الصغيرة النشطة',
@@ -578,7 +575,6 @@ const translations = {
     'accessories.subcategory.sunglasses.description': 'نظارات شمسية عصرية مصممة لمظهر واثق وراقي',
     'accessories.subcategory.watches.title': 'مجموعة الساعات',
     'accessories.subcategory.watches.description': 'ساعات مصنوعة بدقة مصممة لأناقة خالدة وثقة',
-    'common.discoverMore': 'اكتشف المزيد',
     'filter.refine': 'تصفية',
     'filter.size': 'المقاس',
     'filter.color': 'اللون',

@@ -30,7 +30,7 @@ export default function ProductCard({ product, onAddToCart, accentColor }: Produ
       onClick={handleCardClick}
     >
       <div className="relative h-48 sm:h-56 lg:h-64">
-        <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill className="object-cover" />
+        <Image src={product.mainImage || '/placeholder.png'} alt={isArabic ? (product.nameAr || product.name) : product.name} fill className="object-cover" />
       </div>
       <div className="p-3 sm:p-4">
         <h3 className="font-semibold text-sm sm:text-base text-gray-900 mb-2 truncate">{isArabic ? product.nameAr : product.name}</h3>

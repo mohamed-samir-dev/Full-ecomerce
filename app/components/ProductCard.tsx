@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ShoppingCart } from 'lucide-react';
 import { Product } from '@/app/types/category';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 
 interface ProductCardProps {
   product: Product;
@@ -11,6 +12,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAddToCart, accentColor }: ProductCardProps) {
   const router = useRouter();
+  const { isArabic } = useTranslation();
   const hoverColor = accentColor === '#C11069' ? '#6D093B' : accentColor === '#1E3A8A' ? '#1E40AF' : '#262425';
 
   const handleCardClick = () => {
@@ -28,14 +30,14 @@ export default function ProductCard({ product, onAddToCart, accentColor }: Produ
       onClick={handleCardClick}
     >
       <div className="relative h-48 sm:h-56 lg:h-64">
-        <Image src={product.mainImage} alt={product.name} fill className="object-cover" />
+        <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill className="object-cover" />
       </div>
       <div className="p-3 sm:p-4">
-        <h3 className="font-semibold text-sm sm:text-base text-gray-900 mb-2 truncate">{product.name}</h3>
+        <h3 className="font-semibold text-sm sm:text-base text-gray-900 mb-2 truncate">{isArabic ? product.nameAr : product.name}</h3>
         <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-          <span className="text-base sm:text-lg font-bold" style={{ color: accentColor }}>{product.finalPrice} EGP</span>
+          <span className="text-base sm:text-lg font-bold" style={{ color: accentColor }}>{product.finalPrice} {isArabic ? 'جنيه' : 'EGP'}</span>
           {product.basePrice > product.finalPrice && (
-            <span className="text-xs sm:text-sm text-gray-500 line-through">{product.basePrice} EGP</span>
+            <span className="text-xs sm:text-sm text-gray-500 line-through">{product.basePrice} {isArabic ? 'جنيه' : 'EGP'}</span>
           )}
         </div>
         <button
@@ -51,7 +53,7 @@ export default function ProductCard({ product, onAddToCart, accentColor }: Produ
           onMouseLeave={(e) => product.stock > 0 && product.availability !== 'out_of_stock' && (e.currentTarget.style.backgroundColor = accentColor)}
         >
           <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          {product.stock === 0 || product.availability === 'out_of_stock' ? "Out of Stock" : "Add to Cart"}
+          {product.stock === 0 || product.availability === 'out_of_stock' ? (isArabic ? "غير متوفر" : "Out of Stock") : (isArabic ? "أضف للسلة" : "Add to Cart")}
         </button>
       </div>
     </div>

@@ -6,12 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
+import { useTranslation } from '@/i18n';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 interface Product {
   _id: string;
   name: string;
+  nameAr: string;
   slug: string;
   mainImage: string;
   finalPrice: number;
@@ -52,6 +54,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
   const isInitialized = useRef(false);
   const router = useRouter();
   const { addToCart } = useCart();
+  const { t, isArabic } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,15 +108,32 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
-            <Link href="/" className="hover:text-[#B39E7A] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'الرئيسية' : 'Home'}</Link>
             {category && (
               <>
                 <span className="text-gray-300">•</span>
-                <Link href={`/pages/${category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">{category}</Link>
+
+                <Link href={`/pages/${category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">
+                  {isArabic ? (
+                    category.toLowerCase() === 'women' ? 'نساء' :
+                    category.toLowerCase() === 'men' ? 'رجال' :
+                    category.toLowerCase() === 'kids' ? 'أطفال' :
+                    category.toLowerCase() === 'pet' ? 'حيوانات أليفة' :
+                    category.toLowerCase() === 'shoes' ? 'أحذية' :
+                    category.toLowerCase() === 'accessories' ? 'إكسسوارات' :
+                    category
+                  ) : category}
+                </Link>
               </>
             )}
             <span className="text-gray-300">•</span>
-            <span className="text-gray-900 font-medium">{subCategory}</span>
+            <span className="text-gray-900 font-medium">
+              {isArabic ? (
+                category ? t(`${category.toLowerCase()}.category.${subCategory.toLowerCase()}`) : 
+                secondtype ? t(`accessories.category.${secondtype.toLowerCase()}`) :
+                subCategory
+              ) : (secondtype || subCategory)}
+            </span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-2 sm:mb-3 tracking-tight">{title}</h1>
           <p className="text-gray-600 text-base sm:text-lg font-light max-w-2xl">{description}</p>
@@ -124,14 +144,14 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
           <aside className="w-full lg:w-72 lg:shrink-0">
             <div className="lg:sticky lg:top-4 bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-sm">
               <button onClick={() => setShowFilters(!showFilters)} className="lg:hidden w-full flex items-center justify-between mb-6 pb-3 text-black border-b border-gray-100">
-                <h2 className="text-lg sm:text-xl font-light text-gray-900">Refine</h2>
+                <h2 className="text-lg sm:text-xl font-light text-gray-900">{t('filter.refine')}</h2>
                 <svg className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <h2 className="hidden lg:block text-lg sm:text-xl font-light text-gray-900 mb-6 sm:mb-8 pb-3 border-b border-gray-100">Refine</h2>
+              <h2 className="hidden lg:block text-lg sm:text-xl font-light text-gray-900 mb-6 sm:mb-8 pb-3 border-b border-gray-100">{t('filter.refine')}</h2>
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
                 {filterOptions.sizes?.length > 0 && (
                   <div className="mb-6 sm:mb-8">
-                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Size</h3>
+                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.size')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {filterOptions.sizes.map(size => (
                         <button key={size} onClick={() => toggleFilter(size, selectedSizes, setSelectedSizes)} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${selectedSizes.includes(size) ? 'bg-[#B39E7A] text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-amber-50 border border-gray-200'}`}>{size}</button>
@@ -141,7 +161,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
                 )}
                 {filterOptions.colors?.length > 0 && (
                   <div className="mb-6 sm:mb-8">
-                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Color</h3>
+                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.color')}</h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
                       {filterOptions.colors.map((color) => (
                         <button key={color.name} onClick={() => toggleFilter(color.name, selectedColors, setSelectedColors)} className={`group relative w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-all ${selectedColors.includes(color.name) ? 'ring-2 ring-[#B39E7A] ring-offset-2 scale-110' : 'hover:scale-105'}`} title={color.name}>
@@ -152,11 +172,11 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
                   </div>
                 )}
                 <div>
-                  <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">Price</h3>
+                  <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.price')}</h3>
                   <input type="range" min={filterOptions.priceRange.min} max={filterOptions.priceRange.max} value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])} className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer" />
                   <div className="flex justify-between text-xs sm:text-sm font-medium text-gray-700 mt-3">
-                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[0]} EGP</span>
-                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[1]} EGP</span>
+                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[0]} {t('product.egp')}</span>
+                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[1]} {t('product.egp')}</span>
                   </div>
                 </div>
               </div>
@@ -164,20 +184,20 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
           </aside>
           <main className="flex-1">
             <div className="mb-4 sm:mb-6 flex items-center justify-between">
-              <p className="text-sm text-gray-500 font-light"><span className="text-xl sm:text-2xl font-light text-gray-900">{products.length}</span> {products.length === 1 ? 'piece' : 'pieces'}</p>
+              <p className="text-sm text-gray-500 font-light"><span className="text-xl sm:text-2xl font-light text-gray-900">{products.length}</span> {products.length === 1 ? t('filter.piece') : t('filter.pieces')}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {products.map(product => (
                 <Link key={product._id} href={`/pages/product/${product._id}`} className="group">
                   <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
                     <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
-                      <Image src={product.mainImage} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                       {product.basePrice > product.finalPrice && (
                         <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-rose-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-medium shadow-lg">-{Math.round((1 - product.finalPrice / product.basePrice) * 100)}%</div>
                       )}
                     </div>
                     <div className="p-4 sm:p-5">
-                      <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">{product.name}</h3>
+                      <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">{isArabic ? product.nameAr : product.name}</h3>
                       <div className="flex items-center gap-1 mb-3">
                         {[...Array(5)].map((_, i) => (
                           <span key={i} className={`text-xs sm:text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : 'text-gray-200'}`}>★</span>
@@ -187,7 +207,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
                       <div className="flex items-center justify-between">
                         <div className="flex items-baseline gap-1.5 sm:gap-2">
                           <span className="text-xl sm:text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
-                          <span className="text-xs sm:text-sm text-gray-400">EGP</span>
+                          <span className="text-xs sm:text-sm text-gray-400">{t('product.egp')}</span>
                           {product.basePrice > product.finalPrice && (
                             <span className="text-xs sm:text-sm text-gray-400 line-through">{product.basePrice}</span>
                           )}
@@ -209,7 +229,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
             {products.length === 0 && (
               <div className="text-center py-16 sm:py-24">
                 <div className="text-5xl sm:text-6xl mb-4 opacity-20">✨</div>
-                <p className="text-gray-400 font-light text-base sm:text-lg">No pieces match your selection</p>
+                <p className="text-gray-400 font-light text-base sm:text-lg">{t('filter.noMatch')}</p>
               </div>
             )}
           </main>

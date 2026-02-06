@@ -1,6 +1,7 @@
 "use client";
 
 import { useFilters } from "../hooks/useFilters";
+import { useTranslation } from '@/i18n';
 import {
   PageHeader,
   FilterSidebar,
@@ -8,6 +9,7 @@ import {
 } from "./index";
 
 export default function ShopPageContent() {
+  const { isArabic } = useTranslation();
   const {
     filters,
     showMobileFilters,
@@ -37,7 +39,9 @@ export default function ShopPageContent() {
       <PageHeader />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+        <div className={`flex flex-col gap-6 lg:gap-10 ${
+          isArabic ? 'lg:flex-row-reverse' : 'lg:flex-row'
+        }`}>
           <aside className="w-full lg:w-80 lg:shrink-0">
             <div className="lg:sticky lg:top-4">
               <FilterSidebar

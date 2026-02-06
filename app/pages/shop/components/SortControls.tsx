@@ -1,7 +1,7 @@
 "use client";
 
 import { Filters, FilterChangeHandler } from "../types";
-import SearchBar from "./SearchBar";
+import { useTranslation } from '@/i18n';
 
 interface SortControlsProps {
   filters: Filters;
@@ -10,18 +10,20 @@ interface SortControlsProps {
 }
 
 export default function SortControls({ filters, handleFilterChange, totalProducts }: SortControlsProps) {
+  const { t, isArabic } = useTranslation();
+  
   const sortOptions = [
-    { value: "featured", label: "Featured" },
-    { value: "newest", label: "Newest" },
-    { value: "price_asc", label: "Price: Low to High" },
-    { value: "price_desc", label: "Price: High to Low" },
-    { value: "rating", label: "Highest Rated" },
+    { value: "featured", label: isArabic ? 'مميز' : 'Featured' },
+    { value: "newest", label: isArabic ? 'الأحدث' : 'Newest' },
+    { value: "price_asc", label: isArabic ? 'السعر: من الأقل للأعلى' : 'Price: Low to High' },
+    { value: "price_desc", label: isArabic ? 'السعر: من الأعلى للأقل' : 'Price: High to Low' },
+    { value: "rating", label: isArabic ? 'الأعلى تقييماً' : 'Highest Rated' },
   ];
 
   return (
-    <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4" dir={isArabic ? 'rtl' : 'ltr'}>
       <p className="text-sm text-gray-500">
-        <span className="text-2xl font-light text-gray-900">{totalProducts || 0}</span> {(totalProducts || 0) === 1 ? 'piece' : 'pieces'}
+        <span className="text-2xl font-light text-gray-900">{totalProducts || 0}</span> {isArabic ? 'قطعة' : ((totalProducts || 0) === 1 ? 'piece' : 'pieces')}
       </p>
       <select
         value={filters.sortBy}

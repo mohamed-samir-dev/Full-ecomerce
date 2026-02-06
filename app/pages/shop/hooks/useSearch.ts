@@ -23,9 +23,11 @@ export function useSearch() {
 
       try {
         setLoading(true);
+        console.log('Searching for:', query);
         const response = await axios.get(`${API_URL}/api/products/search`, {
           params: { q: query, limit: 8 }
         });
+        console.log('Search response:', response.data);
 
         if (response.data.success) {
           setSearchResults(response.data.data);

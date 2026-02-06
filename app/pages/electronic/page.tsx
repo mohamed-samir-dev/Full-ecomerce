@@ -6,21 +6,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProductSlider from '@/app/components/ProductSlider';
 import { useCategoryProducts } from '@/app/hooks/category/useCategoryProducts';
+import { useTranslation } from '@/i18n';
 
 export default function MenPage() {
   const { products, loading } = useCategoryProducts('electronic');
   const { addToCart } = useCart();
+  const { t } = useTranslation();
 
   const categories = [
-    { title: 'Audio', image: '/images/headphones.avif', slug: 'audio' },
-    { title: 'Smart Home', image: '/images/smart-home.avif', slug: 'smart-home' },
-    { title: 'Personal Tech', image: '/images/personal-tech.avif', slug: 'personal-tech' },
-    { title: 'Photography', image: '/images/camera.avif', slug: 'photography' },
+    { title: t('electronic.category.audio'), image: '/images/headphones.avif', slug: 'audio' },
+    { title: t('electronic.category.smartHome'), image: '/images/smart-home.avif', slug: 'smart-home' },
+    { title: t('electronic.category.personalTech'), image: '/images/personal-tech.avif', slug: 'personal-tech' },
+    { title: t('electronic.category.photography'), image: '/images/camera.avif', slug: 'photography' },
   ];
 
   return (
     <div className="bg-white min-h-screen py-3 sm:py-5">
-      <HeroBanner image="/images/electronic-page.webp" title="The future of audio and video" description="Experience cutting-edge audio and video technology that redefines how you see and hear." buttonText="Shop The Collection" buttonLink="/pages/men/collection" buttonColor="#1E3A8A" buttonHoverColor="#1E40AF" />
+      <HeroBanner 
+        image="/images/electronic-page.webp" 
+        title={t('electronic.hero.title')} 
+        description={t('electronic.hero.description')} 
+        buttonText={t('electronic.hero.button')} 
+        buttonLink="/pages/men/collection" 
+        buttonColor="#1E3A8A" 
+        buttonHoverColor="#1E40AF" 
+      />
       
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -46,7 +56,7 @@ export default function MenPage() {
             </Link>
           ))}
         </div>
-      <ProductSlider title="Products of the month" products={products} loading={loading} onAddToCart={addToCart} accentColor="#1E3A8A" />
+      <ProductSlider title={t('electronic.products.title')} products={products} loading={loading} onAddToCart={addToCart} accentColor="#1E3A8A" />
 
       </section>
     </div>

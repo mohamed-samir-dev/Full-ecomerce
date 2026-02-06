@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useTranslation } from '@/i18n';
 import { Product } from "../types";
 import { ShoppingCart, Eye, Heart } from "lucide-react";
 
@@ -15,6 +16,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { isArabic } = useTranslation();
   const isWishlisted = isInWishlist(product._id);
   const hasDiscount = product.discount && product.discount.value > 0;
   const discountPercentage = hasDiscount && product.discount?.type === 'percentage'
@@ -67,20 +69,24 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
           <Image
             src={product.mainImage}
-            alt={product.name}
+            alt={isArabic ? product.nameAr : product.name}
             fill
             className="object-cover group-hover:scale-110 transition-transform duration-700"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           {hasDiscount && (
-            <div className="absolute top-4 right-4 bg-rose-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg">
+            <div className={`absolute top-4 bg-rose-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg ${
+              isArabic ? 'left-4' : 'right-4'
+            }`}>
               -{discountPercentage}%
             </div>
           )}
           {/* Heart Icon */}
           <button
             onClick={handleWishlistToggle}
-            className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all"
+            className={`absolute top-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all ${
+              isArabic ? 'right-4' : 'left-4'
+            }`}
           >
             <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'}`} />
           </button>
@@ -89,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="p-5">
           <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
-            {product.name}
+            {isArabic ? product.nameAr : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
             {[...Array(5)].map((_, i) => (
@@ -102,7 +108,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
-              <span className="text-sm text-gray-400">EGP</span>
+              <span className="text-sm text-gray-400">{isArabic ? 'جنيه' : 'EGP'}</span>
               {hasDiscount && (
                 <span className="text-sm text-gray-400 line-through">{product.basePrice}</span>
               )}

@@ -1,4 +1,8 @@
+import { useTranslation } from '@/i18n';
+
 export default function ContactHero() {
+  const { t } = useTranslation();
+  
   return (
     <div className="relative py-16 sm:py-24 lg:py-32 overflow-hidden bg-linear-to-br from-white via-gray-50 to-white">
       <div className="absolute inset-0 opacity-10">
@@ -7,13 +11,13 @@ export default function ContactHero() {
       </div>
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <div className="inline-block mb-3 sm:mb-4 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-[#B39E7A]/10 border border-[#B39E7A]/20">
-          <span className="text-[#B39E7A] text-sm sm:text-base font-semibold">Get In Touch</span>
+          <span className="text-[#B39E7A] text-sm sm:text-base font-semibold">{t('contact.hero.badge')}</span>
         </div>
         <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 text-gray-900">
-          Contact <span className="text-[#B39E7A]">Us</span>
+          {t('contact.hero.title')} <span className="text-[#B39E7A]">{t('contact.hero.highlight')}</span>
         </h1>
         <p className="text-base sm:text-lg lg:text-xl max-w-2xl mx-auto text-gray-600">
-          Have questions? We&rsquo;d love to hear from you. Send us a message and we&rsquo;ll respond as soon as possible.
+          {t('contact.hero.subtitle')}
         </p>
       </div>
     </div>

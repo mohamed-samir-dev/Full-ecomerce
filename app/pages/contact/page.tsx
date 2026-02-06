@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/i18n';
 import { contactService } from '@/services/contactService';
 import ContactHero from './components/ContactHero';
 import ContactCards from './components/ContactCards';
@@ -9,6 +10,7 @@ import ContactSidebar from './components/ContactSidebar';
 import SuccessModal from './components/SuccessModal';
 
 export default function Contact() {
+  const { isArabic } = useTranslation();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,7 +32,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" dir={isArabic ? 'rtl' : 'ltr'}>
       <ContactHero />
       <ContactCards />
       

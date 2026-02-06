@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Eye, Heart, ShoppingCart } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import { useTranslation } from '@/i18n';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ import {FeaturedProductCardProps} from '../../types/home.types'
 
 export default function FeaturedProductCard({ product }: FeaturedProductCardProps) {
   const { isDarkMode } = useTheme();
+  const { isArabic } = useTranslation();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const router = useRouter();
@@ -56,7 +58,9 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
       }`}
       onClick={handleCardClick}
     >
-      <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-10 flex gap-1 sm:gap-2">
+      <div className={`absolute top-1.5 z-10 flex gap-1 sm:gap-2 ${
+        isArabic ? 'left-1.5 sm:left-2' : 'right-1.5 sm:right-2'
+      }`}>
         <button onClick={(e) => {
           e.stopPropagation();
           window.location.href = `/pages/product/${product._id}`;
@@ -75,7 +79,7 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
       <div className="relative aspect-square bg-gray-100">
         <Image
           src={product.mainImage}
-          alt={product.name}
+          alt={isArabic ? product.nameAr : product.name}
           fill
           className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
@@ -83,23 +87,23 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
       </div>
 
       <div className="p-2 sm:p-3 md:p-4">
-        <h3 className={`text-xs sm:text-sm font-medium mb-1 sm:mb-2 line-clamp-2 ${
+        <h2 className={`text-md sm:text-md font-medium mb-1 sm:mb-2 line-clamp-2 ${
           isDarkMode ? 'text-white' : 'text-gray-900'
         }`}>
-          {product.name}
-        </h3>
+          {isArabic ? product.nameAr : product.name}
+        </h2>
         <p className={`text-sm sm:text-base md:text-lg font-bold mb-2 sm:mb-3 ${
           isDarkMode ? 'text-white' : 'text-gray-900'
         }`}>
-          {product.finalPrice} EGP
+          {product.finalPrice} {isArabic ? 'جنيه' : 'EGP'}
         </p>
         <button 
           onClick={handleAddToCart}
           className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span className="hidden xs:inline">Add to Cart</span>
-          <span className="xs:hidden">Add</span>
+          <span className="hidden xs:inline">{isArabic ? 'أضف للسلة' : 'Add to Cart'}</span>
+          <span className="xs:hidden">{isArabic ? 'أضف' : 'Add'}</span>
         </button>
       </div>
     </div>

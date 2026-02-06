@@ -2,38 +2,41 @@
 
 import { useParams } from 'next/navigation';
 import CategoryPage from "@/app/components/CategoryPage";
-
-const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string } } = {
-  'apparel': {
-    title: "Women's Apparel Collection",
-    description: "Timeless styles designed for confidence, comfort, and elegance",
-    subCategory: "apparel"
-  },
-  'shoes': {
-    title: "Women's Shoes Collection",
-    description: "Elegant footwear designed for comfort, confidence, and style",
-    subCategory: "shoes"
-  },
-  'bags': {
-    title: "Women's Bags Collection",
-    description: "Stylish and functional bags designed for everyday elegance",
-    subCategory: "bags"
-  },
-  'accessories': {
-    title: "Women's Accessories Collection",
-    description: "Elegant accessories designed to elevate the modern woman's style",
-    subCategory: "accessories"
-  },
-  'beauty': {
-    title: "Women's Beauty Collection",
-    description: "Premium beauty essentials designed to enhance natural elegance",
-    subCategory: "beauty"
-  }
-};
+import { useTranslation } from '@/i18n';
 
 export default function WomenSubCategoryPage() {
   const params = useParams();
+  const { t } = useTranslation();
   const subcategory = params.subcategory as string;
+
+  const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string } } = {
+    'apparel': {
+      title: t('women.subcategory.apparel.title'),
+      description: t('women.subcategory.apparel.description'),
+      subCategory: "apparel"
+    },
+    'shoes': {
+      title: t('women.subcategory.shoes.title'),
+      description: t('women.subcategory.shoes.description'),
+      subCategory: "shoes"
+    },
+    'bags': {
+      title: t('women.subcategory.bags.title'),
+      description: t('women.subcategory.bags.description'),
+      subCategory: "bags"
+    },
+    'accessories': {
+      title: t('women.subcategory.accessories.title'),
+      description: t('women.subcategory.accessories.description'),
+      subCategory: "accessories"
+    },
+    'beauty': {
+      title: t('women.subcategory.beauty.title'),
+      description: t('women.subcategory.beauty.description'),
+      subCategory: "beauty"
+    }
+  };
+
   const data = subCategoryData[subcategory];
 
   if (!data) {

@@ -17,7 +17,9 @@ export interface Product {
   sku: string;
   availability: 'in_stock' | 'out_of_stock' | 'pre_order';
   category: string;
+  categoryAr?: string;
   brand: string;
+  brandAr?: string;
   averageRating: number;
   totalReviews: number;
   sizes?: string[];

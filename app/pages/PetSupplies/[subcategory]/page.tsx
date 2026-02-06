@@ -2,33 +2,36 @@
 
 import { useParams } from 'next/navigation';
 import CategoryPage from "@/app/components/CategoryPage";
-
-const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string } } = {
-  'beds': {
-    title: "Pet Beds Collection",
-    description: "Comfortable and cozy beds designed for restful sleep",
-    subCategory: "beds"
-  },
-  'care': {
-    title: "Pet Care Essentials",
-    description: "Essential care products designed to keep pets healthy and comfortable",
-    subCategory: "care"
-  },
-  'food': {
-    title: "Pet Food Collection",
-    description: "Nutritious food and treats crafted for healthy and happy pets",
-    subCategory: "food"
-  },
-  'toys': {
-    title: "Pet Toys Collection",
-    description: "Fun and engaging toys designed to keep pets active and happy",
-    subCategory: "toys"
-  }
-};
+import { useTranslation } from '@/i18n';
 
 export default function PetSuppliesSubCategoryPage() {
   const params = useParams();
+  const { t } = useTranslation();
   const subcategory = params.subcategory as string;
+
+  const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string } } = {
+    'beds': {
+      title: t('pet.subcategory.beds.title'),
+      description: t('pet.subcategory.beds.description'),
+      subCategory: "beds"
+    },
+    'care': {
+      title: t('pet.subcategory.care.title'),
+      description: t('pet.subcategory.care.description'),
+      subCategory: "care"
+    },
+    'food': {
+      title: t('pet.subcategory.food.title'),
+      description: t('pet.subcategory.food.description'),
+      subCategory: "food"
+    },
+    'toys': {
+      title: t('pet.subcategory.toys.title'),
+      description: t('pet.subcategory.toys.description'),
+      subCategory: "toys"
+    }
+  };
+
   const data = subCategoryData[subcategory];
 
   if (!data) {

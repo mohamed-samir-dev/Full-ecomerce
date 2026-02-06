@@ -99,7 +99,7 @@ export const SearchBar = ({
         <div className={`absolute top-full ${isArabic ? 'right-0' : 'left-0'} ${isMobile ? 'left-0 right-0' : 'left-0 right-0'} mt-1 ${isDarkMode ? 'bg-[#26292E] border-gray-600' : 'bg-white border-gray-200'} border rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto`}>
           <div className="p-2">
             <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mb-2 px-2`}>
-              {searchResults.length} suggestion{searchResults.length !== 1 ? 's' : ''}
+              {searchResults.length} {isArabic ? 'اقتراح' : 'suggestion'}{searchResults.length !== 1 && !isArabic ? 's' : ''}
             </div>
             {searchResults.map((product) => (
               <Link
@@ -108,10 +108,12 @@ export const SearchBar = ({
                 onClick={handleSuggestionClick}
                 className={`flex items-center p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} rounded-md transition-colors`}
               >
-                <div className="relative w-12 h-12 mr-3 shrink-0">
+                <div className={`relative w-12 h-12 shrink-0 ${
+                  isArabic ? 'ml-3' : 'mr-3'
+                }`}>
                   <Image
                     src={product.mainImage}
-                    alt={product.name}
+                    alt={isArabic ? product.nameAr : product.name}
                     fill
                     className="object-cover rounded"
                     sizes="48px"
@@ -119,13 +121,13 @@ export const SearchBar = ({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'} truncate`}>
-                    {product.name}
+                    {isArabic ? product.nameAr : product.name}
                   </div>
                   <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} truncate`}>
-                    {product.category} • {product.brand}
+                    {isArabic ? (product.categoryAr || product.category) : product.category} • {isArabic ? (product.brandAr || product.brand) : product.brand}
                   </div>
                   <div className="text-sm font-semibold text-[#B39E7A]">
-                    {product.finalPrice} EGP
+                    {product.finalPrice} {isArabic ? 'جنيه' : 'EGP'}
                   </div>
                 </div>
               </Link>
@@ -140,8 +142,8 @@ export const SearchBar = ({
             <svg className={`w-8 h-8 mx-auto mb-2 ${isDarkMode ? 'text-gray-600' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>No products found for &quot;{searchQuery}&quot;</div>
-            <div className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'} mt-1`}>Try different keywords or check spelling</div>
+            <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>{isArabic ? `لا توجد منتجات لـ "${searchQuery}"` : `No products found for "${searchQuery}"`}</div>
+            <div className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'} mt-1`}>{isArabic ? 'جرب كلمات مختلفة أو تحقق من الإملاء' : 'Try different keywords or check spelling'}</div>
           </div>
         </div>
       )}

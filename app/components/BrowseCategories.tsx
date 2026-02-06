@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { useTranslation } from '@/i18n';
 
 interface Category {
   image: string;
@@ -18,6 +19,7 @@ interface BrowseCategoriesProps {
 
 export default function BrowseCategories({ categories, buttonBgColor = "#FFFFFF", buttonTextColor = "#000000", buttonHoverColor = "#F3F4F6" }: BrowseCategoriesProps) {
   const [large1, small1, small2, large2] = categories;
+  const { t } = useTranslation();
 
   const buttonStyle = {
     '--button-bg': buttonBgColor,
@@ -34,7 +36,7 @@ export default function BrowseCategories({ categories, buttonBgColor = "#FFFFFF"
             <div className="absolute bottom-4 right-4 flex flex-col items-end gap-2">
               <p className="text-white text-2xl font-bold">{large1.title}</p>
               <Link href={large1.link}>
-                <button className="px-6 py-2 rounded-lg font-semibold transition hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>Discover More</button>
+                <button className="px-6 py-2 rounded-lg font-semibold transition hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>{t('common.discoverMore')}</button>
               </Link>
             </div>
           </div>
@@ -43,7 +45,7 @@ export default function BrowseCategories({ categories, buttonBgColor = "#FFFFFF"
             <div className="absolute bottom-4 right-4 flex flex-col items-end gap-2">
               <p className="text-white text-xl font-bold">{small1.title}</p>
               <Link href={small1.link}>
-                <button className="px-4 py-1.5 rounded-lg font-semibold transition text-sm hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>Discover More</button>
+                <button className="px-4 py-1.5 rounded-lg font-semibold transition text-sm hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>{t('common.discoverMore')}</button>
               </Link>
             </div>
           </div>
@@ -52,7 +54,7 @@ export default function BrowseCategories({ categories, buttonBgColor = "#FFFFFF"
             <div className="absolute bottom-4 right-4 flex flex-col items-end gap-2">
               <p className="text-white text-xl font-bold">{small2.title}</p>
               <Link href={small2.link}>
-                <button className="cursor-pointer px-4 py-1.5 rounded-lg font-semibold transition text-sm hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>Discover More</button>
+                <button className="cursor-pointer px-4 py-1.5 rounded-lg font-semibold transition text-sm hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>{t('common.discoverMore')}</button>
               </Link>
             </div>
           </div>
@@ -62,7 +64,7 @@ export default function BrowseCategories({ categories, buttonBgColor = "#FFFFFF"
           <div className="absolute bottom-4 right-4 flex flex-col items-end gap-2">
             <p className="text-white text-3xl font-bold">{large2.title}</p>
             <Link href={large2.link}>
-              <button className="cursor-pointer px-6 py-2 rounded-lg font-semibold transition hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>Discover More</button>
+              <button className="cursor-pointer px-6 py-2 rounded-lg font-semibold transition hover:opacity-90" style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}>{t('common.discoverMore')}</button>
             </Link>
           </div>
         </div>

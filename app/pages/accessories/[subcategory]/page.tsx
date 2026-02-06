@@ -2,33 +2,36 @@
 
 import { useParams } from 'next/navigation';
 import CategoryPage from "@/app/components/CategoryPage";
-
-const subCategoryData: { [key: string]: { title: string; description: string; secondtype: string } } = {
-  'jewelry': {
-    title: " Jewelry Collection",
-    description: "Sophisticated jewelry pieces crafted for a bold and refined look",
-    secondtype: "Jewelry"
-  },
-  'silk': {
-    title: "Silk & Scarves Collection",
-    description: "Elegant silk pieces and scarves designed to add a refined finishing touch",
-    secondtype: "Silk"
-  },
-  'sunglasses': {
-    title: " Sunglasses Collection",
-    description: "Stylish sunglasses designed for a confident and refined look",
-    secondtype: "Sunglasses"
-  },
-  'watches': {
-    title: " Watches Collection",
-    description: "Precision-crafted watches designed for timeless style and confidence",
-    secondtype: "Watches"
-  }
-};
+import { useTranslation } from '@/i18n';
 
 export default function AccessoriesSubCategoryPage() {
   const params = useParams();
+  const { t } = useTranslation();
   const subcategory = params.subcategory as string;
+
+  const subCategoryData: { [key: string]: { title: string; description: string; secondtype: string } } = {
+    'jewelry': {
+      title: t('accessories.subcategory.jewelry.title'),
+      description: t('accessories.subcategory.jewelry.description'),
+      secondtype: "Jewelry"
+    },
+    'silk': {
+      title: t('accessories.subcategory.silk.title'),
+      description: t('accessories.subcategory.silk.description'),
+      secondtype: "Silk"
+    },
+    'sunglasses': {
+      title: t('accessories.subcategory.sunglasses.title'),
+      description: t('accessories.subcategory.sunglasses.description'),
+      secondtype: "Sunglasses"
+    },
+    'watches': {
+      title: t('accessories.subcategory.watches.title'),
+      description: t('accessories.subcategory.watches.description'),
+      secondtype: "Watches"
+    }
+  };
+
   const data = subCategoryData[subcategory];
 
   if (!data) {

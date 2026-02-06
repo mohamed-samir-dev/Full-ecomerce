@@ -1,8 +1,12 @@
+import { useTranslation } from '@/i18n';
+
 interface SuccessModalProps {
   onClose: () => void;
 }
 
 export default function SuccessModal({ onClose }: SuccessModalProps) {
+  const { t } = useTranslation();
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div className="relative max-w-md w-full p-8 rounded-3xl bg-white shadow-2xl transform transition-all">
@@ -13,16 +17,16 @@ export default function SuccessModal({ onClose }: SuccessModalProps) {
             </svg>
           </div>
           <h3 className="text-2xl font-bold mb-3 text-gray-900">
-            Message Sent!
+            {t('contact.modal.title')}
           </h3>
           <p className="mb-6 text-gray-600">
-            Thank you for contacting us. We&lsquo;ll get back to you soon.
+            {t('contact.modal.subtitle')}
           </p>
           <button
             onClick={onClose}
             className="w-full bg-linear-to-r from-[#B39E7A] to-[#9d8a68] hover:from-[#9d8a68] hover:to-[#8a7759] text-white font-semibold py-3 rounded-xl transition-all duration-300"
           >
-            Close
+            {t('contact.modal.close')}
           </button>
         </div>
       </div>

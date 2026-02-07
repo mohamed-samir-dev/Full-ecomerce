@@ -4,12 +4,14 @@ import { RootState, AppDispatch } from '@/store';
 import { addToCart, removeFromCart, updateQuantity, clearCart, syncCart, setAuthenticated, addToCartAsync, updateCartAsync, removeFromCartAsync, clearCartAsync, fetchCart, Product } from '@/store/slices/cartSlice';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { migrateLocalCartToDatabase } from '@/services/cartMigration';
 
 export const useCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, total, itemCount, loading } = useSelector((state: RootState) => state.cart);
   const { user } = useAuth();
+  const { isArabic } = useLanguage();
   const isAuthenticated = !!user;
   const hasMigrated = useRef(false);
 
@@ -31,7 +33,7 @@ export const useCart = () => {
   const addItem = async (product: Product) => {
     const existingItem = items.find(item => item.product._id === product._id);
     if (existingItem && existingItem.quantity >= product.stock) {
-      toast.error('Maximum stock reached', { position: 'top-right' });
+      toast.error(isArabic ? 'تم الوصول للحد الأقصى من المخزون' : 'Maximum stock reached', { position: 'top-right' });
       return;
     }
     try {
@@ -40,9 +42,9 @@ export const useCart = () => {
       } else {
         dispatch(addToCart(product));
       }
-      toast.success(`${product.name} added to cart`, { position: 'top-right' });
+      toast.success(isArabic ? `تمت إضافة ${product.name} إلى السلة` : `${product.name} added to cart`, { position: 'top-right' });
     } catch (error: any) {
-      toast.error(error.message || 'Failed to add to cart', { position: 'top-right' });
+      toast.error(error.message || (isArabic ? 'فشل في الإضافة إلى السلة' : 'Failed to add to cart'), { position: 'top-right' });
     }
   };
 
@@ -53,9 +55,9 @@ export const useCart = () => {
       } else {
         dispatch(removeFromCart(productId));
       }
-      toast.success('Removed from cart', { position: 'top-right' });
+      toast.success(isArabic ? 'تم الحذف من السلة' : 'Removed from cart', { position: 'top-right' });
     } catch (error: any) {
-      toast.error(error.message || 'Failed to remove from cart', { position: 'top-right' });
+      toast.error(error.message || (isArabic ? 'فشل في الحذف من السلة' : 'Failed to remove from cart'), { position: 'top-right' });
     }
   };
 
@@ -68,7 +70,7 @@ export const useCart = () => {
         dispatch(updateQuantity({ productId, quantity }));
       }
     } catch (error: any) {
-      toast.error(error.message || 'Failed to update quantity', { position: 'top-right' });
+      toast.error(error.message || (isArabic ? 'فشل في تحديث الكمية' : 'Failed to update quantity'), { position: 'top-right' });
     }
   };
 
@@ -79,9 +81,9 @@ export const useCart = () => {
       } else {
         dispatch(clearCart());
       }
-      toast.success('Cart cleared', { position: 'top-right' });
+      toast.success(isArabic ? 'تم تفريغ السلة' : 'Cart cleared', { position: 'top-right' });
     } catch (error: any) {
-      toast.error(error.message || 'Failed to clear cart', { position: 'top-right' });
+      toast.error(error.message || (isArabic ? 'فشل في تفريغ السلة' : 'Failed to clear cart'), { position: 'top-right' });
     }
   };
 

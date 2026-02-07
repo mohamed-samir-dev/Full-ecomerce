@@ -6,12 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
+import { useTranslation } from '@/i18n';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 interface Product {
   _id: string;
   name: string;
+  nameAr: string;
   slug: string;
   mainImage: string;
   finalPrice: number;
@@ -63,6 +65,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   const isInitialized = useRef(false);
   const router = useRouter();
   const { addToCart } = useCart();
+  const { isArabic } = useTranslation();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -227,12 +230,12 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
           <aside className="w-full lg:w-80 lg:shrink-0">
             <div className="lg:sticky lg:top-4 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-light text-gray-900">Filters</h2>
+                <h2 className="text-xl font-light text-gray-900">{isArabic ? "الفلاتر" : "Filters"}</h2>
                 <button 
                   onClick={clearAllFilters}
                   className="text-sm text-[#B39E7A] hover:text-[#A08D6A] transition-colors"
                 >
-                  Clear All
+                  {isArabic ? "مسح الكل" : "Clear All"}
                 </button>
               </div>
 
@@ -240,7 +243,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                 onClick={() => setShowFilters(!showFilters)} 
                 className="lg:hidden w-full flex items-center text-black justify-between mb-6 pb-3 border-b border-gray-100"
               >
-                <span className="font-medium">Show Filters</span>
+                <span className="font-medium">{isArabic ? "إظهار الفلاتر" : "Show Filters"}</span>
                 <svg className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -249,7 +252,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block space-y-8`}>
                 {filterOptions.subCategories.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">Category</h3>
+                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "الفئة" : "Category"}</h3>
                     <div className="space-y-2">
                       {filterOptions.subCategories.map(subCategory => (
                         <label key={subCategory} className="flex items-center cursor-pointer">
@@ -268,7 +271,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
                 {filterOptions.sizes.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">Size</h3>
+                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "المقاس" : "Size"}</h3>
                     <div className="flex flex-wrap gap-2">
                       {filterOptions.sizes.map(size => (
                         <button
@@ -289,7 +292,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
                 {filterOptions.colors.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">Color</h3>
+                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "اللون" : "Color"}</h3>
                     <div className="flex flex-wrap gap-3">
                       {filterOptions.colors.map((color) => (
                         <button
@@ -313,7 +316,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                 )}
 
                 <div>
-                  <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">Price</h3>
+                  <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "السعر" : "Price"}</h3>
                   <input
                     type="range"
                     min={filterOptions.priceRange.min}
@@ -323,8 +326,8 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                     className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer"
                   />
                   <div className="flex justify-between text-sm font-medium text-gray-700 mt-3">
-                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[0]} EGP</span>
-                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[1]} EGP</span>
+                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[0]} {isArabic ? "ج.م" : "EGP"}</span>
+                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[1]} {isArabic ? "ج.م" : "EGP"}</span>
                   </div>
                 </div>
               </div>
@@ -334,18 +337,18 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
           <main className="flex-1">
             <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <p className="text-sm text-gray-500">
-                <span className="text-2xl font-light text-gray-900">{filteredProducts.length}</span> {filteredProducts.length === 1 ? 'piece' : 'pieces'}
+                <span className="text-2xl font-light text-gray-900">{filteredProducts.length}</span> {isArabic ? (filteredProducts.length === 1 ? 'قطعة' : 'قطع') : (filteredProducts.length === 1 ? 'piece' : 'pieces')}
               </p>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="px-4 py-2 text-black border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#B39E7A] focus:border-transparent"
               >
-                <option value="featured">Featured</option>
-                <option value="newest">Newest</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
+                <option value="featured">{isArabic ? "مميز" : "Featured"}</option>
+                <option value="newest">{isArabic ? "الأحدث" : "Newest"}</option>
+                <option value="price-low">{isArabic ? "السعر: من الأقل للأعلى" : "Price: Low to High"}</option>
+                <option value="price-high">{isArabic ? "السعر: من الأعلى للأقل" : "Price: High to Low"}</option>
+                <option value="rating">{isArabic ? "الأعلى تقييماً" : "Highest Rated"}</option>
               </select>
             </div>
 
@@ -368,7 +371,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                     </div>
                     <div className="p-5">
                       <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
-                        {product.name}
+                        {isArabic ? product.nameAr : product.name}
                       </h3>
                       <div className="flex items-center gap-1 mb-3">
                         {[...Array(5)].map((_, i) => (
@@ -381,7 +384,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                       <div className="flex items-center justify-between">
                         <div className="flex items-baseline gap-2">
                           <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
-                          <span className="text-sm text-gray-400">EGP</span>
+                          <span className="text-sm text-gray-400">{isArabic ? "ج.م" : "EGP"}</span>
                           {product.basePrice > product.finalPrice && (
                             <span className="text-sm text-gray-400 line-through">{product.basePrice}</span>
                           )}
@@ -421,12 +424,12 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
             {filteredProducts.length === 0 && (
               <div className="text-center py-24">
                 <div className="text-6xl mb-4 opacity-20">✨</div>
-                <p className="text-gray-400 font-light text-lg mb-4">No pieces match your selection</p>
+                <p className="text-gray-400 font-light text-lg mb-4">{isArabic ? "لا توجد قطع تطابق اختيارك" : "No pieces match your selection"}</p>
                 <button 
                   onClick={clearAllFilters}
                   className="text-[#B39E7A] hover:text-[#A08D6A] font-medium transition-colors"
                 >
-                  Clear all filters
+                  {isArabic ? "مسح جميع الفلاتر" : "Clear all filters"}
                 </button>
               </div>
             )}

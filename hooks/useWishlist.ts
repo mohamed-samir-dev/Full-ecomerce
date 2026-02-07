@@ -4,11 +4,13 @@ import { RootState, AppDispatch } from '@/store';
 import { addToWishlist, removeFromWishlist, clearWishlist, syncWishlist, setAuthenticated, addToWishlistAsync, removeFromWishlistAsync, clearWishlistAsync, fetchWishlist, syncWishlistWithServer, Product } from '@/store/slices/wishlistSlice';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const useWishlist = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.wishlist);
   const { user, token } = useAuth();
+  const { isArabic } = useLanguage();
   const isAuthenticated = !!user && !!token;
   const hasSynced = useRef(false);
 
@@ -33,26 +35,26 @@ export const useWishlist = () => {
   const addItem = async (product: Product) => {
     const exists = items.find(item => item._id === product._id);
     if (exists) {
-      toast.error('Already in wishlist', { position: 'top-right' });
+      toast.error(isArabic ? 'موجود بالفعل في قائمة الأمنيات' : 'Already in wishlist', { position: 'top-right' });
       return;
     }
     
     if (!isAuthenticated) {
       dispatch(addToWishlist(product));
-      toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
+      toast.success(isArabic ? `تمت إضافة ${product.name} إلى قائمة الأمنيات` : `${product.name} added to wishlist`, { position: 'top-right' });
       return;
     }
     
     try {
       await dispatch(addToWishlistAsync(product._id)).unwrap();
-      toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
+      toast.success(isArabic ? `تمت إضافة ${product.name} إلى قائمة الأمنيات` : `${product.name} added to wishlist`, { position: 'top-right' });
     } catch (error: unknown) {
       if (error === 'Authentication failed. Please login again.') {
-        toast.error('Please login to add items to wishlist', { position: 'top-right' });
+        toast.error(isArabic ? 'يرجى تسجيل الدخول لإضافة عناصر إلى قائمة الأمنيات' : 'Please login to add items to wishlist', { position: 'top-right' });
         window.location.reload();
       } else {
         dispatch(addToWishlist(product));
-        toast.success(`${product.name} added to wishlist`, { position: 'top-right' });
+        toast.success(isArabic ? `تمت إضافة ${product.name} إلى قائمة الأمنيات` : `${product.name} added to wishlist`, { position: 'top-right' });
       }
     }
   };
@@ -60,20 +62,20 @@ export const useWishlist = () => {
   const removeItem = async (productId: string) => {
     if (!isAuthenticated) {
       dispatch(removeFromWishlist(productId));
-      toast.success('Removed from wishlist', { position: 'top-right' });
+      toast.success(isArabic ? 'تم الحذف من قائمة الأمنيات' : 'Removed from wishlist', { position: 'top-right' });
       return;
     }
     
     try {
       await dispatch(removeFromWishlistAsync(productId)).unwrap();
-      toast.success('Removed from wishlist', { position: 'top-right' });
+      toast.success(isArabic ? 'تم الحذف من قائمة الأمنيات' : 'Removed from wishlist', { position: 'top-right' });
     } catch (error: unknown) {
       if (error === 'Authentication failed. Please login again.') {
-        toast.error('Please login to manage wishlist', { position: 'top-right' });
+        toast.error(isArabic ? 'يرجى تسجيل الدخول لإدارة قائمة الأمنيات' : 'Please login to manage wishlist', { position: 'top-right' });
         window.location.reload();
       } else {
         dispatch(removeFromWishlist(productId));
-        toast.success('Removed from wishlist', { position: 'top-right' });
+        toast.success(isArabic ? 'تم الحذف من قائمة الأمنيات' : 'Removed from wishlist', { position: 'top-right' });
       }
     }
   };
@@ -85,9 +87,9 @@ export const useWishlist = () => {
       } else {
         dispatch(clearWishlist());
       }
-      toast.success('Wishlist cleared', { position: 'top-right' });
+      toast.success(isArabic ? 'تم تفريغ قائمة الأمنيات' : 'Wishlist cleared', { position: 'top-right' });
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to clear wishlist';
+      const errorMessage = error instanceof Error ? error.message : (isArabic ? 'فشل في تفريغ قائمة الأمنيات' : 'Failed to clear wishlist');
       toast.error(errorMessage, { position: 'top-right' });
     }
   };

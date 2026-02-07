@@ -1,17 +1,22 @@
-import CollectionPage from "@/app/components/CollectionPage";
+"use client";
 
-export default function MenCollectionPage() {
+import CollectionPage from "@/app/components/CollectionPage";
+import { useLanguage } from "@/context/LanguageContext";
+
+export default function AccessoriesCollectionPage() {
+  const { isArabic } = useLanguage();
+
   return (
     <CollectionPage
-    subCategory="Accessories"
-      title="Accessories's Collection"
-      subtitle="Refined accessories designed to elevate your everyday style"
+      subCategory="Accessories"
+      title={isArabic ? "مجموعة الإكسسوارات" : "Accessories's Collection"}
+      subtitle={isArabic ? "إكسسوارات راقية مصممة لتعزيز أسلوبك اليومي" : "Refined accessories designed to elevate your everyday style"}
       subtitleColor="#F13B3B"
       bannerImage="/images/top-view-beautiful-rpg-still-life-items.avif"
       breadcrumbs={[
-        { label: "Home", href: "/" },
-        { label: "accessories", href: "/pages/accessories" },
-        { label: "Collection", href: "" }
+        { label: isArabic ? "الرئيسية" : "Home", href: "/" },
+        { label: isArabic ? "إكسسوارات" : "accessories", href: "/pages/accessories" },
+        { label: isArabic ? "المجموعة" : "Collection", href: "" }
       ]}
     />
   );

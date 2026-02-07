@@ -129,8 +129,31 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
             <span className="text-gray-300">•</span>
             <span className="text-gray-900 font-medium">
               {isArabic ? (
-                category ? t(`${category.toLowerCase()}.category.${subCategory.toLowerCase()}`) : 
-                secondtype ? t(`accessories.category.${secondtype.toLowerCase()}`) :
+                category === 'men' && subCategory.toLowerCase() === 'apparel' ? 'ملابس' :
+                category === 'men' && subCategory.toLowerCase() === 'shoes' ? 'أحذية' :
+                category === 'men' && subCategory.toLowerCase() === 'bags' ? 'حقائب' :
+                category === 'men' && subCategory.toLowerCase() === 'accessories' ? 'إكسسوارات' :
+                category === 'women' && subCategory.toLowerCase() === 'apparel' ? 'ملابس' :
+                category === 'women' && subCategory.toLowerCase() === 'shoes' ? 'أحذية' :
+                category === 'women' && subCategory.toLowerCase() === 'bags' ? 'حقائب' :
+                category === 'women' && subCategory.toLowerCase() === 'accessories' ? 'إكسسوارات' :
+                category === 'women' && subCategory.toLowerCase() === 'beauty' ? 'جمال' :
+                category === 'kids' && subCategory.toLowerCase() === 'toys & games' ? 'ألعاب وألعاب ترفيهية' :
+                category === 'kids' && subCategory.toLowerCase() === 'apparel' ? 'ملابس' :
+                category === 'kids' && subCategory.toLowerCase() === 'shoes' ? 'أحذية' :
+                category === 'kids' && subCategory.toLowerCase() === 'bags' ? 'حقائب' :
+                category === 'pet' && subCategory.toLowerCase() === 'beds' ? 'أسرة' :
+                category === 'pet' && subCategory.toLowerCase() === 'care' ? 'العناية' :
+                category === 'pet' && subCategory.toLowerCase() === 'food' ? 'طعام' :
+                category === 'pet' && subCategory.toLowerCase() === 'toys' ? 'ألعاب' :
+                subCategory.toLowerCase() === 'shoes' && secondtype === 'formal' ? 'أحذية رسمية' :
+                subCategory.toLowerCase() === 'shoes' && secondtype === 'summer' ? 'صنادل صيفية' :
+                subCategory.toLowerCase() === 'shoes' && secondtype === 'casual' ? 'عادي' :
+                subCategory.toLowerCase() === 'shoes' && secondtype === 'athlete' ? 'أحذية رياضية' :
+                subCategory.toLowerCase() === 'accessories' && secondtype === 'Jewelry' ? 'مجوهرات' :
+                subCategory.toLowerCase() === 'accessories' && secondtype === 'Silk' ? 'حرير وأوشحة' :
+                subCategory.toLowerCase() === 'accessories' && secondtype === 'Sunglasses' ? 'نظارات شمسية' :
+                subCategory.toLowerCase() === 'accessories' && secondtype === 'Watches' ? 'ساعات' :
                 subCategory
               ) : (secondtype || subCategory)}
             </span>

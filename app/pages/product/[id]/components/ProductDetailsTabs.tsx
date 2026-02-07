@@ -53,13 +53,13 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
             {product.shortDescription && (
               <div>
                 <h3 className="text-xl font-light text-gray-900 mb-3">{isArabic ? 'نظرة عامة' : 'Overview'}</h3>
-                <p className="text-gray-700 leading-relaxed">{isArabic ? product.shortDescriptionAr : product.shortDescription}</p>
+                <p className="text-gray-700 leading-relaxed">{product.shortDescription}</p>
               </div>
             )}
             {product.description && (
               <div>
                 <h3 className="text-xl font-light text-gray-900 mb-3">{isArabic ? 'التفاصيل' : 'Details'}</h3>
-                <p className="text-gray-600 leading-relaxed">{isArabic ? product.descriptionAr : product.description}</p>
+                <p className="text-gray-600 leading-relaxed">{product.description}</p>
               </div>
             )}
             {!product.shortDescription && !product.description && (

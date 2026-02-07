@@ -9,26 +9,30 @@ export default function ShoesSubCategoryPage() {
   const { t } = useTranslation();
   const subcategory = params.subcategory as string;
 
-  const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string } } = {
+  const subCategoryData: { [key: string]: { title: string; description: string; subCategory: string; secondtype?: string } } = {
     'formal': {
       title: t('shoes.subcategory.formal.title'),
       description: t('shoes.subcategory.formal.description'),
-      subCategory: "Formal Shoes"
+      subCategory: "Shoes",
+      secondtype: "formal"
     },
     'sandals': {
       title: t('shoes.subcategory.sandals.title'),
       description: t('shoes.subcategory.sandals.description'),
-      subCategory: "Summer sandals"
+      subCategory: "Shoes",
+      secondtype: "summer"
     },
     'casual': {
       title: t('shoes.subcategory.casual.title'),
       description: t('shoes.subcategory.casual.description'),
-      subCategory: "Casual"
+      subCategory: "Shoes",
+      secondtype: "casual"
     },
     'sports': {
       title: t('shoes.subcategory.sports.title'),
       description: t('shoes.subcategory.sports.description'),
-      subCategory: "Luxury sports shoes"
+      subCategory: "Shoes",
+      secondtype: "athlete"
     }
   };
 
@@ -40,8 +44,8 @@ export default function ShoesSubCategoryPage() {
 
   return (
     <CategoryPage
-      category="shoes"
       subCategory={data.subCategory}
+      secondtype={data.secondtype}
       title={data.title}
       description={data.description}
     />

@@ -1,11 +1,15 @@
 
 import {SizeSelectorProps}from '../../types/types'
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function SizeSelector({ sizes, selectedSize, onSizeChange }: SizeSelectorProps) {
+  const { isArabic } = useLanguage();
+  
   if (!sizes || sizes.length === 0) return null;
 
   return (
     <div>
-      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">Select Size</h3>
+      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">{isArabic ? 'اختر المقاس' : 'Select Size'}</h3>
       <div className="relative">
         <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-hide hover:scrollbar-default scroll-smooth">
           {sizes.map((size) => (

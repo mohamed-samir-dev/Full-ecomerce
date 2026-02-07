@@ -3,6 +3,7 @@ import { Product } from '../../../../shop/types';
 import { useState } from 'react';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useCart } from '@/hooks/useCart';
+import { useLanguage } from '@/context/LanguageContext';
 import PriceDisplay from './PriceDisplay';
 import StockIndicator from './StockIndicator';
 import ColorSelector from './ColorSelector';
@@ -15,6 +16,7 @@ interface ProductInfoProps {
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
+  const { isArabic } = useLanguage();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
@@ -46,15 +48,15 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <div className="space-y-2 sm:space-y-3">
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-amber-50 text-[#B39E7A] text-xs sm:text-sm font-medium rounded-full border border-amber-100">
-            {product.brand}
+            {isArabic ? product.brandAr : product.brand}
           </span>
           {hasDiscount && (
             <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-rose-50 text-rose-600 text-xs sm:text-sm font-medium rounded-full border border-rose-100">
-              -{discountPercentage}% OFF
+              {isArabic ? `خصم ${discountPercentage}%` : `-${discountPercentage}% OFF`}
             </span>
           )}
         </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 leading-tight">{product.name}</h1>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 leading-tight">{isArabic ? product.nameAr : product.name}</h1>
         
       </div>
 

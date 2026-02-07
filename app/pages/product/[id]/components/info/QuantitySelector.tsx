@@ -1,11 +1,13 @@
 import { Minus, Plus } from 'lucide-react';
 import {QuantitySelectorProps}from '../../types/types'
-
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function QuantitySelector({ quantity, maxStock, onQuantityChange }: QuantitySelectorProps) {
+  const { isArabic } = useLanguage();
+  
   return (
     <div>
-      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">Quantity</h3>
+      <h3 className="text-sm font-medium mb-3 text-gray-700 uppercase tracking-wider">{isArabic ? 'الكمية' : 'Quantity'}</h3>
       <div className="inline-flex items-center rounded-full border-2 border-gray-200 bg-white">
         <button
           onClick={() => onQuantityChange(Math.max(1, quantity - 1))}

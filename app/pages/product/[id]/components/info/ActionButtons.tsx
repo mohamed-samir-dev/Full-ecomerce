@@ -1,8 +1,10 @@
 import { Heart, ShoppingCart } from 'lucide-react';
 import {ActionButtonsProps}from '../../types/types'
-
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ActionButtons({ isOutOfStock, isWishlisted, onAddToCart, onToggleWishlist }: ActionButtonsProps) {
+  const { isArabic } = useLanguage();
+  
   return (
     <div className="flex gap-2 sm:gap-3">
       <button
@@ -11,7 +13,7 @@ export default function ActionButtons({ isOutOfStock, isWishlisted, onAddToCart,
         className="flex-1 bg-[#B39E7A] text-white py-3 px-4 sm:py-4 sm:px-6 rounded-full text-sm sm:text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#A08D6A] transition-all shadow-md hover:shadow-lg"
       >
         <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
-        {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+        {isOutOfStock ? (isArabic ? 'غير متوفر' : 'Out of Stock') : (isArabic ? 'إضافة للسلة' : 'Add to Cart')}
       </button>
       <button
         onClick={onToggleWishlist}

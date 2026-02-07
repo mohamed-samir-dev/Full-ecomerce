@@ -1,5 +1,6 @@
 import { Star } from 'lucide-react';
 import { Review } from '../../types/types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ReviewSummaryProps {
   averageRating: number;
@@ -9,6 +10,8 @@ interface ReviewSummaryProps {
 }
 
 export default function ReviewSummary({ averageRating, totalReviews, ratingCounts, reviews }: ReviewSummaryProps) {
+  const { isArabic } = useLanguage();
+  
   return (
     <div className="flex items-center gap-4 mb-6 pb-6 border-b">
       <div className="text-center">
@@ -18,7 +21,7 @@ export default function ReviewSummary({ averageRating, totalReviews, ratingCount
             <Star key={i} className={`w-4 h-4 ${i < Math.floor(averageRating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
           ))}
         </div>
-        <div className="text-xs text-gray-500">{totalReviews} reviews</div>
+        <div className="text-xs text-gray-500">{totalReviews} {isArabic ? 'مراجعة' : 'reviews'}</div>
       </div>
 
       <div className="flex-1 space-y-1">

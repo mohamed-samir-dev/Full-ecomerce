@@ -1,4 +1,5 @@
 import { Product } from '../../../../shop/types';
+import { useLanguage } from '@/context/LanguageContext';
 type Color = { name: string; hex: string };
 
 interface ColorSelectorProps {
@@ -8,12 +9,14 @@ interface ColorSelectorProps {
 }
 
 export default function ColorSelector({ colors, selectedColor, onColorChange }: ColorSelectorProps) {
+  const { isArabic } = useLanguage();
+  
   if (!colors || colors.length === 0) return null;
 
   return (
     <div>
       <h3 className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 text-gray-900">
-        Color: <span className="font-normal">{selectedColor?.name}</span>
+        {isArabic ? 'اللون: ' : 'Color: '}<span className="font-normal">{selectedColor?.name}</span>
       </h3>
       <div className="flex flex-wrap gap-2">
         {colors.map((color) => (

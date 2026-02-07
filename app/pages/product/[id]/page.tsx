@@ -7,11 +7,13 @@ import ProductImages from './components/ProductImages';
 import ProductInfo from './components/info/ProductInfo';
 import ProductDetailsTabs from './components/ProductDetailsTabs';
 import ProductReviews from './components/ProductReviews';
+import { useLanguage } from '@/context/LanguageContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function ProductDetailsPage() {
   const params = useParams();
+  const { isArabic } = useLanguage();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -55,13 +57,13 @@ export default function ProductDetailsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-3xl font-light text-gray-900 mb-3">Product not found</h1>
-          <p className="text-gray-500 mb-8 leading-relaxed">The product you're looking for doesn't exist or has been removed.</p>
+          <h1 className="text-3xl font-light text-gray-900 mb-3">{isArabic ? 'المنتج غير موجود' : 'Product not found'}</h1>
+          <p className="text-gray-500 mb-8 leading-relaxed">{isArabic ? 'المنتج الذي تبحث عنه غير موجود أو تم حذفه.' : "The product you're looking for doesn't exist or has been removed."}</p>
           <button 
             onClick={() => window.history.back()}
             className="px-8 py-3 bg-[#B39E7A] text-white rounded-full font-medium hover:bg-[#A08D6A] transition-all shadow-md hover:shadow-lg"
           >
-            Go Back
+            {isArabic ? 'رجوع' : 'Go Back'}
           </button>
         </div>
       </div>
@@ -74,11 +76,11 @@ export default function ProductDetailsPage() {
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <a href="/" className="hover:text-[#B39E7A] transition-colors">Home</a>
+            <a href="/" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'الرئيسية' : 'Home'}</a>
             <span className="text-gray-300">•</span>
-            <a href="/pages/shop" className="hover:text-[#B39E7A] transition-colors">Shop</a>
+            <a href="/pages/shop" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'المتجر' : 'Shop'}</a>
             <span className="text-gray-300">•</span>
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span className="text-gray-900 font-medium">{isArabic ? product.nameAr : product.name}</span>
           </div>
         </div>
       </div>

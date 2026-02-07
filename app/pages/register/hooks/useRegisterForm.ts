@@ -5,10 +5,12 @@ import { RegisterFormData } from '../types/register.types';
 import { validateRegisterForm } from '../utils/validation';
 import { registerUser } from '../utils/authService';
 import { migrateLocalWishlistToDatabase } from '@/services/wishlistMigration';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const useRegisterForm = () => {
   const router = useRouter();
   const { login } = useAuth();
+  const { isArabic } = useLanguage();
   const [formData, setFormData] = useState<RegisterFormData>({
     firstName: '',
     lastName: '',
@@ -33,7 +35,7 @@ export const useRegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const validationError = validateRegisterForm(formData);
+    const validationError = validateRegisterForm(formData, isArabic);
     if (validationError) {
       setError(validationError);
       return;
@@ -52,7 +54,9 @@ export const useRegisterForm = () => {
         router.push('/');
       }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'An error occurred during registration');
+      const errorMsg = err instanceof Error ? err.message : (isArabic ? 'حدث خطأ أثناء التسجيل' : 'An error occurred during registration');
+      const translatedMsg = errorMsg === 'User already exists' ? (isArabic ? 'المستخدم موجود بالفعل' : errorMsg) : errorMsg;
+      setError(translatedMsg);
     } finally {
       setLoading(false);
     }

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { LoginFormData } from "../types/login.types";
 import { loginUser, saveAuthData } from "../../login/utils/authService";
 import { migrateLocalWishlistToDatabase } from "@/services/wishlistMigration";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const useLoginForm = () => {
+  const { isArabic } = useLanguage();
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -22,7 +24,7 @@ export const useLoginForm = () => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      setError("Please provide email and password");
+      setError(isArabic ? "يرجى إدخال البريد الإلكتروني وكلمة المرور" : "Please provide email and password");
       return;
     }
 
@@ -30,7 +32,7 @@ export const useLoginForm = () => {
     setError("");
 
     try {
-      const data = await loginUser(formData);
+      const data = await loginUser(formData, isArabic);
       console.log("Login response:", data);
 
       if (data.success && data.token) {
@@ -49,12 +51,12 @@ export const useLoginForm = () => {
         }
       } else {
         console.error("Login failed:", data);
-        setError("Login failed");
+        setError(isArabic ? "فشل تسجيل الدخول" : "Login failed");
       }
     } catch (err: unknown) {
       console.error("Login error:", err);
       setError(
-        err instanceof Error ? err.message : "Invalid email or password",
+        err instanceof Error ? err.message : (isArabic ? "البريد الإلكتروني أو كلمة المرور غير صحيحة" : "Invalid email or password"),
       );
     } finally {
       setLoading(false);

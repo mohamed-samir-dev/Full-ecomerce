@@ -6,6 +6,7 @@ import {
 
 export const loginUser = async (
   formData: LoginFormData,
+  isArabic: boolean = false,
 ): Promise<LoginResponse> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/auth/login`,
@@ -25,9 +26,12 @@ export const loginUser = async (
     const contentType = response.headers.get("content-type");
     if (contentType?.includes("application/json")) {
       const data = await response.json();
-      throw new Error(data.message || "Login failed");
+      const errorMsg = data.message?.toLowerCase().includes("credential") || data.message?.toLowerCase().includes("invalid")
+        ? (isArabic ? "البريد الإلكتروني أو كلمة المرور غير صحيحة" : "Invalid email or password")
+        : data.message;
+      throw new Error(errorMsg || (isArabic ? "فشل تسجيل الدخول" : "Login failed"));
     }
-    throw new Error("Login failed");
+    throw new Error(isArabic ? "فشل تسجيل الدخول" : "Login failed");
   }
 
   const data = await response.json();

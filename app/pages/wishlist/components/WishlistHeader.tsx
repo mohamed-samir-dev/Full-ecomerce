@@ -18,7 +18,7 @@ export default function WishlistHeader({ itemCount, onBack }: WishlistHeaderProp
         </button>
         <HeartSolidIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-red-500" />
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
-          My Wishlist
+          قائمة الأمنيات
         </h1>
         <span className="px-2 sm:px-2.5 md:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-gray-200 text-gray-700">
           {itemCount}

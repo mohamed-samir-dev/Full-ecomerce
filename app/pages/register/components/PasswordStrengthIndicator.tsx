@@ -5,6 +5,7 @@ import { analyzePassword, getStrengthColor, getStrengthText } from '../utils/pas
 import StrengthHeader from './StrengthHeader';
 import StrengthBar from './StrengthBar';
 import FeedbackMessage from './FeedbackMessage';
+import { useTranslation } from '@/i18n';
 
 interface PasswordStrengthIndicatorProps {
   password: string;
@@ -12,12 +13,13 @@ interface PasswordStrengthIndicatorProps {
 }
 
 export default function PasswordStrengthIndicator({ password, className = '' }: PasswordStrengthIndicatorProps) {
+  const { t } = useTranslation();
   const analysis = useMemo(() => analyzePassword(password), [password]);
 
   if (!analysis) return null;
 
   const colors = getStrengthColor(analysis.score);
-  const strengthText = getStrengthText(analysis.score);
+  const strengthText = getStrengthText(analysis.score, t);
   const isStrong = analysis.score >= 3;
 
   return (

@@ -2,6 +2,7 @@
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import{LoginFormProps} from '../types/login.types';
+import { useTranslation } from '@/i18n';
 
 export default function LoginForm({
   formData,
@@ -13,6 +14,8 @@ export default function LoginForm({
   onRememberMeChange,
   onChange
 }: LoginFormProps) {
+  const { t, isArabic } = useTranslation();
+  
   return (
     <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
       <div>
@@ -21,7 +24,7 @@ export default function LoginForm({
           type="email"
           required
           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent"
-          placeholder="Email"
+          placeholder={t('login.email')}
           value={formData.email}
           onChange={onChange}
         />
@@ -33,13 +36,13 @@ export default function LoginForm({
           type={showPassword ? 'text' : 'password'}
           required
           className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent"
-          placeholder="Password"
+          placeholder={t('login.password')}
           value={formData.password}
           onChange={onChange}
         />
         <button
           type="button"
-          className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 p-1"
+          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 p-1`}
           onClick={onShowPasswordToggle}
         >
           {showPassword ? (
@@ -71,7 +74,7 @@ export default function LoginForm({
               )}
             </div>
           </div>
-          <span className="text-xs sm:text-sm ml-2 sm:ml-3 text-gray-600 group-hover:text-gray-800">Remember me</span>
+          <span className={`text-xs sm:text-sm ${isArabic ? 'mr-2 sm:mr-3' : 'ml-2 sm:ml-3'} text-gray-600 group-hover:text-gray-800`}>{t('login.rememberMe')}</span>
         </label>
       </div>
       
@@ -80,7 +83,7 @@ export default function LoginForm({
         disabled={loading}
         className="w-full py-2.5 sm:py-3 text-sm sm:text-base bg-[#C6A96D] cursor-pointer hover:bg-[#96753C] text-black font-medium rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? 'Logging in...' : 'Login'}
+        {loading ? t('login.loggingIn') : t('login.loginButton')}
       </button>
     </form>
   );

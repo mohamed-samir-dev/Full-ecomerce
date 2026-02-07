@@ -3,6 +3,7 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import{RegisterFormProps}from '../types/register.types';
+import { useTranslation } from '@/i18n';
 
 
 export default function RegisterForm({
@@ -15,6 +16,7 @@ export default function RegisterForm({
   onShowConfirmPasswordToggle,
   onChange
 }: RegisterFormProps) {
+  const { t, isArabic } = useTranslation();
   const inputClasses = "w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md transition-colors bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300";
 
   return (
@@ -26,7 +28,7 @@ export default function RegisterForm({
             type="text"
             required
             className={inputClasses}
-            placeholder="First Name"
+            placeholder={t('register.firstName')}
             value={formData.firstName}
             onChange={onChange}
           />
@@ -37,7 +39,7 @@ export default function RegisterForm({
             type="text"
             required
             className={inputClasses}
-            placeholder="Last Name"
+            placeholder={t('register.lastName')}
             value={formData.lastName}
             onChange={onChange}
           />
@@ -50,7 +52,7 @@ export default function RegisterForm({
           type="email"
           required
           className={inputClasses}
-          placeholder="Email"
+          placeholder={t('register.email')}
           value={formData.email}
           onChange={onChange}
         />
@@ -62,9 +64,10 @@ export default function RegisterForm({
           type="tel"
           required
           className={inputClasses}
-          placeholder="Phone"
+          placeholder={t('register.phone')}
           value={formData.phone}
           onChange={onChange}
+          dir="ltr"
         />
       </div>
       
@@ -74,7 +77,7 @@ export default function RegisterForm({
           type="date"
           required
           className={inputClasses}
-          placeholder="Date of Birth"
+          placeholder={t('register.dateOfBirth')}
           value={formData.dateOfBirth}
           onChange={onChange}
           max={new Date().toISOString().split('T')[0]}
@@ -87,14 +90,14 @@ export default function RegisterForm({
             name="password"
             type={showPassword ? 'text' : 'password'}
             required
-            className={`w-full pl-3 sm:pl-4 pr-10 sm:pr-12 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none bg-gray-50 text-gray-900 placeholder-gray-500 ${
+            className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none bg-gray-50 text-gray-900 placeholder-gray-500 ${
               formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
                 ? 'border-green-500 focus:border-green-400'
                 : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
                 ? 'border-red-500 focus:border-red-400'
                 : 'border-transparent focus:border-[#C7AB6C]'
             }`}
-            placeholder="Password"
+            placeholder={t('register.password')}
             value={formData.password}
             onChange={onChange}
             onCopy={(e) => e.preventDefault()}
@@ -106,7 +109,7 @@ export default function RegisterForm({
           />
           <button
             type="button"
-          className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 text-gray-500 hover:text-gray-700"
+            className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 text-gray-500 hover:text-gray-700`}
             onClick={onShowPasswordToggle}
           >
             {showPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
@@ -123,14 +126,14 @@ export default function RegisterForm({
           name="confirmPassword"
           type={showConfirmPassword ? 'text' : 'password'}
           required
-          className={`w-full pl-3 sm:pl-4 pr-10 sm:pr-12 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-colors bg-gray-50 text-gray-900 placeholder-gray-500 ${
+          className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-colors bg-gray-50 text-gray-900 placeholder-gray-500 ${
             formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
               ? 'border-green-500 focus:border-green-400'
               : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
               ? 'border-red-500 focus:border-red-400'
               : 'border-transparent focus:border-[#C7AB6C]'
           }`}
-          placeholder="Confirm Password"
+          placeholder={t('register.confirmPassword')}
           value={formData.confirmPassword}
           onChange={onChange}
           onCopy={(e) => e.preventDefault()}
@@ -142,14 +145,14 @@ export default function RegisterForm({
         />
         <button
           type="button"
-          className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 z-10 text-gray-500 hover:text-gray-700"
+          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 z-10 text-gray-500 hover:text-gray-700`}
           onClick={onShowConfirmPasswordToggle}
         >
           {showConfirmPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
         </button>
       </div>
       
-      <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+      <div className={`flex items-start ${isArabic ? 'space-x-reverse' : ''} space-x-2 sm:space-x-3 md:space-x-4`}>
         <input
           name="agreeToTerms"
           type="checkbox"
@@ -158,7 +161,7 @@ export default function RegisterForm({
           className="mt-0.5 sm:mt-1 w-4 h-4 sm:w-5 sm:h-5 text-[#C7AB6C] rounded focus:ring-[#C7AB6C] shrink-0 bg-gray-50 border-gray-300"
         />
         <label className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-600">
-          I agree to the <span className="text-[#C7AB6C] cursor-pointer hover:underline">Terms of Service</span> and <span className="text-[#C7AB6C] cursor-pointer hover:underline">Privacy Policy</span>
+          {t('register.agreeToTerms')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.termsOfService')}</span> {t('register.and')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.privacyPolicy')}</span>
         </label>
       </div>
       
@@ -167,7 +170,7 @@ export default function RegisterForm({
         disabled={loading || !formData.agreeToTerms}
         className="w-full py-2.5 sm:py-3 md:py-3.5 text-sm sm:text-base md:text-lg font-medium rounded-full transition-all duration-300 bg-[#C7AB6C] hover:bg-[#96753C] text-black cursor-pointer transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
       >
-        {loading ? 'Creating Account...' : 'Create Account'}
+        {loading ? t('register.creatingAccount') : t('register.createAccount')}
       </button>
     </form>
   );

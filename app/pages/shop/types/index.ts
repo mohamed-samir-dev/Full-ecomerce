@@ -4,7 +4,9 @@ export interface Product {
   nameAr: string;
   slug: string;
   shortDescription: string;
+  shortDescriptionAr?: string;
   description?: string;
+  descriptionAr?: string;
   basePrice: number;
   finalPrice: number;
   discount?: {

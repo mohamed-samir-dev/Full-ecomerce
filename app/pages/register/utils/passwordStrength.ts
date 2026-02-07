@@ -16,13 +16,13 @@ export const getStrengthColor = (score: number) => {
   }
 };
 
-export const getStrengthText = (score: number) => {
+export const getStrengthText = (score: number, t: (key: string) => string) => {
   switch (score) {
-    case 0: return 'Very Weak';
-    case 1: return 'Weak';
-    case 2: return 'Fair';
-    case 3: return 'Good';
-    case 4: return 'Strong';
+    case 0: return t('register.strength.veryWeak');
+    case 1: return t('register.strength.weak');
+    case 2: return t('register.strength.fair');
+    case 3: return t('register.strength.good');
+    case 4: return t('register.strength.strong');
     default: return '';
   }
 };

@@ -5,8 +5,10 @@ import Link from 'next/link';
 import LoginForm from './LoginForm';
 import ErrorMessage from '@/app/components/common/ErrorMessage';
 import { useLoginForm } from '../hooks/useLoginForm';
+import { useTranslation } from '@/i18n';
 
 export default function LoginContainer() {
+  const { t } = useTranslation();
   const {
     formData,
     showPassword,
@@ -37,7 +39,7 @@ export default function LoginContainer() {
             <div className="hidden lg:block w-px self-stretch bg-gray-300"></div>
             <div className="w-full lg:flex-1 lg:max-w-md">
               <h1 className="text-xl sm:text-2xl md:text-3xl font-sans text-center mb-4 sm:mb-6 md:mb-8 text-gray-900">
-              Welcome Back
+                {t('login.title')}
               </h1>
               
               <ErrorMessage message={error} />
@@ -55,7 +57,7 @@ export default function LoginContainer() {
               
               <div className="mt-4 sm:mt-5 md:mt-6 text-center">
                 <Link href="/pages/register" className="text-xs sm:text-sm cursor-pointer transition-colors text-gray-600 hover:text-blue-600">
-                  Don&rsquo;t have an account? Register
+                  {t('login.noAccount')}
                 </Link>
               </div>
             </div>

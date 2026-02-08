@@ -25,7 +25,7 @@ export default function LuxuryCategorySection() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <div key={category.id}>
               <Link href={category.link}>
                 <div className="group relative overflow-hidden rounded-2xl cursor-pointer">

@@ -137,6 +137,7 @@ export const UserMenu = ({
 
             <button
               onClick={logout}
+              aria-label={isArabic ? 'تسجيل الخروج' : 'Logout'}
               className={`flex items-center ${
                 isArabic ? "space-x-reverse space-x-3" : "space-x-3"
               } w-full px-3 py-2 text-sm rounded-lg font-medium transition-all duration-200 ${
@@ -212,6 +213,9 @@ export const UserMenu = ({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
+        aria-label={user ? (isArabic ? `قائمة المستخدم: ${user.name}` : `User menu: ${user.name}`) : (isArabic ? 'قائمة المستخدم' : 'User menu')}
+        aria-expanded={isDropdownOpen}
+        aria-haspopup="true"
         className={`flex items-center ${
           isArabic ? "space-x-reverse space-x-2" : "space-x-2"
         } ${isMobile ? 'p-1.5' : 'p-2'} rounded-lg transition-all cursor-pointer ${
@@ -316,6 +320,7 @@ export const UserMenu = ({
             >
               <button
                 onClick={logout}
+                aria-label={isArabic ? 'تسجيل الخروج' : 'Logout'}
                 className={`flex items-center cursor-pointer ${
                   isArabic ? "space-x-reverse space-x-2 sm:space-x-3" : "space-x-2 sm:space-x-3"
                 } w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 ${

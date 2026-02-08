@@ -113,7 +113,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
               <>
                 <span className="text-gray-300">•</span>
 
-                <Link href={`/pages/${category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">
+                <Link href={`/pages/${category.toLowerCase() === 'pet' ? 'PetSupplies' : category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">
                   {isArabic ? (
                     category.toLowerCase() === 'women' ? 'نساء' :
                     category.toLowerCase() === 'men' ? 'رجال' :

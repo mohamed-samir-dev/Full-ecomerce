@@ -1,61 +1,95 @@
-import Image from 'next/image';
-import { ShoppingCart } from 'lucide-react';
-import { Product } from '@/app/types/category';
-import { useRouter } from 'next/navigation';
-import { useTranslation } from '@/i18n';
+"use client";
+
+import { memo } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+interface Product {
+  _id: string;
+  name: string;
+  nameAr: string;
+  mainImage: string;
+  finalPrice: number;
+  basePrice: number;
+  averageRating: number;
+  totalReviews: number;
+}
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product) => void;
-  accentColor: string;
+  isArabic: boolean;
+  t: (key: string) => string;
+  addToCart: (product: Product) => void;
 }
 
-export default function ProductCard({ product, onAddToCart, accentColor }: ProductCardProps) {
+const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps) => {
   const router = useRouter();
-  const { isArabic } = useTranslation();
-  const hoverColor = accentColor === '#C11069' ? '#6D093B' : accentColor === '#1E3A8A' ? '#1E40AF' : '#262425';
-
-  const handleCardClick = () => {
-    router.push(`/pages/product/${product._id}`);
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onAddToCart(product);
-  };
 
   return (
-    <div 
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
-      onClick={handleCardClick}
-    >
-      <div className="relative h-48 sm:h-56 lg:h-64">
-        <Image src={product.mainImage || '/placeholder.png'} alt={isArabic ? (product.nameAr || product.name) : product.name} fill className="object-cover" />
-      </div>
-      <div className="p-3 sm:p-4">
-        <h3 className="font-semibold text-sm sm:text-base text-gray-900 mb-2 truncate">{isArabic ? product.nameAr : product.name}</h3>
-        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-          <span className="text-base sm:text-lg font-bold" style={{ color: accentColor }}>{product.finalPrice} {isArabic ? 'جنيه' : 'EGP'}</span>
+    <Link href={`/pages/product/${product._id}`} className="group">
+      <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
+        <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
+          <Image 
+            src={product.mainImage} 
+            alt={isArabic ? product.nameAr : product.name} 
+            fill 
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
           {product.basePrice > product.finalPrice && (
-            <span className="text-xs sm:text-sm text-gray-500 line-through">{product.basePrice} {isArabic ? 'جنيه' : 'EGP'}</span>
+            <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-rose-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-medium shadow-lg">
+              -{Math.round((1 - product.finalPrice / product.basePrice) * 100)}%
+            </div>
           )}
         </div>
-        <button
-          onClick={handleAddToCart}
-          disabled={product.stock === 0 || product.availability === 'out_of_stock'}
-          className={`w-full py-2 px-2 sm:px-3 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1 sm:gap-1.5 ${
-            product.stock === 0 || product.availability === 'out_of_stock'
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "text-white cursor-pointer"
-          }`}
-          style={product.stock > 0 && product.availability !== 'out_of_stock' ? { backgroundColor: accentColor } : {}}
-          onMouseEnter={(e) => product.stock > 0 && product.availability !== 'out_of_stock' && (e.currentTarget.style.backgroundColor = hoverColor)}
-          onMouseLeave={(e) => product.stock > 0 && product.availability !== 'out_of_stock' && (e.currentTarget.style.backgroundColor = accentColor)}
-        >
-          <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          {product.stock === 0 || product.availability === 'out_of_stock' ? (isArabic ? "غير متوفر" : "Out of Stock") : (isArabic ? "أضف للسلة" : "Add to Cart")}
-        </button>
+        <div className="p-4 sm:p-5">
+          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">
+            {isArabic ? product.nameAr : product.name}
+          </h3>
+          <div className="flex items-center gap-1 mb-3">
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className={`text-xs sm:text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : 'text-gray-200'}`}>★</span>
+            ))}
+            <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-baseline gap-1.5 sm:gap-2">
+              <span className="text-xl sm:text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
+              <span className="text-xs sm:text-sm text-gray-400">{t('product.egp')}</span>
+              {product.basePrice > product.finalPrice && (
+                <span className="text-xs sm:text-sm text-gray-400 line-through">{product.basePrice}</span>
+              )}
+            </div>
+            <div className="flex gap-1.5 sm:gap-2">
+              <button 
+                onClick={(e) => { e.preventDefault(); router.push(`/pages/product/${product._id}`); }} 
+                className="w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                aria-label="View product"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+              <button 
+                onClick={(e) => { e.preventDefault(); addToCart(product); }} 
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-[#B39E7A] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                aria-label="Add to cart"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
-}
+});
+
+ProductCard.displayName = 'ProductCard';
+
+export default ProductCard;

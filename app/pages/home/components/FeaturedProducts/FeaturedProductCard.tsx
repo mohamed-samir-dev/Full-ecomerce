@@ -81,6 +81,8 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
           src={product.mainImage}
           alt={isArabic ? product.nameAr : product.name}
           fill
+          loading="lazy"
+          quality={75}
           className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
         />

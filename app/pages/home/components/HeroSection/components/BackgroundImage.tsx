@@ -20,7 +20,10 @@ export const BackgroundImage = ({ slide, currentSlide, altText }: BackgroundImag
             src={slide.image}
             alt={altText}
             fill
+            quality={85}
             className="object-cover"
+            priority={currentSlide === 0}
+            loading={currentSlide === 0 ? 'eager' : 'lazy'}
           />
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>

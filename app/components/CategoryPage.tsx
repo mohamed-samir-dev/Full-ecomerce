@@ -243,7 +243,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 <Link key={product._id} href={`/pages/product/${product._id}`} className="group">
                   <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
                     <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
-                      <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" quality={75} className="object-cover group-hover:scale-110 transition-transform duration-700" />
                       {product.basePrice > product.finalPrice && (
                         <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-rose-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-medium shadow-lg">-{Math.round((1 - product.finalPrice / product.basePrice) * 100)}%</div>
                       )}

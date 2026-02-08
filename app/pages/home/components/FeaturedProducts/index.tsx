@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
 import FeaturedProductCard from './FeaturedProductCard';
@@ -32,6 +32,12 @@ export default function FeaturedProducts() {
     fetchProducts();
   }, []);
 
+  const productCards = useMemo(() => 
+    products.map((product) => (
+      <FeaturedProductCard key={product._id} product={product} />
+    )), [products]
+  );
+
   if (loading) {
     return (
       <div className={`py-16 sm:py-20 ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
@@ -51,9 +57,7 @@ export default function FeaturedProducts() {
           {t('home.featuredProducts.title')}
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-[300px]:grid-cols-1">
-          {products.map((product) => (
-            <FeaturedProductCard key={product._id} product={product} />
-          ))}
+          {productCards}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,13 +29,6 @@ interface Product {
   colors?: { name: string; hex: string }[];
 }
 
-interface FilterOptions {
-  sizes: string[];
-  colors: { name: string; hex: string }[];
-  subCategories: string[];
-  priceRange: { min: number; max: number };
-}
-
 interface CollectionPageProps {
   category?: string;
   subCategory?: string;
@@ -49,60 +42,26 @@ interface CollectionPageProps {
 
 export default function CollectionPage({ category, subCategory, title, subtitle, titleColor = "#FFFFFF", subtitleColor = "#D26563", bannerImage, breadcrumbs }: CollectionPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
   const [sortBy, setSortBy] = useState<string>("featured");
-  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
-    sizes: [],
-    colors: [],
-    subCategories: [],
-    priceRange: { min: 0, max: 10000 }
-  });
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
   const router = useRouter();
   const { addToCart } = useCart();
   const { isArabic } = useTranslation();
-  const ITEMS_PER_PAGE = 9;
+  const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/products?limit=1000`);
+        const categoryParam = subCategory ? `subCategory=${subCategory}` : `category=${category}`;
+        const res = await axios.get(`${API_URL}/api/products?${categoryParam}`);
         if (res.data.success) {
-          const categoryProducts = res.data.data.filter((p: Product) =>
-            subCategory 
-              ? p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase()
-              : p.category?.trim().toLowerCase() === category?.toLowerCase()
-          );
-          
-          setProducts(categoryProducts);
-          
-          const sizes = [...new Set(categoryProducts.flatMap((p: Product) => p.sizes || []))] as string[];
-          const colors = Array.from(
-            new Map(
-              categoryProducts
-                .flatMap((p: Product) => p.colors || [])
-                .map((c: { name: string; hex: string }) => [c.name, c])
-            ).values()
-          ) as { name: string; hex: string }[];
-          const subCategories = [...new Set(categoryProducts.map((p: Product) => p.subCategory).filter(Boolean))] as string[];
-          const prices = categoryProducts.map((p: Product) => p.finalPrice);
-          
-          setFilterOptions({
-            sizes,
-            colors,
-            subCategories,
-            priceRange: {
-              min: prices.length ? Math.min(...prices) : 0,
-              max: prices.length ? Math.max(...prices) : 10000
-            }
-          });
+          setProducts(res.data.data);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -114,9 +73,30 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
     fetchProducts();
   }, [category, subCategory]);
 
+  const filterOptions = useMemo(() => {
+    const sizes = [...new Set(products.flatMap((p: Product) => p.sizes || []))] as string[];
+    const colors = Array.from(
+      new Map(
+        products
+          .flatMap((p: Product) => p.colors || [])
+          .map((c: { name: string; hex: string }) => [c.name, c])
+      ).values()
+    ) as { name: string; hex: string }[];
+    const subCategories = [...new Set(products.map((p: Product) => p.subCategory).filter(Boolean))] as string[];
+    const prices = products.map((p: Product) => p.finalPrice);
+    
+    return {
+      sizes,
+      colors,
+      subCategories,
+      priceRange: {
+        min: prices.length ? Math.min(...prices) : 0,
+        max: prices.length ? Math.max(...prices) : 10000
+      }
+    };
+  }, [products]);
 
-
-  useEffect(() => {
+  const filteredProducts = useMemo(() => {
     let filtered = [...products];
 
     if (selectedSizes.length) {
@@ -143,30 +123,34 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
       );
     }
 
+    const sorted = [...filtered];
     switch (sortBy) {
       case "price-low":
-        filtered.sort((a, b) => a.finalPrice - b.finalPrice);
+        sorted.sort((a, b) => a.finalPrice - b.finalPrice);
         break;
       case "price-high":
-        filtered.sort((a, b) => b.finalPrice - a.finalPrice);
+        sorted.sort((a, b) => b.finalPrice - a.finalPrice);
         break;
       case "rating":
-        filtered.sort((a, b) => b.averageRating - a.averageRating);
+        sorted.sort((a, b) => b.averageRating - a.averageRating);
         break;
       case "newest":
-        filtered.sort((a, b) => b._id.localeCompare(a._id));
+        sorted.sort((a, b) => b._id.localeCompare(a._id));
         break;
     }
 
-    setFilteredProducts(filtered);
-    setCurrentPage(1);
+    return sorted;
   }, [products, selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy]);
 
-  useEffect(() => {
+  const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    setPaginatedProducts(filteredProducts.slice(startIndex, endIndex));
+    return filteredProducts.slice(startIndex, endIndex);
   }, [filteredProducts, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy]);
 
   const toggleFilter = (value: string, selected: string[], setter: (v: string[]) => void) => {
     setter(selected.includes(value) 
@@ -201,6 +185,10 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
           src={bannerImage} 
           alt={title} 
           fill 
+          priority
+          quality={70}
+          placeholder="blur"
+          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=="
           className="object-cover" 
         />
         <div className="relative z-10 h-full flex items-center justify-center">
@@ -368,6 +356,8 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                         src={product.mainImage} 
                         alt={product.name} 
                         fill 
+                        loading="lazy"
+                        quality={75}
                         className="object-cover group-hover:scale-110 transition-transform duration-700" 
                       />
                       {product.basePrice > product.finalPrice && (

@@ -39,6 +39,8 @@ export const PromoCard = ({ item }: PromoCardProps) => {
           alt={item.imageAlt} 
           width={128}
           height={128}
+          loading="lazy"
+          quality={75}
           className="w-20 h-20 sm:w-32 sm:h-35 object-cover" 
         />
       </div>

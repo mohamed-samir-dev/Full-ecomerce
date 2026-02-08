@@ -11,7 +11,8 @@ export default function FormInput({
   helperText,
   pattern,
   maxLength,
-  onKeyPress
+  onKeyPress,
+  inputMode
 }: FormInputProps) {
   return (
     <div>
@@ -28,6 +29,7 @@ export default function FormInput({
         placeholder={placeholder}
         pattern={pattern}
         maxLength={maxLength}
+        inputMode={inputMode}
         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-blue-500 transition-colors bg-white border-gray-200 text-black"
       />
       {helperText && <p className="text-xs mt-2 text-gray-500">{helperText}</p>}

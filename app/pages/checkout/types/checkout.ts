@@ -86,6 +86,7 @@ interface CartItem {
     pattern?: string;
     maxLength?: number;
     onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    inputMode?: 'text' | 'numeric' | 'tel' | 'email' | 'url' | 'search' | 'none' | 'decimal';
   }
   export interface FormSelectProps {
     label: string;

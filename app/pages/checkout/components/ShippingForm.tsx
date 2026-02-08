@@ -69,6 +69,7 @@ export default function ShippingForm({
                 e.preventDefault();
               }
             }}
+            inputMode="numeric"
             placeholder="12345"
             helperText={t('checkout.postalCodeHelper')}
           />
@@ -95,6 +96,7 @@ export default function ShippingForm({
           }}
           maxLength={11}
           pattern="[0-9]{11}"
+          inputMode="numeric"
           placeholder="01234567890"
           icon={<Phone className={`w-4 h-4 ${isArabic ? 'ml-2' : 'mr-2'} text-blue-600`} />}
           helperText={t('checkout.phoneValidation')}

@@ -13,4 +13,10 @@ export interface Product {
   totalReviews: number;
   subCategory?: string;
   toplay?: boolean;
+  productType?: string;
+  thirdtype?: string;
+  discount?: {
+    type: 'percentage' | 'fixed';
+    value: number;
+  };
 }

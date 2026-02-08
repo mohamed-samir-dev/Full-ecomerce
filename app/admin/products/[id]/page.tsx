@@ -14,7 +14,7 @@ export default function EditProductPage() {
     description: '', descriptionAr: '', basePrice: '', discount: { type: 'percentage', value: 0 },
     currency: 'EGP', mainImage: '', imageGallery: [''], video: '', stock: '', sku: '',
     availability: 'in_stock', category: '', categoryAr: '', subCategory: '', subCategoryAr: '',
-    brand: '', brandAr: '', productType: '', secondtype: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
+    brand: '', brandAr: '', productType: '', secondtype: '', thirdtype: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
     material: '', weight: '', dimensions: { length: '', width: '', height: '' },
     warranty: '', returnPolicy: '', specifications: '', specificationsAr: ''
   });
@@ -44,7 +44,7 @@ export default function EditProductPage() {
         category: data.category || '', categoryAr: data.categoryAr || '',
         subCategory: data.subCategory || '', subCategoryAr: data.subCategoryAr || '',
         brand: data.brand || '', brandAr: data.brandAr || '',
-        productType: data.productType || '', secondtype: data.secondtype || '',
+        productType: data.productType || '', secondtype: data.secondtype || '', thirdtype: data.thirdtype || '',
         tags: data.tags?.length ? data.tags : [''], tagsAr: data.tagsAr?.length ? data.tagsAr : [''],
         sizes: data.sizes?.length ? data.sizes : [''], colors: data.colors?.length ? data.colors : [{ name: '', hex: '' }],
         material: data.material || '', weight: data.weight || '',
@@ -183,6 +183,7 @@ export default function EditProductPage() {
                 <div><label className={labelClass}>Brand (AR) *</label><input name="brandAr" value={formData.brandAr} onChange={handleChange} className={inputClass} required /></div>
                 <div><label className={labelClass}>Product Type</label><input name="productType" value={formData.productType} onChange={handleChange} className={inputClass} /></div>
                 <div><label className={labelClass}>Second Type</label><input name="secondtype" value={formData.secondtype} onChange={handleChange} className={inputClass} /></div>
+                <div><label className={labelClass}>Third Type</label><input name="thirdtype" value={formData.thirdtype} onChange={handleChange} className={inputClass} /></div>
               </div>
             </FormSection>
 

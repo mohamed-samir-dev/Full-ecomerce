@@ -6,6 +6,7 @@ export interface Product {
   name: string;
   nameAr?: string;
   mainImage: string;
+  images?: string[];
   basePrice: number;
   finalPrice?: number;
   stock: number;

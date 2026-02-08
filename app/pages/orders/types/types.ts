@@ -1,6 +1,7 @@
 export interface OrderItem {
   productId: string;
   name: string;
+  nameAr?: string;
   price: number;
   quantity: number;
   selectedOptions?: {
@@ -46,7 +47,7 @@ export interface OrderDetailsProps {
 }
 export interface OrderHeaderProps {
   orderId: string;
-  statusConfig: { color: string; icon: React.ReactElement; label: string };
+  statusConfig: { color: string; icon: React.ReactElement; labelKey: string };
   isDarkMode: boolean;
   isArabic: boolean;
 }
@@ -77,6 +78,7 @@ export interface PriceSummaryProps {
 export interface ProductItemProps {
   item: {
     name: string;
+    nameAr?: string;
     quantity: number;
     price: number;
     selectedOptions?: { size?: string; color?: string };
@@ -87,6 +89,7 @@ export interface ProductItemProps {
 export interface ProductListProps {
   products: Array<{
     name: string;
+    nameAr?: string;
     quantity: number;
     price: number;
     selectedOptions?: { size?: string; color?: string };

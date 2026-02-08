@@ -35,6 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://backend-for-global-shop-production-a385.up.railway.app" />
+        <link rel="dns-prefetch" href="https://backend-for-global-shop-production-a385.up.railway.app" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning

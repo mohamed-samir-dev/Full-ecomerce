@@ -12,6 +12,7 @@ export const BackgroundImage = ({ slide, currentSlide, altText }: BackgroundImag
         sizes="100vw"
         className="object-cover"
         priority={currentSlide === 0}
+        fetchPriority={currentSlide === 0 ? "high" : "auto"}
       />
       <div className="absolute inset-0 bg-black/40" />
     </div>

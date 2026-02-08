@@ -7,6 +7,7 @@ export const LanguageToggle = ({ language, toggleLanguage, isArabic, isDarkMode 
   return (
     <motion.button
       onClick={toggleLanguage}
+      aria-label={isArabic ? 'تغيير اللغة' : 'Change language'}
       className={`flex items-center ${isArabic ? 'space-x-reverse space-x-1' : 'space-x-1'} px-3 py-2 text-sm font-medium cursor-pointer border rounded-lg transition-all ${
         isDarkMode 
           ? 'text-gray-300 hover:text-white border-gray-600 hover:border-gray-500' 

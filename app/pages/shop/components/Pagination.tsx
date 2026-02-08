@@ -46,6 +46,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        aria-label={isArabic ? 'الصفحة السابقة' : 'Previous page'}
         className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isArabic ? 'السابق' : 'Previous'}
@@ -56,6 +57,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           <button
             key={index}
             onClick={() => onPageChange(page)}
+            aria-label={isArabic ? `الصفحة ${page}` : `Page ${page}`}
+            aria-current={currentPage === page ? 'page' : undefined}
             className={`px-4 py-2 rounded-lg transition-colors ${
               currentPage === page
                 ? 'bg-[#B39E7A] text-white'
@@ -74,6 +77,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        aria-label={isArabic ? 'الصفحة التالية' : 'Next page'}
         className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isArabic ? 'التالي' : 'Next'}

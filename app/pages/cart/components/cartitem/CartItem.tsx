@@ -69,6 +69,7 @@ export default function CartItem({ item, isDarkMode, isArabic, onRemove, onUpdat
             
             <div className={`flex gap-1.5 sm:gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
               <button
+                aria-label={isArabic ? 'إضافة للمفضلة' : 'Add to Wishlist'}
                 className={`p-1.5 sm:p-2 md:p-2.5 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-110 ${
                   isDarkMode 
                     ? 'text-slate-400 hover:text-pink-400 hover:bg-pink-900/20'
@@ -80,6 +81,7 @@ export default function CartItem({ item, isDarkMode, isArabic, onRemove, onUpdat
               </button>
               <button
                 onClick={() => onRemove(item.product._id)}
+                aria-label={isArabic ? 'حذف من السلة' : 'Remove from Cart'}
                 className={`p-1.5 sm:p-2 md:p-2.5 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-110 ${
                   isDarkMode 
                     ? 'text-slate-400 hover:text-red-400 hover:bg-red-900/20'
@@ -105,6 +107,7 @@ export default function CartItem({ item, isDarkMode, isArabic, onRemove, onUpdat
                 <button
                   onClick={() => onUpdateQuantity(item.product._id, item.quantity - 1)}
                   disabled={item.quantity <= 1}
+                  aria-label={isArabic ? 'تقليل الكمية' : 'Decrease quantity'}
                   className={`p-1.5 sm:p-2 md:p-3 transition-all disabled:opacity-50 hover:scale-110 ${
                     isDarkMode 
                       ? 'text-slate-300 hover:text-white hover:bg-slate-600'
@@ -121,6 +124,7 @@ export default function CartItem({ item, isDarkMode, isArabic, onRemove, onUpdat
                 <button
                   onClick={() => onUpdateQuantity(item.product._id, item.quantity + 1)}
                   disabled={item.quantity >= item.product.stock}
+                  aria-label={isArabic ? 'زيادة الكمية' : 'Increase quantity'}
                   className={`p-1.5 sm:p-2 md:p-3 transition-all disabled:opacity-50 hover:scale-110 ${
                     isDarkMode 
                       ? 'text-slate-300 hover:text-white hover:bg-slate-600'

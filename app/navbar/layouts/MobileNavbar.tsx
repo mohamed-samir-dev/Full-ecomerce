@@ -38,6 +38,7 @@ export default function MobileNavbar({
         
         <motion.button
           onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? (isArabic ? 'إغلاق القائمة' : 'Close menu') : (isArabic ? 'فتح القائمة' : 'Open menu')}
           className={`p-1.5 rounded-lg transition-all cursor-pointer ${
             isDarkMode 
               ? 'text-gray-300 hover:text-white hover:bg-gray-700' 

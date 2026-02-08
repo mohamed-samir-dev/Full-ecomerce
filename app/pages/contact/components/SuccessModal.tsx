@@ -24,6 +24,7 @@ export default function SuccessModal({ onClose }: SuccessModalProps) {
           </p>
           <button
             onClick={onClose}
+            aria-label={t('contact.modal.close')}
             className="w-full bg-linear-to-r from-[#B39E7A] to-[#9d8a68] hover:from-[#9d8a68] hover:to-[#8a7759] text-white font-semibold py-3 rounded-xl transition-all duration-300"
           >
             {t('contact.modal.close')}

@@ -28,6 +28,7 @@ export const ReviewFormModal = ({
           </h3>
           <button
             onClick={onClose}
+            aria-label={isArabic ? 'إغلاق' : 'Close'}
             className={`p-1 ${isDarkMode ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-700"}`}
           >
             <X size={20} />
@@ -79,6 +80,7 @@ export const ReviewFormModal = ({
                   key={star}
                   type="button"
                   onClick={() => setFormData({ ...formData, rating: star })}
+                  aria-label={isArabic ? `${star} نجوم` : `${star} stars`}
                   className="focus:outline-none"
                 >
                   <Star

@@ -88,6 +88,8 @@ export default function FilterSidebar({
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setShowMobileFilters(!showMobileFilters)}
+          aria-label={showMobileFilters ? (isArabic ? 'إخفاء الفلاتر' : 'Hide filters') : (isArabic ? 'إظهار الفلاتر' : 'Show filters')}
+          aria-expanded={showMobileFilters}
           className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-colors text-sm sm:text-base bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-900"
         >
           <span className="font-medium flex items-center gap-2">
@@ -123,6 +125,7 @@ export default function FilterSidebar({
           {hasActiveFilters() && (
             <button
               onClick={clearAllFilters}
+              aria-label={isArabic ? 'مسح جميع الفلاتر' : 'Clear all filters'}
               className="text-sm text-[#B39E7A] hover:text-[#A08D6A] transition-colors"
             >
               {t('shop.clearAll')}
@@ -312,6 +315,8 @@ const FilterSection = ({
     <div className="mb-8">
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? (isArabic ? `إخفاء ${title}` : `Hide ${title}`) : (isArabic ? `إظهار ${title}` : `Show ${title}`)}
+        aria-expanded={isOpen}
         className="w-full flex items-center font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider justify-between hover:text-gray-900 transition-colors"
       >
         <span>{title}</span>

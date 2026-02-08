@@ -32,6 +32,7 @@ export default function WishlistItem({ product, onRemove, onViewDetails }: Wishl
         />
         <button
           onClick={() => onRemove(product._id)}
+          aria-label={isArabic ? 'حذف من المفضلة' : 'Remove from Wishlist'}
           className="absolute top-2 sm:top-3 right-2 sm:right-3 p-1.5 sm:p-2 rounded-full bg-white/90 hover:bg-white transition-colors"
         >
           <TrashIcon className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" />
@@ -58,6 +59,7 @@ export default function WishlistItem({ product, onRemove, onViewDetails }: Wishl
 
         <button
           onClick={() => onViewDetails(product._id)}
+          aria-label={isArabic ? 'عرض تفاصيل المنتج' : 'View Product Details'}
           className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
           عرض التفاصيل

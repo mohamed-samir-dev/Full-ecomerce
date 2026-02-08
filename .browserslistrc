@@ -1,2 +1,5 @@
-defaults and fully supports es6-module
-maintained node versions
+> 0.5%, last 2 versions, not dead, not ie 11
+chrome >= 90
+firefox >= 88
+safari >= 14
+edge >= 90

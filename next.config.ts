@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
     cssChunking: false,
   },
   transpilePackages: [],
+  output: 'standalone',
 };
 
 export default nextConfig;

@@ -10,6 +10,7 @@ export default function ActionButtons({ isOutOfStock, isWishlisted, onAddToCart,
       <button
         onClick={onAddToCart}
         disabled={isOutOfStock}
+        aria-label={isOutOfStock ? (isArabic ? 'غير متوفر' : 'Out of Stock') : (isArabic ? 'إضافة للسلة' : 'Add to Cart')}
         className="flex-1 bg-[#B39E7A] text-white py-3 px-4 sm:py-4 sm:px-6 rounded-full text-sm sm:text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#A08D6A] transition-all shadow-md hover:shadow-lg"
       >
         <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -17,6 +18,7 @@ export default function ActionButtons({ isOutOfStock, isWishlisted, onAddToCart,
       </button>
       <button
         onClick={onToggleWishlist}
+        aria-label={isWishlisted ? (isArabic ? 'إزالة من المفضلة' : 'Remove from Wishlist') : (isArabic ? 'إضافة للمفضلة' : 'Add to Wishlist')}
         className={`flex items-center justify-center py-3 px-4 sm:py-4 sm:px-6 rounded-full border-2 transition-all shadow-md hover:shadow-lg ${
           isWishlisted ? 'border-red-500 bg-red-50 text-red-500' : 'border-gray-300 text-gray-400 hover:border-red-300 hover:bg-red-50'
         }`}

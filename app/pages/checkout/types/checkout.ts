@@ -83,6 +83,9 @@ interface CartItem {
     placeholder?: string;
     icon?: React.ReactNode;
     helperText?: string;
+    pattern?: string;
+    maxLength?: number;
+    onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   }
   export interface FormSelectProps {
     label: string;

@@ -64,7 +64,13 @@ export default function ShippingForm({
             required
             value={shippingAddress.postalCode}
             onChange={(value) => setShippingAddress(prev => ({ ...prev, postalCode: value }))}
+            onKeyPress={(e) => {
+              if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
             placeholder="12345"
+            helperText={t('checkout.postalCodeHelper')}
           />
         </div>
         
@@ -82,9 +88,16 @@ export default function ShippingForm({
           required
           value={shippingAddress.phone}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, phone: value }))}
-          placeholder="+20 123 456 7890"
+          onKeyPress={(e) => {
+            if (!/[0-9]/.test(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          maxLength={11}
+          pattern="[0-9]{11}"
+          placeholder="01234567890"
           icon={<Phone className={`w-4 h-4 ${isArabic ? 'ml-2' : 'mr-2'} text-blue-600`} />}
-          helperText={t('checkout.phoneHelper')}
+          helperText={t('checkout.phoneValidation')}
         />
         
         <motion.button

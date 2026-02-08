@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
@@ -46,14 +46,14 @@ interface FilterOptions {
 }
 
 export default function CategoryPage({ category, subCategory, secondtype, thirdtype, title, description }: CategoryPageProps) {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
-  const [filterOptions, setFilterOptions] = useState<FilterOptions>({ sizes: [], colors: [], priceRange: { min: 0, max: 10000 } });
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({ sizes: [], colors: [], priceRange: { min: 0, max: 100000 } });
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(true);
-  const isInitialized = useRef(false);
   const router = useRouter();
   const { addToCart } = useCart();
   const { t, isArabic } = useTranslation();
@@ -63,27 +63,22 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
       try {
         const res = await axios.get(`${API_URL}/api/products?limit=1000`);
         if (res.data.success) {
-          let filtered = res.data.data.filter((p: Product) =>
-            p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
-            (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
-            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase()) &&
-            (!thirdtype || p.thirdtype?.trim().toLowerCase() === thirdtype.toLowerCase())
-          );
-          if (selectedSizes.length) filtered = filtered.filter((p: Product) => p.sizes?.some(s => selectedSizes.includes(s)));
-          if (selectedColors.length) filtered = filtered.filter((p: Product) => p.colors?.some(c => selectedColors.includes(c.name)));
-          filtered = filtered.filter((p: Product) => p.finalPrice >= priceRange[0] && p.finalPrice <= priceRange[1]);
-          setProducts(filtered);
-
           const all = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
             (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
             (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase()) &&
             (!thirdtype || p.thirdtype?.trim().toLowerCase() === thirdtype.toLowerCase())
           );
+          console.log('All products found:', all.length);
+          setAllProducts(all);
+          setProducts(all);
+          
           const sizes = [...new Set(all.flatMap((p: Product) => p.sizes || [] as string[]))] as string[];
           const colors = Array.from(new Map(all.flatMap((p: Product) => p.colors || [] as { name: string; hex: string }[]).map((c: { name: string; hex: string }): [string, { name: string; hex: string }] => [c.name, c])).values()) as { name: string; hex: string }[];
           const prices = all.map((p: Product) => p.finalPrice);
-          setFilterOptions({ sizes, colors, priceRange: { min: prices.length ? Math.min(...prices) : 0, max: prices.length ? Math.max(...prices) : 10000 } });
+          const maxPrice = prices.length ? Math.max(...prices) : 1000000;
+          console.log('Price range - min:', Math.min(...prices), 'max:', maxPrice);
+          setFilterOptions({ sizes, colors, priceRange: { min: prices.length ? Math.min(...prices) : 0, max: maxPrice } });
         }
       } catch (error) {
         console.error("Error:", error);
@@ -92,14 +87,24 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
       }
     };
     fetchData();
-  }, [category, subCategory, secondtype, thirdtype, selectedSizes, selectedColors, priceRange]);
+  }, [category, subCategory, secondtype, thirdtype]);
 
   useEffect(() => {
-    if (!isInitialized.current && filterOptions.priceRange.max > 0) {
-      isInitialized.current = true;
-      setPriceRange([filterOptions.priceRange.min, filterOptions.priceRange.max]);
+    if (allProducts.length === 0) return;
+    let filtered = allProducts;
+    if (selectedSizes.length) filtered = filtered.filter((p: Product) => p.sizes?.some(s => selectedSizes.includes(s)));
+    if (selectedColors.length) filtered = filtered.filter((p: Product) => p.colors?.some(c => selectedColors.includes(c.name)));
+    if (priceRange && priceRange[1] < filterOptions.priceRange.max) {
+      filtered = filtered.filter((p: Product) => p.finalPrice >= priceRange[0] && p.finalPrice <= priceRange[1]);
     }
-  }, [filterOptions.priceRange]);
+    setProducts(filtered);
+  }, [allProducts, selectedSizes, selectedColors, priceRange, filterOptions.priceRange.max]);
+
+  const clearFilters = () => {
+    setSelectedSizes([]);
+    setSelectedColors([]);
+    setPriceRange(null);
+  };
 
   const toggleFilter = (value: string, selected: string[], setter: (v: string[]) => void) => {
     setter(selected.includes(value) ? selected.filter(v => v !== value) : [...selected, value]);
@@ -125,6 +130,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                     category.toLowerCase() === 'pet' ? 'حيوانات أليفة' :
                     category.toLowerCase() === 'shoes' ? 'أحذية' :
                     category.toLowerCase() === 'accessories' ? 'إكسسوارات' :
+                    category.toLowerCase() === 'electronics' ? 'إلكترونيات' :
                     category
                   ) : category}
                 </Link>
@@ -150,6 +156,10 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 category === 'pet' && subCategory.toLowerCase() === 'care' ? 'العناية' :
                 category === 'pet' && subCategory.toLowerCase() === 'food' ? 'طعام' :
                 category === 'pet' && subCategory.toLowerCase() === 'toys' ? 'ألعاب' :
+                category === 'electronics' && subCategory.toLowerCase() === 'audio' ? 'صوتيات' :
+                category === 'electronics' && subCategory.toLowerCase() === 'smarthome' ? 'منزل ذكي' :
+                category === 'electronics' && subCategory.toLowerCase() === 'personaltech' ? 'تقنية شخصية' :
+                category === 'electronics' && subCategory.toLowerCase() === 'cameras' ? 'تصوير' :
                 subCategory.toLowerCase() === 'shoes' && secondtype === 'formal' ? 'أحذية رسمية' :
                 subCategory.toLowerCase() === 'shoes' && secondtype === 'summer' ? 'صنادل صيفية' :
                 subCategory.toLowerCase() === 'shoes' && secondtype === 'casual' ? 'عادي' :
@@ -176,6 +186,11 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
               </button>
               <h2 className="hidden lg:block text-lg sm:text-xl font-light text-gray-900 mb-6 sm:mb-8 pb-3 border-b border-gray-100">{t('filter.refine')}</h2>
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
+                {(selectedSizes.length > 0 || selectedColors.length > 0 || priceRange) && (
+                  <button onClick={clearFilters} className="w-full mb-4 px-4 py-2 text-sm text-[#B39E7A] border border-[#B39E7A] rounded-full hover:bg-[#B39E7A] hover:text-white transition-all">
+                    {isArabic ? 'مسح الكل' : 'Clear All'}
+                  </button>
+                )}
                 {filterOptions.sizes?.length > 0 && (
                   <div className="mb-6 sm:mb-8">
                     <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.size')}</h3>
@@ -200,10 +215,20 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 )}
                 <div>
                   <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.price')}</h3>
-                  <input type="range" min={filterOptions.priceRange.min} max={filterOptions.priceRange.max} value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])} className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer" />
+                  <input 
+                    type="range" 
+                    min={filterOptions.priceRange.min} 
+                    max={filterOptions.priceRange.max} 
+                    value={priceRange?.[1] ?? filterOptions.priceRange.max} 
+                    onChange={(e) => {
+                      const newMax = parseInt(e.target.value);
+                      setPriceRange([filterOptions.priceRange.min, newMax]);
+                    }} 
+                    className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer" 
+                  />
                   <div className="flex justify-between text-xs sm:text-sm font-medium text-gray-700 mt-3">
-                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[0]} {t('product.egp')}</span>
-                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange[1]} {t('product.egp')}</span>
+                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{filterOptions.priceRange.min} {t('product.egp')}</span>
+                    <span className="bg-amber-50 px-2 sm:px-3 py-1 rounded-full">{priceRange?.[1] ?? filterOptions.priceRange.max} {t('product.egp')}</span>
                   </div>
                 </div>
               </div>

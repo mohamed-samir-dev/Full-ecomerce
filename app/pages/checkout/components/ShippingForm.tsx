@@ -63,11 +63,9 @@ export default function ShippingForm({
             label={t('checkout.postalCode')}
             required
             value={shippingAddress.postalCode}
-            onChange={(value) => setShippingAddress(prev => ({ ...prev, postalCode: value }))}
-            onKeyPress={(e) => {
-              if (!/[0-9]/.test(e.key)) {
-                e.preventDefault();
-              }
+            onChange={(value) => {
+              const numericValue = value.replace(/[^0-9]/g, '');
+              setShippingAddress(prev => ({ ...prev, postalCode: numericValue }));
             }}
             inputMode="numeric"
             placeholder="12345"
@@ -88,11 +86,9 @@ export default function ShippingForm({
           type="tel"
           required
           value={shippingAddress.phone}
-          onChange={(value) => setShippingAddress(prev => ({ ...prev, phone: value }))}
-          onKeyPress={(e) => {
-            if (!/[0-9]/.test(e.key)) {
-              e.preventDefault();
-            }
+          onChange={(value) => {
+            const numericValue = value.replace(/[^0-9]/g, '');
+            setShippingAddress(prev => ({ ...prev, phone: numericValue }));
           }}
           maxLength={11}
           pattern="[0-9]{11}"

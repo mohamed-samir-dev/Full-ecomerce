@@ -38,6 +38,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://backend-for-global-shop-production-a385.up.railway.app" />
         <link rel="dns-prefetch" href="https://backend-for-global-shop-production-a385.up.railway.app" />
+        <link rel="preload" href="/fonts" as="font" crossOrigin="anonymous" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

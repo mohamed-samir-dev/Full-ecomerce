@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons'],
     optimizeCss: true,
-    cssChunking: 'strict',
+    cssChunking: false,
   },
   transpilePackages: [],
 };

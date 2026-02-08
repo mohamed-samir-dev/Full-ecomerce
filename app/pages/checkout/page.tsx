@@ -6,16 +6,10 @@ import ShippingForm from './components/ShippingForm';
 import PaymentForm from './components/PaymentForm';
 import OrderSummary from './components/OrderSummary';
 import { useCheckoutPage } from './hooks/useCheckoutPage';
-
-const EGYPT_GOVERNORATES = [
-  'Cairo', 'Alexandria', 'Giza', 'Qalyubia', 'Port Said', 'Suez',
-  'Luxor', 'Aswan', 'Asyut', 'Beheira', 'Beni Suef', 'Dakahlia',
-  'Damietta', 'Faiyum', 'Gharbia', 'Ismailia', 'Kafr El Sheikh',
-  'Matrouh', 'Minya', 'Monufia', 'New Valley', 'North Sinai',
-  'Qena', 'Red Sea', 'Sharqia', 'Sohag', 'South Sinai'
-];
+import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 export default function CheckoutPage() {
+  const { t, isArabic } = useTranslation();
   const {
     user,
     items,
@@ -40,6 +34,36 @@ export default function CheckoutPage() {
     deliveryDateStr
   } = useCheckoutPage();
 
+  const GOVERNORATES = [
+    { key: 'cairo', label: t('governorate.cairo') },
+    { key: 'alexandria', label: t('governorate.alexandria') },
+    { key: 'giza', label: t('governorate.giza') },
+    { key: 'qalyubia', label: t('governorate.qalyubia') },
+    { key: 'portSaid', label: t('governorate.portSaid') },
+    { key: 'suez', label: t('governorate.suez') },
+    { key: 'luxor', label: t('governorate.luxor') },
+    { key: 'aswan', label: t('governorate.aswan') },
+    { key: 'asyut', label: t('governorate.asyut') },
+    { key: 'beheira', label: t('governorate.beheira') },
+    { key: 'beniSuef', label: t('governorate.beniSuef') },
+    { key: 'dakahlia', label: t('governorate.dakahlia') },
+    { key: 'damietta', label: t('governorate.damietta') },
+    { key: 'faiyum', label: t('governorate.faiyum') },
+    { key: 'gharbia', label: t('governorate.gharbia') },
+    { key: 'ismailia', label: t('governorate.ismailia') },
+    { key: 'kafrElSheikh', label: t('governorate.kafrElSheikh') },
+    { key: 'matrouh', label: t('governorate.matrouh') },
+    { key: 'minya', label: t('governorate.minya') },
+    { key: 'monufia', label: t('governorate.monufia') },
+    { key: 'newValley', label: t('governorate.newValley') },
+    { key: 'northSinai', label: t('governorate.northSinai') },
+    { key: 'qena', label: t('governorate.qena') },
+    { key: 'redSea', label: t('governorate.redSea') },
+    { key: 'sharqia', label: t('governorate.sharqia') },
+    { key: 'sohag', label: t('governorate.sohag') },
+    { key: 'southSinai', label: t('governorate.southSinai') },
+  ];
+
   if (!user || itemCount === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-900">
@@ -55,7 +79,7 @@ export default function CheckoutPage() {
 
 
   return (
-    <div className="min-h-screen py-6 sm:py-8 md:py-12 bg-linear-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen py-6 sm:py-8 md:py-12 bg-linear-to-br from-blue-50 via-white to-purple-50" dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -63,9 +87,9 @@ export default function CheckoutPage() {
           className="text-center mb-6 sm:mb-8 md:mb-12"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            Checkout
+            {t('checkout.title')}
           </h1>
-          <p className="text-sm sm:text-base text-gray-600">Complete your order</p>
+          <p className="text-sm sm:text-base text-gray-600">{t('checkout.subtitle')}</p>
         </motion.div>
         
         <CheckoutProgress currentStep={currentStep} />
@@ -79,7 +103,7 @@ export default function CheckoutPage() {
                   setShippingAddress={setShippingAddress}
                   governorate={governorate}
                   setGovernorate={setGovernorate}
-                  governorates={EGYPT_GOVERNORATES}
+                  governorates={GOVERNORATES}
                   onSubmit={handleAddressSubmit}
                 />
               )}

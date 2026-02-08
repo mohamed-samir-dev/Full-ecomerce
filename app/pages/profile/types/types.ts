@@ -14,7 +14,6 @@ export interface ProfileInfoProps {
   user: User;
   setUser: (user: User) => void;
   isDarkMode: boolean;
-  isArabic: boolean;
 }
 
 export interface EditData {
@@ -33,26 +32,21 @@ export interface Address {
   _id: string;
   label: string;
   street: string;
-  city: string;
-  state: string;
+  governorate: string;
   postalCode: string;
-  country: string;
 }
 
 export interface AddressFormData {
   label: string;
   street: string;
-  city: string;
-  state: string;
+  governorate: string;
   postalCode: string;
-  country: string;
 }
 
 export interface AddressesSectionProps {
   user: User;
   setUser: (user: User) => void;
   isDarkMode: boolean;
-  isArabic: boolean;
 }
 
 export interface OrderProduct {
@@ -73,13 +67,11 @@ export interface Order {
 
 export interface OrdersHistoryProps {
   isDarkMode: boolean;
-  isArabic: boolean;
 }
 
 export interface ProfileHeaderProps {
   user: User;
   isDarkMode: boolean;
-  isArabic: boolean;
 }
 
 
@@ -95,5 +87,4 @@ interface CartItem {
 export interface ProfileStatsProps {
   user: User;
   isDarkMode: boolean;
-  isArabic: boolean;
 }

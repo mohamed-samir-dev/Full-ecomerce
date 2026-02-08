@@ -6,14 +6,26 @@ export const useAddresses = (user: User, setUser: (user: User) => void) => {
   const [newAddress, setNewAddress] = useState<AddressFormData>({
     label: "",
     street: "",
-    city: "",
-    state: "",
+    governorate: "",
     postalCode: "",
-    country: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleAddAddress = async () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!newAddress.label.trim()) newErrors.label = 'هذا الحقل مطلوب';
+    if (!newAddress.street.trim()) newErrors.street = 'هذا الحقل مطلوب';
+    if (!newAddress.governorate.trim()) newErrors.governorate = 'هذا الحقل مطلوب';
+    if (!newAddress.postalCode.trim()) newErrors.postalCode = 'هذا الحقل مطلوب';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setLoading(true);
     try {
       const token =
@@ -36,10 +48,8 @@ export const useAddresses = (user: User, setUser: (user: User) => void) => {
         setNewAddress({
           label: "",
           street: "",
-          city: "",
-          state: "",
+          governorate: "",
           postalCode: "",
-          country: "",
         });
         setShowAddForm(false);
       }
@@ -80,6 +90,7 @@ export const useAddresses = (user: User, setUser: (user: User) => void) => {
     newAddress,
     setNewAddress,
     loading,
+    errors,
     handleAddAddress,
     handleDeleteAddress,
   };

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from '@/i18n';
 import { User, EditData, PasswordStrength } from "../types/types";
 import { checkPasswordStrength } from "../utils/passwordStrength";
 
 export const useAccountInfo = (user: User, setUser: (user: User) => void) => {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState<EditData>({
     name: user.name,
@@ -21,19 +23,17 @@ export const useAccountInfo = (user: User, setUser: (user: User) => void) => {
 
   const handlePasswordChange = (password: string) => {
     setEditData({ ...editData, newPassword: password });
-    setPasswordStrength(checkPasswordStrength(password));
+    setPasswordStrength(checkPasswordStrength(password, t));
   };
 
   const handleSave = async () => {
     if (editData.newPassword) {
       if (!editData.currentPassword) {
-        setError("Current password is required to change password");
+        setError(t('profile.error.currentPasswordRequired'));
         return;
       }
       if (passwordStrength.score < 5) {
-        setError(
-          "Password must be strong (8+ chars, uppercase, lowercase, number, special character)"
-        );
+        setError(t('profile.error.passwordMustBeStrong'));
         return;
       }
     }
@@ -71,10 +71,10 @@ export const useAccountInfo = (user: User, setUser: (user: User) => void) => {
           }
         }
       } else {
-        setError(data.message || "Failed to update profile");
+        setError(data.message || t('profile.error.updateFailed'));
       }
     } catch {
-      setError("Error updating profile");
+      setError(t('profile.error.updateError'));
     } finally {
       setLoading(false);
     }

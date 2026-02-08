@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { CreditCard, Truck, Wallet, Lock, AlertCircle, Info } from 'lucide-react';
 import { useState } from 'react';
-import {PaymentFormProps}from '../types/checkout'
+import {PaymentFormProps}from '../types/checkout';
 import PaymentMethodOption from './paymentform/PaymentMethodOption';
 import CardDetailsForm from './paymentform/CardDetailsForm';
 import WalletDetailsForm from './paymentform/WalletDetailsForm';
 import ShippingInfo from './paymentform/ShippingInfo';
 import OrderNotesSection from './paymentform/OrderNotesSection';
+import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 export default function PaymentForm({ 
   paymentMethod, 
@@ -17,6 +18,7 @@ export default function PaymentForm({
   onBack, 
   onSubmit 
 }: PaymentFormProps) {
+  const { t, isArabic } = useTranslation();
   const [cardDetails, setCardDetails] = useState({ number: '', name: '', expiry: '', cvv: '' });
   const [walletPhone, setWalletPhone] = useState('');
   
@@ -31,12 +33,12 @@ export default function PaymentForm({
       <div className="rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border bg-white border-gray-100">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
           <div className="flex items-center">
-            <CreditCard className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600 mr-2 sm:mr-3" />
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Payment Method</h2>
+            <CreditCard className={`w-5 h-5 sm:w-6 sm:h-6 text-purple-600 ${isArabic ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`} />
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{t('checkout.paymentMethod')}</h2>
           </div>
           <div className="flex items-center gap-2 text-xs text-gray-500">
             <Lock className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>SSL Encrypted</span>
+            <span>{t('checkout.sslEncrypted')}</span>
           </div>
         </div>
         
@@ -44,10 +46,10 @@ export default function PaymentForm({
           <PaymentMethodOption
             id="cod"
             value="cod"
-            label="Cash on Delivery"
-            description="Pay when you receive your order"
+            label={t('checkout.cod')}
+            description={t('checkout.codDesc')}
             icon={Truck}
-            badge="No Fees"
+            badge={t('checkout.noFees')}
             isSelected={paymentMethod === 'cod'}
             onSelect={setPaymentMethod}
             colorScheme="green"
@@ -55,10 +57,10 @@ export default function PaymentForm({
           <PaymentMethodOption
             id="card"
             value="stripe"
-            label="Credit/Debit Card"
-            description="Pay securely with your card"
+            label={t('checkout.card')}
+            description={t('checkout.cardDesc')}
             icon={CreditCard}
-            badge="Secure"
+            badge={t('checkout.secure')}
             isSelected={paymentMethod === 'stripe'}
             onSelect={setPaymentMethod}
             colorScheme="blue"
@@ -66,10 +68,10 @@ export default function PaymentForm({
           <PaymentMethodOption
             id="wallet"
             value="wallet"
-            label="Mobile Wallet"
-            description="Vodafone Cash, Orange Money, etc."
+            label={t('checkout.wallet')}
+            description={t('checkout.walletDesc')}
             icon={Wallet}
-            badge="Fast"
+            badge={t('checkout.fast')}
             isSelected={paymentMethod === 'wallet'}
             onSelect={setPaymentMethod}
             colorScheme="purple"
@@ -91,8 +93,8 @@ export default function PaymentForm({
             exit={{ opacity: 0, height: 0 }}
             className="mt-4 sm:mt-6 p-4 sm:p-6 rounded-xl border-2 bg-white border-green-200"
           >
-            <h3 className="text-base sm:text-lg font-semibold mb-3 text-gray-800">Cash on Delivery</h3>
-            <p className="text-xs sm:text-sm text-gray-600">You will pay when you receive your order</p>
+            <h3 className="text-base sm:text-lg font-semibold mb-3 text-gray-800">{t('checkout.cod')}</h3>
+            <p className="text-xs sm:text-sm text-gray-600">{t('checkout.codInfo')}</p>
           </motion.div>
         )}
         
@@ -100,8 +102,8 @@ export default function PaymentForm({
           <div className="flex items-start gap-2 sm:gap-3">
             <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5 text-amber-600" />
             <div className="text-xs sm:text-sm">
-              <p className="font-bold mb-1 text-amber-800">Experimental Feature</p>
-              <p className="text-amber-700">Online payment is currently in testing. We recommend Cash on Delivery.</p>
+              <p className="font-bold mb-1 text-amber-800">{t('checkout.experimentalTitle')}</p>
+              <p className="text-amber-700">{t('checkout.experimentalDesc')}</p>
             </div>
           </div>
         </div>
@@ -110,8 +112,8 @@ export default function PaymentForm({
           <div className="flex items-start gap-2 sm:gap-3">
             <Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 shrink-0 mt-0.5" />
             <div className="text-xs sm:text-sm">
-              <p className="font-semibold mb-1 text-gray-700">Security Information</p>
-              <p className="text-xs text-gray-600">Your payment information is encrypted and secure</p>
+              <p className="font-semibold mb-1 text-gray-700">{t('checkout.securityInfo')}</p>
+              <p className="text-xs text-gray-600">{t('checkout.securityDesc')}</p>
             </div>
           </div>
         </div>

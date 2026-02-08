@@ -1,30 +1,33 @@
 import { ClipboardDocumentListIcon, HeartIcon, MapPinIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/i18n';
 import {ProfileStatsProps}from '../types/types'
 
 
-export default function ProfileStats({ user, isDarkMode, isArabic }: ProfileStatsProps) {
+export default function ProfileStats({ user, isDarkMode }: ProfileStatsProps) {
+  const { t, isArabic } = useTranslation();
+  
   const stats = [
     {
       icon: ClipboardDocumentListIcon,
-      label: isArabic ? 'الطلبات' : 'Orders',
+      label: t('profile.orders'),
       value: user.orders?.length || 0,
       color: 'blue'
     },
     {
       icon: HeartIcon,
-      label: isArabic ? 'المفضلة' : 'Wishlist',
+      label: t('profile.wishlist'),
       value: user.wishlist?.length || 0,
       color: 'red'
     },
     {
       icon: ShoppingCartIcon,
-      label: isArabic ? 'السلة' : 'Cart',
+      label: t('profile.cart'),
       value: user.cart?.length || 0,
       color: 'orange'
     },
     {
       icon: MapPinIcon,
-      label: isArabic ? 'العناوين' : 'Addresses',
+      label: t('profile.addresses'),
       value: user.addresses?.length || 0,
       color: 'green'
     }

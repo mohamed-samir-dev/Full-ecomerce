@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 interface CheckoutProgressProps {
   currentStep: number;
 }
 
 export default function CheckoutProgress({ currentStep }: CheckoutProgressProps) {
+  const { t } = useTranslation();
+  
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -24,7 +27,7 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
               {currentStep > 1 ? <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" /> : '1'}
             </div>
             <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700">
-              Shipping
+              {t('checkout.shipping')}
             </span>
           </motion.div>
         </div>
@@ -53,7 +56,7 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
               2
             </div>
             <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700">
-              Payment
+              {t('checkout.payment')}
             </span>
           </motion.div>
         </div>

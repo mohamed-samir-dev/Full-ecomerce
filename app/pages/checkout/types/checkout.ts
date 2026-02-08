@@ -89,7 +89,7 @@ interface CartItem {
     required?: boolean;
     value: string;
     onChange: (value: string) => void;
-    options: string[];
+    options: Array<{ key: string; label: string }> | string[];
     placeholder?: string;
   }
   export interface ShippingAddress {
@@ -106,6 +106,6 @@ interface CartItem {
     setShippingAddress: React.Dispatch<React.SetStateAction<ShippingAddress>>;
     governorate: string;
     setGovernorate: React.Dispatch<React.SetStateAction<string>>;
-    governorates: string[];
+    governorates: Array<{ key: string; label: string }>;
     onSubmit: (e: React.FormEvent) => void;
   }

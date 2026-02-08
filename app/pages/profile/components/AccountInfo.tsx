@@ -1,8 +1,10 @@
 import { PencilIcon, CheckIcon, XMarkIcon, UserIcon, EnvelopeIcon, LockClosedIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/i18n';
 import { ProfileInfoProps } from '../types/types';
 import { useAccountInfo } from '../hooks/useAccountInfo';
 
-export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: ProfileInfoProps) {
+export default function AccountInfo({ user, setUser, isDarkMode }: ProfileInfoProps) {
+  const { t, isArabic } = useTranslation();
   const {
     isEditing,
     setIsEditing,
@@ -26,7 +28,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
     }`}>
       <div className={`flex items-center justify-between mb-4 sm:mb-5 md:mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
         <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          {isArabic ? 'معلومات الحساب' : 'Account Information'}
+          {t('profile.accountInfo')}
         </h2>
         
         {!isEditing ? (
@@ -40,7 +42,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
           >
             <PencilIcon className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="font-medium">
-              {isArabic ? 'تعديل' : 'Edit'}
+              {t('profile.edit')}
             </span>
           </button>
         ) : (
@@ -52,7 +54,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             >
               <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="font-medium">
-                {loading ? (isArabic ? 'جاري الحفظ...' : 'Saving...') : (isArabic ? 'حفظ' : 'Save')}
+                {loading ? t('profile.saving') : t('profile.save')}
               </span>
             </button>
             <button
@@ -66,7 +68,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             >
               <XMarkIcon className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="font-medium">
-                {isArabic ? 'إلغاء' : 'Cancel'}
+                {t('profile.cancel')}
               </span>
             </button>
           </div>
@@ -85,7 +87,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             isDarkMode ? 'text-slate-300' : 'text-slate-700'
           }`}>
             <UserIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-            {isArabic ? 'الاسم' : 'Name'}
+            {t('profile.name')}
           </label>
           {isEditing ? (
             <input
@@ -112,7 +114,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             isDarkMode ? 'text-slate-300' : 'text-slate-700'
           }`}>
             <EnvelopeIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-            {isArabic ? 'البريد الإلكتروني' : 'Email'}
+            {t('profile.email')}
           </label>
           {isEditing ? (
             <input
@@ -139,7 +141,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             isDarkMode ? 'text-slate-300' : 'text-slate-700'
           }`}>
             <LockClosedIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-            {isArabic ? 'كلمة المرور الحالية' : 'Current Password'}
+            {t('profile.currentPassword')}
           </label>
           {isEditing ? (
             <div className="relative">
@@ -147,7 +149,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
                 type={showCurrentPassword ? "text" : "password"}
                 value={editData.currentPassword}
                 onChange={(e) => setEditData({ ...editData, currentPassword: e.target.value })}
-                placeholder={isArabic ? 'اتركه فارغاً إذا لم ترغب في التغيير' : 'Leave blank if not changing'}
+                placeholder={t('profile.leaveBlank')}
                 className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border-2 transition-all duration-300 text-sm sm:text-base ${isArabic ? 'text-right pr-10 sm:pr-12' : 'text-left pl-3 sm:pl-4 pr-10 sm:pr-12'} ${
                   isDarkMode 
                     ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500'
@@ -176,7 +178,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
             isDarkMode ? 'text-slate-300' : 'text-slate-700'
           }`}>
             <LockClosedIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-            {isArabic ? 'كلمة المرور الجديدة' : 'New Password'}
+            {t('profile.newPassword')}
           </label>
           {isEditing ? (
             <>
@@ -185,7 +187,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
                   type={showNewPassword ? "text" : "password"}
                   value={editData.newPassword}
                   onChange={(e) => handlePasswordChange(e.target.value)}
-                  placeholder={isArabic ? 'اتركه فارغاً إذا لم ترغب في التغيير' : 'Leave blank if not changing'}
+                  placeholder={t('profile.leaveBlank')}
                   className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border-2 transition-all duration-300 text-sm sm:text-base ${isArabic ? 'text-right pr-10 sm:pr-12' : 'text-left pl-3 sm:pl-4 pr-10 sm:pr-12'} ${
                     isDarkMode 
                       ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500'
@@ -227,7 +229,7 @@ export default function AccountInfo({ user, setUser, isDarkMode, isArabic }: Pro
                       ? 'text-orange-500'
                       : 'text-green-500'
                   }`}>
-                    {passwordStrength.message} - Must have 8+ chars, uppercase, lowercase, number & special char
+                    {passwordStrength.message} - {t('profile.passwordRequirement')}
                   </p>
                 </div>
               )}

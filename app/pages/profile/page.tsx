@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 import ProfileHeader from './components/ProfileHeader';
 import ProfileStats from './components/ProfileStats';
 import AccountInfo from './components/AccountInfo';
@@ -13,7 +14,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isArabic] = useState(false);
+  const { isArabic } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
@@ -93,13 +94,13 @@ export default function ProfilePage() {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 space-y-3 sm:space-y-4 md:space-y-6">
-        <ProfileHeader user={user} isDarkMode={isDarkMode} isArabic={isArabic} />
-        <ProfileStats user={user} isDarkMode={isDarkMode} isArabic={isArabic} />
+        <ProfileHeader user={user} isDarkMode={isDarkMode} />
+        <ProfileStats user={user} isDarkMode={isDarkMode} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-          <AccountInfo user={user} setUser={(u) => setUser(u)} isDarkMode={isDarkMode} isArabic={isArabic} />
-          <AddressesSection user={user} setUser={(u) => setUser(u)} isDarkMode={isDarkMode} isArabic={isArabic} />
+          <AccountInfo user={user} setUser={(u) => setUser(u)} isDarkMode={isDarkMode} />
+          <AddressesSection user={user} setUser={(u) => setUser(u)} isDarkMode={isDarkMode} />
         </div>
-        <OrdersHistory isDarkMode={isDarkMode} isArabic={isArabic} />
+        <OrdersHistory isDarkMode={isDarkMode} />
       </div>
     </div>
   );

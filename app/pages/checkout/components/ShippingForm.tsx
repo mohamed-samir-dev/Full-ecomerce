@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone } from 'lucide-react';
 import FormInput from './shippingform/FormInput';
 import FormSelect from './shippingform/FormSelect';
-import {ShippingFormProps}from '../types/checkout'
+import {ShippingFormProps}from '../types/checkout';
+import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 
 export default function ShippingForm({ 
@@ -13,6 +14,8 @@ export default function ShippingForm({
   governorates,
   onSubmit 
 }: ShippingFormProps) {
+  const { t, isArabic } = useTranslation();
+  
   return (
     <motion.div
       key="step1"
@@ -22,30 +25,30 @@ export default function ShippingForm({
       className="rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border bg-white border-gray-100"
     >
       <div className="flex items-center mb-4 sm:mb-6">
-        <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mr-2 sm:mr-3" />
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Shipping Address</h2>
+        <MapPin className={`w-5 h-5 sm:w-6 sm:h-6 text-blue-600 ${isArabic ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`} />
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{t('checkout.shippingAddress')}</h2>
       </div>
       
       <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5">
         <FormInput
-          label="Full Name"
+          label={t('checkout.fullName')}
           required
           value={shippingAddress.fullName}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, fullName: value }))}
-          placeholder="Enter your full name"
+          placeholder={t('checkout.fullNamePlaceholder')}
         />
         
         <FormInput
-          label="Address"
+          label={t('checkout.address')}
           required
           value={shippingAddress.address}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, address: value }))}
-          placeholder="Street address"
+          placeholder={t('checkout.addressPlaceholder')}
         />
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <FormSelect
-            label="Governorate"
+            label={t('checkout.governorate')}
             required
             value={governorate}
             onChange={(value) => {
@@ -53,11 +56,11 @@ export default function ShippingForm({
               setShippingAddress(prev => ({ ...prev, city: value }));
             }}
             options={governorates}
-            placeholder="Select Governorate"
+            placeholder={t('checkout.selectGovernorate')}
           />
           
           <FormInput
-            label="Postal Code"
+            label={t('checkout.postalCode')}
             required
             value={shippingAddress.postalCode}
             onChange={(value) => setShippingAddress(prev => ({ ...prev, postalCode: value }))}
@@ -66,22 +69,22 @@ export default function ShippingForm({
         </div>
         
         <FormInput
-          label="District"
+          label={t('checkout.district')}
           required
           value={shippingAddress.country}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, country: value }))}
-          placeholder="Enter district"
+          placeholder={t('checkout.districtPlaceholder')}
         />
         
         <FormInput
-          label="Phone Number"
+          label={t('checkout.phone')}
           type="tel"
           required
           value={shippingAddress.phone}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, phone: value }))}
           placeholder="+20 123 456 7890"
-          icon={<Phone className="w-4 h-4 mr-2 text-blue-600" />}
-          helperText="We'll call you to confirm delivery"
+          icon={<Phone className={`w-4 h-4 ${isArabic ? 'ml-2' : 'mr-2'} text-blue-600`} />}
+          helperText={t('checkout.phoneHelper')}
         />
         
         <motion.button
@@ -90,7 +93,7 @@ export default function ShippingForm({
           type="submit"
           className="w-full bg-linear-to-r from-blue-600 to-blue-500 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all"
         >
-          Continue to Payment
+          {t('checkout.continueToPayment')}
         </motion.button>
       </form>
     </motion.div>

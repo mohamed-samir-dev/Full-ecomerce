@@ -57,12 +57,12 @@ export default function PaymentMethodOption({
           value={value}
           checked={isSelected}
           onChange={(e) => onSelect(e.target.value)}
-          className="mt-1 mr-3 sm:mr-4"
+          className="mt-1 mx-3 sm:mx-4"
         />
         <label htmlFor={id} className="flex-1 cursor-pointer">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-            <div className="flex items-center font-bold text-base sm:text-lg text-gray-900">
-              <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 ${scheme.icon}`} />
+            <div className="flex items-center gap-2 font-bold text-base sm:text-lg text-gray-900">
+              <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${scheme.icon}`} />
               {label}
             </div>
             <span className={`text-xs sm:text-sm font-semibold ${scheme.badge}`}>{badge}</span>

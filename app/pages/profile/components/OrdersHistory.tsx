@@ -1,10 +1,12 @@
 import { ClipboardDocumentListIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useTranslation } from '@/i18n';
 import { OrdersHistoryProps } from '../types/types';
 import { useOrders } from '../hooks/useOrders';
 import { getStatusIcon, getStatusColor } from '../utils/orderStatus';
 
-export default function OrdersHistory({ isDarkMode, isArabic }: OrdersHistoryProps) {
+export default function OrdersHistory({ isDarkMode }: OrdersHistoryProps) {
+  const { t, isArabic } = useTranslation();
   const { orders, loading } = useOrders();
 
   return (
@@ -16,7 +18,7 @@ export default function OrdersHistory({ isDarkMode, isArabic }: OrdersHistoryPro
           <ClipboardDocumentListIcon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`} />
         </div>
         <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          {isArabic ? 'سجل الطلبات' : 'Orders History'}
+          {t('profile.ordersHistory')}
         </h2>
       </div>
 
@@ -30,13 +32,13 @@ export default function OrdersHistory({ isDarkMode, isArabic }: OrdersHistoryPro
         <div className={`text-center py-8 sm:py-10 md:py-12 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
           <ClipboardDocumentListIcon className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 opacity-50" />
           <p className="text-base sm:text-lg font-medium">
-            {isArabic ? 'لا توجد طلبات بعد' : 'No orders yet'}
+            {t('profile.noOrders')}
           </p>
           <Link 
             href="/pages/shop"
             className="inline-block mt-3 sm:mt-4 px-4 sm:px-6 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm"
           >
-            {isArabic ? 'تسوق الآن' : 'Start Shopping'}
+            {t('profile.startShopping')}
           </Link>
         </div>
       ) : (
@@ -53,7 +55,7 @@ export default function OrdersHistory({ isDarkMode, isArabic }: OrdersHistoryPro
                   {getStatusIcon(order.status)}
                   <div className={isArabic ? 'text-right' : ''}>
                     <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                      {isArabic ? 'طلب رقم' : 'Order'} #{order._id.slice(-8)}
+                      {t('profile.order')} #{order._id.slice(-8)}
                     </p>
                     <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       {new Date(order.createdAt).toLocaleDateString('en-US', {
@@ -71,7 +73,7 @@ export default function OrdersHistory({ isDarkMode, isArabic }: OrdersHistoryPro
               
               <div className={`flex items-center justify-between ${isArabic ? 'flex-row-reverse' : ''}`}>
                 <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                  {order.products.length} {order.products.length === 1 ? (isArabic ? 'منتج' : 'item') : (isArabic ? 'منتجات' : 'items')}
+                  {order.products.length} {order.products.length === 1 ? t('profile.item') : t('profile.items')}
                 </p>
                 <p className={`text-base sm:text-lg font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                   ${order.totalPrice.toFixed(2)}

@@ -1,4 +1,5 @@
 import { ClipboardDocumentListIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/i18n';
 
 interface PageHeaderProps {
   isDarkMode: boolean;
@@ -6,6 +7,8 @@ interface PageHeaderProps {
 }
 
 export default function PageHeader({ isDarkMode, isArabic }: PageHeaderProps) {
+  const { t } = useTranslation();
+  
   return (
     <div className={`flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 md:mb-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
       <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
@@ -13,10 +16,10 @@ export default function PageHeader({ isDarkMode, isArabic }: PageHeaderProps) {
       </div>
       <div className={isArabic ? 'text-right' : 'text-left'}>
         <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          {isArabic ? 'طلباتي' : 'My Orders'}
+          {t('orders.title')}
         </h1>
         <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          {isArabic ? 'تتبع وإدارة طلباتك' : 'Track and manage your orders'}
+          {t('orders.subtitle')}
         </p>
       </div>
     </div>

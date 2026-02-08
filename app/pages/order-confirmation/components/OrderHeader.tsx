@@ -1,7 +1,10 @@
 import { CheckCircleIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import {OrderHeaderProps}from '../types/types'
+import { useTranslation } from '@/i18n';
 
 export default function OrderHeader({ orderId, createdAt, isPrivateView, isDarkMode, onTogglePrivacy }: OrderHeaderProps) {
+  const { t, locale } = useTranslation();
+  
   return (
     <div className="mb-8">
       <div className="flex items-center justify-between mb-4">
@@ -9,10 +12,10 @@ export default function OrderHeader({ orderId, createdAt, isPrivateView, isDarkM
           <CheckCircleIcon className="w-10 h-10 text-green-600" />
           <div>
             <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              Order Confirmed
+              {t('orderConfirmation.title')}
             </h1>
             <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Order #{isPrivateView ? '••••••••' : orderId.slice(-8)}
+              {t('orderConfirmation.orderNumber')} {isPrivateView ? '••••••••' : orderId.slice(-8)}
             </p>
           </div>
         </div>
@@ -24,7 +27,7 @@ export default function OrderHeader({ orderId, createdAt, isPrivateView, isDarkM
         </button>
       </div>
       <p className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-        Order placed on {new Date(createdAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at {new Date(createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+        {t('orderConfirmation.orderPlacedOn')} {new Date(createdAt).toLocaleDateString(locale === 'ar' ? 'ar-EG' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} {t('orderConfirmation.at')} {new Date(createdAt).toLocaleTimeString(locale === 'ar' ? 'ar-EG' : 'en-US', { hour: '2-digit', minute: '2-digit' })}
       </p>
     </div>
   );

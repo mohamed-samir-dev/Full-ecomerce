@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 
 interface OrderActionsProps {
   isDarkMode: boolean;
@@ -6,6 +7,7 @@ interface OrderActionsProps {
 
 export default function OrderActions({ isDarkMode }: OrderActionsProps) {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-3">
@@ -13,7 +15,7 @@ export default function OrderActions({ isDarkMode }: OrderActionsProps) {
         onClick={() => router.push('/pages/shop')}
         className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
       >
-        Continue Shopping
+        {t('orderConfirmation.continueShopping')}
       </button>
       <button
         onClick={() => window.print()}
@@ -21,7 +23,7 @@ export default function OrderActions({ isDarkMode }: OrderActionsProps) {
           isDarkMode ? 'border-slate-600 text-slate-300 hover:bg-slate-700' : 'border-gray-300 text-slate-700 hover:bg-gray-50'
         }`}
       >
-        Print Receipt
+        {t('orderConfirmation.printReceipt')}
       </button>
     </div>
   );

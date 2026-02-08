@@ -36,7 +36,7 @@ export const useLoginForm = () => {
       console.log("Login response:", data);
 
       if (data.success && data.token) {
-        saveAuthData(data.token, data.user, rememberMe);
+        saveAuthData(data.token, data.user);
         console.log("User role:", data.user.role);
 
         await migrateLocalWishlistToDatabase();

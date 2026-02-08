@@ -224,19 +224,16 @@ export const UserMenu = ({
         <ChevronDownIcon className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${isDropdownOpen ? 'rotate-180' : ''} transition-transform duration-200`} />
       </button>
 
-      <div
-        className={`absolute ${
-          isArabic ? "left-0" : "right-0"
-        } mt-2 w-48 sm:w-56 md:w-64 rounded-xl shadow-2xl transition-all duration-300 transform z-50 ${
-          isDarkMode
-            ? "bg-[#26292E] border border-gray-700"
-            : "bg-white border border-gray-200"
-        } ${
-          isDropdownOpen 
-            ? "opacity-100 visible translate-y-0" 
-            : "opacity-0 invisible translate-y-2"
-        }`}
-      >
+      {isDropdownOpen && (
+        <div
+          className={`absolute ${
+            isArabic ? "left-0" : "right-0"
+          } mt-2 w-48 sm:w-56 md:w-64 rounded-xl shadow-2xl transition-all duration-300 transform z-50 ${
+            isDarkMode
+              ? "bg-[#26292E] border border-gray-700"
+              : "bg-white border border-gray-200"
+          }`}
+        >
         {user ? (
           <div className="py-2">
             <div
@@ -373,7 +370,8 @@ export const UserMenu = ({
             </Link>
           </div>
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

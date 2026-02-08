@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useTranslation } from '@/i18n';
+import Link from 'next/link'; 
 
 export default function LuxuryPromoSection() {
   const { t, isArabic } = useTranslation();
@@ -20,7 +21,8 @@ export default function LuxuryPromoSection() {
             <p className="text-base sm:text-lg text-gray-600 max-w-md">
               {t('home.luxuryPromo.description')}
             </p>
-            <button className="group px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white text-sm sm:text-base font-medium hover:bg-gray-800 transition flex items-center gap-2">
+            <Link href="/pages/banner-pages/premium" passHref>
+            <button className="group px-6 sm:px-8 py-3 cursor-pointer sm:py-4 bg-gray-900 text-white text-sm sm:text-base font-medium hover:bg-gray-800 transition flex items-center gap-2">
               {t('home.luxuryPromo.button')}
               <svg 
                 className={`w-4 h-4 sm:w-5 sm:h-5 group-hover:${isArabic ? '-translate-x-1' : 'translate-x-1'} transition-transform`} 
@@ -32,6 +34,7 @@ export default function LuxuryPromoSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
+            </Link>
           </div>
           <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] grid grid-cols-2 gap-3 sm:gap-4">
             <div className="relative rounded-lg overflow-hidden shadow-2xl transition">

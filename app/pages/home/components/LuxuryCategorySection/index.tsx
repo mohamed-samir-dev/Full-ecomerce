@@ -37,7 +37,7 @@ export default function LuxuryCategorySection() {
                       alt={t(category.nameKey)}
                       fill
                       loading="lazy"
-                      quality={50}
+                      quality={40}
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                       className="object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1"
                     />

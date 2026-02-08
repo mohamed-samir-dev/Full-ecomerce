@@ -1,6 +1,8 @@
 interface OrderItem {
   productId: string;
   name: string;
+  nameAr?: string;
+  image?: string;
   price: number;
   quantity: number;
   selectedOptions?: {

@@ -5,11 +5,13 @@ import { useCart } from '@/hooks/useCart';
 import toast from 'react-hot-toast';
 import OrderService from '@/services/orderService';
 import type { CreateOrderData } from '@/services/orderService';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const useCheckoutPage = () => {
   const router = useRouter();
   const { user } = useAuth();
   const { items, total, itemCount, clearCart } = useCart();
+  const { isArabic } = useLanguage();
   
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +36,10 @@ export const useCheckoutPage = () => {
     }
     
     if (itemCount === 0) {
-      toast.error('Your cart is empty');
+      toast.error(isArabic ? 'سلة التسوق فارغة' : 'Your cart is empty');
       router.push('/pages/cart');
     }
-  }, [user, itemCount, router]);
+  }, [user, itemCount, router, isArabic]);
 
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ export const useCheckoutPage = () => {
     );
     
     if (missingFields.length > 0) {
-      toast.error('Please fill all required fields');
+      toast.error(isArabic ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
       return;
     }
     
@@ -60,20 +62,19 @@ export const useCheckoutPage = () => {
     try {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (!token) {
-        toast.error('Please login to place an order');
+        toast.error(isArabic ? 'يرجى تسجيل الدخول لإتمام الطلب' : 'Please login to place an order');
         router.push('/pages/login?redirect=checkout');
         return;
       }
 
-      // Validate required data before creating order
       if (!items || items.length === 0) {
-        toast.error('Your cart is empty');
+        toast.error(isArabic ? 'سلة التسوق فارغة' : 'Your cart is empty');
         router.push('/pages/cart');
         return;
       }
 
       if (!shippingAddress.fullName || !shippingAddress.address || !shippingAddress.city) {
-        toast.error('Please complete your shipping address');
+        toast.error(isArabic ? 'يرجى إكمال عنوان الشحن' : 'Please complete your shipping address');
         setCurrentStep(1);
         return;
       }
@@ -82,6 +83,8 @@ export const useCheckoutPage = () => {
         products: items.map(item => ({
           productId: item.product._id,
           name: item.product.name,
+          nameAr: item.product.nameAr,
+          image: item.product.images?.[0] || item.product.mainImage,
           price: item.product.finalPrice || item.product.basePrice,
           quantity: item.quantity,
           selectedOptions: {}
@@ -97,22 +100,22 @@ export const useCheckoutPage = () => {
       const orderId = result.data?._id || OrderService.generateSecureOrderId();
       
       await clearCart();
-      toast.success('Order placed successfully!');
+      toast.success(isArabic ? 'تم تقديم الطلب بنجاح!' : 'Order placed successfully!');
       
       router.push(`/pages/order-confirmation?orderId=${orderId}`);
     } catch (error: unknown) {
       console.error('Order creation error:', error);
       if (error instanceof Error) {
         if (error.message === 'Not authorized') {
-          toast.error('Please login to place an order');
+          toast.error(isArabic ? 'يرجى تسجيل الدخول لإتمام الطلب' : 'Please login to place an order');
           router.push('/pages/login?redirect=checkout');
         } else if (error.message.includes('required')) {
           toast.error(error.message);
         } else {
-          toast.error('Failed to place order. Please try again.');
+          toast.error(isArabic ? 'فشل في تقديم الطلب. يرجى المحاولة مرة أخرى.' : 'Failed to place order. Please try again.');
         }
       } else {
-        toast.error('Failed to place order. Please try again.');
+        toast.error(isArabic ? 'فشل في تقديم الطلب. يرجى المحاولة مرة أخرى.' : 'Failed to place order. Please try again.');
       }
     } finally {
       setIsLoading(false);

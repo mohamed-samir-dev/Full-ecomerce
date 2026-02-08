@@ -20,7 +20,7 @@ export const HeroImage = ({ slide, currentSlide, altText }: HeroImageProps) => {
               src={slide.image}
               alt={altText}
               fill
-              quality={80}
+              quality={70}
               sizes="(min-width: 1024px) 50vw, 0px"
               className="object-cover"
               priority={currentSlide === 0}

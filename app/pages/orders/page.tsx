@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
+import { useTranslation } from '@/i18n';
 import { useRouter } from 'next/navigation';
 import { Order } from './types/types';
 import orderService from '@/services/orderService';
@@ -18,13 +19,13 @@ import { calculateOrderStats } from './utils/statsHelpers';
 export default function OrdersPage() {
   const { user } = useAuth();
   const { isDarkMode } = useTheme();
+  const { isArabic } = useTranslation();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const isArabic = false;
 
   useEffect(() => {
     if (!user) {

@@ -27,7 +27,7 @@ export default function MenPage() {
         title={t('electronic.hero.title')} 
         description={t('electronic.hero.description')} 
         buttonText={t('electronic.hero.button')} 
-        buttonLink="/pages/men/collection" 
+        buttonLink="/pages/electronic/collection" 
         buttonColor="#1E3A8A" 
         buttonHoverColor="#1E40AF" 
       />

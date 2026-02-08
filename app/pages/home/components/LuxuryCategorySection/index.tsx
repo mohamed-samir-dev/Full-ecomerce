@@ -37,7 +37,8 @@ export default function LuxuryCategorySection() {
                       alt={t(category.nameKey)}
                       fill
                       loading="lazy"
-                      quality={75}
+                      quality={60}
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                       className="object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1"
                     />
                     <div className="absolute inset-0 z-20 flex flex-col justify-end p-3 sm:p-4 md:p-5 lg:p-6">

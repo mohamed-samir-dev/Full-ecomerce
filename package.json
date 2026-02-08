@@ -4,7 +4,13 @@
   "private": true,
   "type": "module",
   "browserslist": [
-    "defaults and fully supports es6-module"
+    ">0.3%",
+    "not dead",
+    "not op_mini all",
+    "chrome >= 90",
+    "firefox >= 88",
+    "safari >= 14",
+    "edge >= 90"
   ],
   "scripts": {
     "dev": "next dev",

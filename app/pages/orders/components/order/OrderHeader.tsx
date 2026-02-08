@@ -1,10 +1,13 @@
 import React from 'react';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/i18n';
 import OrderStatusBadge from '../ui/OrderStatusBadge';
 import {OrderHeaderProps}from '../../types/types'
 
 
 export default function OrderHeader({ orderId, statusConfig, isDarkMode, isArabic }: OrderHeaderProps) {
+  const { t } = useTranslation();
+  
   return (
     <div className={`flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-4 sm:mb-6 ${isArabic ? 'sm:flex-row-reverse' : ''}`}>
       <div className="flex-1">
@@ -14,7 +17,7 @@ export default function OrderHeader({ orderId, statusConfig, isDarkMode, isArabi
           </div>
           <div>
             <p className={`text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-0.5 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-              {isArabic ? 'رقم الطلب' : 'Order ID'}
+              {t('orders.orderId')}
             </p>
             <p className={`text-base sm:text-lg font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               #{orderId.slice(-8).toUpperCase()}

@@ -15,7 +15,7 @@ export default function AddProductPage() {
     description: '', descriptionAr: '', basePrice: '', discount: { type: 'percentage', value: 0 },
     currency: 'EGP', mainImage: '', imageGallery: [''], video: '', stock: '', sku: '',
     availability: 'in_stock', category: '', categoryAr: '', subCategory: '', subCategoryAr: '',
-    brand: '', brandAr: '', productType: '', secondtype: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
+    brand: '', brandAr: '', productType: '', secondtype: '', thirdtype: '', tags: [''], tagsAr: [''], sizes: [''], colors: [{ name: '', hex: '' }],
     material: '', weight: '', dimensions: { length: '', width: '', height: '' },
     warranty: '', returnPolicy: '', specifications: '', specificationsAr: '',
     initialReview: { rating: 0, comment: '' }
@@ -269,6 +269,10 @@ export default function AddProductPage() {
                 <div>
                   <label className={labelClass}>Second Type</label>
                   <input name="secondtype" value={formData.secondtype} onChange={handleChange} placeholder="Second Type" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Third Type</label>
+                  <input name="thirdtype" value={formData.thirdtype} onChange={handleChange} placeholder="Third Type" className={inputClass} />
                 </div>
               </div>
             </FormSection>

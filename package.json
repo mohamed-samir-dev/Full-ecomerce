@@ -3,15 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "browserslist": [
-    ">0.3%",
-    "not dead",
-    "not op_mini all",
-    "chrome >= 90",
-    "firefox >= 88",
-    "safari >= 14",
-    "edge >= 90"
-  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -48,6 +39,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cssnano": "^7",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",

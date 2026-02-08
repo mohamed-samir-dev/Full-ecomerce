@@ -6,35 +6,35 @@ export const heroSlides: HeroSlide[] = [
     descriptionKey: 'home.hero.newSeasonDescription',
     image: "/images/hero-1.webp",
     buttonTextKey: 'home.hero.shopNow',
-    buttonLink: "/products"
+    buttonLink: "/pages/banner-pages/products"
   },
   {
     titleKey: 'home.hero.premiumCollection',
     descriptionKey: 'home.hero.premiumDescription',
     image: "/images/hero-5.webp",
     buttonTextKey: 'home.hero.explore',
-    buttonLink: "/products"
+    buttonLink: "/pages/banner-pages/premium"
   },
   {
     titleKey: 'home.hero.summerSale',
     descriptionKey: 'home.hero.summerSaleDescription',
     image: "/images/hero-2.webp",
     buttonTextKey: 'home.hero.saveNow',
-    buttonLink: "/sale"
+    buttonLink: "/pages/banner-pages/sale"
   },
   {
     titleKey: 'home.hero.exclusiveDeals',
     descriptionKey: 'home.hero.exclusiveDealsDescription',
     image: "/images/hero--4.webp",
     buttonTextKey: 'home.hero.discover',
-    buttonLink: "/deals"
+    buttonLink: "/pages/banner-pages/deals"
   },
   {
     titleKey: 'home.hero.trendingNow',
     descriptionKey: 'home.hero.trendingDescription',
     image: "/images/hero--3.webp",
     buttonTextKey: 'home.hero.viewTrends',
-    buttonLink: "/trending"
+    buttonLink: "/pages/banner-pages/trending"
   }
 ];
 

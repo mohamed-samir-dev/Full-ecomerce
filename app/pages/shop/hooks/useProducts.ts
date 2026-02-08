@@ -35,7 +35,7 @@ export function useProducts(filters: Filters, page: number = 1) {
         if (filters.shop.length > 0) params.shop = filters.shop.join(',');
         if (filters.rating.length > 0) params.rating = filters.rating.join(',');
         if (filters.search) params.search = filters.search;
-        if (filters.exclusiveOnly) params.exclusiveOnly = 'true';
+        if (filters.exclusiveOnly) params.productType = 'exclusive';
         
         // Price range
         if (filters.priceRange[0] > 0) params.minPrice = filters.priceRange[0];

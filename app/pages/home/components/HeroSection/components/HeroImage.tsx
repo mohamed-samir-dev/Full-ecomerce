@@ -13,17 +13,17 @@ export const HeroImage = ({ slide, currentSlide, altText }: HeroImageProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }}
             className="relative w-full h-full rounded-2xl overflow-hidden"
           >
             <Image
               src={slide.image}
               alt={altText}
               fill
-              quality={85}
+              quality={80}
+              sizes="(min-width: 1024px) 50vw, 0px"
               className="object-cover"
               priority={currentSlide === 0}
-              loading={currentSlide === 0 ? 'eager' : 'lazy'}
             />
           </motion.div>
         </AnimatePresence>

@@ -40,7 +40,8 @@ export const PromoCard = ({ item }: PromoCardProps) => {
           width={128}
           height={128}
           loading="lazy"
-          quality={75}
+          quality={70}
+          sizes="(max-width: 640px) 80px, 128px"
           className="w-20 h-20 sm:w-32 sm:h-35 object-cover" 
         />
       </div>

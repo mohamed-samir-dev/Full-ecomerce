@@ -1,8 +1,11 @@
 import { FunnelIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/i18n';
 import {StatusFilterProps}from '../../types/types'
 
 
 export default function StatusFilter({ value, onChange, isDarkMode, isArabic }: StatusFilterProps) {
+  const { t } = useTranslation();
+  
   return (
     <div className={`flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
       <FunnelIcon className={`w-4 h-4 sm:w-5 sm:h-5 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`} />
@@ -15,11 +18,11 @@ export default function StatusFilter({ value, onChange, isDarkMode, isArabic }: 
             : 'bg-white border-slate-200 text-slate-900'
         } focus:outline-none focus:ring-2 focus:ring-blue-500`}
       >
-        <option value="all">{isArabic ? 'جميع الطلبات' : 'All Orders'}</option>
-        <option value="processing">{isArabic ? 'قيد المعالجة' : 'Processing'}</option>
-        <option value="shipped">{isArabic ? 'تم الشحن' : 'Shipped'}</option>
-        <option value="delivered">{isArabic ? 'تم التسليم' : 'Delivered'}</option>
-        <option value="cancelled">{isArabic ? 'ملغي' : 'Cancelled'}</option>
+        <option value="all">{t('orders.filter.all')}</option>
+        <option value="processing">{t('orders.filter.processing')}</option>
+        <option value="shipped">{t('orders.filter.shipped')}</option>
+        <option value="delivered">{t('orders.filter.delivered')}</option>
+        <option value="cancelled">{t('orders.filter.cancelled')}</option>
       </select>
     </div>
   );

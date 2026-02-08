@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface User {
   id: string;
@@ -19,23 +19,49 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
-    const savedToken = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (savedUser && savedToken) {
-      setUser(JSON.parse(savedUser));
-      setToken(savedToken);
+  const [user, setUser] = useState<User | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const savedUser = localStorage.getItem('user');
+    const loginTime = localStorage.getItem('loginTime');
+    
+    if (savedUser && loginTime) {
+      const currentTime = new Date().getTime();
+      const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+      
+      if (currentTime - parseInt(loginTime) < threeDaysInMs) {
+        return JSON.parse(savedUser);
+      } else {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('loginTime');
+      }
     }
-  }, []);
+    return null;
+  });
+
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const savedToken = localStorage.getItem('token');
+    const loginTime = localStorage.getItem('loginTime');
+    
+    if (savedToken && loginTime) {
+      const currentTime = new Date().getTime();
+      const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+      
+      if (currentTime - parseInt(loginTime) < threeDaysInMs) {
+        return savedToken;
+      }
+    }
+    return null;
+  });
 
   const login = (user: User, token: string) => {
     setUser(user);
     setToken(token);
+    const loginTime = new Date().getTime();
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
+    localStorage.setItem('loginTime', loginTime.toString());
     localStorage.removeItem('cart');
   };
 
@@ -44,8 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('loginTime');
   };
 
   return (

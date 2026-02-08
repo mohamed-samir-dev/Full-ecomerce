@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useTranslation } from '@/i18n';
+import Pagination from '@/app/pages/shop/components/Pagination';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -52,7 +53,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
   const [sortBy, setSortBy] = useState<string>("featured");
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     sizes: [],
@@ -62,10 +63,12 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   });
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(true);
-  const isInitialized = useRef(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginatedProducts, setPaginatedProducts] = useState<Product[]>([]);
   const router = useRouter();
   const { addToCart } = useCart();
   const { isArabic } = useTranslation();
+  const ITEMS_PER_PAGE = 9;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -111,12 +114,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
     fetchProducts();
   }, [category, subCategory]);
 
-  useEffect(() => {
-    if (!isInitialized.current && filterOptions.priceRange.max > 0) {
-      isInitialized.current = true;
-      setPriceRange([filterOptions.priceRange.min, filterOptions.priceRange.max]);
-    }
-  }, [filterOptions.priceRange]);
+
 
   useEffect(() => {
     let filtered = [...products];
@@ -139,9 +137,11 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
       );
     }
     
-    filtered = filtered.filter((p: Product) => 
-      p.finalPrice >= priceRange[0] && p.finalPrice <= priceRange[1]
-    );
+    if (priceRange) {
+      filtered = filtered.filter((p: Product) => 
+        p.finalPrice >= priceRange[0] && p.finalPrice <= priceRange[1]
+      );
+    }
 
     switch (sortBy) {
       case "price-low":
@@ -159,7 +159,14 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
     }
 
     setFilteredProducts(filtered);
+    setCurrentPage(1);
   }, [products, selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy]);
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    setPaginatedProducts(filteredProducts.slice(startIndex, endIndex));
+  }, [filteredProducts, currentPage]);
 
   const toggleFilter = (value: string, selected: string[], setter: (v: string[]) => void) => {
     setter(selected.includes(value) 
@@ -172,7 +179,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
     setSelectedSizes([]);
     setSelectedColors([]);
     setSelectedSubCategories([]);
-    setPriceRange([filterOptions.priceRange.min, filterOptions.priceRange.max]);
+    setPriceRange(null);
   };
 
   if (loading) {
@@ -321,13 +328,13 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                     type="range"
                     min={filterOptions.priceRange.min}
                     max={filterOptions.priceRange.max}
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    value={priceRange?.[1] ?? filterOptions.priceRange.max}
+                    onChange={(e) => setPriceRange([filterOptions.priceRange.min, parseInt(e.target.value)])}
                     className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer"
                   />
                   <div className="flex justify-between text-sm font-medium text-gray-700 mt-3">
-                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[0]} {isArabic ? "ج.م" : "EGP"}</span>
-                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange[1]} {isArabic ? "ج.م" : "EGP"}</span>
+                    <span className="bg-amber-50 px-3 py-1 rounded-full">{filterOptions.priceRange.min} {isArabic ? "ج.م" : "EGP"}</span>
+                    <span className="bg-amber-50 px-3 py-1 rounded-full">{priceRange?.[1] ?? filterOptions.priceRange.max} {isArabic ? "ج.م" : "EGP"}</span>
                   </div>
                 </div>
               </div>
@@ -353,7 +360,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {filteredProducts.map(product => (
+              {paginatedProducts.map(product => (
                 <Link key={product._id} href={`/pages/product/${product._id}`} className="group">
                   <div className="bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
                     <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
@@ -432,6 +439,14 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                   {isArabic ? "مسح جميع الفلاتر" : "Clear all filters"}
                 </button>
               </div>
+            )}
+
+            {filteredProducts.length > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)}
+                onPageChange={setCurrentPage}
+              />
             )}
           </main>
         </div>

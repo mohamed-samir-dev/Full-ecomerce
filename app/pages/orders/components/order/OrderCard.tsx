@@ -1,6 +1,7 @@
 'use client';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import { useTranslation } from '@/i18n';
 import { getStatusConfig } from '../../utils/orderHelpers';
 import OrderHeader from './OrderHeader';
 import OrderSummaryGrid from './OrderSummaryGrid';
@@ -10,6 +11,7 @@ import {OrderCardProps}from '../../types/types'
 
 export default function OrderCard({ order, isDarkMode, isArabic }: OrderCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
 
   const statusConfig = getStatusConfig(order.status);
   const subtotal = order.products.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -35,7 +37,7 @@ export default function OrderCard({ order, isDarkMode, isArabic }: OrderCardProp
             isDarkMode ? 'bg-slate-700 text-white hover:bg-slate-600' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
           }`}
         >
-          <span>{isExpanded ? (isArabic ? 'إخفاء التفاصيل' : 'Hide Details') : (isArabic ? 'عرض التفاصيل الكاملة' : 'View Full Details')}</span>
+          <span>{isExpanded ? t('orders.hideDetails') : t('orders.viewDetails')}</span>
           <ChevronDownIcon className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
         </button>
       </div>

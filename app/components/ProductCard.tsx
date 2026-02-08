@@ -4,17 +4,7 @@ import { memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-interface Product {
-  _id: string;
-  name: string;
-  nameAr: string;
-  mainImage: string;
-  finalPrice: number;
-  basePrice: number;
-  averageRating: number;
-  totalReviews: number;
-}
+import { Product } from "@/app/types/category";
 
 interface ProductCardProps {
   product: Product;
@@ -32,7 +22,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
         <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
           <Image 
             src={product.mainImage} 
-            alt={isArabic ? product.nameAr : product.name} 
+            alt={isArabic ? (product.nameAr || product.name) : product.name} 
             fill 
             className="object-cover group-hover:scale-110 transition-transform duration-700"
             loading="lazy"
@@ -46,7 +36,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
         </div>
         <div className="p-4 sm:p-5">
           <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">
-            {isArabic ? product.nameAr : product.name}
+            {isArabic ? (product.nameAr || product.name) : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
             {[...Array(5)].map((_, i) => (

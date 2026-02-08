@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import ProductCard from './ProductCard';
 import { Product } from '@/app/types/category';
+import { useTranslation } from '@/i18n';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -14,6 +15,8 @@ interface ProductSliderProps {
 }
 
 export default function ProductSlider({ title, products, loading, onAddToCart, accentColor }: ProductSliderProps) {
+  const { t, isArabic } = useTranslation();
+  
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-5 py-8 sm:py-12 lg:py-16">
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 lg:mb-8 text-gray-900">{title}</h2>
@@ -37,7 +40,7 @@ export default function ProductSlider({ title, products, loading, onAddToCart, a
         >
           {products.map((product) => (
             <SwiperSlide key={product._id}>
-              <ProductCard product={product} onAddToCart={onAddToCart} accentColor={accentColor} />
+              <ProductCard product={product} isArabic={isArabic} t={t} addToCart={onAddToCart} />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -305,47 +305,51 @@ const FilterSection = ({
   renderItem,
   filters,
   handleArrayFilterChange
-}: FilterSectionProps) => (
-  <div className="mb-8">
-    <button
-      onClick={() => setIsOpen(!isOpen)}
-      className="w-full flex items-center font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider justify-between hover:text-gray-900 transition-colors"
-    >
-      <span>{title}</span>
-      <div className="flex items-center gap-2">
-        {(filters[filterKey] as string[]).length > 0 && (
-          <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
-            {(filters[filterKey] as string[]).length}
-          </span>
-        )}
-        <svg
-          className={`w-4 h-4 transform transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-    </button>
-    {isOpen && (
-      <div className="space-y-2 max-h-48 overflow-y-auto">
-        {items.map((item) => (
-          <label key={item} className="flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={(filters[filterKey] as string[]).includes(item)}
-              onChange={() => handleArrayFilterChange(filterKey, item)}
-              className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
-            />
-            <span className="ml-3 text-gray-700 capitalize">
-              {renderItem ? renderItem(item) : item}
+}: FilterSectionProps) => {
+  const { isArabic } = useTranslation();
+  
+  return (
+    <div className="mb-8">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider justify-between hover:text-gray-900 transition-colors"
+      >
+        <span>{title}</span>
+        <div className="flex items-center gap-2">
+          {(filters[filterKey] as string[]).length > 0 && (
+            <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
+              {(filters[filterKey] as string[]).length}
             </span>
-          </label>
-        ))}
-      </div>
-    )}
-  </div>
-);
+          )}
+          <svg
+            className={`w-4 h-4 transform transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+      {isOpen && (
+        <div className="space-y-2 max-h-48 overflow-y-auto">
+          {items.map((item) => (
+            <label key={item} className="flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={(filters[filterKey] as string[]).includes(item)}
+                onChange={() => handleArrayFilterChange(filterKey, item)}
+                className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
+              />
+              <span className={`text-gray-700 capitalize ${isArabic ? 'mr-3' : 'ml-3'}`}>
+                {renderItem ? renderItem(item) : item}
+              </span>
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

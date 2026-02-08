@@ -38,10 +38,10 @@ export default function LuxuryPromoSection() {
           </div>
           <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] grid grid-cols-2 gap-3 sm:gap-4">
             <div className="relative rounded-lg overflow-hidden shadow-2xl transition">
-              <Image src="/images/EXCLUSIVE-1.avif" alt="Luxury fashion model" fill loading="lazy" quality={60} sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
+              <Image src="/images/EXCLUSIVE-1.avif" alt="Luxury fashion model" fill loading="lazy" quality={80} className="object-cover" />
             </div>
             <div className="relative rounded-lg overflow-hidden shadow-2xl transition mt-8 sm:mt-12">
-              <Image src="/images/EXCLUSIVE-2.avif" alt="Premium clothing" fill loading="lazy" quality={60} sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
+              <Image src="/images/EXCLUSIVE-2.avif" alt="Premium clothing" fill loading="lazy" quality={80} className="object-cover" />
             </div>
           </div>
         </div>

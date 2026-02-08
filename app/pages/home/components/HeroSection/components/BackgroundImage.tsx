@@ -8,7 +8,7 @@ export const BackgroundImage = ({ slide, currentSlide, altText }: BackgroundImag
         src={slide.image}
         alt={altText}
         fill
-        quality={65}
+        quality={75}
         sizes="100vw"
         className="object-cover"
         priority={currentSlide === 0}

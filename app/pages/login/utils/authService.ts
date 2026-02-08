@@ -42,20 +42,9 @@ export const loginUser = async (
 export const saveAuthData = (
   token: string,
   user: User,
-  rememberMe: boolean,
 ) => {
-  console.log("Saving auth data:", {
-    token: token.substring(0, 20) + "...",
-    user,
-    rememberMe,
-  });
-  if (rememberMe) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    console.log("Saved to localStorage");
-  } else {
-    sessionStorage.setItem("token", token);
-    sessionStorage.setItem("user", JSON.stringify(user));
-    console.log("Saved to sessionStorage");
-  }
+  const loginTime = new Date().getTime();
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("loginTime", loginTime.toString());
 };

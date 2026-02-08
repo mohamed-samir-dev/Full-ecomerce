@@ -25,6 +25,7 @@ interface Product {
   subCategory?: string;
   category?: string;
   secondtype?: string;
+  thirdtype?: string;
   sizes?: string[];
   colors?: { name: string; hex: string }[];
 }
@@ -33,6 +34,7 @@ interface CategoryPageProps {
   category?: string;
   subCategory: string;
   secondtype?: string;
+  thirdtype?: string;
   title: string;
   description: string;
 }
@@ -43,7 +45,7 @@ interface FilterOptions {
   priceRange: { min: number; max: number };
 }
 
-export default function CategoryPage({ category, subCategory, secondtype, title, description }: CategoryPageProps) {
+export default function CategoryPage({ category, subCategory, secondtype, thirdtype, title, description }: CategoryPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -64,7 +66,8 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
           let filtered = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
             (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
-            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase())
+            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase()) &&
+            (!thirdtype || p.thirdtype?.trim().toLowerCase() === thirdtype.toLowerCase())
           );
           if (selectedSizes.length) filtered = filtered.filter((p: Product) => p.sizes?.some(s => selectedSizes.includes(s)));
           if (selectedColors.length) filtered = filtered.filter((p: Product) => p.colors?.some(c => selectedColors.includes(c.name)));
@@ -74,7 +77,8 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
           const all = res.data.data.filter((p: Product) =>
             p.subCategory?.trim().toLowerCase() === subCategory.toLowerCase() &&
             (!category || p.category?.trim().toLowerCase() === category.toLowerCase()) &&
-            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase())
+            (!secondtype || p.secondtype?.trim().toLowerCase() === secondtype.toLowerCase()) &&
+            (!thirdtype || p.thirdtype?.trim().toLowerCase() === thirdtype.toLowerCase())
           );
           const sizes = [...new Set(all.flatMap((p: Product) => p.sizes || [] as string[]))] as string[];
           const colors = Array.from(new Map(all.flatMap((p: Product) => p.colors || [] as { name: string; hex: string }[]).map((c: { name: string; hex: string }): [string, { name: string; hex: string }] => [c.name, c])).values()) as { name: string; hex: string }[];
@@ -88,7 +92,7 @@ export default function CategoryPage({ category, subCategory, secondtype, title,
       }
     };
     fetchData();
-  }, [category, subCategory, secondtype, selectedSizes, selectedColors, priceRange]);
+  }, [category, subCategory, secondtype, thirdtype, selectedSizes, selectedColors, priceRange]);
 
   useEffect(() => {
     if (!isInitialized.current && filterOptions.priceRange.max > 0) {

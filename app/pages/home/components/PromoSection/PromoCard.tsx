@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
 import { PromoItem } from '../../types/home.types';
@@ -12,7 +13,7 @@ export const PromoCard = ({ item }: PromoCardProps) => {
   const { t, isArabic } = useTranslation();
 
   return (
-    <div className={`flex items-center rounded-lg p-4 sm:p-6 ${
+    <Link href="pages/shop" className={`flex items-center rounded-lg p-4 sm:p-6 transition-transform hover:scale-105 ${
       isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     } ${isArabic ? 'flex-row-reverse' : ''}`}>
       <div className={`flex-1 ${isArabic ? 'pl-4' : 'pr-4'}`}>
@@ -26,12 +27,11 @@ export const PromoCard = ({ item }: PromoCardProps) => {
         }`}>
           {String(t(item.descriptionKey))}
         </p>
-        <button 
-          className="bg-[#020204] text-white px-2 sm:px-4 lg:px-6 py-1 sm:py-2 rounded-full hover:bg-gray-800 transition-colors text-xs sm:text-sm lg:text-base"
-          aria-label={String(t(item.buttonTextKey))}
+        <span 
+          className="inline-block bg-[#020204] text-white px-2 sm:px-4 lg:px-6 py-1 sm:py-2 rounded-full hover:bg-gray-800 transition-colors text-xs sm:text-sm lg:text-base"
         >
           {String(t(item.buttonTextKey))}
-        </button>
+        </span>
       </div>
       <div className="shrink-0">
         <Image 
@@ -42,6 +42,6 @@ export const PromoCard = ({ item }: PromoCardProps) => {
           className="w-20 h-20 sm:w-32 sm:h-35 object-cover" 
         />
       </div>
-    </div>
+    </Link>
   );
 };

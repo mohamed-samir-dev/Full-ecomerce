@@ -3,19 +3,19 @@ import {OrderNotesSectionProps} from '../../types/checkout'
 import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 
-export default function OrderNotesSection({ notes, setNotes, isLoading, onBack, onSubmit }: OrderNotesSectionProps) {
+export default function OrderNotesSection({ notes, setNotes, isLoading, onBack, onSubmit, isDarkMode }: OrderNotesSectionProps) {
   const { t } = useTranslation();
   
   return (
-    <div className="rounded-2xl shadow-xl p-4 sm:p-6 border bg-white border-gray-100">
-      <label className="block text-sm font-semibold mb-3 text-gray-700">
+    <div className={`rounded-2xl shadow-xl p-4 sm:p-6 border ${isDarkMode ? 'bg-[#191C21] border-slate-700' : 'bg-white border-gray-100'}`}>
+      <label className={`block text-sm font-semibold mb-3 ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
         {t('checkout.orderNotes')}
       </label>
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         rows={3}
-        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-purple-500 transition-colors bg-white border-gray-200 text-gray-900"
+        className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-purple-500 transition-colors ${isDarkMode ? 'bg-[#191C21] border-slate-600 text-white placeholder-slate-400' : 'bg-white border-gray-200 text-gray-900'}`}
         placeholder={t('checkout.orderNotesPlaceholder')}
       />
       
@@ -24,7 +24,7 @@ export default function OrderNotesSection({ notes, setNotes, isLoading, onBack, 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onBack}
-          className="w-full sm:flex-1 py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl font-semibold transition-colors bg-gray-200 text-gray-700 hover:bg-gray-300"
+          className={`w-full sm:flex-1 py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl font-semibold transition-colors ${isDarkMode ? 'bg-slate-700 text-slate-200 hover:bg-slate-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
           {t('checkout.back')}
         </motion.button>

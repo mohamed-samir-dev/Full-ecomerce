@@ -1,5 +1,6 @@
 'use client';
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
@@ -37,7 +38,9 @@ export default function ExclusiveDealsPage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+    <>
+      <DynamicMetadata titleAr="عروض حصرية" titleEn="Exclusive Deals" descriptionAr="عروض حصرية لفترة محدودة" descriptionEn="Exclusive deals for limited time" keywordsAr={['عروض', 'حصري']} keywordsEn={['deals', 'exclusive']} />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
         <PageHeader 
           title={isArabic ? 'عروض حصرية' : 'Exclusive Deals'}
@@ -71,6 +74,7 @@ export default function ExclusiveDealsPage() {
           onPageChange={onPageChange}
         />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Filters } from "../types";
 import { useProducts } from "../hooks/useProducts";
+import { useTheme } from '@/context/ThemeContext';
 import ProductGrid from "./ProductGrid";
 import SortControls from "./SortControls";
 import SearchBar from "./SearchBar";
@@ -16,6 +17,7 @@ interface ProductsSectionProps {
 export default function ProductsSection({ filters, handleFilterChange }: ProductsSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const { products, loading, error, totalProducts, totalPages } = useProducts(filters, currentPage);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     setCurrentPage(1);
@@ -31,10 +33,10 @@ export default function ProductsSection({ filters, handleFilterChange }: Product
       <div className="space-y-6">
         {/* Search and Sort Controls Skeleton */}
         <div className="space-y-4">
-          <div className="h-12 bg-gray-200 rounded-lg animate-pulse"></div>
+          <div className={`h-12 rounded-lg animate-pulse ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
           <div className="flex justify-between items-center">
-            <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
-            <div className="h-8 bg-gray-200 rounded w-40 animate-pulse"></div>
+            <div className={`h-4 rounded w-32 animate-pulse ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+            <div className={`h-8 rounded w-40 animate-pulse ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
           </div>
         </div>
         
@@ -43,18 +45,20 @@ export default function ProductsSection({ filters, handleFilterChange }: Product
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-3xl overflow-hidden animate-pulse border border-gray-100"
+              className={`rounded-3xl overflow-hidden animate-pulse border ${
+                isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
+              }`}
             >
-              <div className="aspect-3/4 bg-gray-200"></div>
+              <div className={`aspect-3/4 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
               <div className="p-5">
-                <div className="h-4 rounded mb-2 bg-gray-200"></div>
-                <div className="h-3 rounded mb-3 w-3/4 bg-gray-200"></div>
-                <div className="h-4 rounded mb-4 w-1/2 bg-gray-200"></div>
+                <div className={`h-4 rounded mb-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+                <div className={`h-3 rounded mb-3 w-3/4 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+                <div className={`h-4 rounded mb-4 w-1/2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
                 <div className="flex justify-between items-center">
-                  <div className="h-6 rounded w-20 bg-gray-200"></div>
+                  <div className={`h-6 rounded w-20 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
                   <div className="flex gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gray-200"></div>
-                    <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+                    <div className={`w-10 h-10 rounded-full ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+                    <div className={`w-10 h-10 rounded-full ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
                   </div>
                 </div>
               </div>
@@ -69,11 +73,11 @@ export default function ProductsSection({ filters, handleFilterChange }: Product
     return (
       <div className="text-center py-16">
         <div className="mb-4">
-          <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-16 h-16 mx-auto mb-4 ${isDarkMode ? 'text-gray-600' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <p className="text-red-500 font-medium">{error}</p>
-          <p className="text-gray-500 text-sm mt-2">Please try again or contact support if the problem persists.</p>
+          <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Please try again or contact support if the problem persists.</p>
         </div>
         <button
           onClick={() => window.location.reload()}

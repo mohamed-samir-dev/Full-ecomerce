@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useOrderData } from './hooks/useOrderData';
 import LoadingState from './components/LoadingState';
 import ErrorState from './components/ErrorState';
@@ -31,7 +32,16 @@ function OrderConfirmationContent() {
   }
 
   return (
-    <div className={`min-h-screen py-8 ${isDarkMode ? 'bg-slate-900' : 'bg-gray-50'}`}>
+    <>
+      <DynamicMetadata
+        titleAr="تأكيد الطلب - شكراً لطلبك"
+        titleEn="Order Confirmation - Thank You For Your Order"
+        descriptionAr="تم استلام طلبك بنجاح. تفاصيل الطلب ومعلومات الشحن والتوصيل"
+        descriptionEn="Your order has been received successfully. Order details, shipping and delivery information"
+        keywordsAr={['تأكيد الطلب', 'طلب ناجح', 'شكراً']}
+        keywordsEn={['order confirmation', 'successful order', 'thank you']}
+      />
+      <div className={`min-h-screen py-8 ${isDarkMode ? 'bg-slate-900' : 'bg-gray-50'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <OrderHeader 
           orderId={orderData._id}
@@ -87,7 +97,8 @@ function OrderConfirmationContent() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

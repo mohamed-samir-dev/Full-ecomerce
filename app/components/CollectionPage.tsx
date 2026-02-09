@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import Pagination from '@/app/pages/shop/components/Pagination';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -53,6 +54,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   const router = useRouter();
   const { addToCart } = useCart();
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
@@ -168,7 +170,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
         <div className="relative">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#B39E7A] absolute inset-0"></div>
@@ -178,7 +180,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
       <div className="relative h-64 sm:h-80 lg:h-96 bg-linear-to-r from-rose-100 to-amber-50 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <Image 
@@ -203,16 +205,16 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
         </div>
       </div>
 
-      <div className="bg-white border-b border-gray-100">
+      <div className={`${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'} border-b`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-2">
-                {index > 0 && <span className="text-gray-300">•</span>}
+                {index > 0 && <span className={isDarkMode ? 'text-gray-500' : 'text-gray-300'}>•</span>}
                 {index === breadcrumbs.length - 1 ? (
-                  <span className="text-gray-900 font-medium">{crumb.label}</span>
+                  <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{crumb.label}</span>
                 ) : (
-                  <Link href={crumb.href} className="hover:text-[#B39E7A] transition-colors">{crumb.label}</Link>
+                  <Link href={crumb.href} className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{crumb.label}</Link>
                 )}
               </div>
             ))}
@@ -223,9 +225,9 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
           <aside className="w-full lg:w-80 lg:shrink-0">
-            <div className="lg:sticky lg:top-4 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+            <div className={`lg:sticky lg:top-4 border rounded-2xl p-6 shadow-sm ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-light text-gray-900">{isArabic ? "الفلاتر" : "Filters"}</h2>
+                <h2 className={`text-xl font-light ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{isArabic ? "الفلاتر" : "Filters"}</h2>
                 <button 
                   onClick={clearAllFilters}
                   className="text-sm text-[#B39E7A] hover:text-[#A08D6A] transition-colors"
@@ -236,8 +238,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
               <button 
                 onClick={() => setShowFilters(!showFilters)} 
-                className="lg:hidden w-full flex items-center text-black justify-between mb-6 pb-3 border-b border-gray-100"
-              >
+                className={`lg:hidden w-full flex items-center justify-between mb-6 pb-3 border-b ${isDarkMode ? 'text-gray-100 border-gray-700' : 'text-black border-gray-100'}`}>
                 <span className="font-medium">{isArabic ? "إظهار الفلاتر" : "Show Filters"}</span>
                 <svg className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -247,7 +248,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block space-y-8`}>
                 {filterOptions.subCategories.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "الفئة" : "Category"}</h3>
+                    <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{isArabic ? "الفئة" : "Category"}</h3>
                     <div className="space-y-2">
                       {filterOptions.subCategories.map(subCategory => (
                         <label key={subCategory} className="flex items-center cursor-pointer">
@@ -257,7 +258,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                             onChange={() => toggleFilter(subCategory, selectedSubCategories, setSelectedSubCategories)}
                             className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
                           />
-                          <span className="ml-3 text-gray-700 capitalize">{subCategory}</span>
+                          <span className={`ml-3 capitalize ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{subCategory}</span>
                         </label>
                       ))}
                     </div>
@@ -266,7 +267,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
                 {filterOptions.sizes.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "المقاس" : "Size"}</h3>
+                    <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{isArabic ? "المقاس" : "Size"}</h3>
                     <div className="flex flex-wrap gap-2">
                       {filterOptions.sizes.map(size => (
                         <button
@@ -287,7 +288,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
                 {filterOptions.colors.length > 0 && (
                   <div>
-                    <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "اللون" : "Color"}</h3>
+                    <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{isArabic ? "اللون" : "Color"}</h3>
                     <div className="flex flex-wrap gap-3">
                       {filterOptions.colors.map((color) => (
                         <button
@@ -311,7 +312,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                 )}
 
                 <div>
-                  <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">{isArabic ? "السعر" : "Price"}</h3>
+                  <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{isArabic ? "السعر" : "Price"}</h3>
                   <input
                     type="range"
                     min={filterOptions.priceRange.min}
@@ -332,13 +333,12 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
           <main className="flex-1">
             <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <p className="text-sm text-gray-500">
-                <span className="text-2xl font-light text-gray-900">{filteredProducts.length}</span> {isArabic ? (filteredProducts.length === 1 ? 'قطعة' : 'قطع') : (filteredProducts.length === 1 ? 'piece' : 'pieces')}
+                <span className={`text-2xl font-light ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{filteredProducts.length}</span> {isArabic ? (filteredProducts.length === 1 ? 'قطعة' : 'قطع') : (filteredProducts.length === 1 ? 'piece' : 'pieces')}
               </p>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 text-black border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#B39E7A] focus:border-transparent"
-              >
+                className={`px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#B39E7A] focus:border-transparent ${isDarkMode ? 'bg-[#23272F] text-gray-100 border-gray-700' : 'text-black border-gray-200'}`}>
                 <option value="featured">{isArabic ? "مميز" : "Featured"}</option>
                 <option value="newest">{isArabic ? "الأحدث" : "Newest"}</option>
                 <option value="price-low">{isArabic ? "السعر: من الأقل للأعلى" : "Price: Low to High"}</option>
@@ -350,7 +350,9 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {paginatedProducts.map(product => (
                 <Link key={product._id} href={`/pages/product/${product._id}`} className="group">
-                  <div className="bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
+                  <div className={`rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border ${
+                    isDarkMode ? 'bg-[#23272F] hover:shadow-gray-900/50 border-gray-700 hover:border-gray-600' : 'bg-white hover:shadow-amber-100/50 border-transparent hover:border-amber-100'
+                  }`}>
                     <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
                       <Image 
                         src={product.mainImage} 
@@ -367,7 +369,9 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                       )}
                     </div>
                     <div className="p-5">
-                      <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
+                      <h3 className={`font-light mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors ${
+                        isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                      }`}>
                         {isArabic ? product.nameAr : product.name}
                       </h3>
                       <div className="flex items-center gap-1 mb-3">

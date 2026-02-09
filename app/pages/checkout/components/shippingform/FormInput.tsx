@@ -12,11 +12,12 @@ export default function FormInput({
   pattern,
   maxLength,
   onKeyPress,
-  inputMode
+  inputMode,
+  isDarkMode
 }: FormInputProps) {
   return (
     <div>
-      <label className="block text-sm font-semibold mb-2 flex items-center text-gray-700">
+      <label className={`block text-sm font-semibold mb-2 flex items-center ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
         {icon}
         {label} {required && '*'}
       </label>
@@ -30,9 +31,9 @@ export default function FormInput({
         pattern={pattern}
         maxLength={maxLength}
         inputMode={inputMode}
-        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-blue-500 transition-colors bg-white border-gray-200 text-black"
+        className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-blue-500 transition-colors ${isDarkMode ? 'bg-[#191C21] border-slate-600 text-white placeholder-slate-400' : 'bg-white border-gray-200 text-black'}`}
       />
-      {helperText && <p className="text-xs mt-2 text-gray-500">{helperText}</p>}
+      {helperText && <p className={`text-xs mt-2 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{helperText}</p>}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { Product } from "../types";
 import { ShoppingCart, Eye, Heart } from "lucide-react";
 
@@ -17,6 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const isWishlisted = isInWishlist(product._id);
   const hasDiscount = product.discount && product.discount.value > 0;
   const discountPercentage = hasDiscount && product.discount?.type === 'percentage'
@@ -62,11 +64,15 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div 
-      className="bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100 cursor-pointer group"
+      className={`rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border cursor-pointer group ${
+        isDarkMode 
+          ? 'bg-gray-800 border-gray-700 hover:border-amber-700 hover:shadow-amber-900/30' 
+          : 'bg-white border-transparent hover:border-amber-100 hover:shadow-amber-100/50'
+      }`}
       onClick={handleCardClick}
     >
         {/* Product Image */}
-        <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
+        <div className={`aspect-3/4 relative overflow-hidden ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
           <Image
             src={product.mainImage}
             alt={isArabic ? product.nameAr : product.name}
@@ -95,23 +101,25 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Product Info */}
         <div className="p-5">
-          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#8B6914] transition-colors">
+          <h3 className={`font-light mb-2 line-clamp-2 text-lg group-hover:text-[#8B6914] transition-colors ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>
             {isArabic ? product.nameAr : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={`text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : 'text-gray-200'}`}>
+              <span key={i} className={`text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : (isDarkMode ? 'text-gray-600' : 'text-gray-200')}`}>
                 ★
               </span>
             ))}
-            <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
+            <span className={`text-xs ml-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>({product.totalReviews})</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-light text-[#8B6914]">{product.finalPrice}</span>
-              <span className="text-sm text-gray-400">{isArabic ? 'جنيه' : 'EGP'}</span>
+              <span className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{isArabic ? 'جنيه' : 'EGP'}</span>
               {hasDiscount && (
-                <span className="text-sm text-gray-400 line-through">{product.basePrice}</span>
+                <span className={`text-sm line-through ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{product.basePrice}</span>
               )}
             </div>
             <div className="flex gap-2">

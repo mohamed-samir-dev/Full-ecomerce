@@ -42,7 +42,7 @@ export default function ProductSlider({ title, products, loading, onAddToCart, a
         >
           {products.map((product) => (
             <SwiperSlide key={product._id}>
-              <ProductCard product={product} isArabic={isArabic} t={t} addToCart={onAddToCart} isDarkMode={isDarkMode} />
+              <ProductCard product={product} isArabic={isArabic} t={t} addToCart={onAddToCart} />
             </SwiperSlide>
           ))}
         </Swiper>

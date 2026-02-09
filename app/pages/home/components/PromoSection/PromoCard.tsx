@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { PromoItem } from '../../types/home.types';
 
 interface PromoCardProps {
@@ -9,12 +9,12 @@ interface PromoCardProps {
 }
 
 export const PromoCard = ({ item }: PromoCardProps) => {
-  const { isDarkMode } = useTheme();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   return (
-    <Link href="pages/shop" className={`flex items-center rounded-lg p-4 sm:p-6 transition-transform hover:scale-105 ${
-      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+    <Link href="pages/shop" className={`flex items-center rounded-lg p-4 sm:p-6 transition-all hover:scale-105 ${
+      isDarkMode ? 'bg-[#2d2d2d]' : 'bg-gray-50'
     } ${isArabic ? 'flex-row-reverse' : ''}`}>
       <div className={`flex-1 ${isArabic ? 'pl-4' : 'pr-4'}`}>
         <h3 className={`text-base sm:text-xl lg:text-2xl font-bold mb-2 ${
@@ -28,7 +28,9 @@ export const PromoCard = ({ item }: PromoCardProps) => {
           {String(t(item.descriptionKey))}
         </p>
         <span 
-          className="inline-block bg-[#020204] text-white px-2 sm:px-4 lg:px-6 py-1 sm:py-2 rounded-full hover:bg-gray-800 transition-colors text-xs sm:text-sm lg:text-base"
+          className={`inline-block px-2 sm:px-4 lg:px-6 py-1 sm:py-2 rounded-full transition-colors text-xs sm:text-sm lg:text-base ${
+            isDarkMode ? 'bg-white text-gray-900 hover:bg-gray-200' : 'bg-[#020204] text-white hover:bg-gray-800'
+          }`}
         >
           {String(t(item.buttonTextKey))}
         </span>

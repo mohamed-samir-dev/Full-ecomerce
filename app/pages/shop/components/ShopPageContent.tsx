@@ -3,6 +3,7 @@
 import { useFilters } from "../hooks/useFilters";
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import {
   PageHeader,
   FilterSidebar,
@@ -37,7 +38,16 @@ export default function ShopPageContent() {
   } = useFilters();
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <>
+      <DynamicMetadata
+        titleAr="متجر المنتجات - تسوق أونلاين"
+        titleEn="Shop Products - Online Shopping"
+        descriptionAr="تصفح مجموعة واسعة من المنتجات عالية الجودة. ابحث وفلتر واشتري من مجموعة متنوعة من الملابس، الأحذية، الإكسسوارات والإلكترونيات"
+        descriptionEn="Browse a wide range of high-quality products. Search, filter and buy from a diverse collection of clothing, shoes, accessories and electronics"
+        keywordsAr={['تسوق', 'منتجات', 'ملابس', 'أحذية', 'إكسسوارات']}
+        keywordsEn={['shop', 'products', 'clothing', 'shoes', 'accessories']}
+      />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <PageHeader />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
@@ -77,6 +87,7 @@ export default function ShopPageContent() {
           </main>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

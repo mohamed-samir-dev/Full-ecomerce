@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { contactService } from '@/services/contactService';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import ContactHero from './components/ContactHero';
 import ContactCards from './components/ContactCards';
 import ContactForm from './components/ContactForm';
@@ -34,7 +35,16 @@ export default function Contact() {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
+    <>
+      <DynamicMetadata
+        titleAr="اتصل بنا - Global Shop"
+        titleEn="Contact Us - Global Shop"
+        descriptionAr="تواصل معنا للاستفسار عن منتجاتنا أو خدماتنا. فريق خدمة العملاء جاهز لمساعدتك"
+        descriptionEn="Get in touch with us for inquiries about our products or services. Our customer service team is ready to help you"
+        keywordsAr={['اتصل بنا', 'خدمة العملاء', 'دعم', 'تواصل']}
+        keywordsEn={['contact us', 'customer service', 'support', 'get in touch']}
+      />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <ContactHero />
       <ContactCards />
       
@@ -53,6 +63,7 @@ export default function Contact() {
       </div>
 
       {showModal && <SuccessModal onClose={() => setShowModal(false)} />}
-    </div>
+      </div>
+    </>
   );
 }

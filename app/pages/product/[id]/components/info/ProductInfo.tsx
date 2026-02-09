@@ -76,7 +76,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <StockIndicator isOutOfStock={isOutOfStock} stock={product.stock} />
 
       <ColorSelector
-        colors={product.colors}
+        colors={product.colors || []}
         selectedColor={selectedColor}
         onColorChange={setSelectedColor}
       />

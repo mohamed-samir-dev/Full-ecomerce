@@ -2,6 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 interface Product {
   _id: string;
@@ -20,9 +21,10 @@ interface WishlistItemProps {
 
 export default function WishlistItem({ product, onRemove, onViewDetails }: WishlistItemProps) {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
-    <div className="rounded-lg overflow-hidden transition-all hover:shadow-xl bg-white shadow-md">
+    <div className={`rounded-lg overflow-hidden transition-all hover:shadow-xl shadow-md ${isDarkMode ? 'bg-[#1F2329]' : 'bg-white'}`}>
       <div className="relative h-48 sm:h-56 md:h-64">
         <Image
           src={product.mainImage || '/images/placeholder.jpg'}
@@ -41,13 +43,13 @@ export default function WishlistItem({ product, onRemove, onViewDetails }: Wishl
 
       <div className="p-3 sm:p-4">
         <Link href={`/pages/product/${product._id}`}>
-          <h3 className="text-sm sm:text-base md:text-lg font-semibold mb-2 hover:text-blue-600 transition-colors line-clamp-2 text-gray-900">
+          <h3 className={`text-sm sm:text-base md:text-lg font-semibold mb-2 hover:text-blue-600 transition-colors line-clamp-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             {isArabic ? product.nameAr || product.name : product.name}
           </h3>
         </Link>
 
         <div className="flex items-center gap-2 mb-3 sm:mb-4">
-          <span className="text-xl sm:text-2xl font-bold text-gray-900">
+          <span className={`text-xl sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             {product.finalPrice?.toFixed(2) || product.basePrice?.toFixed(2)} {isArabic ? 'جنيه' : 'EGP'}
           </span>
           {product.finalPrice !== undefined && product.finalPrice < product.basePrice && (

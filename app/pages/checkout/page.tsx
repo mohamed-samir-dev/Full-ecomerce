@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import CheckoutProgress from './components/CheckoutProgress';
 import ShippingForm from './components/ShippingForm';
 import PaymentForm from './components/PaymentForm';
@@ -81,7 +82,16 @@ export default function CheckoutPage() {
 
 
   return (
-    <div className={`min-h-screen py-6 sm:py-8 md:py-12 ${isDarkMode ? 'bg-[#252525]' : 'bg-linear-to-br from-blue-50 via-white to-purple-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
+    <>
+      <DynamicMetadata
+        titleAr="إتمام الطلب - الدفع والشحن"
+        titleEn="Checkout - Payment and Shipping"
+        descriptionAr="أكمل عملية الشراء بأمان. أدخل بيانات الشحن واختر طريقة الدفع المناسبة"
+        descriptionEn="Complete your purchase securely. Enter shipping information and choose your preferred payment method"
+        keywordsAr={['إتمام الطلب', 'دفع', 'شحن', 'شراء']}
+        keywordsEn={['checkout', 'payment', 'shipping', 'purchase']}
+      />
+      <div className={`min-h-screen py-6 sm:py-8 md:py-12 ${isDarkMode ? 'bg-[#252525]' : 'bg-linear-to-br from-blue-50 via-white to-purple-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -138,6 +148,7 @@ export default function CheckoutPage() {
           />
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

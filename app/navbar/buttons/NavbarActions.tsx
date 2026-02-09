@@ -17,10 +17,10 @@ export default function NavbarActions({
   logout,
   size = 'md'
 }: NavbarActionsProps) {
-  const spacing = size === 'sm' ? 'space-x-3' : 'space-x-4';
+  const spacing = size === 'sm' ? 'gap-3' : 'gap-4';
   
   return (
-    <div className={`flex items-center ${isArabic ? `flex-row-reverse space-x-reverse ${spacing}` : spacing}`}>
+    <div className={`flex items-center ${spacing}`}>
       <LanguageToggle 
         language={language}
         toggleLanguage={toggleLanguage}

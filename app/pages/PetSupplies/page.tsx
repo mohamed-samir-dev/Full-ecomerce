@@ -17,7 +17,7 @@ export default function PetSuppliesPage() {
   const { isDarkMode } = useTheme();
   
   const categories = [
-    { image: '/images/Toy.avif', title: t('pet.category.toys'), link: '/pages/PetSupplies/toys', size: 'large' as const },
+    { image: '/images/toy.avif', title: t('pet.category.toys'), link: '/pages/PetSupplies/toys', size: 'large' as const },
     { image: '/images/Care.avif', title: t('pet.category.care'), link: '/pages/PetSupplies/care', size: 'small' as const },
     { image: '/images/Beds.avif', title: t('pet.category.beds'), link: '/pages/PetSupplies/beds', size: 'small' as const },
     { image: '/images/Food & Treats.avif', title: t('pet.category.food'), link: '/pages/PetSupplies/food', size: 'large' as const },

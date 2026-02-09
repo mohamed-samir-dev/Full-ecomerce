@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="ar" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://backend-for-global-shop-production-a385.up.railway.app" />
         <link rel="dns-prefetch" href="https://backend-for-global-shop-production-a385.up.railway.app" />

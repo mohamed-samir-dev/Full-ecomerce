@@ -23,6 +23,8 @@ export default function ColorSelector({ colors, selectedColor, onColorChange }: 
           <button
             key={color.name}
             onClick={() => onColorChange(color)}
+            aria-label={isArabic ? `اختر اللون ${color.name}` : `Select color ${color.name}`}
+            aria-pressed={selectedColor?.name === color.name}
             className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 ${
               selectedColor?.name === color.name ? 'border-gray-900 ring-2 ring-gray-300' : 'border-gray-300'
             }`}

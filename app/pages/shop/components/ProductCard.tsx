@@ -87,6 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={`absolute top-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-all ${
               isArabic ? 'right-4' : 'left-4'
             }`}
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600 hover:text-red-500'}`} />
           </button>
@@ -120,6 +121,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   router.push(`/pages/product/${product._id}`); 
                 }} 
                 className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                aria-label="View product details"
               >
                 <Eye className="w-5 h-5 text-white" />
               </button>
@@ -131,6 +133,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                     : "bg-[#B39E7A] text-white hover:bg-[#A08D6A]"
                 }`}
+                aria-label="Add to cart"
               >
                 <ShoppingCart className="w-5 h-5" />
               </button>

@@ -213,7 +213,7 @@ export const UserMenu = ({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        aria-label={user ? (isArabic ? `قائمة المستخدم: ${user.name}` : `User menu: ${user.name}`) : (isArabic ? 'قائمة المستخدم' : 'User menu')}
+        aria-label={isArabic ? 'قائمة المستخدم' : 'User menu'}
         aria-expanded={isDropdownOpen}
         aria-haspopup="true"
         className={`flex items-center ${

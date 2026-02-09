@@ -14,6 +14,7 @@ export default function ThumbnailGallery({ images, activeIndex, productName, onT
           className={`shrink-0 w-30 h-30 sm:w-16 sm:h-24 md:w-30 md:h-30 rounded-lg overflow-hidden border-2 transition-all ${
             activeIndex === index ? 'border-blue-600 ring-2 ring-blue-200' : 'border-gray-200 hover:border-gray-300'
           }`}
+          aria-label={`View image ${index + 1} of ${images.length}`}
         >
           <Image 
             src={image || '/placeholder-image.jpg'} 

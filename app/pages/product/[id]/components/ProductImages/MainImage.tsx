@@ -8,6 +8,7 @@ export default function MainImage({ currentImage, productName, isMainLoaded, onL
       <button
         onClick={onZoomClick}
         className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10 p-2 bg-white bg-opacity-80 rounded-full shadow-lg hover:bg-opacity-100 transition-opacity"
+        aria-label="Zoom in image"
       >
         <ZoomIn className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 cursor-pointer" />
       </button>

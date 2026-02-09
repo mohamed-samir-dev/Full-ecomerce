@@ -10,16 +10,20 @@ export const NavigationIndicator = ({ totalSlides, currentSlide, onSlideChange }
           key={index}
           onClick={() => onSlideChange(index)}
           aria-label={`Go to slide ${index + 1}`}
-          className={`h-1 rounded-full ${
-            index === currentSlide 
-              ? 'bg-[#447EAE]' 
-              : 'bg-white/60'
-          }`}
-          animate={{
-            width: index === currentSlide ? 32 : 8,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        />
+          className="p-3 min-w-[40px] min-h-[48px] flex items-center justify-center"
+        >
+          <motion.span
+            className={`h-1 rounded-full block ${
+              index === currentSlide 
+                ? 'bg-[#447EAE]' 
+                : 'bg-white/60'
+            }`}
+            animate={{
+              width: index === currentSlide ? 32 : 8,
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          />
+        </motion.button>
       ))}
     </div>
   );

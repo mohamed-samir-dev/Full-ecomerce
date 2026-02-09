@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import ProductSlider from '@/app/components/ProductSlider';
 import CategoryGrid from '@/app/components/CategoryGrid';
@@ -25,7 +26,16 @@ export default function KidsPage() {
   const toysProducts = products.filter(p => p.subCategory?.toLowerCase().includes('toy'));
 
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="أطفال - ملابس وألعاب أطفال"
+        titleEn="Kids - Children's Clothing and Toys"
+        descriptionAr="اكتشف مجموعة متنوعة من ملابس وألعاب الأطفال. ملابس، أحذية، حقائب وألعاب"
+        descriptionEn="Discover a diverse collection of children's clothing and toys. Clothing, shoes, bags and toys"
+        keywordsAr={['أطفال', 'ملابس أطفال', 'ألعاب']}
+        keywordsEn={['kids', 'children\'s clothing', 'toys']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -60,5 +70,6 @@ export default function KidsPage() {
       />
       <CategoryGrid categories={categories} basePath="/pages/kids" />
     </div>
+    </>
   );
 }

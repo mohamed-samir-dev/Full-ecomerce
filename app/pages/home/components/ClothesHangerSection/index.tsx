@@ -1,21 +1,21 @@
 'use client';
 
-import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import Image from 'next/image';
 
 export default function ClothesHangerSection() {
-  const { isDarkMode } = useTheme();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   return (
-    <div className={`py-8 sm:py-12 lg:py-20 ${isDarkMode ? 'bg-[#1F2329]' : 'bg-[#F1F1F0]'}`} dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className={`py-8 sm:py-12 lg:py-20 transition-colors duration-300 ${
+      isDarkMode ? 'bg-[#1a1a1a]' : 'bg-[#F1F1F0]'
+    }`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isArabic ? 'lg:flex-row-reverse' : ''}`}>
           <div className={`relative flex justify-center lg:justify-start ${isArabic ? 'lg:order-2' : ''}`}>
-            <div className={`absolute inset-0 rounded-2xl blur-2xl opacity-20 ${
-              isDarkMode ? 'bg-[#FF6B6B]' : 'bg-[#FF6B6B]'
-            }`}></div>
+            <div className="absolute inset-0 rounded-2xl blur-2xl opacity-20 bg-[#FF6B6B]"></div>
             <Image 
               src="/images/ChatGPT_Image_Feb_2__2026__05_58_51_PM-removebg-preview.webp" 
               alt="clothes hanger" 

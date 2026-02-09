@@ -1,6 +1,5 @@
 'use client';
 
-import { ThemeProvider } from '@/context/ThemeContext';
 import { TranslationProvider } from '@/i18n';
 import { AuthProvider } from '@/context/AuthContext';
 import { Provider } from 'react-redux';
@@ -10,13 +9,11 @@ import { ReactNode } from 'react';
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        <TranslationProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </TranslationProvider>
-      </ThemeProvider>
+      <TranslationProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </TranslationProvider>
     </Provider>
   );
 }

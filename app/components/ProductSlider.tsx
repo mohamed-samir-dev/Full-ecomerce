@@ -3,6 +3,7 @@ import { Pagination } from 'swiper/modules';
 import ProductCard from './ProductCard';
 import { Product } from '@/app/types/category';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -16,10 +17,11 @@ interface ProductSliderProps {
 
 export default function ProductSlider({ title, products, loading, onAddToCart, accentColor }: ProductSliderProps) {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-5 py-8 sm:py-12 lg:py-16">
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 lg:mb-8 text-gray-900">{title}</h2>
+      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 lg:mb-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{title}</h2>
       {loading ? (
         <div className="flex justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: accentColor }}></div>
@@ -40,7 +42,7 @@ export default function ProductSlider({ title, products, loading, onAddToCart, a
         >
           {products.map((product) => (
             <SwiperSlide key={product._id}>
-              <ProductCard product={product} isArabic={isArabic} t={t} addToCart={onAddToCart} />
+              <ProductCard product={product} isArabic={isArabic} t={t} addToCart={onAddToCart} isDarkMode={isDarkMode} />
             </SwiperSlide>
           ))}
         </Swiper>

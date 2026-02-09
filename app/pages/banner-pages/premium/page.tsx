@@ -1,5 +1,6 @@
 'use client';
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
@@ -39,7 +40,9 @@ export default function PremiumPage() {
   }
 
   return (
-    <div className={`min-h-screen ${
+    <>
+      <DynamicMetadata titleAr="منتجات مميزة" titleEn="Premium Products" descriptionAr="منتجات مميزة بجودة عالية" descriptionEn="Premium products with high quality" keywordsAr={['مميز', 'جودة']} keywordsEn={['premium', 'quality']} />
+      <div className={`min-h-screen ${
       isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
     } transition-colors duration-300`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
@@ -75,6 +78,7 @@ export default function PremiumPage() {
           onPageChange={onPageChange}
         />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

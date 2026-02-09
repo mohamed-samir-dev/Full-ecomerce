@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { Product } from '@/app/types/category';
 import { ShoppingCart, Eye, Heart } from 'lucide-react';
 
@@ -25,12 +26,15 @@ export default function ProductGrid({
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   if (products.length === 0) {
     return (
       <div className="text-center py-24" dir={isArabic ? 'rtl' : 'ltr'}>
         <div className="text-6xl mb-4 opacity-20">✨</div>
-        <p className="text-gray-400 font-light text-lg mb-4">
+        <p className={`font-light text-lg mb-4 ${
+          isDarkMode ? 'text-gray-500' : 'text-gray-400'
+        }`}>
           {isArabic ? 'لا توجد منتجات حالياً' : 'No products available'}
         </p>
       </div>
@@ -61,7 +65,11 @@ export default function ProductGrid({
         return (
           <div
             key={product._id}
-            className="bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100 cursor-pointer group"
+            className={`rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border cursor-pointer group ${
+              isDarkMode 
+                ? 'bg-[#23272F] hover:shadow-gray-900/50 border-gray-700 hover:border-gray-600' 
+                : 'bg-white hover:shadow-amber-100/50 border-transparent hover:border-amber-100'
+            }`}
             onClick={() => router.push(`/pages/product/${product._id}`)}
           >
             <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
@@ -91,7 +99,9 @@ export default function ProductGrid({
             </div>
 
             <div className="p-5">
-              <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
+              <h3 className={`font-light mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors ${
+                isDarkMode ? 'text-gray-100' : 'text-gray-900'
+              }`}>
                 {isArabic ? (product.nameAr || product.name) : product.name}
               </h3>
               <div className="flex items-center gap-1 mb-3">

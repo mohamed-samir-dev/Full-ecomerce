@@ -1,5 +1,6 @@
 'use client';
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
@@ -37,7 +38,9 @@ export default function TrendingProductsPage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+    <>
+      <DynamicMetadata titleAr="المنتجات الرائجة" titleEn="Trending Products" descriptionAr="اكتشف أحدث المنتجات الرائجة" descriptionEn="Discover the latest trending products" keywordsAr={['رائج', 'منتجات']} keywordsEn={['trending', 'products']} />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
         <PageHeader 
           title={isArabic ? 'المنتجات الرائجة' : 'Trending Products'}
@@ -71,6 +74,7 @@ export default function TrendingProductsPage() {
           onPageChange={onPageChange}
         />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

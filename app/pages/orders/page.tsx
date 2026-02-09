@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
 import { useRouter } from 'next/navigation';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { Order } from './types/types';
 import orderService from '@/services/orderService';
 import LoadingSkeleton from './components/ui/LoadingSkeleton';
@@ -67,7 +68,16 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#1a1d24]' : 'bg-slate-50'}`}>
+    <>
+      <DynamicMetadata
+        titleAr="طلباتي - تتبع طلباتك"
+        titleEn="My Orders - Track Your Orders"
+        descriptionAr="تتبع جميع طلباتك ومعرفة حالة الشحن والتوصيل. إدارة طلباتك بسهولة"
+        descriptionEn="Track all your orders and know the shipping and delivery status. Manage your orders easily"
+        keywordsAr={['طلباتي', 'تتبع الطلب', 'طلبات']}
+        keywordsEn={['my orders', 'track order', 'orders']}
+      />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#1a1d24]' : 'bg-slate-50'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <PageHeader isDarkMode={isDarkMode} isArabic={isArabic} />
         <StatsGrid stats={stats} isDarkMode={isDarkMode} isArabic={isArabic} />
@@ -79,6 +89,7 @@ export default function OrdersPage() {
           <OrdersList orders={filteredOrders} isDarkMode={isDarkMode} isArabic={isArabic} />
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

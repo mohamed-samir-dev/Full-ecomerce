@@ -4,23 +4,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { categories } from '../../data/homeData';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function LuxuryCategorySection() {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   return (
     <section 
-      className="py-12 sm:py-16 md:py-20 lg:py-28 px-4 sm:px-6 bg-linear-to-br from-[#fdfbf7] via-[#f8f6f1] to-[#f5f2eb] relative overflow-hidden"
+      className={`py-12 sm:py-16 md:py-20 lg:py-28 px-4 sm:px-6 relative overflow-hidden transition-colors duration-300 ${
+        isDarkMode ? 'bg-linear-to-br from-[#1f1f1f] via-[#1a1a1a] to-[#151515]' : 'bg-linear-to-br from-[#fdfbf7] via-[#f8f6f1] to-[#f5f2eb]'
+      }`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.8),transparent_50%)] pointer-events-none"></div>
+      <div className={`absolute inset-0 pointer-events-none ${
+        isDarkMode ? 'bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.05),transparent_50%)]' : 'bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.8),transparent_50%)]'
+      }`}></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-24">
           <div className="inline-block">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-gray-900 mb-2 tracking-tighter">
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight mb-2 tracking-tighter ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
               {t('home.category.title')}
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-[2px] bg-linear-to-r from-transparent via-gray-800 to-transparent mx-auto mt-4 sm:mt-6 md:mt-8"></div>
+            <div className={`w-16 sm:w-20 md:w-24 h-[2px] mx-auto mt-4 sm:mt-6 md:mt-8 ${
+              isDarkMode ? 'bg-linear-to-r from-transparent via-gray-400 to-transparent' : 'bg-linear-to-r from-transparent via-gray-800 to-transparent'
+            }`}></div>
           </div>
         </div>
 

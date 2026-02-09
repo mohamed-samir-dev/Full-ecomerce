@@ -61,17 +61,25 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
       <div className={`absolute top-1.5 z-10 flex gap-1 sm:gap-2 ${
         isArabic ? 'left-1.5 sm:left-2' : 'right-1.5 sm:right-2'
       }`}>
-        <button onClick={(e) => {
-          e.stopPropagation();
-          window.location.href = `/pages/product/${product._id}`;
-        }} className={`p-1 sm:p-1.5 rounded-full transition-colors ${
-          isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
-        } shadow-md`}>
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            window.location.href = `/pages/product/${product._id}`;
+          }} 
+          className={`p-1 sm:p-1.5 rounded-full transition-colors ${
+            isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
+          } shadow-md`}
+          aria-label={isArabic ? 'عرض تفاصيل المنتج' : 'View product details'}
+        >
           <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
         </button>
-        <button onClick={handleWishlistToggle} className={`p-1 sm:p-1.5 rounded-full transition-colors ${
-          isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
-        } shadow-md`}>
+        <button 
+          onClick={handleWishlistToggle} 
+          className={`p-1 sm:p-1.5 rounded-full transition-colors ${
+            isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
+          } shadow-md`}
+          aria-label={isWishlisted ? (isArabic ? 'إزالة من المفضلة' : 'Remove from wishlist') : (isArabic ? 'إضافة للمفضلة' : 'Add to wishlist')}
+        >
           <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
         </button>
       </div>
@@ -102,6 +110,7 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         <button 
           onClick={handleAddToCart}
           className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+          aria-label={isArabic ? 'إضافة إلى السلة' : 'Add to cart'}
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />
           <span className="hidden xs:inline">{isArabic ? 'أضف للسلة' : 'Add to Cart'}</span>

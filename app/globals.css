@@ -23,6 +23,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  font-display: swap;
 }
 
 @keyframes fadeIn {
@@ -37,8 +38,10 @@ body {
 
 .animate-fadeIn {
   animation: fadeIn 0.15s ease-out;
+  will-change: opacity;
 }
 
 .animate-scaleIn {
   animation: scaleIn 0.15s ease-out;
+  will-change: opacity, transform;
 }

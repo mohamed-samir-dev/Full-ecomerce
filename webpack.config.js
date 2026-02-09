@@ -6,6 +6,10 @@ module.exports = {
       'regenerator-runtime': false,
     },
   },
+  optimization: {
+    usedExports: true,
+    sideEffects: false,
+  },
   module: {
     rules: [
       {

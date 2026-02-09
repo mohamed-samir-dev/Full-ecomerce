@@ -7,9 +7,11 @@ import PaymentForm from './components/PaymentForm';
 import OrderSummary from './components/OrderSummary';
 import { useCheckoutPage } from './hooks/useCheckoutPage';
 import { useTranslation } from '@/i18n/hooks/useTranslation';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function CheckoutPage() {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const {
     user,
     items,
@@ -66,7 +68,7 @@ export default function CheckoutPage() {
 
   if (!user || itemCount === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#252525]' : 'bg-slate-50'}`}>
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
@@ -79,7 +81,7 @@ export default function CheckoutPage() {
 
 
   return (
-    <div className="min-h-screen py-6 sm:py-8 md:py-12 bg-linear-to-br from-blue-50 via-white to-purple-50" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen py-6 sm:py-8 md:py-12 ${isDarkMode ? 'bg-[#252525]' : 'bg-linear-to-br from-blue-50 via-white to-purple-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -89,10 +91,10 @@ export default function CheckoutPage() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
             {t('checkout.title')}
           </h1>
-          <p className="text-sm sm:text-base text-gray-600">{t('checkout.subtitle')}</p>
+          <p className={`text-sm sm:text-base ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>{t('checkout.subtitle')}</p>
         </motion.div>
         
-        <CheckoutProgress currentStep={currentStep} />
+        <CheckoutProgress currentStep={currentStep} isDarkMode={isDarkMode} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-10 sm:mt-10 md:mt-16">
           <div className="lg:col-span-2">
@@ -105,6 +107,7 @@ export default function CheckoutPage() {
                   setGovernorate={setGovernorate}
                   governorates={GOVERNORATES}
                   onSubmit={handleAddressSubmit}
+                  isDarkMode={isDarkMode}
                 />
               )}
 
@@ -117,6 +120,7 @@ export default function CheckoutPage() {
                   isLoading={isLoading}
                   onBack={() => setCurrentStep(1)}
                   onSubmit={handleOrderSubmit}
+                  isDarkMode={isDarkMode}
                 />
               )}
             </AnimatePresence>
@@ -130,6 +134,7 @@ export default function CheckoutPage() {
             tax={tax}
             finalTotal={finalTotal}
             deliveryDateStr={deliveryDateStr}
+            isDarkMode={isDarkMode}
           />
         </div>
       </div>

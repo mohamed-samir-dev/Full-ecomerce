@@ -10,6 +10,10 @@
     "lint": "eslint",
     "analyze": "ANALYZE=true next build",
     "lighthouse": "lighthouse http://localhost:3000 --view",
+    "lighthouse:prod": "lighthouse https://full-ecomerce-gamma.vercel.app --view",
+    "seo:check": "echo 'Checking SEO...' && curl -I https://full-ecomerce-gamma.vercel.app",
+    "sitemap:validate": "curl https://full-ecomerce-gamma.vercel.app/sitemap.xml",
+    "robots:validate": "curl https://full-ecomerce-gamma.vercel.app/robots.txt",
     "clean": "rmdir /s /q .next",
     "rebuild": "npm run clean && npm run build"
   },

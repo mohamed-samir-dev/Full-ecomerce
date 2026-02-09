@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import ProductSlider from '@/app/components/ProductSlider';
 import CategoryGrid from '@/app/components/CategoryGrid';
@@ -23,7 +24,16 @@ export default function WomenPage() {
   ];
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'} min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
+    <>
+      <DynamicMetadata
+        titleAr="نساء - أزياء نسائية عصرية"
+        titleEn="Women - Modern Women's Fashion"
+        descriptionAr="اكتشف أحدث صيحات الموضة النسائية. ملابس، أحذية، حقائب وإكسسوارات"
+        descriptionEn="Discover the latest women's fashion trends. Clothing, shoes, bags and accessories"
+        keywordsAr={['نساء', 'ملابس نسائية', 'أزياء نسائية']}
+        keywordsEn={['women', 'women\'s clothing', 'women\'s fashion']}
+      />
+      <div className={`${isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'} min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
         image="/images/women-page.avif" 
         title={t('women.hero.title')} 
@@ -49,5 +59,6 @@ export default function WomenPage() {
       />
       <CategoryGrid categories={categories} basePath="/pages/women" />
     </div>
+    </>
   );
 }

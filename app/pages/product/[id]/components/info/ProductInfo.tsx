@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useCart } from '@/hooks/useCart';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 import PriceDisplay from './PriceDisplay';
 import StockIndicator from './StockIndicator';
 import ColorSelector from './ColorSelector';
@@ -17,6 +18,7 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const { isArabic } = useLanguage();
+  const { isDarkMode } = useTheme();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
@@ -43,7 +45,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   };
 
   return (
-    <div className="rounded-2xl sm:rounded-3xl shadow-lg border border-gray-100 p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 h-full flex flex-col">
+    <div className={`rounded-2xl sm:rounded-3xl shadow-lg border p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 h-full flex flex-col ${
+      isDarkMode ? 'bg-[#23272F] border-gray-700' : 'border-gray-100'
+    }`}>
       {/* Product Title & Brand */}
       <div className="space-y-2 sm:space-y-3">
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
@@ -56,7 +60,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             </span>
           )}
         </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-900 leading-tight">{isArabic ? product.nameAr : product.name}</h1>
+        <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-light leading-tight ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{isArabic ? product.nameAr : product.name}</h1>
         
       </div>
 

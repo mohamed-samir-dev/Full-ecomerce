@@ -4,9 +4,10 @@ import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 interface CheckoutProgressProps {
   currentStep: number;
+  isDarkMode: boolean;
 }
 
-export default function CheckoutProgress({ currentStep }: CheckoutProgressProps) {
+export default function CheckoutProgress({ currentStep, isDarkMode }: CheckoutProgressProps) {
   const { t } = useTranslation();
   
   return (
@@ -26,14 +27,14 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
             }`}>
               {currentStep > 1 ? <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" /> : '1'}
             </div>
-            <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700">
+            <span className={`absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {t('checkout.shipping')}
             </span>
           </motion.div>
         </div>
         
         <motion.div 
-          className="w-16 sm:w-24 md:w-32 h-1 mx-2 sm:mx-3 md:mx-4 rounded-full overflow-hidden bg-gray-200"
+          className={`w-16 sm:w-24 md:w-32 h-1 mx-2 sm:mx-3 md:mx-4 rounded-full overflow-hidden ${isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}
           initial={{ width: 0 }}
           animate={{ width: '100%' }}
         >
@@ -55,7 +56,7 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
             }`}>
               2
             </div>
-            <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700">
+            <span className={`absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs sm:text-sm font-medium whitespace-nowrap ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
               {t('checkout.payment')}
             </span>
           </motion.div>

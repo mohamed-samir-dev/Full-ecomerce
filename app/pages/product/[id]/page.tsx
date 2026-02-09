@@ -8,12 +8,14 @@ import ProductInfo from './components/info/ProductInfo';
 import ProductDetailsTabs from './components/ProductDetailsTabs';
 import ProductReviews from './components/ProductReviews';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function ProductDetailsPage() {
   const params = useParams();
   const { isArabic } = useLanguage();
+  const { isDarkMode } = useTheme();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +41,7 @@ export default function ProductDetailsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
         <div className="relative">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#B39E7A] absolute inset-0"></div>
@@ -50,15 +52,15 @@ export default function ProductDetailsPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
         <div className="text-center max-w-md mx-auto px-4">
-          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ${isDarkMode ? 'bg-[#23272F]' : 'bg-gray-100'}`}>
+            <svg className={`w-12 h-12 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-3xl font-light text-gray-900 mb-3">{isArabic ? 'المنتج غير موجود' : 'Product not found'}</h1>
-          <p className="text-gray-500 mb-8 leading-relaxed">{isArabic ? 'المنتج الذي تبحث عنه غير موجود أو تم حذفه.' : "The product you're looking for doesn't exist or has been removed."}</p>
+          <h1 className={`text-3xl font-light mb-3 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{isArabic ? 'المنتج غير موجود' : 'Product not found'}</h1>
+          <p className={`mb-8 leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{isArabic ? 'المنتج الذي تبحث عنه غير موجود أو تم حذفه.' : "The product you're looking for doesn't exist or has been removed."}</p>
           <button 
             onClick={() => window.history.back()}
             className="px-8 py-3 bg-[#B39E7A] text-white rounded-full font-medium hover:bg-[#A08D6A] transition-all shadow-md hover:shadow-lg"
@@ -71,16 +73,16 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gradient-to-b from-gray-50 to-white'}`}>
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-100">
+      <div className={`border-b ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <a href="/" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'الرئيسية' : 'Home'}</a>
-            <span className="text-gray-300">•</span>
-            <a href="/pages/shop" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'المتجر' : 'Shop'}</a>
-            <span className="text-gray-300">•</span>
-            <span className="text-gray-900 font-medium">{isArabic ? product.nameAr : product.name}</span>
+            <a href="/" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'الرئيسية' : 'Home'}</a>
+            <span className={isDarkMode ? 'text-gray-600' : 'text-gray-300'}>•</span>
+            <a href="/pages/shop" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'المتجر' : 'Shop'}</a>
+            <span className={isDarkMode ? 'text-gray-600' : 'text-gray-300'}>•</span>
+            <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{isArabic ? product.nameAr : product.name}</span>
           </div>
         </div>
       </div>

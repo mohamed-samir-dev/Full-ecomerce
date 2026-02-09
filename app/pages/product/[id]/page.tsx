@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import Script from 'next/script';
 import { Product } from '../../shop/types';
 import ProductImages from './components/ProductImages';
 import ProductInfo from './components/info/ProductInfo';
@@ -9,8 +11,10 @@ import ProductDetailsTabs from './components/ProductDetailsTabs';
 import ProductReviews from './components/ProductReviews';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
+import { generateProductSchema, generateBreadcrumbSchema } from '@/app/utils/seo';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export default function ProductDetailsPage() {
   const params = useParams();
@@ -73,14 +77,37 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gradient-to-b from-gray-50 to-white'}`}>
+    <>
+      {product && (
+        <>
+          <Script
+            id="product-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(generateProductSchema(product)) }}
+          />
+          <Script
+            id="breadcrumb-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                generateBreadcrumbSchema([
+                  { name: isArabic ? 'الرئيسية' : 'Home', url: SITE_URL },
+                  { name: isArabic ? 'المتجر' : 'Shop', url: `${SITE_URL}/pages/shop` },
+                  { name: isArabic ? product.nameAr : product.name, url: `${SITE_URL}/pages/product/${product._id}` },
+                ])
+              ),
+            }}
+          />
+        </>
+      )}
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-linear-to-b from-gray-50 to-white'}`}>
       {/* Breadcrumb */}
       <div className={`border-b ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <a href="/" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'الرئيسية' : 'Home'}</a>
+            <Link href="/" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'الرئيسية' : 'Home'}</Link>
             <span className={isDarkMode ? 'text-gray-600' : 'text-gray-300'}>•</span>
-            <a href="/pages/shop" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'المتجر' : 'Shop'}</a>
+            <Link href="/pages/shop" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'المتجر' : 'Shop'}</Link>
             <span className={isDarkMode ? 'text-gray-600' : 'text-gray-300'}>•</span>
             <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{isArabic ? product.nameAr : product.name}</span>
           </div>
@@ -104,6 +131,7 @@ export default function ProductDetailsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

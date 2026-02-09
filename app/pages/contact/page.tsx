@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { contactService } from '@/services/contactService';
 import ContactHero from './components/ContactHero';
 import ContactCards from './components/ContactCards';
@@ -11,6 +12,7 @@ import SuccessModal from './components/SuccessModal';
 
 export default function Contact() {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,7 +34,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <ContactHero />
       <ContactCards />
       

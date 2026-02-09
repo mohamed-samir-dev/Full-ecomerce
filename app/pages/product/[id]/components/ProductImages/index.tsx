@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '@/context/ThemeContext';
 import ImageModal from '../ImageModal';
 import MainImage from './MainImage';
 import ThumbnailGallery from './ThumbnailGallery';
@@ -9,6 +10,7 @@ export default function ProductImages({ product }: ProductImagesProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMainLoaded, setIsMainLoaded] = useState(false);
+  const { isDarkMode } = useTheme();
   
   const images = product.imageGallery && product.imageGallery.length > 0 
     ? [product.mainImage, ...product.imageGallery].filter(Boolean).map(getImageUrl)
@@ -19,7 +21,7 @@ export default function ProductImages({ product }: ProductImagesProps) {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+        <div className={`rounded-3xl overflow-hidden shadow-lg border ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'}`}>
           <MainImage
             currentImage={currentImage}
             productName={product.name}

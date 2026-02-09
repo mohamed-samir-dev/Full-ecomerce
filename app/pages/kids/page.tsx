@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from '@/hooks/useCart';
+import { useTheme } from '@/context/ThemeContext';
 import HeroBanner from '@/app/components/HeroBanner';
 import ProductSlider from '@/app/components/ProductSlider';
 import CategoryGrid from '@/app/components/CategoryGrid';
@@ -11,6 +12,7 @@ export default function KidsPage() {
   const { products, loading } = useCategoryProducts('Kids');
   const { addToCart } = useCart();
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const categories = [
     { name: t('kids.category.apparel'), image: '/images/kid-apparel.avif', slug: 'apparel' },
@@ -23,7 +25,9 @@ export default function KidsPage() {
   const toysProducts = products.filter(p => p.subCategory?.toLowerCase().includes('toy'));
 
   return (
-    <div className="bg-white min-h-screen py-3 sm:py-5">
+    <div className={`${
+      isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
+    } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
         image="/images/kid-page.webp" 
         title={t('kids.hero.title')} 

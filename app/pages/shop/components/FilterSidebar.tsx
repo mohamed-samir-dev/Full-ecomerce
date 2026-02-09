@@ -3,6 +3,7 @@
 import { Filters, FilterChangeHandler, ArrayFilterChangeHandler } from "../types";
 import { useFilterOptions } from "../hooks/useFilterOptions";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 interface FilterSidebarProps {
   filters: Filters;
@@ -53,6 +54,7 @@ export default function FilterSidebar({
 }: FilterSidebarProps) {
   const { filterOptions, loading } = useFilterOptions();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const availabilityLabels = {
     in_stock: t('shop.inStock'),
@@ -63,15 +65,15 @@ export default function FilterSidebar({
   if (loading) {
     return (
       <div className="lg:w-80 xl:w-72 shrink-0">
-        <div className="rounded-lg p-4 sm:p-6 shadow-sm border bg-white border-gray-200">
+        <div className={`rounded-lg p-4 sm:p-6 shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
           <div className="animate-pulse">
-            <div className="h-6 bg-gray-200 rounded mb-4"></div>
+            <div className={`h-6 rounded mb-4 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="mb-6">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className={`h-4 rounded mb-2 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
                 <div className="space-y-2">
                   {Array.from({ length: 3 }).map((_, j) => (
-                    <div key={j} className="h-3 bg-gray-100 rounded"></div>
+                    <div key={j} className={`h-3 rounded ${isDarkMode ? 'bg-gray-600' : 'bg-gray-100'}`}></div>
                   ))}
                 </div>
               </div>
@@ -90,7 +92,11 @@ export default function FilterSidebar({
           onClick={() => setShowMobileFilters(!showMobileFilters)}
           aria-label={showMobileFilters ? (isArabic ? 'إخفاء الفلاتر' : 'Hide filters') : (isArabic ? 'إظهار الفلاتر' : 'Show filters')}
           aria-expanded={showMobileFilters}
-          className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-colors text-sm sm:text-base bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-900"
+          className={`w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-colors text-sm sm:text-base ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-700 hover:bg-gray-700 text-white' 
+              : 'bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-900'
+          }`}
         >
           <span className="font-medium flex items-center gap-2">
             {t('shop.filters')}
@@ -117,11 +123,13 @@ export default function FilterSidebar({
       <div
         className={`${
           showMobileFilters ? "block" : "hidden"
-        } lg:block bg-white border border-gray-200 rounded-2xl p-6 shadow-sm`}
+        } lg:block rounded-2xl p-6 shadow-sm border ${
+          isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        }`}
       >
         {/* Filter Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-light text-gray-900">{t('shop.filters')}</h2>
+          <h2 className={`text-xl font-light ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{t('shop.filters')}</h2>
           {hasActiveFilters() && (
             <button
               onClick={clearAllFilters}
@@ -157,7 +165,7 @@ export default function FilterSidebar({
 
         {/* Price Range Filter */}
         <div className="mb-8">
-          <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">
+          <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             {t('shop.price')}
           </h3>
           <input
@@ -166,17 +174,19 @@ export default function FilterSidebar({
             max={filterOptions.priceRange.maxPrice}
             value={filters.priceRange[1]}
             onChange={(e) => handleFilterChange("priceRange", [filters.priceRange[0], parseInt(e.target.value)])}
-            className="w-full h-2 bg-amber-100 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer"
+            className={`w-full h-2 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B39E7A] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:cursor-pointer ${
+              isDarkMode ? 'bg-gray-700' : 'bg-amber-100'
+            }`}
           />
-          <div className="flex justify-between text-sm font-medium text-gray-700 mt-3">
-            <span className="bg-amber-50 px-3 py-1 rounded-full">{filters.priceRange[0]} {isArabic ? 'جنيه' : 'EGP'}</span>
-            <span className="bg-amber-50 px-3 py-1 rounded-full">{filters.priceRange[1]} {isArabic ? 'جنيه' : 'EGP'}</span>
+          <div className={`flex justify-between text-sm font-medium mt-3 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <span className={`px-3 py-1 rounded-full ${isDarkMode ? 'bg-gray-700' : 'bg-amber-50'}`}>{filters.priceRange[0]} {isArabic ? 'جنيه' : 'EGP'}</span>
+            <span className={`px-3 py-1 rounded-full ${isDarkMode ? 'bg-gray-700' : 'bg-amber-50'}`}>{filters.priceRange[1]} {isArabic ? 'جنيه' : 'EGP'}</span>
           </div>
         </div>
 
         {/* Rating Filter */}
         <div className="mb-8">
-          <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider flex items-center justify-between">
+          <h3 className={`font-medium mb-4 text-sm uppercase tracking-wider flex items-center justify-between ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             <span>{t('shop.rating')}</span>
             {filters.rating.length > 0 && (
               <span className="bg-[#B39E7A] text-white text-xs px-2 py-0.5 rounded-full">
@@ -191,9 +201,9 @@ export default function FilterSidebar({
                   type="checkbox"
                   checked={filters.rating.includes(rating.toString())}
                   onChange={() => handleArrayFilterChange("rating", rating.toString())}
-                  className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
+                  className="w-4 h-4 text-[#B39E7A] rounded focus:ring-[#B39E7A] border-gray-300"
                 />
-                <span className={`text-gray-700 flex items-center ${isArabic ? 'mr-3' : 'ml-3'}`}>
+                <span className={`flex items-center ${isArabic ? 'mr-3' : 'ml-3'} ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {rating}
                   <svg className={`w-3 h-3 text-yellow-400 fill-current ${isArabic ? 'mr-1' : 'ml-1'}`} viewBox="0 0 20 20">
                     <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -276,9 +286,9 @@ export default function FilterSidebar({
               type="checkbox"
               checked={filters.exclusiveOnly}
               onChange={(e) => handleFilterChange("exclusiveOnly", e.target.checked)}
-              className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
+              className="w-4 h-4 text-[#B39E7A] rounded focus:ring-[#B39E7A] border-gray-300"
             />
-            <span className={`text-gray-700 font-medium ${isArabic ? 'mr-3' : 'ml-3'}`}>
+            <span className={`font-medium ${isArabic ? 'mr-3' : 'ml-3'} ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {t('shop.exclusiveOnly')}
             </span>
           </label>
@@ -310,6 +320,7 @@ const FilterSection = ({
   handleArrayFilterChange
 }: FilterSectionProps) => {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
     <div className="mb-8">
@@ -317,7 +328,9 @@ const FilterSection = ({
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? (isArabic ? `إخفاء ${title}` : `Hide ${title}`) : (isArabic ? `إظهار ${title}` : `Show ${title}`)}
         aria-expanded={isOpen}
-        className="w-full flex items-center font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider justify-between hover:text-gray-900 transition-colors"
+        className={`w-full flex items-center font-medium mb-4 text-sm uppercase tracking-wider justify-between transition-colors ${
+          isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'
+        }`}
       >
         <span>{title}</span>
         <div className="flex items-center gap-2">
@@ -346,9 +359,9 @@ const FilterSection = ({
                 type="checkbox"
                 checked={(filters[filterKey] as string[]).includes(item)}
                 onChange={() => handleArrayFilterChange(filterKey, item)}
-                className="w-4 h-4 text-[#B39E7A] border-gray-300 rounded focus:ring-[#B39E7A]"
+                className="w-4 h-4 text-[#B39E7A] rounded focus:ring-[#B39E7A] border-gray-300"
               />
-              <span className={`text-gray-700 capitalize ${isArabic ? 'mr-3' : 'ml-3'}`}>
+              <span className={`capitalize ${isArabic ? 'mr-3' : 'ml-3'} ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 {renderItem ? renderItem(item) : item}
               </span>
             </label>

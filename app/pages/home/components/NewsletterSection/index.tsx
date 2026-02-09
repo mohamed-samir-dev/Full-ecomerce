@@ -61,7 +61,7 @@ export default function NewsletterSection() {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
+              className="w-full sm:w-auto px-6 py-3 bg-orange-700 text-white font-semibold rounded-lg hover:bg-orange-800 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
             >
               {loading ? t('home.newsletter.subscribing') : t('home.newsletter.subscribe')}
             </button>

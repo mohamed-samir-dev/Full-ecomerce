@@ -2,22 +2,24 @@
 
 import Link from "next/link";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function PageHeader() {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
-    <div className="py-6 sm:py-8 bg-[#EBEBE9]" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className={`py-6 sm:py-8 ${isDarkMode ? 'bg-gray-800' : 'bg-[#EBEBE9]'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-gray-900">
+        <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
           {t('shop.title')}
         </h1>
-        <nav className="text-xs sm:text-sm text-gray-600">
-          <Link href="/" className="transition-colors hover:text-gray-900">
+        <nav className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <Link href="/" className={`transition-colors ${isDarkMode ? 'hover:text-gray-200' : 'hover:text-gray-900'}`}>
             {t('shop.home')}
           </Link>
           <span className="mx-2">/</span>
-          <span className="font-medium text-gray-900">{t('shop.title')}</span>
+          <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{t('shop.title')}</span>
         </nav>
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from '@/hooks/useCart';
+import { useTheme } from '@/context/ThemeContext';
 import HeroBanner from '@/app/components/HeroBanner';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +13,7 @@ export default function MenPage() {
   const { products, loading } = useCategoryProducts('electronic');
   const { addToCart } = useCart();
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const categories = [
     { title: t('electronic.category.audio'), image: '/images/headphones.avif', slug: 'audio' },
@@ -21,7 +23,9 @@ export default function MenPage() {
   ];
 
   return (
-    <div className="bg-white min-h-screen py-3 sm:py-5">
+    <div className={`${
+      isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
+    } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
         image="/images/electronic-page.webp" 
         title={t('electronic.hero.title')} 

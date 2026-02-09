@@ -24,6 +24,8 @@ export default function Navbar() {
 
   const user = authUser ? { name: authUser.name, isAdmin: authUser.role === 'admin' } : null;
 
+  if (!mounted) return null;
+
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const logout = () => {
     authLogout();
@@ -41,7 +43,7 @@ export default function Navbar() {
         <DesktopNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          cartCount={mounted ? itemCount : 0}
+          cartCount={itemCount}
           user={user}
           language={language}
           toggleLanguage={toggleLanguage}
@@ -52,7 +54,7 @@ export default function Navbar() {
         <TabletNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          cartCount={mounted ? itemCount : 0}
+          cartCount={itemCount}
           user={user}
           language={language}
           toggleLanguage={toggleLanguage}
@@ -63,7 +65,7 @@ export default function Navbar() {
         <MobileNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}
-          cartCount={mounted ? itemCount : 0}
+          cartCount={itemCount}
           user={user}
           logout={logout}
           isMobileMenuOpen={isMobileMenuOpen}

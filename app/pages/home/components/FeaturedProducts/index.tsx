@@ -1,16 +1,16 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import FeaturedProductCard from './FeaturedProductCard';
 import {Product}from '../../types/home.types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function FeaturedProducts() {
-  const { isDarkMode } = useTheme();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -40,16 +40,22 @@ export default function FeaturedProducts() {
 
   if (loading) {
     return (
-      <div className={`py-16 sm:py-20 ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+      <div className={`py-16 sm:py-20 transition-colors duration-300 ${
+        isDarkMode ? 'bg-[#252525]' : 'bg-gray-50'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">Loading...</div>
+          <div className={`text-center ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-900'
+          }`}>Loading...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`py-8 sm:py-12 md:py-16 lg:py-20 ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className={`py-8 sm:py-12 md:py-16 lg:py-20 transition-colors duration-300 ${
+      isDarkMode ? 'bg-[#252525]' : 'bg-gray-50'
+    }`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 ${
           isDarkMode ? 'text-white' : 'text-gray-900'

@@ -17,6 +17,7 @@ interface CartItem {
     tax: number;
     finalTotal: number;
     deliveryDateStr: string;
+    isDarkMode: boolean;
   }
   export interface PaymentFormProps {
     paymentMethod: string;
@@ -26,6 +27,7 @@ interface CartItem {
     isLoading: boolean;
     onBack: () => void;
     onSubmit: () => void;
+    isDarkMode: boolean;
   }
   
   export interface OrderItemProps {
@@ -38,6 +40,7 @@ interface CartItem {
       quantity?: number;
     };
     index: number;
+    isDarkMode: boolean;
   }
   export interface PriceDetailsProps {
     subtotal: number;
@@ -45,10 +48,12 @@ interface CartItem {
     tax: number;
     finalTotal: number;
     deliveryDateStr: string;
+    isDarkMode: boolean;
   }
   export interface CardDetailsFormProps {
     cardDetails: { number: string; name: string; expiry: string; cvv: string };
     setCardDetails: (details: { number: string; name: string; expiry: string; cvv: string }) => void;
+    isDarkMode: boolean;
   }
   export interface OrderNotesSectionProps {
     notes: string;
@@ -56,6 +61,7 @@ interface CartItem {
     isLoading: boolean;
     onBack: () => void;
     onSubmit: () => void;
+    isDarkMode: boolean;
   }
 
   export interface PaymentMethodOptionProps {
@@ -68,10 +74,12 @@ interface CartItem {
     isSelected: boolean;
     onSelect: (value: string) => void;
     colorScheme: 'green' | 'blue' | 'purple';
+    isDarkMode: boolean;
   }
   export interface WalletDetailsFormProps {
     walletPhone: string;
     setWalletPhone: (phone: string) => void;
+    isDarkMode: boolean;
   }
 
   export interface FormInputProps {
@@ -87,6 +95,7 @@ interface CartItem {
     maxLength?: number;
     onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     inputMode?: 'text' | 'numeric' | 'tel' | 'email' | 'url' | 'search' | 'none' | 'decimal';
+    isDarkMode?: boolean;
   }
   export interface FormSelectProps {
     label: string;
@@ -95,6 +104,7 @@ interface CartItem {
     onChange: (value: string) => void;
     options: Array<{ key: string; label: string }> | string[];
     placeholder?: string;
+    isDarkMode?: boolean;
   }
   export interface ShippingAddress {
     fullName: string;
@@ -112,4 +122,5 @@ interface CartItem {
     setGovernorate: React.Dispatch<React.SetStateAction<string>>;
     governorates: Array<{ key: string; label: string }>;
     onSubmit: (e: React.FormEvent) => void;
+    isDarkMode: boolean;
   }

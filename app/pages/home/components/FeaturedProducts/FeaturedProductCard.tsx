@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { Eye, Heart, ShoppingCart } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useRouter } from 'next/navigation';
@@ -11,8 +11,8 @@ import {FeaturedProductCardProps} from '../../types/home.types'
 
 
 export default function FeaturedProductCard({ product }: FeaturedProductCardProps) {
-  const { isDarkMode } = useTheme();
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const router = useRouter();
@@ -54,8 +54,8 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
   return (
     <div 
       className={`relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer ${
-        isDarkMode ? 'bg-[#1F2329]' : 'bg-white border border-gray-200'
-      }`}
+        isDarkMode ? 'bg-[#2d2d2d] border-gray-700' : 'bg-white border-gray-200'
+      } border`}
       onClick={handleCardClick}
     >
       <div className={`absolute top-1.5 z-10 flex gap-1 sm:gap-2 ${
@@ -66,25 +66,29 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
             e.stopPropagation();
             window.location.href = `/pages/product/${product._id}`;
           }} 
-          className={`p-1 sm:p-1.5 rounded-full transition-colors ${
-            isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
-          } shadow-md`}
+          className={`p-1 sm:p-1.5 rounded-full transition-colors shadow-md ${
+            isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-100'
+          }`}
           aria-label={isArabic ? 'عرض تفاصيل المنتج' : 'View product details'}
         >
-          <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
+          <Eye className={`w-3 h-3 sm:w-4 sm:h-4 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`} />
         </button>
         <button 
           onClick={handleWishlistToggle} 
-          className={`p-1 sm:p-1.5 rounded-full transition-colors ${
-            isDarkMode ? 'bg-[#191C21] hover:bg-[#252930]' : 'bg-white hover:bg-gray-100'
-          } shadow-md`}
+          className={`p-1 sm:p-1.5 rounded-full transition-colors shadow-md ${
+            isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-100'
+          }`}
           aria-label={isWishlisted ? (isArabic ? 'إزالة من المفضلة' : 'Remove from wishlist') : (isArabic ? 'إضافة للمفضلة' : 'Add to wishlist')}
         >
           <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
         </button>
       </div>
 
-      <div className="relative aspect-square bg-gray-100">
+      <div className={`relative aspect-square ${
+        isDarkMode ? 'bg-gray-800' : 'bg-gray-100'
+      }`}>
         <Image
           src={product.mainImage}
           alt={isArabic ? product.nameAr : product.name}
@@ -103,13 +107,17 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
           {isArabic ? product.nameAr : product.name}
         </h2>
         <p className={`text-sm sm:text-base md:text-lg font-bold mb-2 sm:mb-3 ${
-          isDarkMode ? 'text-white' : 'text-gray-900'
+          isDarkMode ? 'text-gray-200' : 'text-gray-900'
         }`}>
           {product.finalPrice} {isArabic ? 'جنيه' : 'EGP'}
         </p>
         <button 
           onClick={handleAddToCart}
-          className="w-full bg-[#8B6914] hover:bg-[#6B5010] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+          className={`w-full py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm ${
+            isDarkMode 
+              ? 'bg-[#A88B3A] hover:bg-[#8B7330] text-white' 
+              : 'bg-[#8B6914] hover:bg-[#6B5010] text-white'
+          }`}
           aria-label={isArabic ? 'إضافة إلى السلة' : 'Add to cart'}
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />

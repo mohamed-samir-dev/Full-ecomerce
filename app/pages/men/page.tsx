@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import ProductSlider from '@/app/components/ProductSlider';
 import CategoryGrid from '@/app/components/CategoryGrid';
@@ -22,7 +23,16 @@ export default function MenPage() {
   ];
 
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="رجال - أزياء رجالية عصرية"
+        titleEn="Men - Modern Men's Fashion"
+        descriptionAr="اكتشف أحدث صيحات الموضة الرجالية. ملابس، أحذية، حقائب وإكسسوارات"
+        descriptionEn="Discover the latest men's fashion trends. Clothing, shoes, bags and accessories"
+        keywordsAr={['رجال', 'ملابس رجالية', 'أزياء رجالية']}
+        keywordsEn={['men', 'men\'s clothing', 'men\'s fashion']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -50,5 +60,6 @@ export default function MenPage() {
       />
       <CategoryGrid categories={categories} basePath="/pages/men" />
     </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n/hooks/useTranslation';
 import { useAuth } from '@/context/AuthContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import CartHeader from './components/cartheader/CartHeader';
 import EmptyCart from './components/cart-ui/EmptyCart';
 import CartItem from './components/cartitem/CartItem';
@@ -34,7 +35,16 @@ export default function Cart() {
   } = useCartPage();
 
   return (
-    <div className={`min-h-screen py-4 sm:py-6 lg:py-8 ${
+    <>
+      <DynamicMetadata
+        titleAr="سلة التسوق - مراجعة مشترياتك"
+        titleEn="Shopping Cart - Review Your Purchases"
+        descriptionAr="راجع وعدل مشترياتك قبل إتمام عملية الشراء. سلة تسوق آمنة وسهلة الاستخدام"
+        descriptionEn="Review and modify your purchases before completing the purchase. Secure and easy-to-use shopping cart"
+        keywordsAr={['سلة التسوق', 'مشتريات', 'عربة التسوق']}
+        keywordsEn={['shopping cart', 'purchases', 'cart']}
+      />
+      <div className={`min-h-screen py-4 sm:py-6 lg:py-8 ${
       isDarkMode ? 'bg-slate-900' : 'bg-slate-50'
     }`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
@@ -87,6 +97,7 @@ export default function Cart() {
         onConfirm={confirmClearCart}
         onCancel={() => setShowClearModal(false)}
       />
-    </div>
+      </div>
+    </>
   );
 }

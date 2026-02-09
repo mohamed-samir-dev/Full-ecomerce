@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { Product } from "../types";
 
@@ -13,39 +13,42 @@ export function useSearch() {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce(async (query: string) => {
-      if (!query || query.trim().length < 2) {
-        setSearchResults([]);
-        setShowSuggestions(false);
-        return;
-      }
+  const debouncedSearchRef = useRef<((query: string) => void) | null>(null);
 
-      try {
-        setLoading(true);
-        console.log('Searching for:', query);
-        const response = await axios.get(`${API_URL}/api/products/search`, {
-          params: { q: query, limit: 8 }
-        });
-        console.log('Search response:', response.data);
+  const performSearch = useCallback(async (query: string) => {
+    if (!query || query.trim().length < 2) {
+      setSearchResults([]);
+      setShowSuggestions(false);
+      return;
+    }
 
-        if (response.data.success) {
-          setSearchResults(response.data.data);
-          setShowSuggestions(true);
-        }
-      } catch (error) {
-        console.error("Search error:", error);
-        setSearchResults([]);
-      } finally {
-        setLoading(false);
+    try {
+      setLoading(true);
+      console.log('Searching for:', query);
+      const response = await axios.get(`${API_URL}/api/products/search`, {
+        params: { q: query, limit: 8 }
+      });
+      console.log('Search response:', response.data);
+
+      if (response.data.success) {
+        setSearchResults(response.data.data);
+        setShowSuggestions(true);
       }
-    }, 300),
-    []
-  );
+    } catch (error) {
+      console.error("Search error:", error);
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  if (!debouncedSearchRef.current) {
+    debouncedSearchRef.current = debounce(performSearch, 300);
+  }
 
   useEffect(() => {
-    debouncedSearch(searchQuery);
-  }, [searchQuery, debouncedSearch]);
+    debouncedSearchRef.current?.(searchQuery);
+  }, [searchQuery]);
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
@@ -73,6 +76,7 @@ export function useSearch() {
 }
 
 // Debounce utility function
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number

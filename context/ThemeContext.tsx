@@ -14,19 +14,19 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    setIsDarkMode(saved === 'dark');
+    const stored = localStorage.getItem('theme');
+    if (stored) setIsDarkMode(stored === 'dark');
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-      document.documentElement.classList.toggle('dark', isDarkMode);
-    }
-  }, [isDarkMode, mounted]);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
+
+  if (!mounted) return null;
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>

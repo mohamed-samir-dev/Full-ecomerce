@@ -3,7 +3,7 @@ import { useTranslation } from '@/i18n';
 import {EmptyStateProps}from '../../types/types'
 
 
-export default function EmptyState({ statusFilter, isDarkMode, isArabic }: EmptyStateProps) {
+export default function EmptyState({ statusFilter, isDarkMode }: EmptyStateProps) {
   const { t } = useTranslation();
   
   return (

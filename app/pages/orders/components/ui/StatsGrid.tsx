@@ -3,7 +3,7 @@ import { useTranslation } from '@/i18n';
 import StatCard from './StatCard';
 import {StatsGridProps}from '../../types/types'
 
-export default function StatsGrid({ stats, isDarkMode, isArabic }: StatsGridProps) {
+export default function StatsGrid({ stats, isDarkMode }: StatsGridProps) {
   const { t } = useTranslation();
   
   return (

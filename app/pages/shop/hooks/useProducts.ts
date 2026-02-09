@@ -20,7 +20,7 @@ export function useProducts(filters: Filters, page: number = 1) {
         setLoading(true);
         
         // Build query parameters
-        const params: any = {
+        const params: Record<string, string | number> = {
           page: page,
           limit: 9,
         };

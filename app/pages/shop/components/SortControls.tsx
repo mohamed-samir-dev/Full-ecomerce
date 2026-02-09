@@ -11,7 +11,7 @@ interface SortControlsProps {
 }
 
 export default function SortControls({ filters, handleFilterChange, totalProducts }: SortControlsProps) {
-  const { t, isArabic } = useTranslation();
+  const { isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
   
   const sortOptions = [

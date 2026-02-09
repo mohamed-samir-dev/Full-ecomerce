@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/hooks/useCart';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,16 +15,9 @@ export default function Navbar() {
   const { language, isArabic, toggleLanguage } = useLanguage();
   const { isDarkMode, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const { itemCount } = useCart();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const user = authUser ? { name: authUser.name, isAdmin: authUser.role === 'admin' } : null;
-
-  if (!mounted) return null;
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const logout = () => {

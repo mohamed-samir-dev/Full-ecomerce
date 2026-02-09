@@ -43,7 +43,8 @@ export const useCart = () => {
         dispatch(addToCart(product));
       }
       toast.success(isArabic ? `تمت إضافة ${product.name} إلى السلة` : `${product.name} added to cart`, { position: 'top-right' });
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as { message?: string };
       toast.error(error.message || (isArabic ? 'فشل في الإضافة إلى السلة' : 'Failed to add to cart'), { position: 'top-right' });
     }
   };
@@ -56,7 +57,8 @@ export const useCart = () => {
         dispatch(removeFromCart(productId));
       }
       toast.success(isArabic ? 'تم الحذف من السلة' : 'Removed from cart', { position: 'top-right' });
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as { message?: string };
       toast.error(error.message || (isArabic ? 'فشل في الحذف من السلة' : 'Failed to remove from cart'), { position: 'top-right' });
     }
   };
@@ -69,7 +71,8 @@ export const useCart = () => {
       } else {
         dispatch(updateQuantity({ productId, quantity }));
       }
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as { message?: string };
       toast.error(error.message || (isArabic ? 'فشل في تحديث الكمية' : 'Failed to update quantity'), { position: 'top-right' });
     }
   };
@@ -82,7 +85,8 @@ export const useCart = () => {
         dispatch(clearCart());
       }
       toast.success(isArabic ? 'تم تفريغ السلة' : 'Cart cleared', { position: 'top-right' });
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as { message?: string };
       toast.error(error.message || (isArabic ? 'فشل في تفريغ السلة' : 'Failed to clear cart'), { position: 'top-right' });
     }
   };

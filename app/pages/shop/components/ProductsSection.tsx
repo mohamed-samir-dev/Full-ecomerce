@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Filters } from "../types";
 import { useProducts } from "../hooks/useProducts";
 import { useTheme } from '@/context/ThemeContext';
@@ -15,13 +15,17 @@ interface ProductsSectionProps {
 }
 
 export default function ProductsSection({ filters, handleFilterChange }: ProductsSectionProps) {
+  const filtersKey = useMemo(() => JSON.stringify(filters), [filters]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [prevFiltersKey, setPrevFiltersKey] = useState(filtersKey);
+  
+  if (prevFiltersKey !== filtersKey) {
+    setPrevFiltersKey(filtersKey);
+    setCurrentPage(1);
+  }
+  
   const { products, loading, error, totalProducts, totalPages } = useProducts(filters, currentPage);
   const { isDarkMode } = useTheme();
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -91,7 +95,7 @@ export default function ProductsSection({ filters, handleFilterChange }: Product
 
   return (
     <div className="space-y-6">
-      <SearchBar filters={filters} handleFilterChange={handleFilterChange} />
+      <SearchBar handleFilterChange={handleFilterChange} />
       <SortControls 
         filters={filters} 
         handleFilterChange={handleFilterChange} 

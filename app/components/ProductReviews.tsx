@@ -57,10 +57,10 @@ export default function ProductReviews({
         setShowAddReview(false);
         alert('Review added successfully!');
       } else {
-        const error = await response.json();
-        alert(`Error: ${error.message}`);
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
       }
-    } catch (error) {
+    } catch {
       alert('Failed to add review');
     } finally {
       setLoading(false);

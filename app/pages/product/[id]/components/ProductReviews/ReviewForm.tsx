@@ -39,10 +39,10 @@ export default function ReviewForm({ productId, onCancel }: ReviewFormProps) {
         setComment('');
         onCancel();
       } else {
-        const error = await response.json();
-        toast.error(error.message || (isArabic ? 'فشل إرسال المراجعة' : 'Failed to submit review'));
+        const errorData = await response.json();
+        toast.error(errorData.message || (isArabic ? 'فشل إرسال المراجعة' : 'Failed to submit review'));
       }
-    } catch (error) {
+    } catch {
       toast.error(isArabic ? 'فشل إرسال المراجعة' : 'Failed to submit review');
     } finally {
       setSubmitting(false);

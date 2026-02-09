@@ -7,7 +7,6 @@ export default function OrderSummary({ totalPrice, isPrivateView, isDarkMode }: 
   
   const subtotal = totalPrice / 1.08;
   const tax = subtotal * 0.08;
-  const shipping = 0;
   
   return (
     <div className={`rounded-lg border p-6 ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>

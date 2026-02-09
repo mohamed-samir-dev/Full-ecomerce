@@ -20,7 +20,7 @@ export const useReviews = (productId: string) => {
           const data = await response.json();
           setReviews(data.data || data);
         }
-      } catch (error) {
+      } catch {
         // Silently fail - reviews are optional
       } finally {
         setLoading(false);

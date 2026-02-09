@@ -37,11 +37,11 @@ export function useFilters() {
     const urlFilters: Partial<Filters> = {};
     
     // Parse array filters
-    const arrayFilters = ['category', 'rating', 'brand', 'sizes', 'colors', 'availability', 'material', 'shop'];
+    const arrayFilters: (keyof Pick<Filters, 'category' | 'rating' | 'brand' | 'sizes' | 'colors' | 'availability' | 'material' | 'shop'>)[] = ['category', 'rating', 'brand', 'sizes', 'colors', 'availability', 'material', 'shop'];
     arrayFilters.forEach(key => {
       const value = searchParams.get(key);
       if (value) {
-        urlFilters[key as keyof Filters] = value.split(',') as any;
+        urlFilters[key] = value.split(',');
       }
     });
     
@@ -68,6 +68,7 @@ export function useFilters() {
     if (search) urlFilters.search = search;
     
     setFilters(prev => ({ ...prev, ...urlFilters }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // Update URL when filters change

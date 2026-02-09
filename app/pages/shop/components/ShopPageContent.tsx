@@ -1,7 +1,6 @@
 "use client";
 
 import { useFilters } from "../hooks/useFilters";
-import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import DynamicMetadata from '@/app/components/DynamicMetadata';
 import {
@@ -11,7 +10,6 @@ import {
 } from "./index";
 
 export default function ShopPageContent() {
-  const { isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
   const {
     filters,

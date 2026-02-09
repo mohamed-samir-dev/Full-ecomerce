@@ -6,14 +6,13 @@ import Image from "next/image";
 import { useSearch } from "../hooks/useSearch";
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
-import { Filters, FilterChangeHandler } from "../types";
+import {  FilterChangeHandler } from "../types";
 
 interface SearchBarProps {
-  filters: Filters;
   handleFilterChange: FilterChangeHandler;
 }
 
-export default function SearchBar({ filters, handleFilterChange }: SearchBarProps) {
+export default function SearchBar({ handleFilterChange }: SearchBarProps) {
   const { isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
   const {

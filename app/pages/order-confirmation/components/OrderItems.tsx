@@ -16,9 +16,11 @@ export default function OrderItems({ products, isPrivateView, isDarkMode }: Orde
           <div key={index} className={`flex gap-4 pb-4 ${index !== products.length - 1 ? 'border-b' : ''} ${isDarkMode ? 'border-slate-700' : 'border-gray-200'}`}>
             <div className={`w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden ${isDarkMode ? 'bg-slate-700' : 'bg-gray-100'}`}>
               {item.image ? (
-                <img 
+                <Image 
                   src={item.image} 
                   alt={locale === 'ar' && item.nameAr ? item.nameAr : item.name}
+                  width={80}
+                  height={80}
                   className="object-cover w-full h-full"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';

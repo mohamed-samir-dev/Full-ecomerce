@@ -3,6 +3,7 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import{LoginFormProps} from '../types/login.types';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function LoginForm({
   formData,
@@ -15,6 +16,7 @@ export default function LoginForm({
   onChange
 }: LoginFormProps) {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
     <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
@@ -23,7 +25,9 @@ export default function LoginForm({
           name="email"
           type="email"
           required
-          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent"
+          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md border focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent transition-colors ${
+            isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400 border-gray-700' : 'bg-gray-50 text-gray-900 placeholder-gray-500 border-gray-300'
+          }`}
           placeholder={t('login.email')}
           value={formData.email}
           onChange={onChange}
@@ -35,14 +39,18 @@ export default function LoginForm({
           name="password"
           type={showPassword ? 'text' : 'password'}
           required
-          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent"
+          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-md border focus:outline-none focus:ring-2 focus:ring-[#C7AB6C] focus:border-transparent transition-colors ${
+            isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400 border-gray-700' : 'bg-gray-50 text-gray-900 placeholder-gray-500 border-gray-300'
+          }`}
           placeholder={t('login.password')}
           value={formData.password}
           onChange={onChange}
         />
         <button
           type="button"
-          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 p-1`}
+          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 p-1 transition-colors ${
+            isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+          }`}
           onClick={onShowPasswordToggle}
         >
           {showPassword ? (
@@ -74,7 +82,9 @@ export default function LoginForm({
               )}
             </div>
           </div>
-          <span className={`text-xs sm:text-sm ${isArabic ? 'mr-2 sm:mr-3' : 'ml-2 sm:ml-3'} text-gray-600 group-hover:text-gray-800`}>{t('login.rememberMe')}</span>
+          <span className={`text-xs sm:text-sm ${isArabic ? 'mr-2 sm:mr-3' : 'ml-2 sm:ml-3'} transition-colors ${
+            isDarkMode ? 'text-gray-400 group-hover:text-gray-200' : 'text-gray-600 group-hover:text-gray-800'
+          }`}>{t('login.rememberMe')}</span>
         </label>
       </div>
       

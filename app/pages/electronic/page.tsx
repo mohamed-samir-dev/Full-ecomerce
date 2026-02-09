@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,7 +24,16 @@ export default function MenPage() {
   ];
 
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="إلكترونيات - أحدث الأجهزة الإلكترونية"
+        titleEn="Electronics - Latest Electronic Devices"
+        descriptionAr="اكتشف أحدث الأجهزة الإلكترونية والتقنية. سماعات، منزل ذكي، تقنية شخصية وكاميرات"
+        descriptionEn="Discover the latest electronic and tech devices. Headphones, smart home, personal tech and cameras"
+        keywordsAr={['إلكترونيات', 'أجهزة', 'تقنية', 'سماعات']}
+        keywordsEn={['electronics', 'devices', 'technology', 'headphones']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -64,5 +74,6 @@ export default function MenPage() {
 
       </section>
     </div>
+    </>
   );
 }

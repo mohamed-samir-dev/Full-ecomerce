@@ -5,6 +5,7 @@ import {Navbar} from "./navbar";
 import {Footer} from "./footer";
 import {Providers} from "./providers";
 import { LanguageProvider } from '@/context/LanguageContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 import { TranslationProvider } from '@/i18n';
 import RTLWrapper from './components/RTLWrapper';
 import { geistSans, geistMono } from './utils/fonts';
@@ -39,9 +40,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <LanguageProvider>
-          <TranslationProvider>
-            <Providers>
+        <ThemeProvider>
+          <LanguageProvider>
+            <TranslationProvider>
+              <Providers>
               <Toaster position="top-right" toastOptions={{
                 duration: 3000,
                 style: {
@@ -66,9 +68,10 @@ export default function RootLayout({
                 {children}
               </RTLWrapper>
               <Footer />
-            </Providers>
-          </TranslationProvider>
-        </LanguageProvider>
+              </Providers>
+            </TranslationProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

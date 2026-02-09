@@ -1,5 +1,6 @@
 "use client";
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import BrowseCategories from '@/app/components/BrowseCategories';
 import ProductSlider from '@/app/components/ProductSlider';
@@ -22,7 +23,16 @@ export default function ShoesPage() {
   ];
 
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="أحذية - تسوق أحدث الأحذية"
+        titleEn="Shoes - Shop Latest Shoes"
+        descriptionAr="تسوق مجموعة متنوعة من الأحذية العصرية. أحذية رسمية، صنادل، كاجوال ورياضية"
+        descriptionEn="Shop a diverse collection of modern shoes. Formal shoes, sandals, casual and sports"
+        keywordsAr={['أحذية', 'أحذية رسمية', 'صنادل', 'أحذية رياضية']}
+        keywordsEn={['shoes', 'formal shoes', 'sandals', 'sports shoes']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -43,5 +53,6 @@ export default function ShoesPage() {
         accentColor="#18020B" 
       />
     </div>
+    </>
   );
 }

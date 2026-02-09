@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 interface PaginationProps {
   currentPage: number;
@@ -10,6 +11,7 @@ interface PaginationProps {
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   if (totalPages <= 1) return null;
 
@@ -58,7 +60,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label={isArabic ? 'الصفحة السابقة' : 'Previous page'}
-        className="px-2 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className={`px-2 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+          isDarkMode 
+            ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
+            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+        }`}
       >
         <span className="hidden sm:inline">{isArabic ? 'السابق' : 'Previous'}</span>
         <span className="sm:hidden">{isArabic ? '‹' : '‹'}</span>
@@ -75,13 +81,15 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
               className={`px-2 sm:px-4 py-2 text-sm sm:text-base rounded-lg transition-colors min-w-[36px] sm:min-w-[44px] ${
                 currentPage === page
                   ? 'bg-[#B39E7A] text-white'
+                  : isDarkMode
+                  ? 'border border-gray-700 text-gray-300 hover:bg-gray-800'
                   : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
               }`}
             >
               {page}
             </button>
           ) : (
-            <span key={index} className="px-1 sm:px-2 text-gray-400 flex items-center">
+            <span key={index} className={`px-1 sm:px-2 flex items-center ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
               {page}
             </span>
           )
@@ -92,7 +100,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label={isArabic ? 'الصفحة التالية' : 'Next page'}
-        className="px-2 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className={`px-2 sm:px-4 py-2 text-sm sm:text-base rounded-lg border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+          isDarkMode 
+            ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
+            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+        }`}
       >
         <span className="hidden sm:inline">{isArabic ? 'التالي' : 'Next'}</span>
         <span className="sm:hidden">{isArabic ? '›' : '›'}</span>

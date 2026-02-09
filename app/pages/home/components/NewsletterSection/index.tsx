@@ -56,12 +56,12 @@ export default function NewsletterSection() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('home.newsletter.placeholder')}
               disabled={loading}
-              className="flex-1 px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="flex-1 px-4 py-3 border-2 text-black border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 focus:ring-2 focus:ring-orange-200 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
             />
             <button 
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
+              className="w-full sm:w-auto px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
             >
               {loading ? t('home.newsletter.subscribing') : t('home.newsletter.subscribe')}
             </button>

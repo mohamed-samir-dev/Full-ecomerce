@@ -35,7 +35,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
           )}
         </div>
         <div className="p-4 sm:p-5">
-          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">
+          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#8B6914] transition-colors">
             {isArabic ? (product.nameAr || product.name) : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
@@ -46,7 +46,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-1.5 sm:gap-2">
-              <span className="text-xl sm:text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
+              <span className="text-xl sm:text-2xl font-light text-[#8B6914]">{product.finalPrice}</span>
               <span className="text-xs sm:text-sm text-gray-400">{t('product.egp')}</span>
               {product.basePrice > product.finalPrice && (
                 <span className="text-xs sm:text-sm text-gray-400 line-through">{product.basePrice}</span>
@@ -55,7 +55,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
             <div className="flex gap-1.5 sm:gap-2">
               <button 
                 onClick={(e) => { e.preventDefault(); router.push(`/pages/product/${product._id}`); }} 
-                className="w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                className="w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="View product"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +65,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
               </button>
               <button 
                 onClick={(e) => { e.preventDefault(); addToCart(product); }} 
-                className="w-9 h-9 sm:w-10 sm:h-10 bg-[#B39E7A] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-[#8B6914] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="Add to cart"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

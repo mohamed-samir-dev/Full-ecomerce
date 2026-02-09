@@ -8,9 +8,9 @@ export const Logo = ({ isArabic, isDarkMode }: LogoProps) => {
       isDarkMode ? 'text-white' : 'text-gray-900'
     }`}>
       {isArabic ? (
-        <><span className={isDarkMode ? 'text-[#D4B87A]' : 'text-[#B8963D]'}>المتجر</span> العالمي</>
+        <><span className={isDarkMode ? 'text-[#D4B87A]' : 'text-[#8B6914]'}>المتجر</span> العالمي</>
       ) : (
-        <>Global <span className={isDarkMode ? 'text-[#D4B87A]' : 'text-[#B8963D]'}>Shop</span></>
+        <>Global <span className={isDarkMode ? 'text-[#D4B87A]' : 'text-[#8B6914]'}>Shop</span></>
       )}
     </Link>
   );

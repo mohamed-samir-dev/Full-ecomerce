@@ -95,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Product Info */}
         <div className="p-5">
-          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#B39E7A] transition-colors">
+          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-lg group-hover:text-[#8B6914] transition-colors">
             {isArabic ? product.nameAr : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
@@ -108,7 +108,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
+              <span className="text-2xl font-light text-[#8B6914]">{product.finalPrice}</span>
               <span className="text-sm text-gray-400">{isArabic ? 'جنيه' : 'EGP'}</span>
               {hasDiscount && (
                 <span className="text-sm text-gray-400 line-through">{product.basePrice}</span>
@@ -120,7 +120,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   e.preventDefault(); 
                   router.push(`/pages/product/${product._id}`); 
                 }} 
-                className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                className="w-10 h-10 bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="View product details"
               >
                 <Eye className="w-5 h-5 text-white" />
@@ -131,7 +131,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm ${
                   product.stock === 0 || product.availability === 'out_of_stock'
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-[#B39E7A] text-white hover:bg-[#A08D6A]"
+                    : "bg-[#8B6914] text-white hover:bg-[#6B5010]"
                 }`}
                 aria-label="Add to cart"
               >

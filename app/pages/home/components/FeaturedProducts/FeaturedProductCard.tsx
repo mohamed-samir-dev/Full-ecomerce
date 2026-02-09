@@ -109,7 +109,7 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         </p>
         <button 
           onClick={handleAddToCart}
-          className="w-full bg-[#B39E7A] hover:bg-[#A08B6F] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+          className="w-full bg-[#8B6914] hover:bg-[#6B5010] text-white py-1.5 sm:py-2 px-2 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
           aria-label={isArabic ? 'إضافة إلى السلة' : 'Add to cart'}
         >
           <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4" />

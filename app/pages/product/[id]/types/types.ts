@@ -42,6 +42,11 @@ export interface SizeSelectorProps {
   selectedSize: string;
   onSizeChange: (size: string) => void;
 }
+export interface ColorSelectorProps {
+  colors: { name: string; hex: string }[];
+  selectedColor: { name: string; hex: string } | null;
+  onColorChange: (color: { name: string; hex: string }) => void;
+}
 export interface StockIndicatorProps {
   isOutOfStock: boolean;
   stock: number;

@@ -11,19 +11,22 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
     setIsDarkMode(saved === 'dark');
+    setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setIsDarkMode(prev => {
-      const newValue = !prev;
-      localStorage.setItem('theme', newValue ? 'dark' : 'light');
-      return newValue;
-    });
-  };
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', isDarkMode);
+    }
+  }, [isDarkMode, mounted]);
+
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>

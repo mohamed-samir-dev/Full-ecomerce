@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/hooks/useCart';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 import DesktopNavbar from './layouts/DesktopNavbar';
 import TabletNavbar from './layouts/TabletNavbar';
 import MobileNavbar from './layouts/MobileNavbar';
@@ -12,7 +13,7 @@ import MobileMenu from './layouts/MobileMenu';
 export default function Navbar() {
   const { user: authUser, logout: authLogout } = useAuth();
   const { language, isArabic, toggleLanguage } = useLanguage();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { itemCount } = useCart();
@@ -23,7 +24,6 @@ export default function Navbar() {
 
   const user = authUser ? { name: authUser.name, isAdmin: authUser.role === 'admin' } : null;
 
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const logout = () => {
     authLogout();
@@ -45,7 +45,7 @@ export default function Navbar() {
           user={user}
           language={language}
           toggleLanguage={toggleLanguage}
-          toggleDarkMode={toggleDarkMode}
+          toggleDarkMode={toggleTheme}
           logout={logout}
         />
 
@@ -56,7 +56,7 @@ export default function Navbar() {
           user={user}
           language={language}
           toggleLanguage={toggleLanguage}
-          toggleDarkMode={toggleDarkMode}
+          toggleDarkMode={toggleTheme}
           logout={logout}
         />
 
@@ -78,7 +78,7 @@ export default function Navbar() {
           language={language}
           logout={logout}
           toggleLanguage={toggleLanguage}
-          toggleDarkMode={toggleDarkMode}
+          toggleDarkMode={toggleTheme}
           closeMobileMenu={() => setIsMobileMenuOpen(false)}
         />
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
 import PageHeader from '@/app/components/shared/PageHeader';
 import Filters from '@/app/components/shared/Filters';
@@ -9,6 +10,7 @@ import Pagination from '@/app/pages/shop/components/Pagination';
 
 export default function PremiumPage() {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const {
     products,
     loading,
@@ -25,7 +27,9 @@ export default function PremiumPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`min-h-screen ${
+        isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
+      } flex items-center justify-center`}>
         <div className="relative">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-amber-600 absolute inset-0"></div>
@@ -35,7 +39,9 @@ export default function PremiumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${
+      isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
+    } transition-colors duration-300`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
         <PageHeader 
           title={isArabic ? 'منتجات مميزة' : 'Premium Products'}

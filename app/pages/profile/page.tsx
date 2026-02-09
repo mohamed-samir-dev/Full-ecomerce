@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from '@/i18n';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import ProfileHeader from './components/ProfileHeader';
 import ProfileStats from './components/ProfileStats';
 import AccountInfo from './components/AccountInfo';
@@ -14,7 +14,6 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const { isArabic } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
@@ -92,7 +91,16 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+    <>
+      <DynamicMetadata
+        titleAr="الملف الشخصي - إدارة حسابك"
+        titleEn="Profile - Manage Your Account"
+        descriptionAr="إدارة ملفك الشخصي، طلباتك، عناوينك ومعلومات حسابك في مكان واحد"
+        descriptionEn="Manage your profile, orders, addresses and account information in one place"
+        keywordsAr={['الملف الشخصي', 'حسابي', 'طلباتي']}
+        keywordsEn={['profile', 'my account', 'my orders']}
+      />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 space-y-3 sm:space-y-4 md:space-y-6">
         <ProfileHeader user={user} isDarkMode={isDarkMode} />
         <ProfileStats user={user} isDarkMode={isDarkMode} />
@@ -102,6 +110,7 @@ export default function ProfilePage() {
         </div>
         <OrdersHistory isDarkMode={isDarkMode} />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

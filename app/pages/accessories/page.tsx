@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useCart } from '@/hooks/useCart';
+import { useTheme } from '@/context/ThemeContext';
 import HeroBanner from '@/app/components/HeroBanner';
 import BrowseCategories from '@/app/components/BrowseCategories';
 import ProductSlider from '@/app/components/ProductSlider';
@@ -13,6 +14,7 @@ export default function AccessoriesPage() {
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const categories = [
     { image: '/images/Silk and scarves.avif', title: t('accessories.category.silk'), link: '/pages/accessories/silk', size: 'small' as const },
@@ -44,7 +46,9 @@ export default function AccessoriesPage() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen py-3 sm:py-5">
+    <div className={`${
+      isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
+    } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
         image="/images/accessory.avif" 
         title={t('accessories.hero.title')} 

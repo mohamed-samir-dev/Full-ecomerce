@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import BrowseCategories from '@/app/components/BrowseCategories';
 import ProductSlider from '@/app/components/ProductSlider';
@@ -46,7 +47,16 @@ export default function AccessoriesPage() {
   }, []);
 
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="إكسسوارات - تسوق أفضل الإكسسوارات"
+        titleEn="Accessories - Shop Best Accessories"
+        descriptionAr="تسوق مجموعة متنوعة من الإكسسوارات العصرية. حقائب، ساعات، نظارات ومجوهرات"
+        descriptionEn="Shop a diverse collection of modern accessories. Bags, watches, sunglasses and jewelry"
+        keywordsAr={['إكسسوارات', 'حقائب', 'ساعات', 'نظارات']}
+        keywordsEn={['accessories', 'bags', 'watches', 'sunglasses']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -63,5 +73,6 @@ export default function AccessoriesPage() {
       <ProductSlider title={t('accessories.newArrivals.title')} products={products} loading={loading} onAddToCart={addToCart} accentColor="#C1883E" />
       <ProductSlider title={t('accessories.trending.title')} products={trendingProducts} loading={loading} onAddToCart={addToCart} accentColor="#C1883E" />
     </div>
+    </>
   );
 }

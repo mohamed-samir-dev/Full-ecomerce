@@ -61,7 +61,6 @@ export interface BackgroundImageProps {
 export interface HeroContentProps {
   slide: HeroSlide;
   currentSlide: number;
-  isDarkMode: boolean;
   isArabic: boolean;
   t: (key: string) => string | React.ReactNode;
 }

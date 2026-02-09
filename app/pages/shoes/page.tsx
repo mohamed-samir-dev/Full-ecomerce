@@ -6,11 +6,13 @@ import ProductSlider from '@/app/components/ProductSlider';
 import { useSubCategoryProducts } from '@/app/hooks/category/useSubCategoryProducts';
 import { useCart } from '@/hooks/useCart';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function ShoesPage() {
   const { products, loading } = useSubCategoryProducts('Shoes', 7, 'Trending');
   const { addToCart } = useCart();
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const categories = [
     { image: '/images/formal-shoes.avif', title: t('shoes.category.formal'), link: '/pages/shoes/formal', size: 'large' as const },
@@ -20,7 +22,9 @@ export default function ShoesPage() {
   ];
 
   return (
-    <div className="bg-white min-h-screen py-3 sm:py-5">
+    <div className={`${
+      isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
+    } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
         image="/images/shoes-page.avif" 
         title={t('shoes.hero.title')} 

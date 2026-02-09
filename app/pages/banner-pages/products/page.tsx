@@ -1,5 +1,6 @@
 'use client';
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
@@ -39,7 +40,9 @@ export default function NewProductsPage() {
   }
 
   return (
-    <div className={`min-h-screen ${
+    <>
+      <DynamicMetadata titleAr="منتجات جديدة" titleEn="New Arrivals" descriptionAr="اكتشف أحدث المنتجات الجديدة" descriptionEn="Discover the latest new products" keywordsAr={['جديد', 'منتجات']} keywordsEn={['new', 'products']} />
+      <div className={`min-h-screen ${
       isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
     } transition-colors duration-300`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
@@ -75,6 +78,7 @@ export default function NewProductsPage() {
           onPageChange={onPageChange}
         />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

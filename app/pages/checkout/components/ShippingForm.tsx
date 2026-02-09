@@ -12,7 +12,8 @@ export default function ShippingForm({
   governorate, 
   setGovernorate, 
   governorates,
-  onSubmit 
+  onSubmit,
+  isDarkMode
 }: ShippingFormProps) {
   const { t, isArabic } = useTranslation();
   
@@ -22,11 +23,11 @@ export default function ShippingForm({
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 50 }}
-      className="rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border bg-white border-gray-100"
+      className={`rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border ${isDarkMode ? 'bg-[#191C21] border-slate-700' : 'bg-white border-gray-100'}`}
     >
       <div className="flex items-center mb-4 sm:mb-6">
         <MapPin className={`w-5 h-5 sm:w-6 sm:h-6 text-blue-600 ${isArabic ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`} />
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{t('checkout.shippingAddress')}</h2>
+        <h2 className={`text-xl sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('checkout.shippingAddress')}</h2>
       </div>
       
       <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5">
@@ -36,6 +37,7 @@ export default function ShippingForm({
           value={shippingAddress.fullName}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, fullName: value }))}
           placeholder={t('checkout.fullNamePlaceholder')}
+          isDarkMode={isDarkMode}
         />
         
         <FormInput
@@ -44,6 +46,7 @@ export default function ShippingForm({
           value={shippingAddress.address}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, address: value }))}
           placeholder={t('checkout.addressPlaceholder')}
+          isDarkMode={isDarkMode}
         />
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -57,6 +60,7 @@ export default function ShippingForm({
             }}
             options={governorates}
             placeholder={t('checkout.selectGovernorate')}
+            isDarkMode={isDarkMode}
           />
           
           <FormInput
@@ -70,6 +74,7 @@ export default function ShippingForm({
             inputMode="numeric"
             placeholder="12345"
             helperText={t('checkout.postalCodeHelper')}
+            isDarkMode={isDarkMode}
           />
         </div>
         
@@ -79,6 +84,7 @@ export default function ShippingForm({
           value={shippingAddress.country}
           onChange={(value) => setShippingAddress(prev => ({ ...prev, country: value }))}
           placeholder={t('checkout.districtPlaceholder')}
+          isDarkMode={isDarkMode}
         />
         
         <FormInput
@@ -96,6 +102,7 @@ export default function ShippingForm({
           placeholder="01234567890"
           icon={<Phone className={`w-4 h-4 ${isArabic ? 'ml-2' : 'mr-2'} text-blue-600`} />}
           helperText={t('checkout.phoneValidation')}
+          isDarkMode={isDarkMode}
         />
         
         <motion.button

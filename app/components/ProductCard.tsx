@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Product } from "@/app/types/category";
+import { useTheme } from "@/context/ThemeContext";
 
 interface ProductCardProps {
   product: Product;
@@ -15,10 +16,11 @@ interface ProductCardProps {
 
 const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps) => {
   const router = useRouter();
+  const { isDarkMode } = useTheme();
 
   return (
     <Link href={`/pages/product/${product._id}`} className="group">
-      <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
+      <div className={`${isDarkMode ? 'bg-[#242830] border-gray-700' : 'bg-white border-transparent hover:border-amber-100'} rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border`}>
         <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
           <Image 
             src={product.mainImage} 
@@ -35,7 +37,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
           )}
         </div>
         <div className="p-4 sm:p-5">
-          <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#8B6914] transition-colors">
+          <h3 className={`font-light mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#8B6914] transition-colors ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
             {isArabic ? (product.nameAr || product.name) : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">

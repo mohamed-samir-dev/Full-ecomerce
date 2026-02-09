@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Product } from '../../../shop/types';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 
 interface ProductDetailsTabsProps {
   product: Product;
@@ -8,6 +9,7 @@ interface ProductDetailsTabsProps {
 
 export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps) {
   const { isArabic } = useLanguage();
+  const { isDarkMode } = useTheme();
   const [activeTab, setActiveTab] = useState<'description' | 'specifications'>('description');
 
   const specs = [
@@ -21,8 +23,10 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
   ];
 
   return (
-    <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-lg">
-      <div className="flex border-b border-gray-100">
+    <div className={`rounded-3xl border overflow-hidden shadow-lg ${
+      isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'
+    }`}>
+      <div className={`flex border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-100'}`}>
         <button
           onClick={() => setActiveTab('description')}
           className={`flex-1 py-4 px-6 text-base font-medium transition-all relative ${
@@ -52,14 +56,14 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
           <div className="space-y-6">
             {product.shortDescription && (
               <div>
-                <h3 className="text-xl font-light text-gray-900 mb-3">{isArabic ? 'نظرة عامة' : 'Overview'}</h3>
-                <p className="text-gray-700 leading-relaxed">{isArabic ? (product.shortDescriptionAr || product.shortDescription) : product.shortDescription}</p>
+                <h3 className={`text-xl font-light mb-3 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{isArabic ? 'نظرة عامة' : 'Overview'}</h3>
+                <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{isArabic ? (product.shortDescriptionAr || product.shortDescription) : product.shortDescription}</p>
               </div>
             )}
             {product.description && (
               <div>
-                <h3 className="text-xl font-light text-gray-900 mb-3">{isArabic ? 'التفاصيل' : 'Details'}</h3>
-                <p className="text-gray-600 leading-relaxed">{isArabic ? (product.descriptionAr || product.description) : product.description}</p>
+                <h3 className={`text-xl font-light mb-3 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{isArabic ? 'التفاصيل' : 'Details'}</h3>
+                <p className={`leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{isArabic ? (product.descriptionAr || product.description) : product.description}</p>
               </div>
             )}
             {!product.shortDescription && !product.description && (
@@ -69,9 +73,9 @@ export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps)
         ) : (
           <div className="space-y-3">
             {specs.map((spec, index) => (
-              <div key={index} className="flex justify-between py-3 border-b border-gray-100 last:border-0">
-                <span className="text-sm font-medium text-gray-600">{spec.label}</span>
-                <span className="text-sm text-gray-900">{spec.value}</span>
+              <div key={index} className={`flex justify-between py-3 border-b last:border-0 ${isDarkMode ? 'border-gray-700' : 'border-gray-100'}`}>
+                <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{spec.label}</span>
+                <span className={`text-sm ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>{spec.value}</span>
               </div>
             ))}
           </div>

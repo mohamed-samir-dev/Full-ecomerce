@@ -2,6 +2,7 @@
 
 import { useFilters } from "../hooks/useFilters";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import {
   PageHeader,
   FilterSidebar,
@@ -10,6 +11,7 @@ import {
 
 export default function ShopPageContent() {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const {
     filters,
     showMobileFilters,
@@ -35,7 +37,7 @@ export default function ShopPageContent() {
   } = useFilters();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <PageHeader />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">

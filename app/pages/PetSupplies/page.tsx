@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { useTheme } from '@/context/ThemeContext';
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import HeroBanner from '@/app/components/HeroBanner';
 import ProductSlider from '@/app/components/ProductSlider';
 import BrowseCategories from '@/app/components/BrowseCategories';
@@ -23,7 +24,16 @@ export default function PetSuppliesPage() {
   ];
   
   return (
-    <div className={`${
+    <>
+      <DynamicMetadata
+        titleAr="مستلزمات الحيوانات - كل ما يحتاجه حيوانك الأليف"
+        titleEn="Pet Supplies - Everything Your Pet Needs"
+        descriptionAr="تسوق مستلزمات الحيوانات الأليفة. ألعاب، عناية، أسرّة وطعام لحيوانك"
+        descriptionEn="Shop pet supplies. Toys, care, beds and food for your pet"
+        keywordsAr={['مستلزمات حيوانات', 'طعام حيوانات', 'ألعاب حيوانات']}
+        keywordsEn={['pet supplies', 'pet food', 'pet toys']}
+      />
+      <div className={`${
       isDarkMode ? 'bg-[#191C21] text-white' : 'bg-white text-gray-900'
     } min-h-screen py-3 sm:py-5 transition-colors duration-300`}>
       <HeroBanner 
@@ -68,4 +78,5 @@ export default function PetSuppliesPage() {
       <ProductSlider title={t('pet.newProducts.title')} products={products} loading={loading} onAddToCart={addToCart} accentColor="#839A7E" />
       <ProductSlider title={t('pet.trending.title')} products={trendingProducts} loading={loading} onAddToCart={addToCart} accentColor="#839A7E" />
     </div>
+    </>
   );}

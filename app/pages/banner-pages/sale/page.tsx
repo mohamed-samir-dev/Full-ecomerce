@@ -1,5 +1,6 @@
 'use client';
 
+import DynamicMetadata from '@/app/components/DynamicMetadata';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
@@ -37,40 +38,43 @@ export default function SalePage() {
   }
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
-      <div dir={isArabic ? 'rtl' : 'ltr'}>
-        <PageHeader 
-          title={isArabic ? 'تخفيضات كبرى' : 'Big Sale'}
-          titleAr="تخفيضات كبرى"
-          bgColor="#FEF2F2"
-          iconColor="#EF4444"
-        />
+    <>
+      <DynamicMetadata titleAr="تخفيضات كبرى" titleEn="Big Sale" descriptionAr="تخفيضات تصل إلى 50%" descriptionEn="Discounts up to 50%" keywordsAr={['تخفيضات', 'خصم']} keywordsEn={['sale', 'discount']} />
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+        <div dir={isArabic ? 'rtl' : 'ltr'}>
+          <PageHeader 
+            title={isArabic ? 'تخفيضات كبرى' : 'Big Sale'}
+            titleAr="تخفيضات كبرى"
+            bgColor="#FEF2F2"
+            iconColor="#EF4444"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+          <Filters
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            categories={categories}
+            productsCount={totalProducts}
+            isArabic={isArabic}
+          />
+
+          <ProductGrid 
+            products={products}
+            badgeText="50% OFF"
+            badgeTextAr="خصم 50%"
+            badgeColor="#EF4444"
+          />
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
-        <Filters
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          categories={categories}
-          productsCount={totalProducts}
-          isArabic={isArabic}
-        />
-
-        <ProductGrid 
-          products={products}
-          badgeText="50% OFF"
-          badgeTextAr="خصم 50%"
-          badgeColor="#EF4444"
-        />
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-        />
-      </div>
-    </div>
+    </>
   );
 }

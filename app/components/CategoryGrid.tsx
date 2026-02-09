@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 interface Category {
   name: string;
@@ -16,10 +17,11 @@ interface CategoryGridProps {
 
 export default function CategoryGrid({ categories, basePath }: CategoryGridProps) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-5 py-8 sm:py-12 lg:py-16">
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 lg:mb-8 text-gray-900">{t('home.category.title')}</h2>
+      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 lg:mb-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{t('home.category.title')}</h2>
       <div className={`grid grid-cols-2 ${categories.length >= 5 ? 'md:grid-cols-3 lg:grid-cols-5' : 'md:grid-cols-4'} gap-3 sm:gap-4 lg:gap-6`}>
         {categories.map((category) => (
           <Link key={category.name} href={`${basePath}/${category.slug}`}>

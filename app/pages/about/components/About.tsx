@@ -19,7 +19,7 @@ export default function About() {
     <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       
       {/* Hero */}
-      <div className={`py-12 md:py-20 ${isDarkMode ? 'bg-gradient-to-b from-[#1F2329] to-[#191C21]' : 'bg-gradient-to-b from-white to-gray-50'}`}>
+      <div className={`py-12 md:py-20 ${isDarkMode ? 'bg-linear-to-b from-[#1F2329] to-[#191C21]' : 'bg-linear-to-b from-white to-gray-50'}`}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             {t('about.hero.title')} <span className="text-[#B39E7A]">{t('about.hero.brand')}</span>

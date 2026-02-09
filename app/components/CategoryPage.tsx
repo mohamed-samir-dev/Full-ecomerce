@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -57,6 +58,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
   const router = useRouter();
   const { addToCart } = useCart();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,19 +112,19 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
     setter(selected.includes(value) ? selected.filter(v => v !== value) : [...selected, value]);
   };
 
-  if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="relative"><div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#B39E7A] absolute inset-0"></div></div></div>;
+  if (loading) return <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}><div className="relative"><div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#B39E7A] absolute inset-0"></div></div></div>;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-100">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+      <div className={`border-b ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-100'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
-            <Link href="/" className="hover:text-[#B39E7A] transition-colors">{isArabic ? 'الرئيسية' : 'Home'}</Link>
+            <Link href="/" className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>{isArabic ? 'الرئيسية' : 'Home'}</Link>
             {category && (
               <>
-                <span className="text-gray-300">•</span>
+                <span className={isDarkMode ? 'text-gray-500' : 'text-gray-300'}>•</span>
 
-                <Link href={`/pages/${category.toLowerCase() === 'pet' ? 'PetSupplies' : category.toLowerCase()}`} className="hover:text-[#B39E7A] transition-colors">
+                <Link href={`/pages/${category.toLowerCase() === 'pet' ? 'PetSupplies' : category.toLowerCase()}`} className={`transition-colors ${isDarkMode ? 'text-white hover:text-[#B39E7A]' : 'hover:text-[#B39E7A]'}`}>
                   {isArabic ? (
                     category.toLowerCase() === 'women' ? 'نساء' :
                     category.toLowerCase() === 'men' ? 'رجال' :
@@ -136,8 +138,8 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 </Link>
               </>
             )}
-            <span className="text-gray-300">•</span>
-            <span className="text-gray-900 font-medium">
+            <span className={isDarkMode ? 'text-gray-500' : 'text-gray-300'}>•</span>
+            <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               {isArabic ? (
                 category === 'men' && subCategory.toLowerCase() === 'apparel' ? 'ملابس' :
                 category === 'men' && subCategory.toLowerCase() === 'shoes' ? 'أحذية' :
@@ -172,19 +174,19 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
               ) : (secondtype || subCategory)}
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-2 sm:mb-3 tracking-tight">{title}</h1>
-          <p className="text-gray-600 text-base sm:text-lg font-light max-w-2xl">{description}</p>
+          <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-light mb-2 sm:mb-3 tracking-tight ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{title}</h1>
+          <p className={`text-base sm:text-lg font-light max-w-2xl ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{description}</p>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
           <aside className="w-full lg:w-72 lg:shrink-0">
-            <div className="lg:sticky lg:top-4 bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-sm">
-              <button onClick={() => setShowFilters(!showFilters)} className="lg:hidden w-full flex items-center justify-between mb-6 pb-3 text-black border-b border-gray-100">
-                <h2 className="text-lg sm:text-xl font-light text-gray-900">{t('filter.refine')}</h2>
+            <div className={`lg:sticky lg:top-4 border rounded-2xl p-4 sm:p-6 shadow-sm ${isDarkMode ? 'bg-[#23272F] border-gray-700' : 'bg-white border-gray-200'}`}>
+              <button onClick={() => setShowFilters(!showFilters)} className={`lg:hidden w-full flex items-center justify-between mb-6 pb-3 border-b ${isDarkMode ? 'text-gray-100 border-gray-700' : 'text-black border-gray-100'}`}>
+                <h2 className={`text-lg sm:text-xl font-light ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{t('filter.refine')}</h2>
                 <svg className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <h2 className="hidden lg:block text-lg sm:text-xl font-light text-gray-900 mb-6 sm:mb-8 pb-3 border-b border-gray-100">{t('filter.refine')}</h2>
+              <h2 className={`hidden lg:block text-lg sm:text-xl font-light mb-6 sm:mb-8 pb-3 border-b ${isDarkMode ? 'text-gray-100 border-gray-700' : 'text-gray-900 border-gray-100'}`}>{t('filter.refine')}</h2>
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
                 {(selectedSizes.length > 0 || selectedColors.length > 0 || priceRange) && (
                   <button onClick={clearFilters} className="w-full mb-4 px-4 py-2 text-sm text-[#B39E7A] border border-[#B39E7A] rounded-full hover:bg-[#B39E7A] hover:text-white transition-all">
@@ -193,7 +195,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 )}
                 {filterOptions.sizes?.length > 0 && (
                   <div className="mb-6 sm:mb-8">
-                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.size')}</h3>
+                    <h3 className={`font-medium mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t('filter.size')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {filterOptions.sizes.map(size => (
                         <button key={size} onClick={() => toggleFilter(size, selectedSizes, setSelectedSizes)} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${selectedSizes.includes(size) ? 'bg-[#B39E7A] text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-amber-50 border border-gray-200'}`}>{size}</button>
@@ -203,7 +205,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                 )}
                 {filterOptions.colors?.length > 0 && (
                   <div className="mb-6 sm:mb-8">
-                    <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.color')}</h3>
+                    <h3 className={`font-medium mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t('filter.color')}</h3>
                     <div className="flex flex-wrap gap-2 sm:gap-3">
                       {filterOptions.colors.map((color) => (
                         <button key={color.name} onClick={() => toggleFilter(color.name, selectedColors, setSelectedColors)} className={`group relative w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-all ${selectedColors.includes(color.name) ? 'ring-2 ring-[#B39E7A] ring-offset-2 scale-110' : 'hover:scale-105'}`} title={color.name}>
@@ -214,7 +216,7 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                   </div>
                 )}
                 <div>
-                  <h3 className="font-medium text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider">{t('filter.price')}</h3>
+                  <h3 className={`font-medium mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t('filter.price')}</h3>
                   <input 
                     type="range" 
                     min={filterOptions.priceRange.min} 
@@ -236,12 +238,14 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
           </aside>
           <main className="flex-1">
             <div className="mb-4 sm:mb-6 flex items-center justify-between">
-              <p className="text-sm text-gray-500 font-light"><span className="text-xl sm:text-2xl font-light text-gray-900">{products.length}</span> {products.length === 1 ? t('filter.piece') : t('filter.pieces')}</p>
+              <p className="text-sm text-gray-500 font-light"><span className={`text-xl sm:text-2xl font-light ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{products.length}</span> {products.length === 1 ? t('filter.piece') : t('filter.pieces')}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {products.map(product => (
                 <Link key={product._id} href={`/pages/product/${product._id}`} className="group">
-                  <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-amber-100/50 transition-all duration-500 border border-transparent hover:border-amber-100">
+                  <div className={`rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border ${
+                    isDarkMode ? 'bg-[#23272F] hover:shadow-gray-900/50 border-gray-700 hover:border-gray-600' : 'bg-white hover:shadow-amber-100/50 border-transparent hover:border-amber-100'
+                  }`}>
                     <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
                       <Image src={product.mainImage} alt={isArabic ? product.nameAr : product.name} fill loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" quality={75} className="object-cover group-hover:scale-110 transition-transform duration-700" />
                       {product.basePrice > product.finalPrice && (
@@ -249,7 +253,9 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
                       )}
                     </div>
                     <div className="p-4 sm:p-5">
-                      <h3 className="font-light text-gray-900 mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors">{isArabic ? product.nameAr : product.name}</h3>
+                      <h3 className={`font-light mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#B39E7A] transition-colors ${
+                        isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                      }`}>{isArabic ? product.nameAr : product.name}</h3>
                       <div className="flex items-center gap-1 mb-3">
                         {[...Array(5)].map((_, i) => (
                           <span key={i} className={`text-xs sm:text-sm ${i < Math.floor(product.averageRating) ? 'text-amber-400' : 'text-gray-200'}`}>★</span>

@@ -1,7 +1,7 @@
 'use client';
 
-import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { HeroSectionProps } from '../../types/home.types';
 import { useSlideNavigation } from '../../hooks/useSlideNavigation';
 import { BackgroundImage } from './components/BackgroundImage';
@@ -10,8 +10,8 @@ import { HeroImage } from './components/HeroImage';
 import { NavigationIndicator } from './components/NavigationIndicator';
 
 export default function HeroSection({ slides }: HeroSectionProps) {
-  const { isDarkMode } = useTheme();
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const {
     currentSlide,
     setCurrentSlide,
@@ -25,9 +25,9 @@ export default function HeroSection({ slides }: HeroSectionProps) {
 
   return (
     <div 
-      className={`relative overflow-hidden ${
-        isDarkMode ? 'bg-[#191C21]' : 'bg-[#F1F1F0]'
-      }`} 
+      className={`relative overflow-hidden transition-colors duration-300 ${
+        isDarkMode ? 'bg-[#1a1a1a]' : 'bg-[#F1F1F0]'
+      }`}
       dir={isArabic ? 'rtl' : 'ltr'}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -44,7 +44,6 @@ export default function HeroSection({ slides }: HeroSectionProps) {
           <HeroContent 
             slide={currentSlideData}
             currentSlide={currentSlide}
-            isDarkMode={isDarkMode}
             isArabic={isArabic}
             t={t}
           />

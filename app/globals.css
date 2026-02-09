@@ -10,6 +10,14 @@
   --foreground: #ededed;
 }
 
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function NewsletterSection() {
   const { t, isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -40,12 +42,20 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-linear-to-r from-orange-50 to-amber-50" dir={isArabic ? 'rtl' : 'ltr'}>
+    <section className={`py-8 sm:py-12 md:py-16 px-4 sm:px-6 transition-colors duration-300 ${
+      isDarkMode 
+        ? 'bg-linear-to-r from-gray-800 to-gray-700' 
+        : 'bg-linear-to-r from-orange-50 to-amber-50'
+    }`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
+        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 ${
+          isDarkMode ? 'text-white' : 'text-gray-900'
+        }`}>
           {t('home.newsletter.title')}
         </h2>
-        <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 px-4">
+        <p className={`text-sm sm:text-base mb-6 sm:mb-8 px-4 ${
+          isDarkMode ? 'text-gray-300' : 'text-gray-600'
+        }`}>
           {t('home.newsletter.description')}
         </p>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -56,12 +66,20 @@ export default function NewsletterSection() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('home.newsletter.placeholder')}
               disabled={loading}
-              className="flex-1 px-4 py-3 border-2 text-black border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 focus:ring-2 focus:ring-orange-200 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className={`flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-all disabled:cursor-not-allowed text-sm sm:text-base ${
+                isDarkMode 
+                  ? 'bg-gray-700 text-white border-gray-600 focus:border-orange-500 focus:ring-orange-500/30 disabled:bg-gray-800 placeholder:text-gray-400' 
+                  : 'text-black border-gray-300 focus:border-orange-600 focus:ring-orange-200 disabled:bg-gray-50'
+              }`}
             />
             <button 
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto px-6 py-3 bg-orange-700 text-white font-semibold rounded-lg hover:bg-orange-800 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base"
+              className={`w-full sm:w-auto px-6 py-3 font-semibold rounded-lg transition-all disabled:cursor-not-allowed shadow-sm hover:shadow-md text-sm sm:text-base ${
+                isDarkMode
+                  ? 'bg-orange-600 text-white hover:bg-orange-700 disabled:bg-gray-600'
+                  : 'bg-orange-700 text-white hover:bg-orange-800 disabled:bg-gray-400'
+              }`}
             >
               {loading ? t('home.newsletter.subscribing') : t('home.newsletter.subscribe')}
             </button>

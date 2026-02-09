@@ -4,6 +4,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
 import{RegisterFormProps}from '../types/register.types';
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 
 
 export default function RegisterForm({
@@ -17,7 +18,10 @@ export default function RegisterForm({
   onChange
 }: RegisterFormProps) {
   const { t, isArabic } = useTranslation();
-  const inputClasses = "w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md transition-colors bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-300";
+  const { isDarkMode } = useTheme();
+  const inputClasses = `w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md transition-colors border ${
+    isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400 border-gray-700' : 'bg-gray-50 text-gray-900 placeholder-gray-500 border-gray-300'
+  }`;
 
   return (
     <form onSubmit={onSubmit} className="space-y-3 sm:space-y-4 md:space-y-5">
@@ -90,12 +94,14 @@ export default function RegisterForm({
             name="password"
             type={showPassword ? 'text' : 'password'}
             required
-            className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none bg-gray-50 text-gray-900 placeholder-gray-500 ${
+            className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none ${
+              isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400' : 'bg-gray-50 text-gray-900 placeholder-gray-500'
+            } ${
               formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
                 ? 'border-green-500 focus:border-green-400'
                 : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
                 ? 'border-red-500 focus:border-red-400'
-                : 'border-transparent focus:border-[#C7AB6C]'
+                : isDarkMode ? 'border-gray-700 focus:border-[#C7AB6C]' : 'border-transparent focus:border-[#C7AB6C]'
             }`}
             placeholder={t('register.password')}
             value={formData.password}
@@ -109,7 +115,9 @@ export default function RegisterForm({
           />
           <button
             type="button"
-            className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 text-gray-500 hover:text-gray-700`}
+            className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 ${
+              isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+            }`}
             onClick={onShowPasswordToggle}
           >
             {showPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
@@ -126,12 +134,14 @@ export default function RegisterForm({
           name="confirmPassword"
           type={showConfirmPassword ? 'text' : 'password'}
           required
-          className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-colors bg-gray-50 text-gray-900 placeholder-gray-500 ${
+          className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-colors ${
+            isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400' : 'bg-gray-50 text-gray-900 placeholder-gray-500'
+          } ${
             formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
               ? 'border-green-500 focus:border-green-400'
               : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
               ? 'border-red-500 focus:border-red-400'
-              : 'border-transparent focus:border-[#C7AB6C]'
+              : isDarkMode ? 'border-gray-700 focus:border-[#C7AB6C]' : 'border-transparent focus:border-[#C7AB6C]'
           }`}
           placeholder={t('register.confirmPassword')}
           value={formData.confirmPassword}
@@ -145,7 +155,9 @@ export default function RegisterForm({
         />
         <button
           type="button"
-          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 z-10 text-gray-500 hover:text-gray-700`}
+          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 z-10 transition-colors ${
+            isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+          }`}
           onClick={onShowConfirmPasswordToggle}
         >
           {showConfirmPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
@@ -158,9 +170,13 @@ export default function RegisterForm({
           type="checkbox"
           checked={formData.agreeToTerms}
           onChange={onChange}
-          className="mt-0.5 sm:mt-1 w-4 h-4 sm:w-5 sm:h-5 text-[#C7AB6C] rounded focus:ring-[#C7AB6C] shrink-0 bg-gray-50 border-gray-300"
+          className={`mt-0.5 sm:mt-1 w-4 h-4 sm:w-5 sm:h-5 text-[#C7AB6C] rounded focus:ring-[#C7AB6C] shrink-0 ${
+            isDarkMode ? 'bg-[#0D0F12] border-gray-700' : 'bg-gray-50 border-gray-300'
+          }`}
         />
-        <label className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-600">
+        <label className={`text-xs sm:text-sm md:text-base leading-relaxed transition-colors ${
+          isDarkMode ? 'text-gray-400' : 'text-gray-600'
+        }`}>
           {t('register.agreeToTerms')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.termsOfService')}</span> {t('register.and')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.privacyPolicy')}</span>
         </label>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslation } from '@/i18n';
+import { useTheme } from '@/context/ThemeContext';
 import { useFilteredProducts } from '@/hooks/shared/useFilteredProducts';
 import PageHeader from '@/app/components/shared/PageHeader';
 import Filters from '@/app/components/shared/Filters';
@@ -9,6 +10,7 @@ import Pagination from '@/app/pages/shop/components/Pagination';
 
 export default function ExclusiveDealsPage() {
   const { isArabic } = useTranslation();
+  const { isDarkMode } = useTheme();
   const {
     products,
     loading,
@@ -25,7 +27,7 @@ export default function ExclusiveDealsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
         <div className="relative">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#F59E0B] absolute inset-0"></div>
@@ -35,7 +37,7 @@ export default function ExclusiveDealsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
       <div dir={isArabic ? 'rtl' : 'ltr'}>
         <PageHeader 
           title={isArabic ? 'عروض حصرية' : 'Exclusive Deals'}

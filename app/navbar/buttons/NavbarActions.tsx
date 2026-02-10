@@ -20,7 +20,7 @@ export default function NavbarActions({
   const spacing = size === 'sm' ? 'gap-3' : 'gap-4';
   
   return (
-    <div className={`flex items-center ${spacing}`}>
+    <div className={`flex items-center ${spacing} overflow-visible`}>
       <LanguageToggle 
         language={language}
         toggleLanguage={toggleLanguage}
@@ -42,12 +42,14 @@ export default function NavbarActions({
         isArabic={isArabic}
         size={size}
       />
-      <UserMenu 
-        user={user}
-        logout={logout}
-        isArabic={isArabic}
-        isDarkMode={isDarkMode}
-      />
+      <div className="overflow-visible">
+        <UserMenu 
+          user={user}
+          logout={logout}
+          isArabic={isArabic}
+          isDarkMode={isDarkMode}
+        />
+      </div>
     </div>
   );
 }

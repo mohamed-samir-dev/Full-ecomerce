@@ -32,7 +32,7 @@ export default function Navbar() {
         ? 'bg-[#191C21] text-white border-gray-700' 
         : 'bg-white text-gray-900 border-gray-200'
     } border-b sticky top-0 z-50 transition-all duration-300 ${isArabic ? 'rtl' : 'ltr'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
         <DesktopNavbar 
           isArabic={isArabic}
           isDarkMode={isDarkMode}

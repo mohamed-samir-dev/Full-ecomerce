@@ -16,9 +16,9 @@ export default function TabletNavbar({
   logout
 }: TabletNavbarProps) {
   return (
-    <div className="hidden md:block lg:hidden">
+    <div className="hidden md:block lg:hidden overflow-visible">
       {/* First Row: Logo and Icons */}
-      <div className={`flex items-center justify-between h-14 ${isArabic ? 'flex-row-reverse' : ''}`}>
+      <div className={`flex items-center justify-between h-14 overflow-visible ${isArabic ? 'flex-row-reverse' : ''}`}>
         <div className={`flex items-center ${isArabic ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
           <Logo isArabic={isArabic} isDarkMode={isDarkMode} />
         </div>

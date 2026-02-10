@@ -210,7 +210,7 @@ export const UserMenu = ({
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative overflow-visible" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         aria-label={isArabic ? 'قائمة المستخدم' : 'User menu'}
@@ -230,12 +230,16 @@ export const UserMenu = ({
 
       {isDropdownOpen && (
         <div
-          className={`absolute ${isArabic ? 'left-0' : 'right-0'} mt-2 w-44 min-[400px]:w-48 sm:w-56 md:w-64 rounded-xl shadow-2xl transition-all duration-300 transform z-50 ${
+          className={`fixed md:absolute top-auto md:top-full mt-2 w-56 rounded-xl shadow-2xl z-[9999] ${
+            isArabic ? 'right-4 md:left-0 md:right-auto' : 'right-4 md:right-0'
+          } ${
             isDarkMode
               ? "bg-[#26292E] border border-gray-700"
               : "bg-white border border-gray-200"
           }`}
-          style={{ transform: 'translateX(0)' }}
+          style={{
+            top: isMobile ? `${dropdownRef.current?.getBoundingClientRect().bottom ?? 0}px` : undefined
+          }}
         >
         {user ? (
           <div className="py-2">

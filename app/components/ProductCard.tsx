@@ -46,7 +46,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
             ))}
             <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between gap-3 min-[360px]:gap-0">
             <div className="flex items-baseline gap-1.5 sm:gap-2">
               <span className="text-xl sm:text-2xl font-light text-[#8B6914]">{product.finalPrice}</span>
               <span className="text-xs sm:text-sm text-gray-400">{t('product.egp')}</span>
@@ -57,7 +57,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
             <div className="flex gap-1.5 sm:gap-2">
               <button 
                 onClick={(e) => { e.preventDefault(); router.push(`/pages/product/${product._id}`); }} 
-                className="w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
+                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="View product"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
               </button>
               <button 
                 onClick={(e) => { e.preventDefault(); addToCart(product); }} 
-                className="w-9 h-9 sm:w-10 sm:h-10 bg-[#8B6914] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
+                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-9 h-9 sm:w-10 sm:h-10 bg-[#8B6914] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="Add to cart"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

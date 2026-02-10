@@ -48,16 +48,18 @@ export default function CustomerSaySection() {
               </p>
             </div>
           ) : (
-            <div 
-              ref={scrollRef}
-              className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
+            <div className="overflow-hidden">
+              <div 
+                ref={scrollRef}
+                className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
               {testimonials.map((testimonial) => (
                 <div key={testimonial._id} className="flex-shrink-0 w-[85%] sm:w-[45%] lg:w-[31%] snap-center">
                   <TestimonialCard testimonial={testimonial} />
                 </div>
               ))}
+              </div>
             </div>
           )}
         </div>

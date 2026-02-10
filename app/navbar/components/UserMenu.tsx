@@ -230,9 +230,7 @@ export const UserMenu = ({
 
       {isDropdownOpen && (
         <div
-          className={`absolute ${
-            isArabic ? "right-0" : "right-0"
-          } mt-2 w-48 sm:w-56 md:w-64 rounded-xl shadow-2xl transition-all duration-300 transform z-50 ${
+          className={`absolute right-0 mt-2 w-44 min-[400px]:w-48 sm:w-56 md:w-64 rounded-xl shadow-2xl transition-all duration-300 transform z-50 ${
             isDarkMode
               ? "bg-[#26292E] border border-gray-700"
               : "bg-white border border-gray-200"

@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from 'react';
 import { customerServices } from "../constants";
 import { useTranslation } from '@/i18n';
+import { DemoSiteModal } from '@/app/components/DemoSiteModal';
 
 export function CustomerService() {
   const { t, isArabic } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="space-y-3 sm:space-y-4">
@@ -15,16 +17,17 @@ export function CustomerService() {
       <ul className="space-y-2 sm:space-y-3">
         {customerServices.map((service, index) => (
           <li key={index}>
-            <Link 
-              href={service.href}
-              className={`flex items-center gap-2 text-xs sm:text-sm transition-colors hover:text-[#C7AB6C] text-gray-400 ${isArabic ? 'flex-row-reverse justify-end' : ''}`}
+            <button
+              onClick={() => setShowModal(true)}
+              className={`flex items-center gap-2 text-xs sm:text-sm transition-colors hover:text-[#C7AB6C] text-gray-400 cursor-pointer ${isArabic ? 'flex-row-reverse justify-end' : ''}`}
             >
               {service.icon && <service.icon className="h-3 w-3 sm:h-4 sm:w-4" />}
               {t(service.labelKey)}
-            </Link>
+            </button>
           </li>
         ))}
       </ul>
+      <DemoSiteModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }

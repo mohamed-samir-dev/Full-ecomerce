@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from 'react';
 import { AboutUs, CustomerService, QuickLinks, SocialMedia } from "./sections";
 import { useTranslation } from '@/i18n';
+import { DemoSiteModal } from '@/app/components/DemoSiteModal';
 
 export function Footer() {
   const { t, isArabic } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <footer className="bg-gray-900 text-white transition-colors duration-300" dir={isArabic ? 'rtl' : 'ltr'}>
@@ -22,16 +24,17 @@ export function Footer() {
               {t('footer.copyright').replace('{{year}}', new Date().getFullYear().toString())}
             </p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="text-sm transition-colors hover:text-[#C7AB6C] text-gray-400">
+              <button onClick={() => setShowModal(true)} className="text-sm transition-colors hover:text-[#C7AB6C] text-gray-400">
                 {t('footer.legal.privacy')}
-              </Link>
-              <Link href="/terms" className="text-sm transition-colors hover:text-[#C7AB6C] text-gray-400">
+              </button>
+              <button onClick={() => setShowModal(true)} className="text-sm transition-colors hover:text-[#C7AB6C] text-gray-400">
                 {t('footer.legal.terms')}
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <DemoSiteModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </footer>
   );
 }

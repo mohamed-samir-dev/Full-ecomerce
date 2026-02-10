@@ -382,7 +382,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                         ))}
                         <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col min-[330px]:flex-row min-[330px]:items-center min-[330px]:justify-between gap-3 min-[330px]:gap-0">
                         <div className="flex items-baseline gap-2">
                           <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
                           <span className="text-sm text-gray-400">{isArabic ? "ج.م" : "EGP"}</span>
@@ -396,7 +396,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                               e.preventDefault(); 
                               router.push(`/pages/product/${product._id}`); 
                             }} 
-                            className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                            className="flex-1 min-[330px]:flex-none w-auto min-[330px]:w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
                             aria-label="View product details"
                           >
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -409,7 +409,7 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
                               e.preventDefault(); 
                               addToCart(product); 
                             }} 
-                            className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                            className="flex-1 min-[330px]:flex-none w-auto min-[330px]:w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
                             aria-label="Add to cart"
                           >
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

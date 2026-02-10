@@ -112,7 +112,7 @@ export default function ProductGrid({
                 ))}
                 <span className="text-xs text-gray-400 ml-1">({product.totalReviews || 0})</span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between gap-3 min-[360px]:gap-0">
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-light text-[#B39E7A]">{product.finalPrice}</span>
                   <span className="text-sm text-gray-400">{isArabic ? 'جنيه' : 'EGP'}</span>
@@ -126,7 +126,7 @@ export default function ProductGrid({
                       e.stopPropagation();
                       router.push(`/pages/product/${product._id}`);
                     }}
-                    className="w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
+                    className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-10 h-10 bg-[#B39E7A] rounded-full flex items-center justify-center hover:bg-[#A08D6A] transition-all shadow-sm"
                     aria-label="View product details"
                   >
                     <Eye className="w-5 h-5 text-white" />
@@ -137,7 +137,7 @@ export default function ProductGrid({
                       addToCart(product);
                     }}
                     disabled={product.stock === 0 || product.availability === 'out_of_stock'}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm ${
+                    className={`flex-1 min-[360px]:flex-none w-auto min-[360px]:w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm ${
                       product.stock === 0 || product.availability === 'out_of_stock'
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         : 'bg-[#B39E7A] text-white hover:bg-[#A08D6A]'

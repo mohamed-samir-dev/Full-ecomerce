@@ -63,10 +63,10 @@ export default function PriceDetails({ subtotal, shipping, tax, finalTotal, deli
         </p>
       </div>
       
-      {subtotal < 100 && (
+      {subtotal < 15000 && (
         <div className={`mt-3 sm:mt-4 p-2.5 sm:p-3 rounded-lg border ${isDarkMode ? 'bg-orange-900/20 border-orange-800' : 'bg-linear-to-r from-orange-500/10 to-red-500/10 border-orange-200'}`}>
           <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
-            {t('checkout.addMoreForFreeShipping').replace('{{amount}}', (100 - subtotal).toFixed(2))}
+            {t('checkout.addMoreForFreeShipping').replace('{{amount}}', (15000 - subtotal).toFixed(2))}
           </p>
         </div>
       )}

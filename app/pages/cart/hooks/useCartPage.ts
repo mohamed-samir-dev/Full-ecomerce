@@ -29,8 +29,8 @@ export const useCartPage = () => {
   };
 
   const subtotal = total;
-  const shipping = subtotal > 100 ? 0 : 15;
-  const tax = subtotal * 0.08;
+  const shipping = subtotal > 15000 ? 0 : 15;
+  const tax = subtotal * 0.05;
   const finalTotal = subtotal + shipping + tax;
   
   const deliveryDateStr = useMemo(() => {

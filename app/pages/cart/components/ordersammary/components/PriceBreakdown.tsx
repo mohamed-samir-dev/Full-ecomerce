@@ -54,7 +54,7 @@ export default function PriceBreakdown({
       
       <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
         <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          {isArabic ? 'الضريبة' : 'Tax'} (8%)
+          {isArabic ? 'الضريبة' : 'Tax'} (5%)
         </span>
         <span className={`text-sm sm:text-base font-medium ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
           ${tax.toFixed(2)}

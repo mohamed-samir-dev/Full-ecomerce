@@ -3,6 +3,7 @@ import { LucideIcon } from 'lucide-react';
 interface CartItem {
     product?: {
       name?: string;
+      nameAr?: string;
       finalPrice?: number;
       basePrice?: number;
     };
@@ -36,6 +37,7 @@ interface CartItem {
         finalPrice?: number;
         basePrice?: number;
         name?: string;
+        nameAr?: string;
       };
       quantity?: number;
     };

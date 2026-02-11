@@ -84,6 +84,7 @@ function OrderConfirmationContent() {
           <div className="space-y-6">
             <OrderSummary 
               totalPrice={orderData.totalPrice}
+              products={orderData.products}
               isPrivateView={isPrivateView}
               isDarkMode={isDarkMode}
             />

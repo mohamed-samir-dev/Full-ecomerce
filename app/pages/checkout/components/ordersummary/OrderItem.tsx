@@ -4,10 +4,10 @@ import { useTranslation } from '@/i18n/hooks/useTranslation';
 
 
 export default function OrderItem({ item, index, isDarkMode }: OrderItemProps) {
-  const { t } = useTranslation();
+  const { t, isArabic } = useTranslation();
   const itemPrice = item?.product?.finalPrice || item?.product?.basePrice || 0;
   const itemQuantity = item?.quantity || 0;
-  const itemName = item?.product?.name || 'Unknown Product';
+  const itemName = isArabic ? (item?.product?.nameAr || item?.product?.name || 'منتج غير معروف') : (item?.product?.name || 'Unknown Product');
   
   return (
     <motion.div 

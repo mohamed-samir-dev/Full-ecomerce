@@ -1,13 +1,7 @@
-import { Order } from '../types';
+import { OrdersListProps } from '../types';
 import OrderCard from './OrderCard';
 
-interface OrdersListProps {
-  orders: Order[];
-  loading: boolean;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onViewDetails: (order: Order) => void;
-}
+
 
 export default function OrdersList({ orders, loading, isDarkMode, isArabic, onViewDetails }: OrdersListProps) {
   if (loading) {

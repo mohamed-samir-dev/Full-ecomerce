@@ -1,13 +1,7 @@
-import { Contact } from '../types';
+import { ContactModalProps } from '../types';
 import { getStatusStyle, getStatusLabel } from '../utils/helpers';
 
-interface ContactModalProps {
-  contact: Contact;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onClose: () => void;
-  onUpdateStatus: (id: string, status: string) => void;
-}
+
 
 export const ContactModal = ({ contact, isDarkMode, isArabic, onClose, onUpdateStatus }: ContactModalProps) => (
   <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fadeIn" onClick={onClose}>

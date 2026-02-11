@@ -1,12 +1,5 @@
-interface SearchFiltersProps {
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
-  roleFilter: string;
-  setRoleFilter: (value: string) => void;
-  isDarkMode: boolean;
-  isArabic: boolean;
-}
 
+import {SearchFiltersProps}from '../types/index'
 export const SearchFilters = ({ searchTerm, setSearchTerm, roleFilter, setRoleFilter, isDarkMode, isArabic }: SearchFiltersProps) => {
   return (
     <div className={`rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'}`}>

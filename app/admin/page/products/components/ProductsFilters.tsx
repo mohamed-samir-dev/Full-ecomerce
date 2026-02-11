@@ -1,14 +1,5 @@
-interface ProductsFiltersProps {
-  isDarkMode: boolean;
-  isArabic: boolean;
-  search: string;
-  setSearch: (value: string) => void;
-  category: string;
-  setCategory: (value: string) => void;
-  brand: string;
-  setBrand: (value: string) => void;
-  setPage: (value: number) => void;
-}
+
+import {ProductsFiltersProps}from '../types/index'
 
 export const ProductsFilters = ({
   isDarkMode,

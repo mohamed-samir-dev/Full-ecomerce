@@ -1,16 +1,6 @@
-import { ProductFormData, ArrayFieldType } from '../types/product.types';
+import { VariantsTabProps } from '../types/product.types';
 
-interface VariantsTabProps {
-  formData: ProductFormData;
-  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  inputClass: string;
-  labelClass: string;
-  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
-  onAddArrayItem: (field: ArrayFieldType) => void;
-  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
-}
+
 
 export default function VariantsTab({ formData, setFormData, isDarkMode, isArabic, inputClass, labelClass, onArrayChange, onAddArrayItem, onRemoveArrayItem }: VariantsTabProps) {
   return (

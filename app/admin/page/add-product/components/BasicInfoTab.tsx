@@ -1,11 +1,6 @@
-import { ProductFormData } from '../types/product';
+import { BasicInfoTabProps } from '../types/product';
 
-interface BasicInfoTabProps {
-  formData: ProductFormData;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
+
 
 export default function BasicInfoTab({ formData, isDarkMode, isArabic, onChange }: BasicInfoTabProps) {
   const inputClass = `w-full px-3 py-2 border rounded-lg focus:ring-2 focus:outline-none transition-all ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white focus:ring-blue-500' : 'bg-white border-gray-300 text-gray-900 focus:ring-blue-400'}`;

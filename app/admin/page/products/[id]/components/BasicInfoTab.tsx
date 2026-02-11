@@ -1,15 +1,8 @@
-import { ProductFormData } from '../types/product.types';
+import { BasicInfoTabProps } from '../types/product.types';
 
-interface BasicInfoTabProps {
-  formData: ProductFormData;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  inputClass: string;
-  labelClass: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
 
-export default function BasicInfoTab({ formData, isDarkMode, isArabic, inputClass, labelClass, onChange }: BasicInfoTabProps) {
+
+export default function BasicInfoTab({ formData, isArabic, inputClass, labelClass, onChange }: BasicInfoTabProps) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

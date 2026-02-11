@@ -1,13 +1,6 @@
-import { User } from '../types';
+import { DeleteConfirmModalProps } from '../types';
 
-interface DeleteConfirmModalProps {
-  user: User | null;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  deleting: string | null;
-  onConfirm: (userId: string) => void;
-  onClose: () => void;
-}
+
 
 export const DeleteConfirmModal = ({ user, isDarkMode, isArabic, deleting, onConfirm, onClose }: DeleteConfirmModalProps) => {
   if (!user) return null;

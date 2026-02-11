@@ -1,8 +1,19 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
+
+interface Stat {
+  title: string;
+  value: number;
+  icon: LucideIcon;
+  color: string;
+  up: boolean;
+  trend: string;
+  prefix?: string;
+}
 
 interface MainStatsGridProps {
-  stats: any[];
+  stats: Stat[];
   isDarkMode: boolean;
 }
 

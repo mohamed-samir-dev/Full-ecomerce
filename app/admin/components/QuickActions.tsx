@@ -1,8 +1,15 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, LucideIcon } from 'lucide-react';
+
+interface Action {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  color: string;
+}
 
 interface QuickActionsProps {
-  actions: any[];
+  actions: Action[];
   isDarkMode: boolean;
   isArabic: boolean;
 }

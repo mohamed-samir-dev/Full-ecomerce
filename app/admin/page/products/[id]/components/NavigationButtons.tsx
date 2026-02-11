@@ -1,14 +1,5 @@
-interface NavigationButtonsProps {
-  activeTab: number;
-  totalTabs: number;
-  loading: boolean;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onPrevious: () => void;
-  onNext: () => void;
-  onCancel: () => void;
-}
 
+import {NavigationButtonsProps}from '../types/product.types'
 export default function NavigationButtons({ activeTab, totalTabs, loading, isDarkMode, isArabic, onPrevious, onNext, onCancel }: NavigationButtonsProps) {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 mt-6 pt-4 border-t border-gray-700">

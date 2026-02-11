@@ -1,14 +1,6 @@
-import { ProductFormData, ArrayFieldType } from '../types/product';
+import { CategoriesTabProps } from '../types/product';
 
-interface CategoriesTabProps {
-  formData: ProductFormData;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
-  onAddArrayItem: (field: ArrayFieldType) => void;
-  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
-}
+
 
 export default function CategoriesTab({ formData, isDarkMode, isArabic, onChange, onArrayChange, onAddArrayItem, onRemoveArrayItem }: CategoriesTabProps) {
   const inputClass = `w-full px-3 py-2 border rounded-lg focus:ring-2 focus:outline-none transition-all ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white focus:ring-blue-500' : 'bg-white border-gray-300 text-gray-900 focus:ring-blue-400'}`;

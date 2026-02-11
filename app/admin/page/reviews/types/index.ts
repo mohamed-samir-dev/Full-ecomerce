@@ -26,3 +26,22 @@ export interface ReviewStats {
   rating3: number;
   avgRating: string;
 }
+
+
+export interface ReviewCardProps {
+  review: Review;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onToggleApproval: (productId: string, reviewId: string, approved: boolean) => void;
+  onViewDetails: (review: Review) => void;
+}
+
+
+export interface ReviewModalProps {
+  review: Review;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onClose: () => void;
+  onToggleApproval: (productId: string, reviewId: string, approved: boolean) => void;
+  onDelete: (productId: string, reviewId: string) => void;
+}

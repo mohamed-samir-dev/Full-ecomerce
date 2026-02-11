@@ -1,16 +1,9 @@
 import Image from 'next/image';
-import { Review } from '../types';
+import { ReviewModalProps } from '../types';
 import { StarRating } from './StarRating';
 import { getApprovalStyle } from '../utils/reviewHelpers';
 
-interface ReviewModalProps {
-  review: Review;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onClose: () => void;
-  onToggleApproval: (productId: string, reviewId: string, approved: boolean) => void;
-  onDelete: (productId: string, reviewId: string) => void;
-}
+
 
 export const ReviewModal = ({ 
   review, 

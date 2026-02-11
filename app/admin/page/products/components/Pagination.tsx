@@ -1,10 +1,5 @@
-interface PaginationProps {
-  page: number;
-  totalPages: number;
-  setPage: (page: number) => void;
-  isDarkMode: boolean;
-  isArabic: boolean;
-}
+
+import {PaginationProps}from '../types/index'
 
 export const Pagination = ({ page, totalPages, setPage, isDarkMode, isArabic }: PaginationProps) => {
   if (totalPages <= 1) return null;

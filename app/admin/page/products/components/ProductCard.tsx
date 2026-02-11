@@ -1,15 +1,9 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Product } from '../types';
+import { ProductCardProps } from '../types';
 import { getStockBadge } from '../utils/stockBadge';
 
-interface ProductCardProps {
-  product: Product;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onDelete: (id: string) => void;
-  deleteLoading: string | null;
-}
+
 
 export const ProductCard = ({ product, isDarkMode, isArabic, onDelete, deleteLoading }: ProductCardProps) => {
   const router = useRouter();

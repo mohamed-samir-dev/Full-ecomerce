@@ -33,3 +33,21 @@ export interface OrderStats {
   cancelled: number;
   revenue: number;
 }
+
+
+
+
+export interface OrderDetailsModalProps {
+  order: Order;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onClose: () => void;
+  onUpdateStatus: (orderId: string, status: string) => void;
+}
+export interface OrdersListProps {
+  orders: Order[];
+  loading: boolean;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onViewDetails: (order: Order) => void;
+}

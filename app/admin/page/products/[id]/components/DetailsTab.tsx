@@ -1,17 +1,9 @@
-import { ProductFormData } from '../types/product.types';
+import { DetailsTabProps } from '../types/product.types';
 import StarRating from '../../../../../components/StarRating';
 
-interface DetailsTabProps {
-  formData: ProductFormData;
-  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  inputClass: string;
-  labelClass: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
 
-export default function DetailsTab({ formData, setFormData, isDarkMode, isArabic, inputClass, labelClass, onChange }: DetailsTabProps) {
+
+export default function DetailsTab({ formData, setFormData, isArabic, inputClass, labelClass, onChange }: DetailsTabProps) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

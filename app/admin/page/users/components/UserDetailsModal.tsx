@@ -1,12 +1,6 @@
-import { User } from '../types';
+import { UserDetailsModalProps } from '../types';
 
-interface UserDetailsModalProps {
-  user: User | null;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onClose: () => void;
-  onDelete: (user: User) => void;
-}
+
 
 export const UserDetailsModal = ({ user, isDarkMode, isArabic, onClose, onDelete }: UserDetailsModalProps) => {
   if (!user) return null;

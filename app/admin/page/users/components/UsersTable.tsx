@@ -1,13 +1,6 @@
-import { User } from '../types';
+import { UsersTableProps } from '../types';
 
-interface UsersTableProps {
-  users: User[];
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onViewUser: (user: User) => void;
-  onResetPassword: (user: User) => void;
-  onDeleteUser: (user: User) => void;
-}
+
 
 export const UsersTable = ({ users, isDarkMode, isArabic, onViewUser, onResetPassword, onDeleteUser }: UsersTableProps) => {
   return (

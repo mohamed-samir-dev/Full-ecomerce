@@ -44,3 +44,68 @@ export interface ProductFormData {
   toplay: boolean;
   initialReview: { rating: number; comment: string };
 }
+
+export interface BasicInfoTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+}
+export interface CategoriesTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+}
+export interface DetailsTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onDimensionChange: (field: 'length' | 'width' | 'height', value: string) => void;
+  onRatingChange: (rating: number) => void;
+  onReviewCommentChange: (comment: string) => void;
+}
+
+export interface FormNavigationProps {
+  activeTab: number;
+  totalTabs: number;
+  loading: boolean;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onPrevious: () => void;
+  onNext: () => void;
+  onCancel: () => void;
+}
+
+export interface MediaTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+}
+
+export interface PricingTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onDiscountChange: (field: 'type' | 'value', value: string | number) => void;
+  onCheckboxChange: (field: 'isExclusive' | 'toplay', value: boolean) => void;
+}
+
+export interface VariantsTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+  onColorChange: (index: number, field: 'name' | 'hex', value: string) => void;
+}

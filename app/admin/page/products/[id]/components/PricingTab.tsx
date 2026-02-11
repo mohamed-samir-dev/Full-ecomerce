@@ -1,14 +1,5 @@
-import { ProductFormData } from '../types/product.types';
+import { PricingTabProps } from '../types/product.types';
 
-interface PricingTabProps {
-  formData: ProductFormData;
-  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  inputClass: string;
-  labelClass: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-}
 
 export default function PricingTab({ formData, setFormData, isDarkMode, isArabic, inputClass, labelClass, onChange }: PricingTabProps) {
   return (

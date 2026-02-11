@@ -1,13 +1,6 @@
-interface FormNavigationProps {
-  activeTab: number;
-  totalTabs: number;
-  loading: boolean;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onPrevious: () => void;
-  onNext: () => void;
-  onCancel: () => void;
-}
+
+import {FormNavigationProps}from "../types/product"
+
 
 export default function FormNavigation({ activeTab, totalTabs, loading, isDarkMode, isArabic, onPrevious, onNext, onCancel }: FormNavigationProps) {
   return (

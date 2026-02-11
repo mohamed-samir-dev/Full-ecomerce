@@ -1,15 +1,4 @@
-import { ProductFormData, ArrayFieldType } from '../types/product';
-
-interface MediaTabProps {
-  formData: ProductFormData;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
-  onAddArrayItem: (field: ArrayFieldType) => void;
-  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
-}
-
+import { MediaTabProps } from '../types/product';
 export default function MediaTab({ formData, isDarkMode, isArabic, onChange, onArrayChange, onAddArrayItem, onRemoveArrayItem }: MediaTabProps) {
   const inputClass = `w-full px-3 py-2 border rounded-lg focus:ring-2 focus:outline-none transition-all ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white focus:ring-blue-500' : 'bg-white border-gray-300 text-gray-900 focus:ring-blue-400'}`;
   const labelClass = `block text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`;

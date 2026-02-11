@@ -1,14 +1,7 @@
-import { Review } from '../types';
+import { ReviewCardProps } from '../types';
 import { StarRating } from './StarRating';
 import { getApprovalStyle } from '../utils/reviewHelpers';
 
-interface ReviewCardProps {
-  review: Review;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onToggleApproval: (productId: string, reviewId: string, approved: boolean) => void;
-  onViewDetails: (review: Review) => void;
-}
 
 export const ReviewCard = ({ 
   review, 

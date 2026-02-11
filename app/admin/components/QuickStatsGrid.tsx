@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion';
+import { LucideIcon } from 'lucide-react';
+
+interface QuickStat {
+  label: string;
+  value: string | number;
+  icon: LucideIcon;
+  color: string;
+}
 
 interface QuickStatsGridProps {
-  stats: any[];
+  stats: QuickStat[];
   isDarkMode: boolean;
 }
 

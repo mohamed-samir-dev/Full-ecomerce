@@ -1,15 +1,8 @@
-import { CustomerSay } from '../types';
+import { TestimonialModalProps } from '../types';
 import { StarRating } from './StarRating';
 import { getApprovalStyle } from '../utils/styles';
 
-interface TestimonialModalProps {
-  testimonial: CustomerSay;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onClose: () => void;
-  onToggleApproval: (id: string, currentStatus: boolean) => void;
-  onDelete: (id: string) => void;
-}
+
 
 export const TestimonialModal = ({ testimonial, isDarkMode, isArabic, onClose, onToggleApproval, onDelete }: TestimonialModalProps) => {
   return (

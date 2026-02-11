@@ -1,16 +1,5 @@
-import { ArrayFieldType } from '../types/product.types';
+import { MediaTabProps } from '../types/product.types';
 
-interface MediaTabProps {
-  formData: { mainImage: string; imageGallery: string[]; video: string };
-  isDarkMode: boolean;
-  isArabic: boolean;
-  inputClass: string;
-  labelClass: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
-  onAddArrayItem: (field: ArrayFieldType) => void;
-  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
-}
 
 export default function MediaTab({ formData, isDarkMode, isArabic, inputClass, labelClass, onChange, onArrayChange, onAddArrayItem, onRemoveArrayItem }: MediaTabProps) {
   return (

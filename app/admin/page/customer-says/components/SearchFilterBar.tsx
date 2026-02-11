@@ -1,12 +1,5 @@
-interface SearchFilterBarProps {
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
-  statusFilter: string;
-  setStatusFilter: (value: string) => void;
-  isDarkMode: boolean;
-  isArabic: boolean;
-}
 
+import {SearchFilterBarProps}from '../types/index'
 export const SearchFilterBar = ({ searchTerm, setSearchTerm, statusFilter, setStatusFilter, isDarkMode, isArabic }: SearchFilterBarProps) => {
   return (
     <div className={`rounded-xl shadow-lg border p-5 mb-6 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-linear-to-r from-gray-900 to-gray-800 border-gray-700'}`}>

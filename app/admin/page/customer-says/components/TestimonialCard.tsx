@@ -1,14 +1,8 @@
-import { CustomerSay } from '../types';
+import { TestimonialCardProps } from '../types';
 import { StarRating } from './StarRating';
 import { getApprovalStyle } from '../utils/styles';
 
-interface TestimonialCardProps {
-  testimonial: CustomerSay;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onToggleApproval: (id: string, currentStatus: boolean) => void;
-  onView: (testimonial: CustomerSay) => void;
-}
+
 
 export const TestimonialCard = ({ testimonial, isDarkMode, isArabic, onToggleApproval, onView }: TestimonialCardProps) => {
   return (

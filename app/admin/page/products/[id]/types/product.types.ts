@@ -50,3 +50,78 @@ export interface Tab {
   name: string;
   icon: string;
 }
+
+export interface BasicInfoTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+}
+
+export interface CategoriesTabProps {
+  formData: ProductFormData;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+}
+export interface DetailsTabProps {
+  formData: ProductFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+}
+
+export interface MediaTabProps {
+  formData: { mainImage: string; imageGallery: string[]; video: string };
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+}
+
+export interface NavigationButtonsProps {
+  activeTab: number;
+  totalTabs: number;
+  loading: boolean;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  onPrevious: () => void;
+  onNext: () => void;
+  onCancel: () => void;
+}
+
+export interface PricingTabProps {
+  formData: ProductFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+}
+
+export interface VariantsTabProps {
+  formData: ProductFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ProductFormData>>;
+  isDarkMode: boolean;
+  isArabic: boolean;
+  inputClass: string;
+  labelClass: string;
+  onArrayChange: (field: ArrayFieldType, index: number, value: string) => void;
+  onAddArrayItem: (field: ArrayFieldType) => void;
+  onRemoveArrayItem: (field: ArrayFieldType, index: number) => void;
+}

@@ -1,15 +1,7 @@
 import Image from 'next/image';
-import { Order } from '../types';
+import { OrderDetailsModalProps } from '../types';
 import { getStatusStyle, getStatusLabel } from '../utils/orderHelpers';
 import { ORDER_STATUSES } from '../constants';
-
-interface OrderDetailsModalProps {
-  order: Order;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onClose: () => void;
-  onUpdateStatus: (orderId: string, status: string) => void;
-}
 
 export default function OrderDetailsModal({ order, isDarkMode, isArabic, onClose, onUpdateStatus }: OrderDetailsModalProps) {
   return (

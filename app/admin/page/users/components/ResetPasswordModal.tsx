@@ -1,15 +1,5 @@
-import { User } from '../types';
+import { ResetPasswordModalProps } from '../types';
 
-interface ResetPasswordModalProps {
-  user: User | null;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  newPassword: string;
-  setNewPassword: (value: string) => void;
-  resetting: boolean;
-  onReset: () => void;
-  onClose: () => void;
-}
 
 export const ResetPasswordModal = ({ user, isDarkMode, isArabic, newPassword, setNewPassword, resetting, onReset, onClose }: ResetPasswordModalProps) => {
   if (!user) return null;

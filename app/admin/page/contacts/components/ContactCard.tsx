@@ -1,12 +1,7 @@
-import { Contact } from '../types';
+import { ContactCardProps } from '../types';
 import { getStatusStyle, getStatusLabel } from '../utils/helpers';
 
-interface ContactCardProps {
-  contact: Contact;
-  isDarkMode: boolean;
-  isArabic: boolean;
-  onViewDetails: (contact: Contact) => void;
-}
+
 
 export const ContactCard = ({ contact, isDarkMode, isArabic, onViewDetails }: ContactCardProps) => (
   <div className={`backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border hover:-translate-y-1 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80 border-white/50'}`}>

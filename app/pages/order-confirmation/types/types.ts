@@ -49,6 +49,7 @@ export interface OrderStatusTimelineProps {
 }
 export interface OrderSummaryProps {
   totalPrice: number;
+  products: OrderItem[];
   isPrivateView: boolean;
   isDarkMode: boolean;
 }

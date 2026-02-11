@@ -44,7 +44,7 @@ export const useLoginForm = () => {
         if (data.user.role === "admin") {
           localStorage.setItem("localAdminLoggedIn", "true");
           console.log("Redirecting to admin page");
-          window.location.href = "/admin/add-product";
+          window.location.href = "/admin";
         } else {
           console.log("Redirecting to home page");
           window.location.href = "/";

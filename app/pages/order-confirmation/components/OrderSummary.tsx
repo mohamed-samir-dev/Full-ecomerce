@@ -2,11 +2,14 @@
 import {OrderSummaryProps}from '../types/types'
 import { useTranslation } from '@/i18n';
 
-export default function OrderSummary({ totalPrice, isPrivateView, isDarkMode }: OrderSummaryProps) {
+export default function OrderSummary({ products, isPrivateView, isDarkMode }: OrderSummaryProps) {
   const { t } = useTranslation();
   
-  const subtotal = totalPrice / 1.08;
-  const tax = subtotal * 0.08;
+  // حساب الـ subtotal من أسعار الوحدات فقط (بدون ضرب في الكمية)
+  const subtotal = products.reduce((sum, item) => sum + item.price, 0);
+  const shipping = subtotal >= 15000 ? 0 : 15;
+  const tax = subtotal * 0.05;
+  const total = subtotal + shipping + tax;
   
   return (
     <div className={`rounded-lg border p-6 ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
@@ -20,7 +23,9 @@ export default function OrderSummary({ totalPrice, isPrivateView, isDarkMode }: 
         </div>
         <div className="flex justify-between text-sm">
           <span className={isDarkMode ? 'text-slate-400' : 'text-slate-600'}>{t('orderConfirmation.shipping')}</span>
-          <span className="text-green-600 font-medium">{t('orderConfirmation.free')}</span>
+          <span className={shipping === 0 ? 'text-green-600 font-medium' : (isDarkMode ? 'text-white' : 'text-slate-900')}>
+            {isPrivateView ? '••••' : (shipping === 0 ? t('orderConfirmation.free') : `$${shipping.toFixed(2)}`)}
+          </span>
         </div>
         <div className="flex justify-between text-sm">
           <span className={isDarkMode ? 'text-slate-400' : 'text-slate-600'}>{t('orderConfirmation.tax')}</span>
@@ -32,7 +37,7 @@ export default function OrderSummary({ totalPrice, isPrivateView, isDarkMode }: 
           <div className="flex justify-between">
             <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{t('orderConfirmation.total')}</span>
             <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              ${isPrivateView ? '••••••' : totalPrice.toFixed(2)}
+              ${isPrivateView ? '••••••' : total.toFixed(2)}
             </span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import {
   UserCircleIcon,
   ChevronDownIcon,
@@ -37,7 +37,15 @@ export const UserMenu = ({
   isInMobileMenu = false,
 }: UserMenuProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownTop, setDropdownTop] = useState<number | undefined>(undefined);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (isDropdownOpen && isMobile && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      setDropdownTop(rect.bottom);
+    }
+  }, [isDropdownOpen, isMobile]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -230,7 +238,7 @@ export const UserMenu = ({
 
       {isDropdownOpen && (
         <div
-          className={`fixed md:absolute top-auto md:top-full mt-2 w-56 rounded-xl shadow-2xl z-[9999] ${
+          className={`fixed md:absolute top-auto md:top-full mt-2 w-56 rounded-xl shadow-2xl z-9999 ${
             isArabic ? 'right-4 md:left-0 md:right-auto' : 'right-4 md:right-0'
           } ${
             isDarkMode
@@ -238,7 +246,7 @@ export const UserMenu = ({
               : "bg-white border border-gray-200"
           }`}
           style={{
-            top: isMobile ? `${dropdownRef.current?.getBoundingClientRect().bottom ?? 0}px` : undefined
+            top: isMobile && dropdownTop ? `${dropdownTop}px` : undefined
           }}
         >
         {user ? (

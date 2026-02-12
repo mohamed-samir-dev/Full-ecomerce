@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',
-    qualities: [70, 75, 80],
   },
   compress: true,
   poweredByHeader: false,

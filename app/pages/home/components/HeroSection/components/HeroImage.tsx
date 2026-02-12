@@ -20,11 +20,12 @@ export const HeroImage = ({ slide, currentSlide, altText }: HeroImageProps) => {
               src={slide.image}
               alt={altText}
               fill
-              quality={80}
-              sizes="(min-width: 1024px) 50vw, 0px"
+              quality={75}
+              sizes="(min-width: 1024px) 600px, 0px"
               className="object-cover"
               priority={currentSlide === 0}
               fetchPriority={currentSlide === 0 ? "high" : "auto"}
+              loading={currentSlide === 0 ? "eager" : "lazy"}
             />
           </motion.div>
         </AnimatePresence>

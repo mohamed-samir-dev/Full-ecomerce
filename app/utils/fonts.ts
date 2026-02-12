@@ -7,6 +7,7 @@ export const geistSans = Geist({
   preload: true,
   fallback: ['system-ui', 'arial'],
   adjustFontFallback: true,
+  weight: ['400', '500', '600', '700'],
 });
 
 export const geistMono = Geist_Mono({
@@ -16,4 +17,5 @@ export const geistMono = Geist_Mono({
   preload: false,
   fallback: ['monospace'],
   adjustFontFallback: true,
+  weight: ['400'],
 });

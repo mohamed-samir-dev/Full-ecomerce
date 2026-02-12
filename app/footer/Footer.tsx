@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import  { useState } from 'react';
 import { AboutUs, CustomerService, QuickLinks, SocialMedia } from "./sections";
 import { useTranslation } from '@/i18n';
 import { DemoSiteModal } from '@/app/components/DemoSiteModal';

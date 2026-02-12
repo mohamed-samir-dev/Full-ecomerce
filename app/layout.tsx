@@ -87,10 +87,8 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" type="image/png" />
         <link rel="icon" href="/images/favicon-16x16.png" sizes="16x16" type="image/png" />
         <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" sizes="180x180" />
-        <link rel="preconnect" href="https://backend-for-global-shop-production-a385.up.railway.app" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://backend-for-global-shop-production-a385.up.railway.app" />
         <link rel="dns-prefetch" href="https://backend-for-global-shop-production-a385.up.railway.app" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="canonical" href="https://full-ecomerce-gamma.vercel.app" />
         <meta name="google-site-verification" content="your-google-verification-code" />
         <script

@@ -17,12 +17,12 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 30,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    minimumCacheTTL: 60 * 60 * 24 * 365,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',
-    qualities: [70, 75, 80],
+    unoptimized: false,
   },
   compress: true,
   poweredByHeader: false,
@@ -31,8 +31,9 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons', '@mui/material', '@mui/icons-material'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons'],
     optimizeCss: true,
+    webpackBuildWorker: true,
   },
   transpilePackages: [],
   output: 'standalone',
@@ -60,6 +61,19 @@ const nextConfig: NextConfig = {
         {
           key: 'Referrer-Policy',
           value: 'origin-when-cross-origin'
+        },
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable'
+        },
+      ],
+    },
+    {
+      source: '/images/:path*',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable'
         },
       ],
     },

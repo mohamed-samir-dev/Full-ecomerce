@@ -8,11 +8,13 @@ export const BackgroundImage = ({ slide, currentSlide, altText }: BackgroundImag
         src={slide.image}
         alt={altText}
         fill
-        quality={75}
+        quality={70}
         sizes="100vw"
         className="object-cover"
         priority={currentSlide === 0}
-        fetchPriority={currentSlide === 0 ? "high" : "auto"}
+        loading={currentSlide === 0 ? "eager" : "lazy"}
+        placeholder="blur"
+        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
       />
       <div className="absolute inset-0 bg-black/40" />
     </div>

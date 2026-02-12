@@ -61,17 +61,14 @@ html {
 
 .animate-fadeIn {
   animation: fadeIn 0.15s ease-out;
-  will-change: opacity;
 }
 
 .animate-scaleIn {
   animation: scaleIn 0.15s ease-out;
-  will-change: opacity, transform;
 }
 
 .animate-slide-in {
   animation: slideIn 0.3s ease-out;
-  will-change: opacity, transform;
 }
 
 .scrollbar-hide {

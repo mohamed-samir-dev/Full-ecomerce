@@ -21,7 +21,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
   return (
     <Link href={`/pages/product/${product._id}`} className="group">
       <div className={`${isDarkMode ? 'bg-[#242830] border-gray-700' : 'bg-white border-transparent hover:border-amber-100'} rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border`}>
-        <div className="aspect-3/4 relative overflow-hidden bg-gray-100">
+        <div className="aspect-[3/4.5] relative overflow-hidden bg-gray-100">
           <Image 
             src={product.mainImage} 
             alt={isArabic ? (product.nameAr || product.name) : product.name} 
@@ -36,8 +36,8 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
             </div>
           )}
         </div>
-        <div className="p-4 sm:p-5">
-          <h3 className={`font-light mb-2 line-clamp-2 text-base sm:text-lg group-hover:text-[#8B6914] transition-colors ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+        <div className="p-5 sm:p-6">
+          <h3 className={`font-light mb-2 line-clamp-2 text-lg sm:text-xl group-hover:text-[#8B6914] transition-colors ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
             {isArabic ? (product.nameAr || product.name) : product.name}
           </h3>
           <div className="flex items-center gap-1 mb-3">
@@ -47,17 +47,17 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
             <span className="text-xs text-gray-400 ml-1">({product.totalReviews})</span>
           </div>
           <div className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between gap-3 min-[360px]:gap-0">
-            <div className="flex items-baseline gap-1.5 sm:gap-2">
-              <span className="text-xl sm:text-2xl font-light text-[#8B6914]">{product.finalPrice}</span>
-              <span className="text-xs sm:text-sm text-gray-400">{t('product.egp')}</span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl sm:text-3xl font-light text-[#8B6914]">{product.finalPrice}</span>
+              <span className="text-sm text-gray-400">{t('product.egp')}</span>
               {product.basePrice > product.finalPrice && (
                 <span className="text-xs sm:text-sm text-gray-400 line-through">{product.basePrice}</span>
               )}
             </div>
-            <div className="flex gap-1.5 sm:gap-2">
+            <div className="flex gap-2">
               <button 
                 onClick={(e) => { e.preventDefault(); router.push(`/pages/product/${product._id}`); }} 
-                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-9 h-9 sm:w-10 sm:h-10 cursor-pointer bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
+                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-10 h-10 sm:w-11 sm:h-11 cursor-pointer bg-[#8B6914] rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="View product"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ const ProductCard = memo(({ product, isArabic, t, addToCart }: ProductCardProps)
               </button>
               <button 
                 onClick={(e) => { e.preventDefault(); addToCart(product); }} 
-                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-9 h-9 sm:w-10 sm:h-10 bg-[#8B6914] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
+                className="flex-1 min-[360px]:flex-none w-auto min-[360px]:w-10 h-10 sm:w-11 sm:h-11 bg-[#8B6914] cursor-pointer rounded-full flex items-center justify-center hover:bg-[#6B5010] transition-all shadow-sm"
                 aria-label="Add to cart"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

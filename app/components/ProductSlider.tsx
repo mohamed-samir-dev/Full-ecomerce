@@ -29,16 +29,16 @@ export default function ProductSlider({ title, products, loading, onAddToCart, a
       ) : (
         <Swiper
           modules={[Pagination]}
-          spaceBetween={12}
-          slidesPerView={1.3}
+          spaceBetween={16}
+          slidesPerView={1.2}
           pagination={{ clickable: true }}
           breakpoints={{
-            400: { slidesPerView: 1.8, spaceBetween: 12 },
-            640: { slidesPerView: 2.2, spaceBetween: 16 },
-            768: { slidesPerView: 2.8, spaceBetween: 16 },
-            1024: { slidesPerView: 3.5, spaceBetween: 20 },
-            1280: { slidesPerView: 4.2, spaceBetween: 20 },
-            1536: { slidesPerView: 5, spaceBetween: 24 }
+            400: { slidesPerView: 1.5, spaceBetween: 16 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 2.5, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
+            1280: { slidesPerView: 3.5, spaceBetween: 24 },
+            1536: { slidesPerView: 4, spaceBetween: 28 }
           }}
         >
           {products.map((product) => (

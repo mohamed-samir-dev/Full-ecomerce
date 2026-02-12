@@ -7,7 +7,7 @@ import { HomePageSchemas } from '@/app/components/JsonLd';
 import DynamicMetadata from '@/app/components/DynamicMetadata';
 
 const PromoSection = dynamic(() => import('./components/PromoSection/index'), { ssr: true });
-const FeaturedProducts = dynamic(() => import('./components/FeaturedProducts/index'), { ssr: true, loading: () => <div className="h-96" /> });
+const FeaturedProducts = dynamic(() => import('./components/FeaturedProducts/index'), { ssr: false, loading: () => <div className="h-96" /> });
 const CustomerSaySection = dynamic(() => import('./components/CustomerSay/index'), { ssr: false, loading: () => <div className="h-64" /> });
 const ClothesHangerSection = dynamic(() => import('./components/ClothesHangerSection/index'), { ssr: false, loading: () => <div className="h-64" /> });
 const LuxuryCategorySection = dynamic(() => import('./components/LuxuryCategorySection/index'), { ssr: false, loading: () => <div className="h-64" /> });

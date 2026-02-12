@@ -25,7 +25,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
 
   return (
     <div 
-      className={`relative overflow-hidden ${
+      className={`relative overflow-hidden transition-colors duration-300 ${
         isDarkMode ? 'bg-[#1a1a1a]' : 'bg-[#F1F1F0]'
       }`}
       dir={isArabic ? 'rtl' : 'ltr'}

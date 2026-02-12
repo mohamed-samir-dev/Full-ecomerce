@@ -8,12 +8,11 @@ export const BackgroundImage = ({ slide, currentSlide, altText }: BackgroundImag
         src={slide.image}
         alt={altText}
         fill
-        quality={70}
+        quality={75}
         sizes="100vw"
         className="object-cover"
         priority={currentSlide === 0}
         fetchPriority={currentSlide === 0 ? "high" : "auto"}
-        loading={currentSlide === 0 ? "eager" : "lazy"}
       />
       <div className="absolute inset-0 bg-black/40" />
     </div>

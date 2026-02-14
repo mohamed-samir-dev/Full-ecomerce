@@ -6,7 +6,7 @@ import { useTheme } from '@/context/ThemeContext';
 import FeaturedProductCard from './FeaturedProductCard';
 import {Product}from '../../types/home.types'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 export default function FeaturedProducts() {
   const { t, isArabic } = useTranslation();
@@ -17,7 +17,10 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/products?limit=8&sort=newest`);
+        const response = await fetch(`${API_URL}/api/products?limit=8&sort=newest`, {
+          cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         if (data.success) {
           setProducts(data.data);

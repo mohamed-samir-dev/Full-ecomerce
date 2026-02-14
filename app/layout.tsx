@@ -11,6 +11,7 @@ import RTLWrapper from './components/RTLWrapper';
 import { geistSans, geistMono } from './utils/fonts';
 import { WebVitals } from './utils/performance';
 import Analytics, { FacebookPixel } from './components/Analytics';
+import { LoadingWarningBanner } from './components/LoadingWarningBanner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://full-ecomerce-gamma.vercel.app'),
@@ -132,6 +133,7 @@ export default function RootLayout({
               <Analytics />
               <FacebookPixel />
               <WebVitals />
+              <LoadingWarningBanner />
               <Toaster position="top-right" toastOptions={{
                 duration: 3000,
                 style: {

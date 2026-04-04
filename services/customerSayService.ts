@@ -18,12 +18,24 @@ export const customerSayService = {
   },
 
   async getApprovedTestimonials() {
-    const response = await fetch(`${API_URL}/api/customer-say/approved`);
+    try {
+      const response = await fetch(`${API_URL}/api/customer-say/approved`, {
+        method: 'GET',
+        cache: 'no-store',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch testimonials');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+      throw error;
     }
-
-    return response.json();
   }
 };

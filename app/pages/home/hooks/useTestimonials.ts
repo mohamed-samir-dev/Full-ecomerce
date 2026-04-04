@@ -25,9 +25,10 @@ export const useTestimonials = () => {
   const fetchTestimonials = async () => {
     try {
       const response = await customerSayService.getApprovedTestimonials();
-      setTestimonials(response.data);
+      setTestimonials(response.data || []);
     } catch (error) {
       console.error("Failed to fetch testimonials:", error);
+      setTestimonials([]);
     } finally {
       setLoading(false);
     }

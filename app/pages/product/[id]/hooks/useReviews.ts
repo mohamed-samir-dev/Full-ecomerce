@@ -5,13 +5,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export const useReviews = (productId: string) => {
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!productId);
 
   useEffect(() => {
-    if (!productId) {
-      setLoading(false);
-      return;
-    }
+    if (!productId) return;
 
     const fetchReviews = async () => {
       try {

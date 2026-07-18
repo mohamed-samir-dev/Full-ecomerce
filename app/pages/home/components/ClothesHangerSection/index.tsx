@@ -1,48 +1,97 @@
 'use client';
 
 import { useTranslation } from '@/i18n';
-import { useTheme } from '@/context/ThemeContext';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Crown } from 'lucide-react';
+
+const accentGradient = 'linear-gradient(135deg, #8B6914 0%, #D4AF37 50%, #f5e27a 100%)';
+const accentColor = '#D4AF37';
 
 export default function ClothesHangerSection() {
   const { t, isArabic } = useTranslation();
-  const { isDarkMode } = useTheme();
 
   return (
-    <div className={`py-8 sm:py-12 lg:py-20 transition-colors duration-300 ${
-      isDarkMode ? 'bg-[#1a1a1a]' : 'bg-[#F1F1F0]'
-    }`} dir={isArabic ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isArabic ? 'lg:flex-row-reverse' : ''}`}>
-          <div className={`relative flex justify-center lg:justify-start ${isArabic ? 'lg:order-2' : ''}`}>
-            <div className="absolute inset-0 rounded-2xl blur-2xl opacity-20 bg-[#FF6B6B]"></div>
-            <Image 
-              src="/images/ChatGPT_Image_Feb_2__2026__05_58_51_PM-removebg-preview.webp" 
-              alt="clothes hanger" 
-              width={384} 
-              height={384} 
-              className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md relative z-10" 
-            />
-          </div>
-          <div className={`space-y-4 sm:space-y-6 text-center ${isArabic ? 'lg:text-right lg:order-1' : 'lg:text-left'}`}>
-            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
-              {String(t('home.clothes.title'))}
-            </h2>
-            <p className={`text-base sm:text-lg leading-relaxed ${
-              isDarkMode ? 'text-gray-300' : 'text-gray-700'
-            }`}>
-              {String(t('home.clothes.desc1'))}
-            </p>
-            <p className={`text-sm sm:text-base leading-relaxed ${
-              isDarkMode ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              {String(t('home.clothes.desc2'))}
-            </p>
-          </div>
+    <section className="relative w-full h-[420px] sm:h-[520px] lg:h-[620px] overflow-hidden">
+      <Image
+        src="/images/cloth.webp"
+        alt="clothes background"
+        fill
+        className="object-cover object-center"
+        priority
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: isArabic
+            ? 'linear-gradient(to left, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.05) 100%)'
+            : 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.05) 100%)',
+        }}
+      />
+
+      <div className="relative z-10 h-full flex items-center w-full">
+        <div
+          dir={isArabic ? 'rtl' : 'ltr'}
+          className={`flex flex-col px-5 sm:px-10 lg:px-20 max-w-xl ${
+            isArabic ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
+          }`}
+        >
+        {/* Badge */}
+        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1 mb-3 w-fit">
+          <Crown size={12} style={{ color: accentColor }} />
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold text-white/90">
+            {String(t('home.clothes.badge'))}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h2
+          className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-3 lg:mb-4"
+          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
+        >
+          <span
+            style={{
+              background: accentGradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {String(t('home.clothes.title'))}
+          </span>
+        </h2>
+
+        {/* Divider */}
+        <div
+          className="h-[2px] w-12 mb-3"
+          style={{ background: `linear-gradient(to ${isArabic ? 'left' : 'right'}, ${accentColor}, transparent)` }}
+        />
+
+        <p className="text-xs sm:text-sm lg:text-base text-white/75 leading-relaxed mb-2 lg:mb-3 max-w-sm lg:max-w-md">
+          {String(t('home.clothes.desc1'))}
+        </p>
+        <p className="text-xs sm:text-sm text-white/60 leading-relaxed mb-5 lg:mb-8 max-w-sm lg:max-w-md">
+          {String(t('home.clothes.desc2'))}
+        </p>
+
+        {/* CTA */}
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/pages/shop"
+            className="inline-flex items-center gap-2 px-5 py-2.5 lg:px-7 lg:py-3.5 rounded-full font-bold text-xs lg:text-sm text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
+            style={{ background: accentGradient }}
+          >
+            {String(t('home.clothes.cta'))}
+          </Link>
+          <Link
+            href="/pages/shop"
+            className="inline-flex items-center gap-2 px-5 py-2.5 lg:px-7 lg:py-3.5 rounded-full font-semibold text-xs lg:text-sm border border-white/30 text-white/90 backdrop-blur-sm transition-all duration-200 hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
+          >
+            {String(t('home.hero.explore'))}
+          </Link>
+        </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

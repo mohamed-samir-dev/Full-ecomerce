@@ -13,13 +13,11 @@ import { User } from './types/types';
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('theme') === 'dark';
+    return false;
+  });
   const router = useRouter();
-
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    setIsDarkMode(theme === 'dark');
-  }, []);
 
   useEffect(() => {
     const fetchProfile = async () => {

@@ -146,13 +146,17 @@ export default function CollectionPage({ category, subCategory, title, subtitle,
 
   const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return filteredProducts.slice(startIndex, endIndex);
+    return filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredProducts, currentPage]);
 
-  useEffect(() => {
+  const [prevFilterKey, setPrevFilterKey] = useState(() =>
+    JSON.stringify([selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy])
+  );
+  const filterKey = JSON.stringify([selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy]);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
     setCurrentPage(1);
-  }, [selectedSizes, selectedColors, selectedSubCategories, priceRange, sortBy]);
+  }
 
   const toggleFilter = (value: string, selected: string[], setter: (v: string[]) => void) => {
     setter(selected.includes(value) 

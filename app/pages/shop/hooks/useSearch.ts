@@ -12,7 +12,6 @@ export function useSearch() {
   const [loading, setLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Debounced search function
   const debouncedSearchRef = useRef<((query: string) => void) | null>(null);
 
   const performSearch = useCallback(async (query: string) => {
@@ -42,7 +41,7 @@ export function useSearch() {
     }
   }, []);
 
-  if (!debouncedSearchRef.current) {
+  if (debouncedSearchRef.current == null) {
     debouncedSearchRef.current = debounce(performSearch, 300);
   }
 

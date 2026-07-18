@@ -8,7 +8,10 @@ export const useTestimonials = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(() => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    return !!token;
+  });
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -17,22 +20,18 @@ export const useTestimonials = () => {
   });
 
   useEffect(() => {
-    fetchTestimonials();
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    setIsLoggedIn(!!token);
+    (async () => {
+      try {
+        const response = await customerSayService.getApprovedTestimonials();
+        setTestimonials(response.data || []);
+      } catch (error) {
+        console.error("Failed to fetch testimonials:", error);
+        setTestimonials([]);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
-
-  const fetchTestimonials = async () => {
-    try {
-      const response = await customerSayService.getApprovedTestimonials();
-      setTestimonials(response.data || []);
-    } catch (error) {
-      console.error("Failed to fetch testimonials:", error);
-      setTestimonials([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -27,8 +27,26 @@ export const useOrders = (statusFilter: string) => {
   }, [statusFilter]);
 
   useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    (async () => {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        const params = new URLSearchParams({ 
+          limit: String(API_CONFIG.ORDERS_LIMIT), 
+          ...(statusFilter && { status: statusFilter }) 
+        });
+        const res = await fetch(`${API_CONFIG.BASE_URL}/api/orders?${params}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) setOrders(data.data);
+      } catch (error) {
+        console.error('Failed to fetch orders:', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [statusFilter]);
 
   const updateStatus = async (orderId: string, newStatus: string) => {
     try {

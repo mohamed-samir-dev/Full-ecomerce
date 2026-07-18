@@ -108,7 +108,7 @@ export function useOrderData(orderId: string | null) {
       return;
     }
 
-    fetchOrderData();
+    (async () => { await fetchOrderData(); })();
   }, [user, orderId, router, fetchOrderData]);
 
   return { orderData, isLoading };

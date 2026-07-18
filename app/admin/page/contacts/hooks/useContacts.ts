@@ -34,7 +34,17 @@ export const useContacts = () => {
   };
 
   useEffect(() => {
-    fetchContacts();
+    (async () => {
+      setLoading(true);
+      try {
+        const data = await contactAPI.fetchAll();
+        setContacts(data);
+      } catch (error) {
+        console.error('Failed to fetch contacts:', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   useEffect(() => {

@@ -19,7 +19,17 @@ export const useTestimonials = () => {
   };
 
   useEffect(() => {
-    loadTestimonials();
+    (async () => {
+      setLoading(true);
+      try {
+        const data = await fetchTestimonials();
+        if (data.success) setTestimonials(data.data);
+      } catch (error) {
+        console.error('Failed to fetch testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const toggleApproval = async (id: string, currentStatus: boolean) => {

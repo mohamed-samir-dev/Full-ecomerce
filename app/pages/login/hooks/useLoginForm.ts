@@ -15,7 +15,7 @@ export const useLoginForm = () => {
   const { login, user } = useAuth();
   const router = useRouter();
   const attemptCount = useRef(0);
-  const windowStart = useRef(Date.now());
+  const windowStart = useRef<number>(0);
 
   const savedEmail = typeof window !== 'undefined' && localStorage.getItem('rememberMe') === 'true'
     ? localStorage.getItem('rememberedEmail') || ''

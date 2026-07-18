@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
@@ -48,7 +48,6 @@ interface FilterOptions {
 
 export default function CategoryPage({ category, subCategory, secondtype, thirdtype, title, description }: CategoryPageProps) {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
@@ -73,7 +72,6 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
           );
           console.log('All products found:', all.length);
           setAllProducts(all);
-          setProducts(all);
           
           const sizes = [...new Set(all.flatMap((p: Product) => p.sizes || [] as string[]))] as string[];
           const colors = Array.from(new Map(all.flatMap((p: Product) => p.colors || [] as { name: string; hex: string }[]).map((c: { name: string; hex: string }): [string, { name: string; hex: string }] => [c.name, c])).values()) as { name: string; hex: string }[];
@@ -91,15 +89,15 @@ export default function CategoryPage({ category, subCategory, secondtype, thirdt
     fetchData();
   }, [category, subCategory, secondtype, thirdtype]);
 
-  useEffect(() => {
-    if (allProducts.length === 0) return;
+  const products = useMemo(() => {
+    if (allProducts.length === 0) return allProducts;
     let filtered = allProducts;
     if (selectedSizes.length) filtered = filtered.filter((p: Product) => p.sizes?.some(s => selectedSizes.includes(s)));
     if (selectedColors.length) filtered = filtered.filter((p: Product) => p.colors?.some(c => selectedColors.includes(c.name)));
     if (priceRange && priceRange[1] < filterOptions.priceRange.max) {
       filtered = filtered.filter((p: Product) => p.finalPrice >= priceRange[0] && p.finalPrice <= priceRange[1]);
     }
-    setProducts(filtered);
+    return filtered;
   }, [allProducts, selectedSizes, selectedColors, priceRange, filterOptions.priceRange.max]);
 
   const clearFilters = () => {

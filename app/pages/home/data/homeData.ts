@@ -9,32 +9,18 @@ export const heroSlides: HeroSlide[] = [
     buttonLink: "/pages/banner-pages/products"
   },
   {
-    titleKey: 'home.hero.premiumCollection',
-    descriptionKey: 'home.hero.premiumDescription',
-    image: "/images/hero-5.webp",
-    buttonTextKey: 'home.hero.explore',
-    buttonLink: "/pages/banner-pages/premium"
+    titleKey: 'home.hero.premiumBadge',
+    descriptionKey: 'home.hero.premiumSlideDescription',
+    image: "/images/hero-2.png",
+    buttonTextKey: 'home.hero.premiumButton',
+    buttonLink: "/pages/banner-pages/products"
   },
   {
-    titleKey: 'home.hero.summerSale',
-    descriptionKey: 'home.hero.summerSaleDescription',
-    image: "/images/hero-2.webp",
-    buttonTextKey: 'home.hero.saveNow',
-    buttonLink: "/pages/banner-pages/sale"
-  },
-  {
-    titleKey: 'home.hero.exclusiveDeals',
-    descriptionKey: 'home.hero.exclusiveDealsDescription',
-    image: "/images/hero--4.webp",
-    buttonTextKey: 'home.hero.discover',
-    buttonLink: "/pages/banner-pages/deals"
-  },
-  {
-    titleKey: 'home.hero.trendingNow',
-    descriptionKey: 'home.hero.trendingDescription',
-    image: "/images/hero--3.webp",
-    buttonTextKey: 'home.hero.viewTrends',
-    buttonLink: "/pages/banner-pages/trending"
+    titleKey: 'home.hero.summerBadge',
+    descriptionKey: 'home.hero.summerSlideDescription',
+    image: "/images/hero-3.webp",
+    buttonTextKey: 'home.hero.summerButton',
+    buttonLink: "/pages/banner-pages/products"
   }
 ];
 

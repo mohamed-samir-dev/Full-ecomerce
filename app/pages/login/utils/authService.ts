@@ -1,7 +1,6 @@
 import {
   LoginFormData,
   LoginResponse,
-  User,
 } from "../../../pages/login/types/login.types";
 
 export const loginUser = async (

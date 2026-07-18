@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 import { useTranslation } from '@/i18n';
@@ -23,7 +23,6 @@ export default function OrdersPage() {
   const { isArabic } = useTranslation();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
-  const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -41,7 +40,6 @@ export default function OrdersPage() {
         if (response.success && response.data) {
           const ordersData = (Array.isArray(response.data) ? response.data : [response.data]) as Order[];
           setOrders(ordersData);
-          setFilteredOrders(ordersData);
         }
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : 'Failed to load orders');
@@ -53,13 +51,10 @@ export default function OrdersPage() {
     fetchOrders();
   }, [user, router]);
 
-  useEffect(() => {
-    if (statusFilter === 'all') {
-      setFilteredOrders(orders);
-    } else {
-      setFilteredOrders(orders.filter(order => order.status.toLowerCase() === statusFilter.toLowerCase()));
-    }
-  }, [statusFilter, orders]);
+  const filteredOrders = useMemo(() =>
+    statusFilter === 'all' ? orders : orders.filter(order => order.status.toLowerCase() === statusFilter.toLowerCase()),
+    [statusFilter, orders]
+  );
 
   const stats = calculateOrderStats(orders);
 

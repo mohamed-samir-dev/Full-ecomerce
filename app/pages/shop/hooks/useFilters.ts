@@ -67,8 +67,8 @@ export function useFilters() {
     if (sortBy) urlFilters.sortBy = sortBy;
     if (search) urlFilters.search = search;
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilters(prev => ({ ...prev, ...urlFilters }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // Update URL when filters change

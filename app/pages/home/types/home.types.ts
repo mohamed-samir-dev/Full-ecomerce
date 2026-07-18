@@ -60,9 +60,9 @@ export interface BackgroundImageProps {
 }
 export interface HeroContentProps {
   slide: HeroSlide;
-  currentSlide: number;
   isArabic: boolean;
   t: (key: string) => string | React.ReactNode;
+  slideIndex: number;
 }
 export interface HeroImageProps {
   slide: HeroSlide;

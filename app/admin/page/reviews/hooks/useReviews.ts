@@ -96,7 +96,37 @@ export const useReviews = () => {
   };
 
   useEffect(() => {
-    fetchReviews();
+    (async () => {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+        const data = await res.json();
+        if (data.success) {
+          const allReviews: Review[] = [];
+          data.data.forEach((product: Product) => {
+            if (product.reviews && product.reviews.length > 0) {
+              product.reviews.forEach((review: Review) => {
+                allReviews.push({
+                  ...review,
+                  productId: product._id,
+                  productName: product.name,
+                  productImage: product.mainImage
+                });
+              });
+            }
+          });
+          setReviews(allReviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+        }
+      } catch (error) {
+        console.error('Failed to fetch reviews:', error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   return { reviews, loading, fetchReviews, toggleApproval, deleteReview };

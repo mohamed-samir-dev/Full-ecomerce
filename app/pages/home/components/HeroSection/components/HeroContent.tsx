@@ -65,12 +65,12 @@ export const HeroContent = ({ slide, isArabic, t, slideIndex }: ExtendedHeroCont
         exit={{ opacity: 0, x: isArabic ? -40 : 40 }}
         transition={{ duration: 0.5 }}
         dir={isArabic ? 'rtl' : 'ltr'}
-        className={`w-full max-w-3xl px-6 sm:px-10 lg:px-20 flex flex-col items-start text-start ${
+        className={`w-full max-w-3xl px-4 sm:px-10 lg:px-20 flex flex-col items-start text-start ${
           isArabic ? 'ml-auto mr-0' : 'mr-auto ml-0'
         }`}
       >
         {/* Badge */}
-        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-5">
+        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 mb-3 sm:mb-5">
           {isPremium && <Crown size={12} className="text-[#D4AF37]" />}
           <span className={`w-2 h-2 rounded-full animate-pulse flex-shrink-0 ${isPremium ? 'hidden' : 'block'}`} style={{ backgroundColor: accentColor }} />
           <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-white/90">
@@ -80,7 +80,7 @@ export const HeroContent = ({ slide, isArabic, t, slideIndex }: ExtendedHeroCont
 
         {/* Heading */}
         <h1
-          className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 leading-[1.05] tracking-tight text-white"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 sm:mb-4 leading-[1.1] tracking-tight text-white"
           style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
         >
           {headingSubtitle}{' '}
@@ -103,12 +103,12 @@ export const HeroContent = ({ slide, isArabic, t, slideIndex }: ExtendedHeroCont
         />
 
         {/* Description */}
-        <p className="text-sm sm:text-base lg:text-lg mb-7 leading-relaxed text-white/75 max-w-xl">
+        <p className="text-xs sm:text-sm lg:text-lg mb-5 sm:mb-7 leading-relaxed text-white/75 max-w-xl">
           {description}
         </p>
 
         {/* Stats Row */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="hidden sm:flex flex-wrap gap-2 mb-6 sm:mb-8">
           {stats.map((stat, i) => (
             <div
               key={i}
@@ -129,10 +129,10 @@ export const HeroContent = ({ slide, isArabic, t, slideIndex }: ExtendedHeroCont
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           <Link
             href={slide.buttonLink}
-            className="group inline-flex items-center gap-2.5 text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95"
+            className="group inline-flex items-center gap-2 text-white px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-200 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95"
             style={{ background: accentGradient }}
           >
             {ctaIcon}
@@ -141,7 +141,7 @@ export const HeroContent = ({ slide, isArabic, t, slideIndex }: ExtendedHeroCont
           </Link>
           <Link
             href="/pages/shop"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border border-white/30 text-white/90 backdrop-blur-sm transition-all duration-200 hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm border border-white/30 text-white/90 backdrop-blur-sm transition-all duration-200 hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
           >
             {String(t('home.hero.explore'))}
           </Link>

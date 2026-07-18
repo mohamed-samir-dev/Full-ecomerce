@@ -1,6 +1,9 @@
-import { Star } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
-import { Testimonial } from "../../../types/home.types";
+import { Star, Quote } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
+import { Testimonial } from '../../../types/home.types';
+
+const accentColor = '#C9A84C';
+const accentGradient = 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)';
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
@@ -8,48 +11,63 @@ interface TestimonialCardProps {
 
 export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
   const { isDarkMode } = useTheme();
+
   return (
     <div
-      className={`p-4 sm:p-5 md:p-6 rounded-xl shadow-sm border transition-all hover:shadow-md ${
-        isDarkMode ? 'bg-[#2d2d2d] border-gray-700' : 'bg-white border-gray-200'
+      className={`relative p-5 sm:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+        isDarkMode
+          ? 'bg-white/5 border-white/10 hover:border-white/20'
+          : 'bg-white border-black/5 hover:border-black/10'
       }`}
     >
-      <div className="flex items-center mb-3 sm:mb-4">
-        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mr-3 sm:mr-4 ${
-          isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
-        }`}>
-          <span className={`text-base sm:text-lg font-bold ${
-            isDarkMode ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            {testimonial.name.charAt(0).toUpperCase()}
-          </span>
-        </div>
-        <div>
-          <p className={`font-semibold text-xs sm:text-sm ${
-            isDarkMode ? 'text-white' : 'text-[#0D0D0D]'
-          }`}>
-            {testimonial.name}
-          </p>
-          <div className="flex gap-0.5 sm:gap-1 mt-1">
-            {Array.from({ length: 5 }, (_, index) => (
-              <Star
-                key={index}
-                size={14}
-                className={`sm:w-4 sm:h-4 ${
-                  index < testimonial.rating
-                    ? "fill-yellow-400 text-yellow-400"
-                    : isDarkMode ? "text-gray-600" : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+      {/* Quote icon */}
+      <div
+        className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center opacity-60"
+        style={{ background: `${accentColor}20` }}
+      >
+        <Quote size={14} style={{ color: accentColor }} />
       </div>
-      <p className={`text-xs sm:text-sm leading-relaxed ${
-        isDarkMode ? 'text-gray-300' : 'text-gray-600'
-      }`}>
+
+      {/* Stars */}
+      <div className="flex gap-0.5 mb-4">
+        {Array.from({ length: 5 }, (_, i) => (
+          <Star
+            key={i}
+            size={14}
+            className={i < testimonial.rating ? '' : isDarkMode ? 'text-white/20' : 'text-gray-200'}
+            style={i < testimonial.rating ? { fill: accentColor, color: accentColor } : {}}
+          />
+        ))}
+      </div>
+
+      {/* Comment */}
+      <p className={`text-sm leading-relaxed mb-5 ${isDarkMode ? 'text-white/70' : 'text-gray-600'}`}>
         &ldquo;{testimonial.comment}&rdquo;
       </p>
+
+      {/* Divider */}
+      <div
+        className="h-px w-full mb-4"
+        style={{ background: `linear-gradient(to right, ${accentColor}40, transparent)` }}
+      />
+
+      {/* Author */}
+      <div className="flex items-center gap-3">
+        <div
+          className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-black text-white flex-shrink-0"
+          style={{ background: accentGradient }}
+        >
+          {testimonial.name.charAt(0).toUpperCase()}
+        </div>
+        <div>
+          <p className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            {testimonial.name}
+          </p>
+          <p className={`text-[11px] ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>
+            Verified Customer
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

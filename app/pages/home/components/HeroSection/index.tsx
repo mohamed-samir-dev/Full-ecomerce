@@ -19,7 +19,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
 
   return (
     <div
-      className="relative overflow-hidden min-h-[480px] sm:min-h-[540px] lg:min-h-[620px]"
+      className="relative overflow-hidden min-h-[360px] sm:min-h-[480px] md:min-h-[540px] lg:min-h-[620px]"
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       {slides.map((slide, i) => (
@@ -33,21 +33,21 @@ export default function HeroSection({ slides }: HeroSectionProps) {
             fill
             className="object-cover object-center"
             priority={i === 0}
-            sizes="100vw"
-            quality={90}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+            quality={85}
           />
           <div
             className="absolute inset-0"
             style={{
               background: isArabic
-                ? 'linear-gradient(to left, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.05) 100%)'
-                : 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.05) 100%)',
+                ? 'linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%)'
+                : 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%)',
             }}
           />
         </div>
       ))}
 
-      <div className="relative z-20 flex items-center min-h-[480px] sm:min-h-[540px] lg:min-h-[620px]">
+      <div className="relative z-20 flex items-center min-h-[360px] sm:min-h-[480px] md:min-h-[540px] lg:min-h-[620px]">
         <HeroContent slide={slides[currentSlide]} isArabic={isArabic} t={t} slideIndex={currentSlide} />
       </div>
 

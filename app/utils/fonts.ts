@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Almarai } from 'next/font/google';
 
 export const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,4 +16,12 @@ export const geistMono = Geist_Mono({
   preload: false,
   fallback: ['monospace'],
   adjustFontFallback: true,
+});
+
+export const almarai = Almarai({
+  variable: '--font-almarai',
+  subsets: ['arabic'],
+  weight: ['300', '400', '700', '800'],
+  display: 'swap',
+  preload: true,
 });

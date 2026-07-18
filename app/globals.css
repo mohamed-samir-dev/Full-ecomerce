@@ -12,6 +12,7 @@
 
 [dir="rtl"] {
   direction: rtl;
+  font-family: var(--font-almarai), Arial, sans-serif;
 }
 
 [dir="ltr"] {

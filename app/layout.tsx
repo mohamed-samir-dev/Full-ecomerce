@@ -8,7 +8,7 @@ import { LanguageProvider } from '@/context/LanguageContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { TranslationProvider } from '@/i18n';
 import RTLWrapper from './components/RTLWrapper';
-import { geistSans, geistMono } from './utils/fonts';
+import { geistSans, geistMono, almarai } from './utils/fonts';
 import { WebVitals } from './utils/performance';
 import Analytics, { FacebookPixel } from './components/Analytics';
 import { LoadingWarningBanner } from './components/LoadingWarningBanner';
@@ -123,7 +123,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${almarai.variable} antialiased overflow-x-hidden`}
         suppressHydrationWarning
       >
         <ThemeProvider>

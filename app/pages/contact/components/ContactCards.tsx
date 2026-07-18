@@ -42,19 +42,20 @@ export default function ContactCards() {
 
   return (
     <div className={`${isDarkMode ? 'bg-[#141414]' : 'bg-[#F5F0EA]'}`} dir={isArabic ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-10 sm:pb-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+        {/* 1 col mobile → 2 col sm → 4 col lg */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {cards.map(({ icon: Icon, titleKey, infoKey, subKey, gradient }, i) => (
             <motion.div
               key={titleKey}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className={`group relative rounded-2xl p-5 sm:p-6 overflow-hidden cursor-default ${
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              whileHover={{ y: -5, transition: { duration: 0.18 } }}
+              className={`group relative rounded-2xl p-4 sm:p-5 overflow-hidden cursor-default shadow-md ${
                 isDarkMode ? 'bg-[#1A1A1A]' : 'bg-white'
-              } shadow-lg`}
+              }`}
               style={{ border: '1px solid', borderColor: isDarkMode ? '#C9A84C15' : '#C9A84C20' }}
             >
               {/* Hover glow */}
@@ -62,31 +63,35 @@ export default function ContactCards() {
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at 50% 0%, #C9A84C08, transparent 70%)' }}
               />
-
-              {/* Top accent line */}
+              {/* Top accent line on hover */}
               <div
                 className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: gradient }}
               />
 
-              {/* Icon */}
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-md"
-                style={{ background: gradient }}
-              >
-                <Icon size={20} color="#fff" />
-              </div>
+              {/* sm: horizontal layout, lg: vertical */}
+              <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0">
+                {/* Icon */}
+                <div
+                  className="w-10 h-10 sm:w-11 sm:h-11 sm:mb-3 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
+                  style={{ background: gradient }}
+                >
+                  <Icon size={18} color="#fff" />
+                </div>
 
-              {/* Text */}
-              <p className={`text-[11px] font-bold uppercase tracking-widest mb-1 ${isDarkMode ? 'text-white/35' : 'text-gray-400'}`}>
-                {t(titleKey)}
-              </p>
-              <p className={`text-sm font-bold mb-0.5 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                {t(infoKey)}
-              </p>
-              <p className={`text-xs ${isDarkMode ? 'text-white/40' : 'text-gray-500'}`}>
-                {t(subKey)}
-              </p>
+                {/* Text */}
+                <div className="min-w-0">
+                  <p className={`text-[10px] font-bold uppercase tracking-widest mb-0.5 ${isDarkMode ? 'text-white/35' : 'text-gray-400'}`}>
+                    {t(titleKey)}
+                  </p>
+                  <p className={`text-xs sm:text-sm font-bold truncate ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {t(infoKey)}
+                  </p>
+                  <p className={`text-[11px] mt-0.5 ${isDarkMode ? 'text-white/40' : 'text-gray-500'}`}>
+                    {t(subKey)}
+                  </p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

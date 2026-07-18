@@ -49,18 +49,22 @@ export default function Contact() {
       <div className={`min-h-screen ${isDarkMode ? 'bg-[#141414]' : 'bg-[#F5F0EA]'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <ContactHero />
       <ContactCards />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-16 sm:pb-20 lg:pb-24">
-          <div className="lg:col-span-3">
-            <ContactForm 
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Form + Sidebar: stacked on mobile/tablet, side-by-side on lg */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 pb-12 sm:pb-16 lg:pb-24">
+          <div className="lg:col-span-3 order-2 lg:order-1">
+            <ContactForm
               formData={formData}
               setFormData={setFormData}
               handleSubmit={handleSubmit}
               isSubmitting={isSubmitting}
             />
           </div>
-          <ContactSidebar />
+          {/* Sidebar comes first on mobile so user sees info before form */}
+          <div className="order-1 lg:order-2 lg:col-span-2">
+            <ContactSidebar />
+          </div>
         </div>
       </div>
 

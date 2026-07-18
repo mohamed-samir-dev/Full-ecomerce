@@ -10,12 +10,14 @@ import ContactCards from './components/ContactCards';
 import ContactForm from './components/ContactForm';
 import ContactSidebar from './components/ContactSidebar';
 import SuccessModal from './components/SuccessModal';
+import ErrorModal from './components/ErrorModal';
 
 export default function Contact() {
   const { isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +30,7 @@ export default function Contact() {
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again.');
+      setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }
@@ -63,6 +65,7 @@ export default function Contact() {
       </div>
 
       {showModal && <SuccessModal onClose={() => setShowModal(false)} />}
+      {errorMessage && <ErrorModal message={errorMessage} onClose={() => setErrorMessage(null)} />}
       </div>
     </>
   );

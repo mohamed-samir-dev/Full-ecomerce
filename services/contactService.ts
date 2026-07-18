@@ -11,7 +11,14 @@ export const contactService = {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send message');
+      let errorMessage = 'Failed to send message';
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorData.error || errorMessage;
+      } catch {
+        errorMessage = `Error ${response.status}: ${response.statusText}`;
+      }
+      throw new Error(errorMessage);
     }
 
     return response.json();

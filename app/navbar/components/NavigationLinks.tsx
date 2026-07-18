@@ -23,13 +23,13 @@ export const NavigationLinks = ({ isArabic, isDarkMode, isMobile = false, isTabl
   const displayLinks = (mounted && isArabic && !isMobile) ? [...links].reverse() : links;
 
   const containerClass = isMobile 
-    ? 'space-y-1' 
+    ? `space-y-1 ${isArabic ? 'dir-rtl' : ''}` 
     : isTablet
-    ? `flex items-center gap-4`
+    ? `flex items-center gap-4 ${isArabic ? 'flex-row-reverse' : ''}`
     : `hidden lg:flex items-center justify-center gap-8`;
 
   const linkClass = isMobile
-    ? `flex items-center px-3 py-2.5 text-base font-medium rounded-lg transition-colors cursor-pointer ${
+    ? `flex items-center w-full ${isArabic ? 'flex-row-reverse' : ''} px-3 py-2.5 text-base font-medium rounded-lg transition-colors cursor-pointer ${
         isDarkMode 
           ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -47,7 +47,7 @@ export const NavigationLinks = ({ isArabic, isDarkMode, isMobile = false, isTabl
       }`;
 
   return (
-    <div className={containerClass}>
+    <div className={containerClass} dir={isMobile && isArabic ? 'rtl' : undefined}>
       {displayLinks.map((link) => (
         <Link key={link.href} href={link.href} className={linkClass} onClick={onLinkClick}>
           {String(link.label)}

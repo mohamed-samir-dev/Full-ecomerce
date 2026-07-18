@@ -3,7 +3,6 @@ export interface RegisterFormData {
   lastName: string;
   email: string;
   phone: string;
-  dateOfBirth: string;
   password: string;
   confirmPassword: string;
   agreeToTerms: boolean;
@@ -22,16 +21,8 @@ export interface RegisterResponse {
   message?: string;
 }
 export interface RegisterFormProps {
-  formData: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    dateOfBirth: string;
-    password: string;
-    confirmPassword: string;
-    agreeToTerms: boolean;
-  };
+  formData: RegisterFormData;
+  emailError: string;
   showPassword: boolean;
   showConfirmPassword: boolean;
   loading: boolean;

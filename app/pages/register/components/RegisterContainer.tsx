@@ -16,12 +16,12 @@ export default function RegisterContainer() {
     showConfirmPassword,
     loading,
     error,
+    emailError,
     handleChange,
     handleSubmit,
     setShowPassword,
     setShowConfirmPassword,
   } = useRegisterForm();
-
   return (
     <div className={`min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 transition-colors duration-300 ${
       isDarkMode ? 'bg-[#0D0F12]' : 'bg-gray-50'
@@ -35,11 +35,12 @@ export default function RegisterContainer() {
           }`}>
             {t('register.title')}
           </h1>
-          
+
           <ErrorMessage message={error} />
-          
+
           <RegisterForm
             formData={formData}
+            emailError={emailError}
             showPassword={showPassword}
             showConfirmPassword={showConfirmPassword}
             loading={loading}
@@ -48,7 +49,7 @@ export default function RegisterContainer() {
             onShowConfirmPasswordToggle={() => setShowConfirmPassword(!showConfirmPassword)}
             onChange={handleChange}
           />
-          
+
           <div className="mt-4 sm:mt-5 md:mt-6 text-center">
             <Link href="/pages/login" className={`text-xs sm:text-sm cursor-pointer transition-colors ${
               isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'

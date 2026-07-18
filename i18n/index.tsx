@@ -302,9 +302,18 @@ const translations = {
     'login.email': 'Email',
     'login.password': 'Password',
     'login.rememberMe': 'Remember me',
+    'login.forgotPassword': 'Forgot password?',
     'login.loginButton': 'Login',
     'login.loggingIn': 'Logging in...',
     'login.noAccount': "Don't have an account? Register",
+    'login.continueWithGoogle': 'Continue with Google',
+    'login.or': 'or',
+    'forgotPassword.title': 'Forgot Password',
+    'forgotPassword.subtitle': 'Enter your email and we will send you a reset link',
+    'forgotPassword.sendButton': 'Send Reset Link',
+    'forgotPassword.sending': 'Sending...',
+    'forgotPassword.successMessage': 'If this email is registered, you will receive a reset link shortly.',
+    'forgotPassword.backToLogin': 'Back to Login',
     'register.title': 'Register',
     'register.firstName': 'First Name',
     'register.lastName': 'Last Name',
@@ -833,9 +842,18 @@ const translations = {
     'login.email': 'البريد الإلكتروني',
     'login.password': 'كلمة المرور',
     'login.rememberMe': 'تذكرني',
+    'login.forgotPassword': 'نسيت كلمة المرور؟',
     'login.loginButton': 'تسجيل الدخول',
     'login.loggingIn': 'جاري تسجيل الدخول...',
     'login.noAccount': 'ليس لديك حساب؟ سجل الآن',
+    'login.continueWithGoogle': 'المتابعة بـ Google',
+    'login.or': 'أو',
+    'forgotPassword.title': 'نسيت كلمة المرور',
+    'forgotPassword.subtitle': 'أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين',
+    'forgotPassword.sendButton': 'إرسال رابط إعادة التعيين',
+    'forgotPassword.sending': 'جاري الإرسال...',
+    'forgotPassword.successMessage': 'إذا كان هذا البريد مسجلاً، ستصلك رسالة إعادة التعيين قريباً.',
+    'forgotPassword.backToLogin': 'العودة لتسجيل الدخول',
     'register.title': 'إنشاء حساب',
     'register.firstName': 'الاسم الأول',
     'register.lastName': 'اسم العائلة',
@@ -1079,8 +1097,9 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   const { language } = useLanguage();
   const locale = language === 'AR' ? 'ar' : 'en';
 
-  const t = (key: string) => {
-    return translations[locale as keyof typeof translations][key as keyof typeof translations.en] || key;
+  const t = (key: string): string => {
+    const dict = translations[locale as keyof typeof translations] as Record<string, string>;
+    return dict[key] || key;
   };
 
   return (

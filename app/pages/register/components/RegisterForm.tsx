@@ -2,107 +2,119 @@
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import PasswordStrengthIndicator from './PasswordStrengthIndicator';
-import{RegisterFormProps}from '../types/register.types';
+import PasswordRules from './PasswordRules';
+import { RegisterFormProps } from '../types/register.types';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
-
+import { useCapsLock } from '@/app/hooks/useCapsLock';
 
 export default function RegisterForm({
   formData,
+  emailError,
   showPassword,
   showConfirmPassword,
   loading,
   onSubmit,
   onShowPasswordToggle,
   onShowConfirmPasswordToggle,
-  onChange
+  onChange,
 }: RegisterFormProps) {
   const { t, isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
+  const { capsLock, onKeyDown, onKeyUp } = useCapsLock();
+
   const inputClasses = `w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md transition-colors border ${
-    isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400 border-gray-700' : 'bg-gray-50 text-gray-900 placeholder-gray-500 border-gray-300'
+    isDarkMode
+      ? 'bg-[#0D0F12] text-white placeholder-gray-400 border-gray-700'
+      : 'bg-gray-50 text-gray-900 placeholder-gray-500 border-gray-300'
+  }`;
+
+  const emailBorderClass = emailError
+      ? 'border-red-500 focus:ring-red-400'
+      : '';
+
+  const passwordMatchBorder =
+    formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
+      ? 'border-green-500 focus:border-green-400'
+      : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
+      ? 'border-red-500 focus:border-red-400'
+      : isDarkMode
+      ? 'border-gray-700 focus:border-[#C7AB6C]'
+      : 'border-transparent focus:border-[#C7AB6C]';
+
+  const passwordInputClasses = `w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none ${
+    isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400' : 'bg-gray-50 text-gray-900 placeholder-gray-500'
+  } ${passwordMatchBorder}`;
+
+  const eyeBtnClasses = `absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 ${
+    isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
   }`;
 
   return (
     <form onSubmit={onSubmit} className="space-y-3 sm:space-y-4 md:space-y-5">
+      {/* Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
-        <div>
+        <input
+          name="firstName"
+          type="text"
+          required
+          className={inputClasses}
+          placeholder={t('register.firstName')}
+          value={formData.firstName}
+          onChange={onChange}
+        />
+        <input
+          name="lastName"
+          type="text"
+          required
+          className={inputClasses}
+          placeholder={t('register.lastName')}
+          value={formData.lastName}
+          onChange={onChange}
+        />
+      </div>
+
+      {/* Email with real-time status */}
+      <div>
+        <div className="relative">
           <input
-            name="firstName"
-            type="text"
+            name="email"
+            type="email"
             required
-            className={inputClasses}
-            placeholder={t('register.firstName')}
-            value={formData.firstName}
+            className={`${inputClasses} ${emailBorderClass}`}
+            placeholder={t('register.email')}
+            value={formData.email}
             onChange={onChange}
+            autoComplete="email"
           />
         </div>
-        <div>
-          <input
-            name="lastName"
-            type="text"
-            required
-            className={inputClasses}
-            placeholder={t('register.lastName')}
-            value={formData.lastName}
-            onChange={onChange}
-          />
-        </div>
+        {emailError && (
+          <p className="mt-1 text-xs text-red-500">
+            ❌ {emailError}
+          </p>
+        )}
       </div>
-      
-      <div>
-        <input
-          name="email"
-          type="email"
-          required
-          className={inputClasses}
-          placeholder={t('register.email')}
-          value={formData.email}
-          onChange={onChange}
-        />
-      </div>
-      
-      <div>
-        <input
-          name="phone"
-          type="tel"
-          required
-          className={inputClasses}
-          placeholder={t('register.phone')}
-          value={formData.phone}
-          onChange={onChange}
-          dir="ltr"
-        />
-      </div>
-      
-      <div>
-        <input
-          name="dateOfBirth"
-          type="date"
-          required
-          className={inputClasses}
-          placeholder={t('register.dateOfBirth')}
-          value={formData.dateOfBirth}
-          onChange={onChange}
-          max={new Date().toISOString().split('T')[0]}
-        />
-      </div>
-      
+
+      {/* Phone */}
+      <input
+        name="phone"
+        type="tel"
+        required
+        className={inputClasses}
+        placeholder={t('register.phone')}
+        value={formData.phone}
+        onChange={onChange}
+        dir="ltr"
+      />
+
+      {/* Password */}
       <div>
         <div className="relative">
           <input
             name="password"
             type={showPassword ? 'text' : 'password'}
             required
-            className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-all duration-300 focus:outline-none ${
-              isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400' : 'bg-gray-50 text-gray-900 placeholder-gray-500'
-            } ${
-              formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
-                ? 'border-green-500 focus:border-green-400'
-                : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
-                ? 'border-red-500 focus:border-red-400'
-                : isDarkMode ? 'border-gray-700 focus:border-[#C7AB6C]' : 'border-transparent focus:border-[#C7AB6C]'
-            }`}
+            className={passwordInputClasses}
             placeholder={t('register.password')}
             value={formData.password}
             onChange={onChange}
@@ -111,38 +123,38 @@ export default function RegisterForm({
             onPaste={(e) => e.preventDefault()}
             onDrag={(e) => e.preventDefault()}
             onDrop={(e) => e.preventDefault()}
+            onKeyDown={onKeyDown}
+            onKeyUp={onKeyUp}
             autoComplete="new-password"
           />
-          <button
-            type="button"
-            className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 transition-colors duration-200 z-10 ${
-              isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={onShowPasswordToggle}
-          >
-            {showPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
+          <button type="button" className={eyeBtnClasses} onClick={onShowPasswordToggle}>
+            {showPassword
+              ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+              : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
           </button>
         </div>
-        
+
+        {capsLock && (
+          <p className="mt-1 text-xs text-yellow-500">
+            ⚠️ {isArabic ? 'Caps Lock مفعّل' : 'Caps Lock is ON'}
+          </p>
+        )}
+
         {formData.password && (
-          <PasswordStrengthIndicator password={formData.password} />
+          <>
+            <PasswordRules password={formData.password} />
+            <PasswordStrengthIndicator password={formData.password} />
+          </>
         )}
       </div>
-      
+
+      {/* Confirm Password */}
       <div className="relative">
         <input
           name="confirmPassword"
           type={showConfirmPassword ? 'text' : 'password'}
           required
-          className={`w-full ${isArabic ? 'pl-10 sm:pl-12 pr-3 sm:pr-4' : 'pl-3 sm:pl-4 pr-10 sm:pr-12'} py-2 sm:py-2.5 md:py-3 text-sm sm:text-base rounded-md border-2 transition-colors ${
-            isDarkMode ? 'bg-[#0D0F12] text-white placeholder-gray-400' : 'bg-gray-50 text-gray-900 placeholder-gray-500'
-          } ${
-            formData.password && formData.confirmPassword && formData.password === formData.confirmPassword
-              ? 'border-green-500 focus:border-green-400'
-              : formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword
-              ? 'border-red-500 focus:border-red-400'
-              : isDarkMode ? 'border-gray-700 focus:border-[#C7AB6C]' : 'border-transparent focus:border-[#C7AB6C]'
-          }`}
+          className={passwordInputClasses}
           placeholder={t('register.confirmPassword')}
           value={formData.confirmPassword}
           onChange={onChange}
@@ -153,17 +165,14 @@ export default function RegisterForm({
           onDrop={(e) => e.preventDefault()}
           autoComplete="new-password"
         />
-        <button
-          type="button"
-          className={`absolute ${isArabic ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 transform -translate-y-1/2 z-10 transition-colors ${
-            isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
-          }`}
-          onClick={onShowConfirmPasswordToggle}
-        >
-          {showConfirmPassword ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" /> : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
+        <button type="button" className={eyeBtnClasses} onClick={onShowConfirmPasswordToggle}>
+          {showConfirmPassword
+            ? <EyeSlashIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+            : <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />}
         </button>
       </div>
-      
+
+      {/* Terms */}
       <div className={`flex items-start ${isArabic ? 'space-x-reverse' : ''} space-x-2 sm:space-x-3 md:space-x-4`}>
         <input
           name="agreeToTerms"
@@ -177,10 +186,13 @@ export default function RegisterForm({
         <label className={`text-xs sm:text-sm md:text-base leading-relaxed transition-colors ${
           isDarkMode ? 'text-gray-400' : 'text-gray-600'
         }`}>
-          {t('register.agreeToTerms')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.termsOfService')}</span> {t('register.and')} <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.privacyPolicy')}</span>
+          {t('register.agreeToTerms')}{' '}
+          <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.termsOfService')}</span>{' '}
+          {t('register.and')}{' '}
+          <span className="text-[#C7AB6C] cursor-pointer hover:underline">{t('register.privacyPolicy')}</span>
         </label>
       </div>
-      
+
       <button
         type="submit"
         disabled={loading || !formData.agreeToTerms}

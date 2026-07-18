@@ -12,7 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (user: User, token: string) => void;
+  login: (user: User, token: string, rememberMe?: boolean) => void;
   logout: () => void;
 }
 
@@ -23,17 +23,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return null;
     const savedUser = localStorage.getItem('user');
     const loginTime = localStorage.getItem('loginTime');
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
     
     if (savedUser && loginTime) {
       const currentTime = new Date().getTime();
-      const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+      const expiry = rememberMe ? 30 * 24 * 60 * 60 * 1000 : 3 * 24 * 60 * 60 * 1000;
       
-      if (currentTime - parseInt(loginTime) < threeDaysInMs) {
+      if (currentTime - parseInt(loginTime) < expiry) {
         return JSON.parse(savedUser);
       } else {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('loginTime');
+        localStorage.removeItem('rememberMe');
       }
     }
     return null;
@@ -43,25 +45,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return null;
     const savedToken = localStorage.getItem('token');
     const loginTime = localStorage.getItem('loginTime');
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
     
     if (savedToken && loginTime) {
       const currentTime = new Date().getTime();
-      const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+      const expiry = rememberMe ? 30 * 24 * 60 * 60 * 1000 : 3 * 24 * 60 * 60 * 1000;
       
-      if (currentTime - parseInt(loginTime) < threeDaysInMs) {
+      if (currentTime - parseInt(loginTime) < expiry) {
         return savedToken;
       }
     }
     return null;
   });
 
-  const login = (user: User, token: string) => {
+  const login = (user: User, token: string, rememberMe: boolean = false) => {
     setUser(user);
     setToken(token);
     const loginTime = new Date().getTime();
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     localStorage.setItem('loginTime', loginTime.toString());
+    localStorage.setItem('rememberMe', rememberMe.toString());
     localStorage.removeItem('cart');
   };
 
@@ -71,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('loginTime');
+    localStorage.removeItem('rememberMe');
   };
 
   return (

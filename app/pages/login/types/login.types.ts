@@ -16,11 +16,13 @@ export interface LoginResponse {
   user: User;
   message?: string;
 }
+
 export interface LoginFormProps {
   formData: { email: string; password: string };
   showPassword: boolean;
   rememberMe: boolean;
   loading: boolean;
+  emailError: string;
   onSubmit: (e: React.FormEvent) => void;
   onShowPasswordToggle: () => void;
   onRememberMeChange: (checked: boolean) => void;

@@ -39,12 +39,3 @@ export const loginUser = async (
   return data;
 };
 
-export const saveAuthData = (
-  token: string,
-  user: User,
-) => {
-  const loginTime = new Date().getTime();
-  localStorage.setItem("token", token);
-  localStorage.setItem("user", JSON.stringify(user));
-  localStorage.setItem("loginTime", loginTime.toString());
-};

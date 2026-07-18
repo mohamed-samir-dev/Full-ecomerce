@@ -44,12 +44,12 @@ export default function Contact() {
         keywordsAr={['اتصل بنا', 'خدمة العملاء', 'دعم', 'تواصل']}
         keywordsEn={['contact us', 'customer service', 'support', 'get in touch']}
       />
-      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#141414]' : 'bg-[#F5F0EA]'}`} dir={isArabic ? 'rtl' : 'ltr'}>
       <ContactHero />
       <ContactCards />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 pb-12 sm:pb-16 lg:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 pb-16 sm:pb-20 lg:pb-24">
           <div className="lg:col-span-3">
             <ContactForm 
               formData={formData}

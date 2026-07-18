@@ -1,29 +1,66 @@
+'use client';
+import { motion } from 'framer-motion';
 import { useTranslation } from '@/i18n';
 import { useTheme } from '@/context/ThemeContext';
+import { MdOutlineEmail } from 'react-icons/md';
+import { BsTelephone } from 'react-icons/bs';
+import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { LuClock3 } from 'react-icons/lu';
 
 export default function ContactCards() {
-  const { t } = useTranslation();
+  const { t, isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
-  
+
   const cards = [
-    { icon: '📧', titleKey: 'contact.cards.email', infoKey: 'contact.cards.emailInfo' },
-    { icon: '📞', titleKey: 'contact.cards.phone', infoKey: 'contact.cards.phoneInfo' },
-    { icon: '📍', titleKey: 'contact.cards.location', infoKey: 'contact.cards.locationInfo' },
-    { icon: '⏰', titleKey: 'contact.cards.hours', infoKey: 'contact.cards.hoursInfo' }
+    { icon: MdOutlineEmail, titleKey: 'contact.cards.email', infoKey: 'contact.cards.emailInfo', color: '#C9A84C' },
+    { icon: BsTelephone, titleKey: 'contact.cards.phone', infoKey: 'contact.cards.phoneInfo', color: '#C9A84C' },
+    { icon: HiOutlineLocationMarker, titleKey: 'contact.cards.location', infoKey: 'contact.cards.locationInfo', color: '#C9A84C' },
+    { icon: LuClock3, titleKey: 'contact.cards.hours', infoKey: 'contact.cards.hoursInfo', color: '#C9A84C' },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 -mt-8 sm:-mt-12 lg:-mt-16 relative z-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 lg:mb-20">
-        {cards.map((card) => (
-          <div key={card.titleKey} className={`p-6 sm:p-8 rounded-2xl text-center shadow-xl hover:scale-105 transition-all duration-300 ${isDarkMode ? 'bg-[#1F2329]' : 'bg-white'}`}>
-            <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-[#B39E7A]/10 flex items-center justify-center">
-              <span className="text-2xl sm:text-3xl">{card.icon}</span>
-            </div>
-            <h3 className={`text-sm sm:text-base font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{t(card.titleKey)}</h3>
-            <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t(card.infoKey)}</p>
-          </div>
-        ))}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14" dir={isArabic ? 'rtl' : 'ltr'}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {cards.map((card, i) => {
+          const Icon = card.icon;
+          return (
+            <motion.div
+              key={card.titleKey}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              whileHover={{ y: -4 }}
+              className={`relative flex items-center gap-4 p-5 rounded-2xl overflow-hidden transition-all duration-300 ${
+                isDarkMode ? 'bg-[#1F2329]' : 'bg-white'
+              } shadow-lg`}
+            >
+              {/* Left accent bar */}
+              <div
+                className={`absolute top-0 ${isArabic ? 'right-0' : 'left-0'} w-1 h-full rounded-full`}
+                style={{ background: 'linear-gradient(to bottom, #8B6914, #C9A84C)' }}
+              />
+
+              {/* Icon */}
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: '#C9A84C15' }}
+              >
+                <Icon size={22} style={{ color: '#C9A84C' }} />
+              </div>
+
+              {/* Text */}
+              <div className="min-w-0">
+                <p className={`text-xs font-bold uppercase tracking-wider mb-0.5 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>
+                  {t(card.titleKey)}
+                </p>
+                <p className={`text-sm font-semibold truncate ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+                  {t(card.infoKey)}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

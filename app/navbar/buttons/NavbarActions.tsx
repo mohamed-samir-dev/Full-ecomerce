@@ -20,7 +20,7 @@ export default function NavbarActions({
   const spacing = size === 'sm' ? 'gap-3' : 'gap-4';
   
   return (
-    <div className={`flex items-center ${spacing} overflow-visible ${isArabic ? 'flex-row-reverse' : ''}`}>
+    <div className={`flex items-center ${spacing} overflow-visible`}>
       <LanguageToggle 
         language={language}
         toggleLanguage={toggleLanguage}

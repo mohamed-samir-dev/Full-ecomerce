@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',
-    qualities: [70, 75, 80],
+    qualities: [40, 65, 70, 75, 80, 85],
   },
   compress: true,
   poweredByHeader: false,
@@ -32,11 +32,9 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons', '@mui/material', '@mui/icons-material'],
-    optimizeCss: true,
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons'],
   },
   transpilePackages: [],
-  output: 'standalone',
   modularizeImports: {
     'react-icons': {
       transform: 'react-icons/{{member}}',

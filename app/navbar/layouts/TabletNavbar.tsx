@@ -19,7 +19,7 @@ export default function TabletNavbar({
     <div className="hidden md:block lg:hidden overflow-visible">
       {/* First Row: Logo and Icons */}
       <div className={`flex items-center justify-between h-14 overflow-visible`}>
-        <div className={`flex items-center ${isArabic ? 'order-last space-x-reverse space-x-3' : 'space-x-3'}`}>
+        <div className="flex items-center space-x-3">
           <Logo isArabic={isArabic} isDarkMode={isDarkMode} />
         </div>
         
@@ -38,7 +38,7 @@ export default function TabletNavbar({
       
       {/* Second Row: Search and Navigation Links */}
       <div className={`flex items-center justify-between h-12 border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-        <div className={`flex-1 max-w-sm ${isArabic ? 'order-last' : ''}`}>
+        <div className="flex-1 max-w-sm">
           <SearchBar 
             isArabic={isArabic}
             isDarkMode={isDarkMode}

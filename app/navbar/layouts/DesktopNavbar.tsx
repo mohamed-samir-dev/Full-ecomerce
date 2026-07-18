@@ -16,7 +16,7 @@ export default function DesktopNavbar({
   logout
 }: DesktopNavbarProps) {
   return (
-    <div className={`hidden lg:flex items-center h-16 gap-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
+    <div className="hidden lg:flex items-center h-16 gap-8">
       <div className="flex items-center min-w-fit gap-3">
         <Logo isArabic={isArabic} isDarkMode={isDarkMode} />
       </div>

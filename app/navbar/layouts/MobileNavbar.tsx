@@ -18,11 +18,11 @@ export default function MobileNavbar({
 }: MobileNavbarProps) {
   return (
     <div className="md:hidden flex items-center justify-between h-14">
-      <div className={`flex items-center ${isArabic ? 'order-last space-x-reverse space-x-2' : 'space-x-2'}`}>
+      <div className="flex items-center space-x-2">
         <Logo isArabic={isArabic} isDarkMode={isDarkMode} />
       </div>
       
-      <div className={`flex items-center ${isArabic ? 'flex-row-reverse gap-2' : 'space-x-2'}`}>
+      <div className="flex items-center gap-2">
         <div className="min-[301px]:block hidden">
           <UserMenu 
             user={user}

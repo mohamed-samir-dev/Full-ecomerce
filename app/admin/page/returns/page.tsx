@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { RotateCcw, Search, ChevronDown, ChevronUp, CheckCircle2, XCircle, Clock, PackageCheck, Loader2 } from "lucide-react";
@@ -47,20 +47,18 @@ export default function AdminReturnsPage() {
   const [updating, setUpdating] = useState<string | null>(null);
   const [adminNotes, setAdminNotes] = useState<Record<string, string>>({});
 
-  const fetchReturns = useCallback(async () => {
+  useEffect(() => {
+    let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
-    try {
-      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-      const url = statusFilter !== "all" ? `/api/returns?status=${statusFilter}` : "/api/returns";
-      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-      const data = await res.json();
-      if (data.success) setReturns(data.data);
-    } finally {
-      setLoading(false);
-    }
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    const url = statusFilter !== "all" ? `/api/returns?status=${statusFilter}` : "/api/returns";
+    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => res.json())
+      .then((data) => { if (!cancelled && data.success) setReturns(data.data); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
   }, [statusFilter]);
-
-  useEffect(() => { fetchReturns(); }, [fetchReturns]);
 
   const updateStatus = async (id: string, status: string) => {
     setUpdating(id);

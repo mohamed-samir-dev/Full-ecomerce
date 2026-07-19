@@ -45,7 +45,7 @@ export default function Cart() {
         keywordsEn={['shopping cart', 'purchases', 'cart']}
       />
       <div className={`min-h-screen py-4 sm:py-6 lg:py-8 ${
-      isDarkMode ? 'bg-slate-900' : 'bg-slate-50'
+      isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
     }`} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <CartHeader 

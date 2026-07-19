@@ -1,6 +1,6 @@
 'use client';
 
-import {OrderSummaryProps}from '../../types/cart'
+import { OrderSummaryProps } from '../../types/cart';
 import SummaryHeader from './components/SummaryHeader';
 import PriceBreakdown from './components/PriceBreakdown';
 import PromoCode from './components/PromoCode';
@@ -17,14 +17,17 @@ export default function OrderSummary({
   finalTotal,
   deliveryDateStr,
   user,
-  onClearCart
+  onClearCart,
 }: OrderSummaryProps) {
   return (
-    <div className={`rounded-xl sm:rounded-2xl border-2 p-4 sm:p-5 md:p-6 lg:p-8 h-fit lg:sticky lg:top-6 shadow-xl ${
-      isDarkMode ? 'bg-slate-800 border-slate-700 shadow-slate-900/50' : 'bg-white border-slate-200 shadow-slate-200/50'
-    }`}>
+    <div
+      className={`rounded-2xl border p-5 sm:p-6 h-fit lg:sticky lg:top-6 shadow-xl transition-all ${
+        isDarkMode
+          ? 'bg-[#1F2329] border-white/5 hover:border-[#C9A84C]/20'
+          : 'bg-white border-black/5 hover:border-[#C9A84C]/20'
+      }`}
+    >
       <SummaryHeader isDarkMode={isDarkMode} isArabic={isArabic} />
-      
       <PriceBreakdown
         isDarkMode={isDarkMode}
         isArabic={isArabic}
@@ -36,8 +39,7 @@ export default function OrderSummary({
         finalTotal={finalTotal}
         deliveryDateStr={deliveryDateStr}
       />
-      
-      <div className="space-y-2.5 sm:space-y-3 md:space-y-4 mt-4 sm:mt-5 md:mt-6 lg:mt-8">
+      <div className="space-y-3 mt-6">
         <PromoCode isDarkMode={isDarkMode} isArabic={isArabic} />
         <CheckoutButton isDarkMode={isDarkMode} isArabic={isArabic} user={user} onClearCart={onClearCart} />
       </div>

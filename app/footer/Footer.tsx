@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from 'react';
+import Link from 'next/link';
 import { AboutUs, CustomerService, QuickLinks, SocialMedia } from "./sections";
 import { useTranslation } from '@/i18n';
-import { DemoSiteModal } from '@/app/components/DemoSiteModal';
 import { Crown } from 'lucide-react';
 
 const accentColor = '#C9A84C';
@@ -11,7 +10,6 @@ const accentGradient = 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)';
 
 export function Footer() {
   const { t, isArabic } = useTranslation();
-  const [showModal, setShowModal] = useState(false);
 
   return (
     <footer className="relative bg-[#0D0D0D] text-white overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
@@ -70,23 +68,21 @@ export function Footer() {
             {t('footer.copyright').replace('{{year}}', new Date().getFullYear().toString())}
           </p>
           <div className="flex gap-6">
-            <button
-              onClick={() => setShowModal(true)}
+            <Link
+              href="/pages/privacy-policy"
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
               {t('footer.legal.privacy')}
-            </button>
-            <button
-              onClick={() => setShowModal(true)}
+            </Link>
+            <Link
+              href="/pages/terms-of-service"
               className="text-xs text-white/30 hover:text-white/70 transition-colors"
             >
               {t('footer.legal.terms')}
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-
-      <DemoSiteModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </footer>
   );
 }

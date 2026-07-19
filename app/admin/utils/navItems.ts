@@ -9,5 +9,6 @@ export const getNavItems = (isArabic: boolean) => [
   { href: '/admin/promo-codes', icon: '🎟️', label: isArabic ? 'أكواد الخصم' : 'Promo Codes' },
   { href: '/admin/page/contacts', icon: '✉️', label: isArabic ? 'الرسائل' : 'Contacts' },
   { href: '/admin/page/customer-says', icon: '💬', label: isArabic ? 'آراء العملاء' : 'Customer Says' },
-  { href: '/admin/page/reviews', icon: '⭐', label: isArabic ? 'التقييمات' : 'Reviews' }
+  { href: '/admin/page/reviews', icon: '⭐', label: isArabic ? 'التقييمات' : 'Reviews' },
+  { href: '/admin/page/returns', icon: '↩️', label: isArabic ? 'المرتجعات' : 'Returns' }
 ];

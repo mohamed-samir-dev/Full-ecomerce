@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
       transform: 'react-icons/{{member}}',
     },
   },
+  rewrites: async () => [
+    {
+      source: '/api/backend/:path*',
+      destination: 'https://backend-for-global-shop-production-a385.up.railway.app/api/:path*',
+    },
+  ],
   headers: async () => [
     {
       source: '/:path*',

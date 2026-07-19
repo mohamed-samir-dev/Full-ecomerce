@@ -1,25 +1,14 @@
+import { FormInputProps } from '../../types/checkout';
 
-import {FormInputProps}from '../../types/checkout'
-export default function FormInput({ 
-  label, 
-  type = 'text', 
-  required = false, 
-  value, 
-  onChange, 
-  placeholder, 
-  icon,
-  helperText,
-  pattern,
-  maxLength,
-  onKeyPress,
-  inputMode,
-  isDarkMode
+export default function FormInput({
+  label, type = 'text', required = false, value, onChange,
+  placeholder, icon, helperText, pattern, maxLength, onKeyPress, inputMode, isDarkMode
 }: FormInputProps) {
   return (
     <div>
-      <label className={`block text-sm font-semibold mb-2 flex items-center ${isDarkMode ? 'text-slate-300' : 'text-gray-700'}`}>
+      <label className={`flex items-center gap-1.5 text-sm font-semibold mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
         {icon}
-        {label} {required && '*'}
+        {label} {required && <span style={{ color: '#C9A84C' }}>*</span>}
       </label>
       <input
         type={type}
@@ -31,9 +20,13 @@ export default function FormInput({
         pattern={pattern}
         maxLength={maxLength}
         inputMode={inputMode}
-        className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-xl focus:outline-none focus:border-blue-500 transition-colors ${isDarkMode ? 'bg-[#191C21] border-slate-600 text-white placeholder-slate-400' : 'bg-white border-gray-200 text-black'}`}
+        className={`w-full px-4 py-3 text-sm rounded-xl border outline-none transition-all focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 ${
+          isDarkMode
+            ? 'bg-[#191C21] border-white/10 text-white placeholder-gray-500'
+            : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
+        }`}
       />
-      {helperText && <p className={`text-xs mt-2 ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>{helperText}</p>}
+      {helperText && <p className={`text-xs mt-1.5 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{helperText}</p>}
     </div>
   );
 }

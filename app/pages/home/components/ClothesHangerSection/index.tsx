@@ -85,12 +85,6 @@ export default function ClothesHangerSection() {
             >
               {String(t('home.clothes.cta'))}
             </Link>
-            <Link
-              href="/pages/shop"
-              className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm border border-white/30 text-white/90 backdrop-blur-sm transition-all duration-200 hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
-            >
-              {String(t('home.hero.explore'))}
-            </Link>
           </div>
         </div>
       </div>

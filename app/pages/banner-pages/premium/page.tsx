@@ -24,7 +24,7 @@ export default function PremiumPage() {
     totalPages,
     onPageChange,
     totalProducts
-  } = useFilteredProducts({ thirdtype: 'premium' });
+  } = useFilteredProducts({ thirdtype: 'Premium' });
 
   if (loading) {
     return (

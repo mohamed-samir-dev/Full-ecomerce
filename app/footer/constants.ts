@@ -17,10 +17,10 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const customerServices: CustomerService[] = [
-  { href: "/contact", labelKey: "footer.customerService.contact", icon: PhoneIcon },
-  { href: "/support", labelKey: "footer.customerService.support", icon: MailIcon },
-  { href: "/shipping", labelKey: "footer.customerService.shipping", icon: MapPinIcon },
-  { href: "/returns", labelKey: "footer.customerService.returns" }
+  { href: "/pages/contact", labelKey: "footer.customerService.contact", icon: PhoneIcon },
+  { href: "/pages/contact", labelKey: "footer.customerService.support", icon: MailIcon },
+  { href: "/pages/shipping", labelKey: "footer.customerService.shipping", icon: MapPinIcon },
+  { href: "/pages/returns", labelKey: "footer.customerService.returns" }
 ];
 
 export const quickLinksData = [

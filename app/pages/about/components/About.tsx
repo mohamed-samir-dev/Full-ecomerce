@@ -229,6 +229,70 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── EASY RETURNS ── */}
+      <section className={`py-12 sm:py-16 lg:py-20 ${isDarkMode ? 'bg-[#1A1A1A]' : 'bg-white'}`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...fadeUp()} className="text-center mb-8 sm:mb-12">
+            <div className="inline-flex items-center gap-2 mb-3 sm:mb-4" style={{ color: gold }}>
+              <HiOutlineSparkles size={16} />
+              <span className="text-[11px] sm:text-xs font-bold tracking-widest uppercase">
+                {isArabic ? 'سياسة الإرجاع' : 'Returns Policy'}
+              </span>
+              <HiOutlineSparkles size={16} />
+            </div>
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              {isArabic ? 'إرجاع سهل وبسيط' : 'Easy & Hassle-Free Returns'}
+            </h2>
+            <p className={`max-w-xl mx-auto text-sm sm:text-base ${isDarkMode ? 'text-white/55' : 'text-gray-500'}`}>
+              {isArabic
+                ? 'مش عاجبك المنتج؟ مفيش مشكلة — بنضمن لك تجربة إرجاع سلسة وسريعة بدون أي تعقيدات'
+                : "Not satisfied? No problem — we guarantee a smooth and fast return experience with zero hassle"}
+            </p>
+            <div className="flex justify-center mt-4">
+              <div className="h-[2px] w-16 rounded-full" style={{ background: goldGradient }} />
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              {
+                step: isArabic ? '١' : '1',
+                title: isArabic ? 'تواصل معنا' : 'Contact Us',
+                desc: isArabic ? 'تواصل مع خدمة العملاء خلال ١٤ يوم من استلام طلبك' : 'Reach out to customer support within 14 days of receiving your order',
+              },
+              {
+                step: isArabic ? '٢' : '2',
+                title: isArabic ? 'أرسل المنتج' : 'Ship It Back',
+                desc: isArabic ? 'ابعت المنتج في حالته الأصلية وهنتكفل بباقي الإجراءات' : 'Send the product back in its original condition and we handle the rest',
+              },
+              {
+                step: isArabic ? '٣' : '3',
+                title: isArabic ? 'استرداد فوري' : 'Instant Refund',
+                desc: isArabic ? 'هتستلم استرداد كامل لأموالك أو استبدال فوري حسب اختيارك' : 'Receive a full refund or instant exchange — your choice',
+              },
+            ].map((s, i) => (
+              <motion.div
+                key={i}
+                {...fadeUp(i * 0.1)}
+                className={`relative rounded-xl sm:rounded-2xl p-5 sm:p-6 border text-center group transition-all duration-300 hover:-translate-y-2 ${
+                  isDarkMode ? 'bg-[#1F1F1F] border-white/8 hover:border-[#C9A84C]/30' : 'bg-[#FAFAF8] border-gray-100 hover:border-[#C9A84C]/40'
+                }`}
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black text-black mx-auto mb-4"
+                  style={{ background: goldGradient }}
+                >
+                  {s.step}
+                </div>
+                <h3 className={`font-bold text-sm sm:text-base mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{s.title}</h3>
+                <p className={`text-xs sm:text-sm leading-relaxed ${isDarkMode ? 'text-white/50' : 'text-gray-500'}`}>{s.desc}</p>
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500 rounded-b-2xl" style={{ background: goldGradient }} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── BOTTOM CTA BANNER ── */}
       <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'https://backend-for-global-shop-production-a385.up.railway.app/api';
+const API_URL = '/api/backend';
 
 export interface Product {
   _id: string;

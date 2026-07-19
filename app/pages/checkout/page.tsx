@@ -14,27 +14,11 @@ export default function CheckoutPage() {
   const { t, isArabic } = useTranslation();
   const { isDarkMode } = useTheme();
   const {
-    user,
-    items,
-    itemCount,
-    currentStep,
-    setCurrentStep,
-    isLoading,
-    shippingAddress,
-    setShippingAddress,
-    paymentMethod,
-    setPaymentMethod,
-    notes,
-    setNotes,
-    governorate,
-    setGovernorate,
-    handleAddressSubmit,
-    handleOrderSubmit,
-    subtotal,
-    shipping,
-    tax,
-    finalTotal,
-    deliveryDateStr
+    user, items, itemCount, currentStep, setCurrentStep, isLoading,
+    shippingAddress, setShippingAddress, paymentMethod, setPaymentMethod,
+    notes, setNotes, governorate, setGovernorate,
+    handleAddressSubmit, handleOrderSubmit,
+    subtotal, shipping, tax, finalTotal, deliveryDateStr
   } = useCheckoutPage();
 
   const GOVERNORATES = [
@@ -69,17 +53,16 @@ export default function CheckoutPage() {
 
   if (!user || itemCount === 0) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#252525]' : 'bg-slate-50'}`}>
-        <motion.div 
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
+        <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="rounded-full h-12 w-12 border-4 border-t-transparent"
+          style={{ borderColor: '#C9A84C', borderTopColor: 'transparent' }}
         />
       </div>
     );
   }
-
-
 
   return (
     <>
@@ -91,63 +74,79 @@ export default function CheckoutPage() {
         keywordsAr={['إتمام الطلب', 'دفع', 'شحن', 'شراء']}
         keywordsEn={['checkout', 'payment', 'shipping', 'purchase']}
       />
-      <div className={`min-h-screen py-6 sm:py-8 md:py-12 ${isDarkMode ? 'bg-[#252525]' : 'bg-linear-to-br from-blue-50 via-white to-purple-50'}`} dir={isArabic ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-6 sm:mb-8 md:mb-12"
-        >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            {t('checkout.title')}
-          </h1>
-          <p className={`text-sm sm:text-base ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>{t('checkout.subtitle')}</p>
-        </motion.div>
-        
-        <CheckoutProgress currentStep={currentStep} isDarkMode={isDarkMode} />
+      <div
+        className={`min-h-screen py-8 sm:py-10 ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}
+        dir={isArabic ? 'rtl' : 'ltr'}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 sm:mb-10"
+          >
+            <div className={`flex items-center gap-3 mb-1 ${isArabic ? 'flex-row-reverse' : ''}`}>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
+              >
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+              </div>
+              <h1 className={`text-2xl sm:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {t('checkout.title')}
+              </h1>
+            </div>
+            <p className={`text-sm mt-2 ${isArabic ? 'text-right' : ''} ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              {t('checkout.subtitle')}
+            </p>
+            <div className="mt-5 h-px w-full" style={{ background: 'linear-gradient(to right, #C9A84C40, transparent)' }} />
+          </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-10 sm:mt-10 md:mt-16">
-          <div className="lg:col-span-2">
-            <AnimatePresence mode="wait">
-              {currentStep === 1 && (
-                <ShippingForm
-                  shippingAddress={shippingAddress}
-                  setShippingAddress={setShippingAddress}
-                  governorate={governorate}
-                  setGovernorate={setGovernorate}
-                  governorates={GOVERNORATES}
-                  onSubmit={handleAddressSubmit}
-                  isDarkMode={isDarkMode}
-                />
-              )}
+          <CheckoutProgress currentStep={currentStep} isDarkMode={isDarkMode} />
 
-              {currentStep === 2 && (
-                <PaymentForm
-                  paymentMethod={paymentMethod}
-                  setPaymentMethod={setPaymentMethod}
-                  notes={notes}
-                  setNotes={setNotes}
-                  isLoading={isLoading}
-                  onBack={() => setCurrentStep(1)}
-                  onSubmit={handleOrderSubmit}
-                  isDarkMode={isDarkMode}
-                />
-              )}
-            </AnimatePresence>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mt-8">
+            <div className="lg:col-span-2">
+              <AnimatePresence mode="wait">
+                {currentStep === 1 && (
+                  <ShippingForm
+                    shippingAddress={shippingAddress}
+                    setShippingAddress={setShippingAddress}
+                    governorate={governorate}
+                    setGovernorate={setGovernorate}
+                    governorates={GOVERNORATES}
+                    onSubmit={handleAddressSubmit}
+                    isDarkMode={isDarkMode}
+                  />
+                )}
+                {currentStep === 2 && (
+                  <PaymentForm
+                    paymentMethod={paymentMethod}
+                    setPaymentMethod={setPaymentMethod}
+                    notes={notes}
+                    setNotes={setNotes}
+                    isLoading={isLoading}
+                    onBack={() => setCurrentStep(1)}
+                    onSubmit={handleOrderSubmit}
+                    isDarkMode={isDarkMode}
+                  />
+                )}
+              </AnimatePresence>
+            </div>
+
+            <OrderSummary
+              items={items}
+              itemCount={itemCount}
+              subtotal={subtotal}
+              shipping={shipping}
+              tax={tax}
+              finalTotal={finalTotal}
+              deliveryDateStr={deliveryDateStr}
+              isDarkMode={isDarkMode}
+            />
           </div>
-
-          <OrderSummary 
-            items={items}
-            itemCount={itemCount}
-            subtotal={subtotal}
-            shipping={shipping}
-            tax={tax}
-            finalTotal={finalTotal}
-            deliveryDateStr={deliveryDateStr}
-            isDarkMode={isDarkMode}
-          />
         </div>
-      </div>
       </div>
     </>
   );

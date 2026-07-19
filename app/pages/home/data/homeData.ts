@@ -13,7 +13,7 @@ export const heroSlides: HeroSlide[] = [
     descriptionKey: 'home.hero.premiumSlideDescription',
     image: "/images/hero-2.png",
     buttonTextKey: 'home.hero.premiumButton',
-    buttonLink: "/pages/banner-pages/products"
+    buttonLink: "/pages/banner-pages/premium"
   },
   {
     titleKey: 'home.hero.summerBadge',

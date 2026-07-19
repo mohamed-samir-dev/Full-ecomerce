@@ -1,45 +1,46 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import {CheckoutButtonProps}from '../../../types/cart'
-
+import { CheckoutButtonProps } from '../../../types/cart';
 
 export default function CheckoutButton({ isDarkMode, isArabic, user, onClearCart }: CheckoutButtonProps) {
   return (
-    <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+    <div className="space-y-3">
       {user ? (
-        <Link 
+        <Link
           href="/pages/checkout"
-          className="w-full bg-linear-to-r from-blue-600 to-blue-700 text-white py-2.5 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-xs sm:text-sm md:text-base shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
+          className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 hover:shadow-lg active:scale-95 ${isArabic ? 'flex-row-reverse' : ''}`}
+          style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
         >
-          <LockClosedIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+          <LockClosedIcon className="w-4 h-4" />
           {isArabic ? 'إتمام الطلب' : 'Proceed to Checkout'}
         </Link>
       ) : (
-        <div className="space-y-2 sm:space-y-2.5 md:space-y-3">
-          <div className={`flex items-center justify-center gap-2 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl border-2 border-dashed ${isArabic ? 'flex-row-reverse' : ''} ${
-            isDarkMode ? 'border-slate-600 bg-slate-700/30 text-slate-300' : 'border-slate-300 bg-slate-50 text-slate-600'
-          }`}>
-            <LockClosedIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-xs sm:text-sm font-medium">
+        <div className="space-y-2.5">
+          <div
+            className={`flex items-center justify-center gap-2 p-3 rounded-xl border ${isArabic ? 'flex-row-reverse' : ''} ${
+              isDarkMode ? 'border-white/10 bg-white/3 text-gray-400' : 'border-gray-200 bg-gray-50 text-gray-500'
+            }`}
+          >
+            <LockClosedIcon className="w-4 h-4" />
+            <span className="text-xs font-medium">
               {isArabic ? 'يجب تسجيل الدخول للمتابعة' : 'Login required to checkout'}
             </span>
           </div>
-          <Link 
+          <Link
             href="/pages/login"
-            className={`w-full bg-linear-to-r from-blue-600 to-blue-700 text-white py-2.5 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-xs sm:text-sm md:text-base shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 hover:shadow-lg active:scale-95 ${isArabic ? 'flex-row-reverse' : ''}`}
+            style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
           >
-            <LockClosedIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <LockClosedIcon className="w-4 h-4" />
             {isArabic ? 'تسجيل الدخول للمتابعة' : 'Login to Continue'}
           </Link>
         </div>
       )}
-      
+
       <button
         onClick={onClearCart}
-        className={`w-full px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-4 border-2 rounded-lg sm:rounded-xl transition-all duration-300 font-semibold hover:scale-105 text-xs sm:text-sm md:text-base ${
-          isDarkMode 
-            ? 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-slate-500'
-            : 'border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400'
+        className={`w-full py-3 px-6 rounded-xl font-semibold text-sm border transition-all hover:border-red-400 hover:text-red-500 active:scale-95 ${
+          isDarkMode ? 'border-white/10 text-gray-400' : 'border-gray-200 text-gray-500'
         }`}
       >
         {isArabic ? 'إفراغ السلة' : 'Clear Cart'}

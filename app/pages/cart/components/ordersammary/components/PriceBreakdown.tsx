@@ -1,5 +1,5 @@
 import { TruckIcon } from '@heroicons/react/24/outline';
-import {PriceBreakdownProps}from '../../../types/cart'
+import { PriceBreakdownProps } from '../../../types/cart';
 
 export default function PriceBreakdown({
   isDarkMode,
@@ -10,80 +10,88 @@ export default function PriceBreakdown({
   shipping,
   tax,
   finalTotal,
-  deliveryDateStr
+  deliveryDateStr,
 }: PriceBreakdownProps) {
+  const row = (label: React.ReactNode, value: React.ReactNode) => (
+    <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
+      {label}
+      {value}
+    </div>
+  );
+
   return (
-    <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
-      <div className={`flex justify-between items-center pb-2 sm:pb-2.5 md:pb-3 border-b ${
-        isDarkMode ? 'border-slate-700' : 'border-slate-200'
-      } ${isArabic ? 'flex-row-reverse' : ''}`}>
-        <span className={`text-xs sm:text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-          {isArabic ? 'عدد المنتجات' : 'Items'} ({itemCount})
+    <div className="space-y-3">
+      {row(
+        <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          {isArabic ? `المنتجات (${itemsLength})` : `Products (${itemsLength})`}
+        </span>,
+        <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+          {itemCount} {isArabic ? (itemCount === 1 ? 'قطعة' : 'قطع') : (itemCount === 1 ? 'unit' : 'units')}
         </span>
-        <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          {isArabic ? `${itemsLength} ${itemsLength === 1 ? 'منتج' : 'منتجات'}` : `${itemsLength} ${itemsLength === 1 ? 'product' : 'products'}`}
-        </span>
-      </div>
-      
-      <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-        <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+      )}
+
+      {row(
+        <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
           {isArabic ? 'المجموع الفرعي' : 'Subtotal'}
+        </span>,
+        <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          {subtotal.toFixed(2)} {isArabic ? 'ج.م' : 'EGP'}
         </span>
-        <span className={`text-sm sm:text-base font-medium ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          ${subtotal.toFixed(2)}
-        </span>
-      </div>
-      
-      <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-        <div className="flex items-center gap-1.5">
-          <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+      )}
+
+      {row(
+        <div className={`flex items-center gap-1.5 ${isArabic ? 'flex-row-reverse' : ''}`}>
+          <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             {isArabic ? 'الشحن' : 'Shipping'}
           </span>
           {shipping === 0 && (
-            <span className="text-xs bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-medium">
-              {isArabic ? 'مؤهل' : 'Qualified'}
+            <span className="text-xs px-1.5 py-0.5 rounded-full font-medium text-emerald-600 bg-emerald-50">
+              {isArabic ? 'مجاني' : 'Free'}
             </span>
           )}
-        </div>
-        <span className={`text-sm sm:text-base font-medium ${
-          shipping === 0 ? 'text-emerald-600' : (isDarkMode ? 'text-white' : 'text-slate-900')
-        }`}>
-          {shipping === 0 ? (isArabic ? 'مجاني' : 'Free') : `$${shipping.toFixed(2)}`}
+        </div>,
+        <span className={`text-sm font-medium ${shipping === 0 ? 'text-emerald-500' : isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          {shipping === 0 ? (isArabic ? 'مجاني' : 'Free') : `${shipping.toFixed(2)} ${isArabic ? 'ج.م' : 'EGP'}`}
         </span>
-      </div>
-      
-      <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-        <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          {isArabic ? 'الضريبة' : 'Tax'} (5%)
+      )}
+
+      {row(
+        <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          {isArabic ? 'الضريبة (5%)' : 'Tax (5%)'}
+        </span>,
+        <span className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          {tax.toFixed(2)} {isArabic ? 'ج.م' : 'EGP'}
         </span>
-        <span className={`text-sm sm:text-base font-medium ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-          ${tax.toFixed(2)}
-        </span>
-      </div>
-      
-      <div className={`flex justify-between items-center py-2 sm:py-2.5 md:py-3 px-2.5 sm:px-3 md:px-4 rounded-lg ${isArabic ? 'flex-row-reverse' : ''} ${
-        isDarkMode ? 'bg-slate-700/50' : 'bg-blue-50'
-      }`}>
-        <div className={`flex items-center gap-1.5 ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <TruckIcon className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
-          <span className={`text-xs sm:text-sm font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+      )}
+
+      {/* Delivery */}
+      <div
+        className={`flex items-center justify-between p-3 rounded-xl ${isArabic ? 'flex-row-reverse' : ''}`}
+        style={{ background: isDarkMode ? '#C9A84C10' : '#C9A84C08' }}
+      >
+        <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+          <TruckIcon className="w-4 h-4" style={{ color: '#C9A84C' }} />
+          <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             {isArabic ? 'التسليم المتوقع' : 'Est. Delivery'}
           </span>
         </div>
-        <span className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+        <span className="text-xs font-semibold" style={{ color: '#C9A84C' }}>
           {deliveryDateStr}
         </span>
       </div>
-      
-      <div className={`border-t pt-2.5 sm:pt-3 md:pt-4 ${isDarkMode ? 'border-slate-700' : 'border-slate-200'}`}>
-        <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <span className={`text-sm sm:text-base md:text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            {isArabic ? 'المجموع' : 'Total'}
+
+      {/* Total */}
+      <div className="h-px w-full" style={{ background: 'linear-gradient(to right, #C9A84C40, transparent)' }} />
+      <div className={`flex justify-between items-center pt-1 ${isArabic ? 'flex-row-reverse' : ''}`}>
+        <span className={`text-base font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          {isArabic ? 'الإجمالي' : 'Total'}
+        </span>
+        <span className="text-xl font-bold" style={{ color: '#C9A84C' }}>
+          {finalTotal.toFixed(2)}
+          <span className={`text-xs font-normal ml-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+            {isArabic ? 'ج.م' : 'EGP'}
           </span>
-          <span className={`text-base sm:text-lg md:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            ${finalTotal.toFixed(2)}
-          </span>
-        </div>
+        </span>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CreditCard, Truck, Wallet, Lock, AlertCircle, Info } from 'lucide-react';
 import { useState } from 'react';
-import {PaymentFormProps}from '../types/checkout';
+import { PaymentFormProps } from '../types/checkout';
 import PaymentMethodOption from './paymentform/PaymentMethodOption';
 import CardDetailsForm from './paymentform/CardDetailsForm';
 import WalletDetailsForm from './paymentform/WalletDetailsForm';
@@ -9,122 +9,148 @@ import ShippingInfo from './paymentform/ShippingInfo';
 import OrderNotesSection from './paymentform/OrderNotesSection';
 import { useTranslation } from '@/i18n/hooks/useTranslation';
 
-export default function PaymentForm({ 
-  paymentMethod, 
-  setPaymentMethod, 
-  notes, 
-  setNotes, 
-  isLoading, 
-  onBack, 
-  onSubmit,
-  isDarkMode
+export default function PaymentForm({
+  paymentMethod, setPaymentMethod, notes, setNotes,
+  isLoading, onBack, onSubmit, isDarkMode
 }: PaymentFormProps) {
   const { t, isArabic } = useTranslation();
   const [cardDetails, setCardDetails] = useState({ number: '', name: '', expiry: '', cvv: '' });
   const [walletPhone, setWalletPhone] = useState('');
-  
+
   return (
     <motion.div
       key="step2"
-      initial={{ opacity: 0, x: 50 }}
+      initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      className="space-y-4 sm:space-y-6"
+      exit={{ opacity: 0, x: -30 }}
+      className="space-y-4"
     >
-      <div className={`rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border ${isDarkMode ? 'bg-[#191C21] border-slate-700' : 'bg-white border-gray-100'}`}>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
-          <div className="flex items-center">
-            <CreditCard className={`w-5 h-5 sm:w-6 sm:h-6 text-purple-600 ${isArabic ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`} />
-            <h2 className={`text-xl sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('checkout.paymentMethod')}</h2>
+      {/* Payment methods card */}
+      <div
+        className={`rounded-2xl border p-5 sm:p-6 ${
+          isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'
+        }`}
+      >
+        {/* Header */}
+        <div className={`flex items-center justify-between mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+              style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
+            >
+              <CreditCard className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <h2 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {t('checkout.paymentMethod')}
+              </h2>
+              <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                {isArabic ? 'اختر طريقة الدفع المناسبة' : 'Choose your preferred payment method'}
+              </p>
+            </div>
           </div>
-          <div className={`flex items-center gap-2 text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
-            <Lock className="w-3 h-3 sm:w-4 sm:h-4" />
+          <div className={`flex items-center gap-1.5 text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+            <Lock className="w-3.5 h-3.5" />
             <span>{t('checkout.sslEncrypted')}</span>
           </div>
         </div>
-        
-        <div className="space-y-3 sm:space-y-4">
+
+        <div className="h-px w-full mb-5" style={{ background: 'linear-gradient(to right, #C9A84C30, transparent)' }} />
+
+        {/* Methods */}
+        <div className="space-y-2.5">
           <PaymentMethodOption
-            id="cod"
-            value="cod"
-            label={t('checkout.cod')}
-            description={t('checkout.codDesc')}
-            icon={Truck}
-            badge={t('checkout.noFees')}
-            isSelected={paymentMethod === 'cod'}
-            onSelect={setPaymentMethod}
-            colorScheme="green"
-            isDarkMode={isDarkMode}
+            id="cod" value="cod"
+            label={t('checkout.cod')} description={t('checkout.codDesc')}
+            icon={Truck} badge={t('checkout.noFees')}
+            isSelected={paymentMethod === 'cod'} onSelect={setPaymentMethod}
+            colorScheme="green" isDarkMode={isDarkMode}
           />
           <PaymentMethodOption
-            id="card"
-            value="stripe"
-            label={t('checkout.card')}
-            description={t('checkout.cardDesc')}
-            icon={CreditCard}
-            badge={t('checkout.secure')}
-            isSelected={paymentMethod === 'stripe'}
-            onSelect={setPaymentMethod}
-            colorScheme="blue"
-            isDarkMode={isDarkMode}
+            id="card" value="stripe"
+            label={t('checkout.card')} description={t('checkout.cardDesc')}
+            icon={CreditCard} badge={t('checkout.secure')}
+            isSelected={paymentMethod === 'stripe'} onSelect={setPaymentMethod}
+            colorScheme="blue" isDarkMode={isDarkMode}
           />
           <PaymentMethodOption
-            id="wallet"
-            value="wallet"
-            label={t('checkout.wallet')}
-            description={t('checkout.walletDesc')}
-            icon={Wallet}
-            badge={t('checkout.fast')}
-            isSelected={paymentMethod === 'wallet'}
-            onSelect={setPaymentMethod}
-            colorScheme="purple"
-            isDarkMode={isDarkMode}
+            id="wallet" value="wallet"
+            label={t('checkout.wallet')} description={t('checkout.walletDesc')}
+            icon={Wallet} badge={t('checkout.fast')}
+            isSelected={paymentMethod === 'wallet'} onSelect={setPaymentMethod}
+            colorScheme="purple" isDarkMode={isDarkMode}
           />
         </div>
-        
-        {paymentMethod === 'stripe' && (
-          <CardDetailsForm cardDetails={cardDetails} setCardDetails={setCardDetails} isDarkMode={isDarkMode} />
-        )}
-        
-        {paymentMethod === 'wallet' && (
-          <WalletDetailsForm walletPhone={walletPhone} setWalletPhone={setWalletPhone} isDarkMode={isDarkMode} />
-        )}
-        
-        {paymentMethod === 'cod' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className={`mt-4 sm:mt-6 p-4 sm:p-6 rounded-xl border-2 ${isDarkMode ? 'bg-[#191C21] border-green-700' : 'bg-white border-green-200'}`}
+
+        {/* Conditional forms */}
+        <AnimatePresence>
+          {paymentMethod === 'stripe' && (
+            <CardDetailsForm cardDetails={cardDetails} setCardDetails={setCardDetails} isDarkMode={isDarkMode} />
+          )}
+          {paymentMethod === 'wallet' && (
+            <WalletDetailsForm walletPhone={walletPhone} setWalletPhone={setWalletPhone} isDarkMode={isDarkMode} />
+          )}
+          {paymentMethod === 'cod' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className={`mt-4 p-4 rounded-xl border ${
+                isDarkMode ? 'bg-[#191C21] border-[#C9A84C]/20' : 'bg-gray-50 border-[#C9A84C]/20'
+              }`}
+            >
+              <p className={`text-sm font-semibold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+                {t('checkout.cod')}
+              </p>
+              <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                {t('checkout.codInfo')}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Notices */}
+        <div className="mt-5 space-y-3">
+          <div
+            className={`flex items-start gap-3 p-3.5 rounded-xl border ${
+              isDarkMode ? 'border-amber-500/20 bg-amber-500/5' : 'border-amber-200 bg-amber-50'
+            } ${isArabic ? 'flex-row-reverse text-right' : ''}`}
           >
-            <h3 className={`text-base sm:text-lg font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('checkout.cod')}</h3>
-            <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>{t('checkout.codInfo')}</p>
-          </motion.div>
-        )}
-        
-        <div className={`mt-4 sm:mt-6 p-3 sm:p-4 rounded-xl border-2 ${isDarkMode ? 'bg-amber-900/20 border-amber-700' : 'bg-amber-50 border-amber-300'}`}>
-          <div className="flex items-start gap-2 sm:gap-3">
-            <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5 text-amber-600" />
-            <div className="text-xs sm:text-sm">
-              <p className={`font-bold mb-1 ${isDarkMode ? 'text-amber-400' : 'text-amber-800'}`}>{t('checkout.experimentalTitle')}</p>
-              <p className={`${isDarkMode ? 'text-amber-300' : 'text-amber-700'}`}>{t('checkout.experimentalDesc')}</p>
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-500" />
+            <div>
+              <p className={`text-xs font-bold mb-0.5 ${isDarkMode ? 'text-amber-400' : 'text-amber-700'}`}>
+                {t('checkout.experimentalTitle')}
+              </p>
+              <p className={`text-xs ${isDarkMode ? 'text-amber-400/70' : 'text-amber-600'}`}>
+                {t('checkout.experimentalDesc')}
+              </p>
             </div>
           </div>
-        </div>
-        
-        <div className={`mt-4 sm:mt-6 p-3 sm:p-4 rounded-xl border ${isDarkMode ? 'bg-blue-900/20 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
-          <div className="flex items-start gap-2 sm:gap-3">
-            <Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 shrink-0 mt-0.5" />
-            <div className="text-xs sm:text-sm">
-              <p className={`font-semibold mb-1 ${isDarkMode ? 'text-slate-200' : 'text-gray-700'}`}>{t('checkout.securityInfo')}</p>
-              <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>{t('checkout.securityDesc')}</p>
+
+          <div
+            className={`flex items-start gap-3 p-3.5 rounded-xl border ${
+              isDarkMode ? 'border-[#C9A84C]/20 bg-[#C9A84C]/5' : 'border-[#C9A84C]/20 bg-[#C9A84C]/5'
+            } ${isArabic ? 'flex-row-reverse text-right' : ''}`}
+          >
+            <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />
+            <div>
+              <p className={`text-xs font-semibold mb-0.5 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                {t('checkout.securityInfo')}
+              </p>
+              <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                {t('checkout.securityDesc')}
+              </p>
             </div>
           </div>
         </div>
       </div>
-      
+
       <ShippingInfo isDarkMode={isDarkMode} />
-      <OrderNotesSection notes={notes} setNotes={setNotes} isLoading={isLoading} onBack={onBack} onSubmit={onSubmit} isDarkMode={isDarkMode} />
+      <OrderNotesSection
+        notes={notes} setNotes={setNotes}
+        isLoading={isLoading} onBack={onBack} onSubmit={onSubmit}
+        isDarkMode={isDarkMode}
+      />
     </motion.div>
   );
 }

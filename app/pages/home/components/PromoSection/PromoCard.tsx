@@ -21,9 +21,11 @@ export const PromoCard = ({ item, index, isDarkMode }: PromoCardProps) => {
   const { t, isArabic } = useTranslation();
   const accent = cardAccents[index % cardAccents.length];
 
+  const cardLinks = ['/pages/shop', '/pages/about', '/pages/shop'];
+
   return (
     <Link
-      href="pages/shop"
+      href={cardLinks[index % cardLinks.length]}
       dir={isArabic ? 'rtl' : 'ltr'}
       className="group relative flex flex-row sm:flex-col overflow-hidden rounded-xl sm:rounded-2xl transition-all duration-300 hover:scale-[1.02] sm:hover:-translate-y-1"
       style={{

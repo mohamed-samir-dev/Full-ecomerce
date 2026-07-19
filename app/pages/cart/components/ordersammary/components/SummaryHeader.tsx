@@ -1,15 +1,21 @@
 import { CreditCardIcon } from '@heroicons/react/24/outline';
-import {SummaryHeaderProps}from '../../../types/cart'
+import { SummaryHeaderProps } from '../../../types/cart';
 
 export default function SummaryHeader({ isDarkMode, isArabic }: SummaryHeaderProps) {
   return (
-    <div className={`flex items-center gap-2 mb-4 sm:mb-5 md:mb-6 lg:mb-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
-      <div className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl ${isDarkMode ? 'bg-slate-700' : 'bg-slate-100'}`}>
-        <CreditCardIcon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`} />
+    <>
+      <div className={`flex items-center gap-3 mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
+        <div
+          className="w-10 h-10 rounded-xl flex items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
+        >
+          <CreditCardIcon className="w-5 h-5 text-white" />
+        </div>
+        <h2 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          {isArabic ? 'ملخص الطلب' : 'Order Summary'}
+        </h2>
       </div>
-      <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-        {isArabic ? 'ملخص الطلب' : 'Order Summary'}
-      </h2>
-    </div>
+      <div className="h-px w-full mb-6" style={{ background: 'linear-gradient(to right, #C9A84C40, transparent)' }} />
+    </>
   );
 }

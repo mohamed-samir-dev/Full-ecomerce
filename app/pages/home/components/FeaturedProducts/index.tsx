@@ -20,7 +20,7 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/products?limit=8&sort=newest`, { cache: 'no-store' });
+        const response = await fetch(`${API_URL}/api/products/featured`, { cache: 'no-store' });
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         if (data.success) setProducts(data.data);

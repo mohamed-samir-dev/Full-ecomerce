@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
   rewrites: async () => [
     {
       source: '/api/backend/:path*',
-      destination: 'https://backend-for-global-shop-production-a385.up.railway.app/api/:path*',
+      destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
     },
   ],
   headers: async () => [

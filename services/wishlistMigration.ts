@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://backend-for-global-shop-production-a385.up.railway.app/api';
+const API_URL = '/api/backend';
 
 interface WishlistItem {
   _id: string;

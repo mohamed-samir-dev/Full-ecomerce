@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone } from 'lucide-react';
 import FormInput from './shippingform/FormInput';
@@ -11,6 +12,7 @@ export default function ShippingForm({
   onSubmit, isDarkMode
 }: ShippingFormProps) {
   const { t, isArabic } = useTranslation();
+  const [phoneError, setPhoneError] = useState('');
 
   return (
     <motion.div
@@ -18,6 +20,7 @@ export default function ShippingForm({
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 30 }}
+      dir={isArabic ? 'rtl' : 'ltr'}
       className={`rounded-2xl border p-5 sm:p-6 ${
         isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'
       }`}
@@ -31,10 +34,10 @@ export default function ShippingForm({
           <MapPin className="w-4 h-4 text-white" />
         </div>
         <div>
-          <h2 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h2 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} ${isArabic ? 'text-right' : ''}`}>
             {t('checkout.shippingAddress')}
           </h2>
-          <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+          <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'} ${isArabic ? 'text-right' : ''}`}>
             {isArabic ? 'أدخل بيانات الشحن بدقة' : 'Enter your shipping details accurately'}
           </p>
         </div>
@@ -82,20 +85,30 @@ export default function ShippingForm({
           />
         </div>
 
-        <FormInput
-          label={t('checkout.phone')}
-          type="tel"
-          required
-          value={shippingAddress.phone}
-          onChange={(v) => setShippingAddress(p => ({ ...p, phone: v.replace(/[^0-9]/g, '') }))}
-          maxLength={11}
-          pattern="[0-9]{11}"
-          inputMode="numeric"
-          placeholder="01234567890"
-          icon={<Phone className="w-4 h-4" style={{ color: '#C9A84C' }} />}
-          helperText={t('checkout.phoneValidation')}
-          isDarkMode={isDarkMode}
-        />
+        <div>
+          <FormInput
+            label={t('checkout.phone')}
+            type="tel"
+            required
+            value={shippingAddress.phone}
+            onChange={(v) => {
+              const digits = v.replace(/[^0-9]/g, '');
+              setShippingAddress(p => ({ ...p, phone: digits }));
+              if (digits.length > 0 && (digits.length !== 10 || !digits.startsWith('01')))
+                setPhoneError(isArabic ? 'رقم الهاتف يجب أن يكون 10 أرقام ويبدأ بـ 01' : 'Phone number must be 10 digits and start with 01');
+              else
+                setPhoneError('');
+            }}
+            maxLength={10}
+            inputMode="numeric"
+            placeholder="0123456789"
+            icon={<Phone className="w-4 h-4" style={{ color: '#C9A84C' }} />}
+            isDarkMode={isDarkMode}
+          />
+          {phoneError && (
+            <p className={`text-xs mt-1.5 text-red-500 ${isArabic ? 'text-right' : ''}`}>{phoneError}</p>
+          )}
+        </div>
 
         <div className="pt-2">
           <motion.button

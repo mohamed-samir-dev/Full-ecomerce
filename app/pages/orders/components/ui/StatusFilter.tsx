@@ -1,22 +1,21 @@
 import { FunnelIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/i18n';
-import {StatusFilterProps}from '../../types/types'
-
+import { StatusFilterProps } from '../../types/types';
 
 export default function StatusFilter({ value, onChange, isDarkMode, isArabic }: StatusFilterProps) {
   const { t } = useTranslation();
-  
+
   return (
-    <div className={`flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
-      <FunnelIcon className={`w-4 h-4 sm:w-5 sm:h-5 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`} />
+    <div className={`flex items-center gap-3 mb-6 ${isArabic ? 'flex-row-reverse' : ''}`}>
+      <FunnelIcon className="w-4 h-4 shrink-0" style={{ color: '#C9A84C' }} />
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg border-2 font-medium transition-colors ${
-          isDarkMode 
-            ? 'bg-slate-800 border-slate-700 text-white' 
-            : 'bg-white border-slate-200 text-slate-900'
-        } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+        className={`px-4 py-2 text-sm rounded-xl border font-medium transition-all outline-none ${
+          isDarkMode
+            ? 'bg-[#1F2329] border-white/10 text-white focus:border-[#C9A84C]/50'
+            : 'bg-white border-black/10 text-gray-900 focus:border-[#C9A84C]/50'
+        }`}
       >
         <option value="all">{t('orders.filter.all')}</option>
         <option value="processing">{t('orders.filter.processing')}</option>

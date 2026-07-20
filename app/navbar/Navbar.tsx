@@ -27,7 +27,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav dir={isArabic ? 'rtl' : 'ltr'} className={`${
+    <nav dir={isArabic ? 'rtl' : 'ltr'} className={`print:hidden ${
       isDarkMode 
         ? 'bg-[#191C21] text-white border-gray-700' 
         : 'bg-white text-gray-900 border-gray-200'

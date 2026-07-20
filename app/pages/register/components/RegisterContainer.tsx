@@ -17,6 +17,7 @@ export default function RegisterContainer() {
     loading,
     error,
     emailError,
+    phoneError,
     handleChange,
     handleSubmit,
     setShowPassword,
@@ -41,6 +42,7 @@ export default function RegisterContainer() {
           <RegisterForm
             formData={formData}
             emailError={emailError}
+            phoneError={phoneError}
             showPassword={showPassword}
             showConfirmPassword={showConfirmPassword}
             loading={loading}

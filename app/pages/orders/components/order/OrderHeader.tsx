@@ -2,27 +2,27 @@ import React from 'react';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/i18n';
 import OrderStatusBadge from '../ui/OrderStatusBadge';
-import {OrderHeaderProps}from '../../types/types'
-
+import { OrderHeaderProps } from '../../types/types';
 
 export default function OrderHeader({ orderId, statusConfig, isDarkMode, isArabic }: OrderHeaderProps) {
   const { t } = useTranslation();
-  
+
   return (
-    <div className={`flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-4 sm:mb-6 ${isArabic ? 'sm:flex-row-reverse' : ''}`}>
-      <div className="flex-1">
-        <div className={`flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <div className={`p-2 sm:p-2.5 rounded-lg sm:rounded-xl ${isDarkMode ? 'bg-slate-700' : 'bg-slate-100'}`}>
-            <ShoppingBagIcon className={`w-5 h-5 sm:w-6 sm:h-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-          </div>
-          <div>
-            <p className={`text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-0.5 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-              {t('orders.orderId')}
-            </p>
-            <p className={`text-base sm:text-lg font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              #{orderId.slice(-8).toUpperCase()}
-            </p>
-          </div>
+    <div className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-5 ${isArabic ? 'sm:flex-row-reverse' : ''}`}>
+      <div className={`flex items-center gap-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+          style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
+        >
+          <ShoppingBagIcon className="w-4 h-4 text-white" />
+        </div>
+        <div className={isArabic ? 'text-right' : ''}>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-0.5 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+            {t('orders.orderId')}
+          </p>
+          <p className={`text-base font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            #{orderId.slice(-8).toUpperCase()}
+          </p>
         </div>
       </div>
       <OrderStatusBadge statusConfig={statusConfig} />

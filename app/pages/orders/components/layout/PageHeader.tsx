@@ -8,20 +8,24 @@ interface PageHeaderProps {
 
 export default function PageHeader({ isDarkMode, isArabic }: PageHeaderProps) {
   const { t } = useTranslation();
-  
+
   return (
-    <div className={`flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 md:mb-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
-      <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
-        <ClipboardDocumentListIcon className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+    <div className={`flex items-center gap-3 mb-8 ${isArabic ? 'flex-row-reverse' : ''}`}>
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+        style={{ background: 'linear-gradient(135deg, #8B6914 0%, #C9A84C 100%)' }}
+      >
+        <ClipboardDocumentListIcon className="w-5 h-5 text-white" />
       </div>
       <div className={isArabic ? 'text-right' : 'text-left'}>
-        <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+        <h1 className={`text-2xl sm:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
           {t('orders.title')}
         </h1>
-        <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+        <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
           {t('orders.subtitle')}
         </p>
       </div>
+      <div className="mt-1 h-px flex-1" style={{ background: 'linear-gradient(to right, #C9A84C40, transparent)' }} />
     </div>
   );
 }

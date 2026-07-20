@@ -11,6 +11,7 @@ import { useCapsLock } from '@/app/hooks/useCapsLock';
 export default function RegisterForm({
   formData,
   emailError,
+  phoneError,
   showPassword,
   showConfirmPassword,
   loading,
@@ -96,16 +97,21 @@ export default function RegisterForm({
       </div>
 
       {/* Phone */}
-      <input
-        name="phone"
-        type="tel"
-        required
-        className={inputClasses}
-        placeholder={t('register.phone')}
-        value={formData.phone}
-        onChange={onChange}
-        dir="ltr"
-      />
+      <div>
+        <input
+          name="phone"
+          type="tel"
+          required
+          className={`${inputClasses} ${phoneError ? 'border-red-500' : ''}`}
+          placeholder={t('register.phone')}
+          value={formData.phone}
+          onChange={onChange}
+          dir="ltr"
+        />
+        {phoneError && (
+          <p className="mt-1 text-xs text-red-500">❌ {phoneError}</p>
+        )}
+      </div>
 
       {/* Password */}
       <div>

@@ -7,12 +7,13 @@ interface LoadingStateProps {
 export default function LoadingState({ isDarkMode }: LoadingStateProps) {
   return (
     <div className={`min-h-screen flex items-center justify-center ${
-      isDarkMode ? 'bg-slate-900' : 'bg-linear-to-br from-blue-50 via-white to-purple-50'
+      isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'
     }`}>
-      <motion.div 
+      <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        className="rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"
+        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        className="rounded-full h-12 w-12 border-4 border-t-transparent"
+        style={{ borderColor: '#C9A84C', borderTopColor: 'transparent' }}
       />
     </div>
   );

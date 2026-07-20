@@ -20,6 +20,10 @@ export const validateRegisterForm = (
   if (formData.password !== formData.confirmPassword) {
     return isArabic ? "كلمات المرور غير متطابقة" : "Passwords do not match";
   }
+  const phoneRegex = /^01\d{8}$/;
+  if (!phoneRegex.test(formData.phone)) {
+    return isArabic ? "رقم الهاتف يجب أن يبدأ بـ 01 ويكون 10 أرقام" : "Phone number must start with 01 and be 10 digits";
+  }
   if (!formData.agreeToTerms) {
     return isArabic ? "يجب الموافقة على شروط الخدمة" : "You must agree to the Terms of Service";
   }

@@ -1,49 +1,37 @@
-
 import { useTranslation } from '@/i18n';
-import {PriceSummaryProps}from '../../types/types'
+import { PriceSummaryProps } from '../../types/types';
 
 export default function PriceSummary({ subtotal, totalPrice, isDarkMode, isArabic }: PriceSummaryProps) {
   const { t } = useTranslation();
-  const shipping = (totalPrice - subtotal) / 1.08;
-  const tax = totalPrice - (totalPrice / 1.08);
+  const shipping = subtotal >= 15000 ? 0 : 15;
+  const tax = subtotal * 0.05;
+
+  const rows = [
+    { label: t('orders.subtotal'), value: `$${subtotal.toFixed(2)}` },
+    { label: t('orders.shipping'), value: shipping === 0 ? (isArabic ? 'مجاني' : 'Free') : `$${shipping.toFixed(2)}`, free: shipping === 0 },
+    { label: `${t('orders.tax')} (5%)`, value: `$${tax.toFixed(2)}` },
+  ];
 
   return (
-    <div className={`p-4 sm:p-5 rounded-lg sm:rounded-xl ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
-      <h4 className={`text-xs sm:text-sm font-bold mb-2 sm:mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'} ${isArabic ? 'text-right' : 'text-left'}`}>
+    <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'}`}>
+      <h4 className={`text-sm font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'} ${isArabic ? 'text-right' : ''}`}>
         {t('orders.priceSummary')}
       </h4>
       <div className="space-y-2">
-        <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            {t('orders.subtotal')}
-          </span>
-          <span className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            ${subtotal.toFixed(2)}
-          </span>
-        </div>
-        <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            {t('orders.shipping')}
-          </span>
-          <span className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            ${shipping.toFixed(2)}
-          </span>
-        </div>
-        <div className={`flex justify-between items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <span className={`text-xs sm:text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            {t('orders.tax')} (8%)
-          </span>
-          <span className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            ${tax.toFixed(2)}
-          </span>
-        </div>
-        <div className={`pt-2 mt-2 border-t-2 flex justify-between items-center ${isDarkMode ? 'border-slate-700' : 'border-slate-200'} ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <span className={`text-sm sm:text-base font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            {t('orders.total')}
-          </span>
-          <span className={`text-lg sm:text-xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-            ${totalPrice.toFixed(2)}
-          </span>
+        {rows.map((row) => (
+          <div key={row.label} className={`flex justify-between items-center text-sm ${isArabic ? 'flex-row-reverse' : ''}`}>
+            <span className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>{row.label}</span>
+            <span
+              className={row.free ? 'font-medium' : (isDarkMode ? 'text-white' : 'text-gray-900')}
+              style={row.free ? { color: '#C9A84C' } : {}}
+            >
+              {row.value}
+            </span>
+          </div>
+        ))}
+        <div className={`pt-2 border-t flex justify-between items-center ${isDarkMode ? 'border-white/5' : 'border-black/5'} ${isArabic ? 'flex-row-reverse' : ''}`}>
+          <span className={`font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{t('orders.total')}</span>
+          <span className="text-lg font-bold" style={{ color: '#C9A84C' }}>${totalPrice.toFixed(2)}</span>
         </div>
       </div>
     </div>

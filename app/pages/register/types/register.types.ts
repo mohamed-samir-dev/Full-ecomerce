@@ -23,6 +23,7 @@ export interface RegisterResponse {
 export interface RegisterFormProps {
   formData: RegisterFormData;
   emailError: string;
+  phoneError: string;
   showPassword: boolean;
   showConfirmPassword: boolean;
   loading: boolean;

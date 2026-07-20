@@ -1,62 +1,30 @@
 import React from 'react';
-import {StatCardProps}from '../../types/types'
+import { StatCardProps } from '../../types/types';
 
+const SCHEMES = {
+  default: { icon: '#C9A84C', value: '#C9A84C' },
+  orange:  { icon: '#f97316', value: '#f97316' },
+  blue:    { icon: '#3b82f6', value: '#3b82f6' },
+  emerald: { icon: '#10b981', value: '#10b981' },
+};
 
 export default function StatCard({ icon, label, value, colorScheme, isDarkMode }: StatCardProps) {
-  const getColorClasses = () => {
-    switch (colorScheme) {
-      case 'orange':
-        return {
-          container: isDarkMode ? 'bg-linear-to-br from-orange-900/20 to-slate-900 border-orange-500/30' : 'bg-linear-to-br from-orange-50 to-white border-orange-200',
-          iconBg: 'bg-orange-100',
-          iconColor: 'text-orange-600',
-          label: isDarkMode ? 'text-orange-400' : 'text-orange-600',
-          value: 'text-orange-600'
-        };
-      case 'blue':
-        return {
-          container: isDarkMode ? 'bg-linear-to-br from-blue-900/20 to-slate-900 border-blue-500/30' : 'bg-linear-to-br from-blue-50 to-white border-blue-200',
-          iconBg: 'bg-blue-100',
-          iconColor: 'text-blue-600',
-          label: isDarkMode ? 'text-blue-400' : 'text-blue-600',
-          value: 'text-blue-600'
-        };
-      case 'emerald':
-        return {
-          container: isDarkMode ? 'bg-linear-to-br from-emerald-900/20 to-slate-900 border-emerald-500/30' : 'bg-linear-to-br from-emerald-50 to-white border-emerald-200',
-          iconBg: 'bg-emerald-100',
-          iconColor: 'text-emerald-600',
-          label: isDarkMode ? 'text-emerald-400' : 'text-emerald-600',
-          value: 'text-emerald-600'
-        };
-      default:
-        return {
-          container: isDarkMode ? 'bg-linear-to-br from-slate-800 to-slate-900 border-slate-700' : 'bg-linear-to-br from-white to-slate-50 border-slate-200',
-          iconBg: isDarkMode ? 'bg-slate-700' : 'bg-slate-100',
-          iconColor: isDarkMode ? 'text-slate-300' : 'text-slate-600',
-          label: isDarkMode ? 'text-slate-400' : 'text-slate-500',
-          value: isDarkMode ? 'text-white' : 'text-slate-900'
-        };
-    }
-  };
-
-  const colors = getColorClasses();
+  const scheme = SCHEMES[colorScheme as keyof typeof SCHEMES] ?? SCHEMES.default;
 
   return (
-    <div className={`p-3 sm:p-4 md:p-5 lg:p-6 rounded-xl sm:rounded-2xl border-2 shadow-lg transition-all hover:shadow-xl ${colors.container}`}>
-      <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-        <div className={`p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl ${colors.iconBg}`}>
-          <div className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${colors.iconColor}`}>
-            {icon}
-          </div>
-        </div>
+    <div className={`p-4 sm:p-5 rounded-2xl border transition-all hover:border-[#C9A84C]/30 ${
+      isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'
+    }`}>
+      <div
+        className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+        style={{ background: `${scheme.icon}18` }}
+      >
+        <div className="w-5 h-5" style={{ color: scheme.icon }}>{icon}</div>
       </div>
-      <p className={`text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-1 sm:mb-2 ${colors.label}`}>
+      <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
         {label}
       </p>
-      <p className={`text-2xl sm:text-3xl md:text-4xl font-bold ${colors.value}`}>
-        {value}
-      </p>
+      <p className="text-3xl font-bold" style={{ color: scheme.value }}>{value}</p>
     </div>
   );
 }

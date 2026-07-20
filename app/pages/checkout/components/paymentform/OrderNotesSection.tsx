@@ -7,6 +7,7 @@ export default function OrderNotesSection({ notes, setNotes, isLoading, onBack, 
 
   return (
     <div
+      dir={isArabic ? 'rtl' : 'ltr'}
       className={`rounded-2xl border p-5 sm:p-6 ${
         isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'
       }`}

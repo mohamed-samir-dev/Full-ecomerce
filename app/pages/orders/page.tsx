@@ -72,7 +72,7 @@ export default function OrdersPage() {
         keywordsAr={['طلباتي', 'تتبع الطلب', 'طلبات']}
         keywordsEn={['my orders', 'track order', 'orders']}
       />
-      <div className={`min-h-screen ${isDarkMode ? 'bg-[#1a1d24]' : 'bg-slate-50'}`}>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-[#191C21]' : 'bg-gray-50'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <PageHeader isDarkMode={isDarkMode} isArabic={isArabic} />
         <StatsGrid stats={stats} isDarkMode={isDarkMode} isArabic={isArabic} />

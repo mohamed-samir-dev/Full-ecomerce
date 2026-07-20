@@ -26,6 +26,7 @@ export const useRegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [success, setSuccess] = useState<'' | 'done' | 'verify'>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +34,19 @@ export const useRegisterForm = () => {
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
     setError('');
     if (name === 'email') setEmailError('');
+    if (name === 'phone') setPhoneError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setEmailError('');
+    setPhoneError('');
+
+    const phoneRegex = /^01\d{8}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      setPhoneError(isArabic ? 'رقم الهاتف يجب أن يبدأ بـ 01 ويكون 10 أرقام' : 'Phone number must start with 01 and be 10 digits');
+      return;
+    }
 
     const validationError = validateRegisterForm(formData, isArabic);
     if (validationError) {
@@ -89,6 +98,7 @@ export const useRegisterForm = () => {
     loading,
     error,
     emailError,
+    phoneError,
     success,
     handleChange,
     handleSubmit,

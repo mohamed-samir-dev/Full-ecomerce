@@ -12,7 +12,7 @@ export function Footer() {
   const { t, isArabic } = useTranslation();
 
   return (
-    <footer className="relative bg-[#0D0D0D] text-white overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
+    <footer className="print:hidden relative bg-[#0D0D0D] text-white overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
 
       {/* Top gold accent line */}
       <div className="h-[2px] w-full" style={{ background: accentGradient }} />

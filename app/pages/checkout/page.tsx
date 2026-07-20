@@ -15,7 +15,7 @@ export default function CheckoutPage() {
   const { isDarkMode } = useTheme();
   const {
     user, items, itemCount, currentStep, setCurrentStep, isLoading,
-    shippingAddress, setShippingAddress, paymentMethod, setPaymentMethod,
+    shippingAddress, setShippingAddress,
     notes, setNotes, governorate, setGovernorate,
     handleAddressSubmit, handleOrderSubmit,
     subtotal, shipping, tax, finalTotal, deliveryDateStr
@@ -122,8 +122,6 @@ export default function CheckoutPage() {
                 )}
                 {currentStep === 2 && (
                   <PaymentForm
-                    paymentMethod={paymentMethod}
-                    setPaymentMethod={setPaymentMethod}
                     notes={notes}
                     setNotes={setNotes}
                     isLoading={isLoading}

@@ -83,3 +83,23 @@ html {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  nav,
+  footer,
+  [data-print-hide] {
+    display: none !important;
+  }
+}

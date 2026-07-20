@@ -25,7 +25,7 @@ export const useCheckoutPage = () => {
     phone: ''
   });
   
-  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [paymentMethod] = useState('cod');
   const [notes, setNotes] = useState('');
   const [governorate, setGovernorate] = useState('');
 
@@ -51,6 +51,11 @@ export const useCheckoutPage = () => {
     
     if (missingFields.length > 0) {
       toast.error(isArabic ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
+      return;
+    }
+
+    if (shippingAddress.phone.length !== 10 || !shippingAddress.phone.startsWith('01')) {
+      toast.error(isArabic ? 'رقم الهاتف يجب أن يكون 10 أرقام ويبدأ بـ 01' : 'Phone number must be 10 digits and start with 01');
       return;
     }
     
@@ -145,7 +150,6 @@ export const useCheckoutPage = () => {
     shippingAddress,
     setShippingAddress,
     paymentMethod,
-    setPaymentMethod,
     notes,
     setNotes,
     governorate,

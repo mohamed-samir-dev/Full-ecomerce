@@ -12,6 +12,7 @@ export default function ShippingInfo({ isDarkMode }: { isDarkMode: boolean }) {
 
   return (
     <div
+      dir={isArabic ? 'rtl' : 'ltr'}
       className={`rounded-2xl border p-5 ${
         isDarkMode ? 'bg-[#1F2329] border-white/5' : 'bg-white border-black/5'
       }`}

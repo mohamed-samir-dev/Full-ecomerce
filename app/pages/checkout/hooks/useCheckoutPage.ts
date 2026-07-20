@@ -44,7 +44,7 @@ export const useCheckoutPage = () => {
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const requiredFields = ['fullName', 'address', 'city', 'postalCode', 'country', 'phone'];
+    const requiredFields = ['fullName', 'address', 'city', 'country', 'phone'];
     const missingFields = requiredFields.filter(field => 
       !shippingAddress[field as keyof typeof shippingAddress]
     );

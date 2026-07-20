@@ -33,8 +33,10 @@ export default function HeroSection({ slides }: HeroSectionProps) {
             fill
             className="object-cover object-center"
             priority={i === 0}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : 'low'}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
-            quality={85}
+            quality={i === 0 ? 85 : 75}
           />
           <div
             className="absolute inset-0"

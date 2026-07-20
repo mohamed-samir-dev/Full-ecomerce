@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons'],
+    optimizeCss: true,
   },
   transpilePackages: [],
   modularizeImports: {

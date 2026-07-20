@@ -1,8 +1,5 @@
-> 0.5%
-last 2 versions
+chrome >= 96
+firefox >= 94
+safari >= 15.4
+edge >= 96
 not dead
-not IE 11
-chrome >= 90
-firefox >= 88
-safari >= 14
-edge >= 90

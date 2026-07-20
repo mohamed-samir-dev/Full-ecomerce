@@ -1,23 +1,39 @@
 'use client';
 
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
 
 export default function Analytics() {
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const [load, setLoad] = useState(false);
 
-  if (!GA_MEASUREMENT_ID) {
-    return null;
-  }
+  useEffect(() => {
+    // Delay GTM until after first user interaction to avoid TBT/forced reflow
+    const onInteraction = () => {
+      setLoad(true);
+      ['mousedown', 'touchstart', 'keydown', 'scroll'].forEach(e =>
+        window.removeEventListener(e, onInteraction)
+      );
+    };
+    ['mousedown', 'touchstart', 'keydown', 'scroll'].forEach(e =>
+      window.addEventListener(e, onInteraction, { passive: true, once: true })
+    );
+    // Fallback: load after 5s even without interaction
+    const t = setTimeout(() => setLoad(true), 5000);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (!GA_MEASUREMENT_ID || !load) return null;
 
   return (
     <>
       <Script
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
       <Script
         id="google-analytics"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

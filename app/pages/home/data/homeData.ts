@@ -20,7 +20,7 @@ export const heroSlides: HeroSlide[] = [
     descriptionKey: 'home.hero.summerSlideDescription',
     image: "/images/hero-3.webp",
     buttonTextKey: 'home.hero.summerButton',
-    buttonLink: "/pages/banner-pages/products"
+    buttonLink: "/pages/banner-pages/summer"
   }
 ];
 
